@@ -10,13 +10,19 @@ rendus
 │   └── README.md
 ├── .gitattributes
 ├── .gitignore
+├── .gitlab
+│   └── …
 └── README.md
 ```
+
+**Vous déposerez vos rendus textuel au format `pdf` dans le dossier `docs/`.<br>
+Tout document textuel dans un autre format ne sera pas considéré.**
+
+
+##### Fichiers particuliers
 
 Les deux fichiers `.gitattributes` et `.gitignore` sont liés à la configuration de git.<br>
 Vous pouvez modifier le fichier `.gitignore` en fonction des technologies utilisées et de l'organisation du dépôt choisie.<br>
 Il est vivement déconseillé de modifier le fichier `.gitattributes`.
 
-
-**Vous déposerez vos rendus textuel au format `pdf` dans le dossier `docs/`.<br>
-Tout document textuel dans un autre format ne sera pas considéré.**
+Le dossier `.gitlab` contient la configuration spécifique à GitLab.
