@@ -1,3 +1,6 @@
 # git specific files
 .gitignore export-ignore
 .gitattributes export-ignore
+
+# GitLab specific files
+/.gitlab/ export-ignore
