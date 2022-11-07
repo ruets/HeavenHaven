@@ -1,6 +1,6 @@
-# Projet M3301 (dépôt de rendu)
+# SAÉ 3·01 (dépôt de rendu)
 
-Ce dépôt est le dépôt de référence de votre équipe pour le module M3301.
+Ce dépôt est le dépôt de référence de votre équipe pour la SAÉ 3·01.
 Vos rendus se feront en déposant tous les fichiers pertinents pour chaque itération ici.
 
 Ce dépôt est initialement organisé comme suit :
