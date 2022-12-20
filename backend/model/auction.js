@@ -6,6 +6,7 @@ class Auction {
     cautionState
     island
     seller
+    rises
 
 
     constructor(auctionId, baseAmount, beginDate, endDate, cautionState,island, seller) {
@@ -16,9 +17,10 @@ class Auction {
         this.cautionState = cautionState
         this.island = island
         this.seller = seller
+        this.rises = new Array();
     }
 
-/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////
     // Getters et Setters
     /////////////////////////////////////////////////////////
     //TODO : create constraints in the setter and add it to the constructor

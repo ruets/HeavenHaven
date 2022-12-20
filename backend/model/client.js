@@ -4,7 +4,6 @@ class Client extends User {
     sponsorCode
     sponsorCodeUses
 
-
     constructor(userId, name, secondName, phoneNb, email, password, sponsorCode, sponsorCodeUses) {
         super(userId, name, secondName, phoneNb, email, password);
         this._sponsorCode = sponsorCode;

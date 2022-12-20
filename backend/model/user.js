@@ -5,16 +5,16 @@ class User {
     phoneNb
     email
     password
-    auctions
+    auctionsList
 
     constructor(userId,name, secondName, phoneNb, email, password) {
-        this._userId = userId;
-        this._name = name;
-        this._secondName = secondName;
-        this._phoneNb = phoneNb;
-        this._email = email;
-        this._password = password;
-        this._auctions = []
+        this._userId = userId
+        this._name = name
+        this._secondName = secondName
+        this._phoneNb = phoneNb
+        this._email = email
+        this._password = password
+        this._auctionsList = new Array()
     }
 
     //TODO : create auctions list methods
