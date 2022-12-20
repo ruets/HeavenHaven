@@ -8,7 +8,6 @@ class Auction {
     seller
     rises
 
-
     constructor(auctionId, baseAmount, beginDate, endDate, cautionState,island, seller) {
         this.auctionId = auctionId
         this.baseAmount = baseAmount
