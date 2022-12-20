@@ -17,7 +17,18 @@ class User {
         this._auctionsList = new Array()
     }
 
-    //TODO : create auctions list methods
+    addAuction(auction) {
+        this._auctionsList.push(auction);
+    }
+
+    removeAuction(auction) {
+        //We search the index of the auction
+        const index = this._auctionsList.indexOf(auction);
+        if(index > -1) {
+            //If the index is found, we slice the array to remove the right element
+            this._auctionsList.splice(index, 1)
+        }
+    }
 
     /////////////////////////////////////////////////////////
     // Getters et Setters
