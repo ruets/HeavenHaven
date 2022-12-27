@@ -1,4 +1,5 @@
 import Input from "./input";
+import EmailLogo from "../assets/img/email-icon.svg";
 
 function Signup() {
     return (
@@ -7,9 +8,9 @@ function Signup() {
                 type="text"
                 name="email"
                 label="E-Mail"
-                iconPath="./assets/img/email-icon.svg"
+                icon={EmailLogo}
             ></Input>
-            <Input type="password" name="password" label="Password"></Input>
+            {/*<Input type="password" name="password" label="Password"></Input>*/}
         </div>
     );
 }

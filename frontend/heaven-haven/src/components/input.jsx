@@ -5,7 +5,7 @@ function Input(props) {
 
     return (
         <>
-            {/* COMMENT METTRE UN SVG DANS LES PROPS ? ON MET TOUT LE PATH ? */}
+            <img src={props.icon} alt="Logo" />
             <label htmlFor={props.name}>{props.label}</label>
             <input
                 name={props.name}
