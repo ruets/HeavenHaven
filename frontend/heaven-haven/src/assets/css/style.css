@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+div {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
 input {
   border-radius: 5px;
 }/*# sourceMappingURL=style.css.map */
