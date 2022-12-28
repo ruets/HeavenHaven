@@ -2,16 +2,24 @@ import React, { useState } from "react";
 import Input from "./input";
 import EmailLogo from "../assets/img/email-icon.svg";
 
-function Signup() {
+/**
+ * responsability: handle login,
+ */
+export function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [isEmailFieldValid, setIsEmailFieldValid] = useState(true);
+    const [isPasswordFieldValid, setIsPasswordFieldValid] = useState(true);
+
     function handleEmailInput() {
-        if (email == "") {
-            document.getElementById("emailLabel").classList.add("active");
-        } else {
-            document.getElementById("emailLabel").classList.remove("active");
-        }
+        const isEmailValueEmpty = email === "";
+        setIsEmailFieldValid(!isEmailValueEmpty);
+    }
+
+    function handlePasswordInput() {
+        const isPasswordInvalid = password == "" || password.length < 8;
+        setIsPasswordFieldValid(!isPasswordInvalid);
     }
 
     return (
@@ -21,13 +29,22 @@ function Signup() {
                 name="email"
                 label="Email"
                 icon={EmailLogo}
+                value={email}
+                error={!isEmailFieldValid}
                 onBlur={handleEmailInput}
                 setInput={setEmail}
-                value={email}
             ></Input>
-            {/*<Input type="password" name="password" label="Password"></Input>*/}
+            <Input
+                type="password"
+                name="password"
+                label="Password"
+                value={password}
+                error={!isPasswordFieldValid}
+                setInput={setPassword}
+                onBlur={handlePasswordInput}
+            ></Input>
         </div>
     );
 }
 
-export default Signup;
+export default LoginForm;
