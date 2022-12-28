@@ -1,14 +1,51 @@
-@import "";
+@import "../base/colors";
 
-input {
-    width: 500px;
-    height: 75px;
-    background: #cedfdb;
-    box-shadow: 1px 1px 2px rgba(233, 255, 255, 0.3),
-        -1px -1px 2px rgba(155, 176, 171, 0.5),
-        inset -5px 5px 10px rgba(155, 176, 171, 0.2),
-        inset 5px -5px 10px rgba(155, 176, 171, 0.2),
-        inset -5px -5px 10px rgba(233, 255, 255, 0.9),
-        inset 5px 5px 13px rgba(155, 176, 171, 0.9);
-    border-radius: 10px;
+div {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    img {
+        position: relative;
+        left: 44px;
+        width: 32px;
+    }
+
+    input {
+        width: 436px;
+        height: 75px;
+        background: $signup-light;
+        color: $signup-dark;
+        box-shadow: 1px 1px 2px rgba(233, 255, 255, 0.3),
+            -1px -1px 2px rgba(155, 176, 171, 0.5),
+            inset -5px 5px 10px rgba(155, 176, 171, 0.2),
+            inset 5px -5px 10px rgba(155, 176, 171, 0.2),
+            inset -5px -5px 10px rgba(233, 255, 255, 0.9),
+            inset 5px 5px 13px rgba(155, 176, 171, 0.9);
+        border-radius: 10px;
+        border: 0;
+        padding: 0 12px 0 52px;
+        font-size: 20px;
+        font-weight: 500;
+        font-family: "Poppins";
+        vertical-align: center;
+
+        &::placeholder {
+            color: $signup-dark;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    label {
+        margin-left: 50px;
+        color: red;
+        visibility: hidden;
+    }
+
+    label.active {
+        visibility: visible;
+    }
 }
