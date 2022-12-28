@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
-import Input from "../../components/fields/Input/input";
-import EmailLogo from "../../assets/img/email-icon.svg";
-import PasswordLogo from "../../assets/img/lock-icon.svg";
+import Input from "./fields/Input/Input";
+import EmailLogo from "../assets/img/email-icon.svg";
+import PasswordLogo from "../assets/img/lock-icon.svg";
 import "./loginForm.scss";
 
 /**
@@ -72,5 +72,3 @@ export function LoginForm() {
         </form>
     );
 }
-
-export default LoginForm;

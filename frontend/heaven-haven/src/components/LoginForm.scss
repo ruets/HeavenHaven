@@ -1,6 +1,9 @@
-@import "../../assets/scss/base/colors";
+@import "../assets/scss/base/colors";
 
 form.signup {
+    position: relative;
+    left: 34px;
+    z-index: 1;
     width: 585px;
     height: 675px;
     background: $form-light;
