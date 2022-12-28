@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import Input from "./input";
-import EmailLogo from "../assets/img/email-icon.svg";
+import React, { useState, useCallback, useEffect } from "react";
+import Input from "../../components/fields/Input/input";
+import EmailLogo from "../../assets/img/email-icon.svg";
+import "./login-form.scss";
 
 /**
  * responsability: handle login,
@@ -12,15 +13,20 @@ export function LoginForm() {
     const [isEmailFieldValid, setIsEmailFieldValid] = useState(true);
     const [isPasswordFieldValid, setIsPasswordFieldValid] = useState(true);
 
-    function handleEmailInput() {
+    const validateEmailFieldValue = useCallback(() => {
         const isEmailValueEmpty = email === "";
         setIsEmailFieldValid(!isEmailValueEmpty);
-    }
+    }, [setIsEmailFieldValid, email]);
 
-    function handlePasswordInput() {
+    const validatePasswordFieldValue = useCallback(() => {
         const isPasswordInvalid = password == "" || password.length < 8;
         setIsPasswordFieldValid(!isPasswordInvalid);
-    }
+    }, [setIsPasswordFieldValid, password]);
+
+    useEffect(() => {
+        // on email value changed
+        console.log("TEST");
+    }, [email]);
 
     return (
         <div className="signup">
@@ -31,7 +37,7 @@ export function LoginForm() {
                 icon={EmailLogo}
                 value={email}
                 error={!isEmailFieldValid}
-                onBlur={handleEmailInput}
+                onBlur={validateEmailFieldValue}
                 setInput={setEmail}
             ></Input>
             <Input
@@ -41,7 +47,7 @@ export function LoginForm() {
                 value={password}
                 error={!isPasswordFieldValid}
                 setInput={setPassword}
-                onBlur={handlePasswordInput}
+                onBlur={validatePasswordFieldValue}
             ></Input>
         </div>
     );

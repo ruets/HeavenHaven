@@ -1,6 +1,8 @@
+import "./input.scss";
+
 function Input(props) {
     return (
-        <div>
+        <div className="input">
             {props.icon ? <img src={props.icon} alt="Logo" /> : null}
             <input
                 name={props.name}
