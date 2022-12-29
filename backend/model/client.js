@@ -36,3 +36,4 @@ class Client extends User {
         this._sponsorCodeUses = value;
     }
 }
+module.exports = Client
