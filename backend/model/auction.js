@@ -74,3 +74,4 @@ class Auction {
         this._auctionId = value;
     }
 }
+module.exports = Auction

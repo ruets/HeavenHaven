@@ -89,3 +89,4 @@ class Island {
         this._isConstructed = value;
     }
 }
+module.exports = Island

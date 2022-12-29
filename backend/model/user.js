@@ -65,9 +65,9 @@ class User {
         * See more at : https://emailregex.com/
         */
         //TODO : set a valid regex
-        const regex = ""
+        const regex = new RegExp("")
 
-        if(!email.matches(regex)) {
+        if(!email.match(regex)) {
             //If the format is wrong, we throw an error
             throw new Error("Wrong phone number format")
         } else {
