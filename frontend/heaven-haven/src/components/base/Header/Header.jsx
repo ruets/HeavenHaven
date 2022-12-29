@@ -10,8 +10,9 @@ export function Header() {
     const navigate = useNavigate();
 
     const handleSearch = useCallback(() => {
+        console.log("Searching");
         if (searchValue !== "") {
-            const link = "/results=" + searchValue;
+            const link = "/results?search=" + searchValue;
             navigate(link);
         }
     }, [searchValue]);
