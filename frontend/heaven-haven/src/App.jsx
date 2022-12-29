@@ -1,5 +1,5 @@
-import { LoginPage } from "./pages/Login/LoginPage";
-import { SignupPage } from "./pages/Signup/SignupPage";
+import { LoginPage } from "./pages/Connection/Login/LoginPage";
+import { SignupPage } from "./pages/Connection/Signup/SignupPage";
 import { ForgotPage } from "./pages/Forgot/ForgotPage";
 import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 import { Header } from "./components/base/Header/Header";

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
-import "./loginForm.scss";
+import "./LoginForm.scss";
 
 /**
  * responsability: handle login,
@@ -46,7 +46,7 @@ export function LoginForm() {
     ]);
 
     return (
-        <form className="signup" onSubmit={onSubmitForm}>
+        <form className="login" onSubmit={onSubmitForm}>
             <h1>Login</h1>
             <Input
                 type="text"
@@ -71,7 +71,7 @@ export function LoginForm() {
                 <Link to="/forgot">Forgot Password ?</Link>
             </div>
             <button type="submit">Sign In</button>
-            <p>
+            <p className="no-account">
                 No account yet ? <Link to={"/signup"}>Sign up here</Link>
             </p>
         </form>
