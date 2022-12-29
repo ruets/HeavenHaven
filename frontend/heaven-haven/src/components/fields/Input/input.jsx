@@ -11,7 +11,7 @@ function Input(props) {
                     onChange={(event) => props.setInput?.(event.target.value)}
                     value={props.value}
                     placeholder={props.label}
-                    onBlur={props.onBlur}
+                    onBlur={props.onBlur ? props.onBlur : null}
                 />
             </div>
             {props.errorMessage === "" ? <p>{props.errorMessage}</p> : null}

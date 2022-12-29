@@ -47,7 +47,7 @@ export function LoginForm() {
 
     return (
         <form className="login" onSubmit={onSubmitForm}>
-            <h1>Login</h1>
+            <h1>Log In</h1>
             <Input
                 type="text"
                 name="email"
