@@ -1,9 +1,14 @@
+// React, Components
 import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
+
+// Icons
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
 import PhoneIcon from "../../../assets/img/phone-icon.svg";
+
+// Style
 import "./SignupForm.scss";
 
 export function SignupForm() {
