@@ -1,14 +1,24 @@
 import { LoginPage } from "./pages/Login/LoginPage";
+import { SignupPage } from "./pages/Signup/SignupPage";
+import { ForgotPage } from "./pages/Forgot/ForgotPage";
+import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
+import { Header } from "./components/base/Header/Header";
+import { Footer } from "./components/base/Footer/Footer";
+import { Routes, Route } from "react-router-dom";
 import "./assets/scss/style.scss";
 import "./app.scss";
 
 function App() {
     return (
         <div className="App">
-            {/* Header with nav elements */}
-            <LoginPage></LoginPage>
-            {/* Router Outlet */}
-            {/* Footer */}
+            <Header />
+            <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="forgot" element={<ForgotPage />} />
+                <Route path="signup" element={<SignupPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+            <Footer />
         </div>
     );
 }

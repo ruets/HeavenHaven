@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useEffect } from "react";
-import Input from "./fields/Input/Input";
-import EmailLogo from "../assets/img/email-icon.svg";
-import PasswordLogo from "../assets/img/lock-icon.svg";
+import React, { useState, useCallback } from "react";
+import { Link } from "react-router-dom";
+import Input from "../../fields/Input/Input";
+import EmailLogo from "../../../assets/img/email-icon.svg";
+import PasswordLogo from "../../../assets/img/lock-icon.svg";
 import "./loginForm.scss";
 
 /**
@@ -65,7 +66,7 @@ export function LoginForm() {
                     setInput={setPassword}
                     onBlur={validatePasswordFieldValue}
                 ></Input>
-                <p className="forgot">Forgot Password ?</p>
+                <Link to="/forgot">Forgot Password ?</Link>
             </div>
             <button type="submit">Sign In</button>
             <p>No account yet ? Sign up here</p>

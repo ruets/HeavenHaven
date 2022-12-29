@@ -1,4 +1,4 @@
-import { LoginForm } from "../../components/LoginForm";
+import { LoginForm } from "../../components/forms/Login/LoginForm";
 import LoginImage from "../../assets/img/login-img.png";
 import "./loginPage.scss";
 
