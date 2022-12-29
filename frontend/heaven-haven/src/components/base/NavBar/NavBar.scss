@@ -1,7 +1,31 @@
+@import "../../../assets/scss/base/colors";
+
 nav {
+    display: flex;
+    gap: 44px;
+
     ul {
+        display: flex;
         li {
             list-style: none;
+            font-size: 18px;
+        }
+    }
+
+    ul.links {
+        gap: 60px;
+    }
+
+    ul.buttons {
+        gap: 20px;
+
+        a {
+            border: 2px solid $cta;
+            padding: 8px 24px 8px 24px;
+        }
+
+        a.btn-1 {
+            background-color: $cta;
         }
     }
 }

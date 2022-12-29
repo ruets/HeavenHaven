@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export function NavBar() {
     return (
         <nav>
-            <ul>
+            <ul className="links">
                 <li>
                     <Link to="/islands">Islands</Link>
                 </li>
@@ -14,6 +14,8 @@ export function NavBar() {
                 <li>
                     <Link to="/contact">Contact Us</Link>
                 </li>
+            </ul>
+            <ul className="buttons">
                 <li>
                     <Link to="/login" className="btn-1">
                         Log In
