@@ -31,25 +31,29 @@ export function LoginForm() {
         setIsPasswordValid(isPasswordValid);
     }, [setIsPasswordValid, password]);
 
-    const onSubmitForm = useCallback(() => {
-        validateEmailFieldValue();
-        validatePasswordFieldValue();
-        if (errorMessageEmail === "" && isPasswordFieldValid) {
-            // Post request to log in
-            alert("Connexion acceptée !");
-        }
-    }, [
-        validateEmailFieldValue,
-        validatePasswordFieldValue,
-        errorMessageEmail,
-        isPasswordFieldValid,
-    ]);
+    const onSubmitForm = useCallback(
+        (e) => {
+            e.preventDefault();
+            validateEmailFieldValue();
+            validatePasswordFieldValue();
+            if (errorMessageEmail === "" && isPasswordFieldValid) {
+                // Post request to log in
+                alert("Connexion acceptée !");
+            }
+        },
+        [
+            validateEmailFieldValue,
+            validatePasswordFieldValue,
+            errorMessageEmail,
+            isPasswordFieldValid,
+        ]
+    );
 
     return (
         <form className="login" onSubmit={onSubmitForm}>
             <h1>Log In</h1>
             <Input
-                type="text"
+                type="email"
                 name="email"
                 label="Email"
                 icon={EmailLogo}

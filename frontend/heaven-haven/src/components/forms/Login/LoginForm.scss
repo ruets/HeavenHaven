@@ -12,6 +12,7 @@ form.login {
 
         a {
             font-size: 18px;
+            width: max-content;
         }
     }
 
@@ -20,15 +21,6 @@ form.login {
 
         &:hover {
             background: $form-btn-bg-light;
-        }
-    }
-
-    p.no-account {
-        font-size: 18px;
-        margin-bottom: 24px;
-
-        a {
-            font-weight: 500;
         }
     }
 }

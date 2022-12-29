@@ -1,0 +1,60 @@
+@import "../../../assets/scss/base/colors";
+
+form.signup {
+    div.form-steps {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+
+        span.ball-filled,
+        span.ball-unfilled {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        span.ball-filled {
+            background: $dark;
+        }
+
+        span.line {
+            width: 140px;
+            height: 4px;
+            background: $grey;
+        }
+
+        span.ball-unfilled {
+            background: $grey;
+        }
+    }
+
+    p.description {
+        font-family: "Poppins";
+        color: $form-dark;
+        font-weight: 500;
+        width: 480px;
+        text-align: center;
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    div.names {
+        display: flex;
+        gap: 12px;
+
+        input {
+            width: 244px;
+            padding-left: 16px;
+        }
+    }
+
+    div.buttons {
+        display: flex;
+        gap: 12px;
+
+        button {
+            width: 244px;
+        }
+    }
+}

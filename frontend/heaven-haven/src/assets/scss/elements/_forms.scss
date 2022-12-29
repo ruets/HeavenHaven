@@ -40,4 +40,15 @@ form {
             background: $form-btn-bg-light;
         }
     }
+
+    p.no-account,
+    p.have-account {
+        font-size: 18px;
+        margin-bottom: 20px;
+        font-family: "Poppins";
+
+        a {
+            font-weight: 500;
+        }
+    }
 }

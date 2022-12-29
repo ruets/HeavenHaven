@@ -1,12 +1,14 @@
 import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
 import PhoneIcon from "../../../assets/img/phone-icon.svg";
 import "./SignupForm.scss";
 
-export function SignupForm(props) {
+export function SignupForm() {
+    const navigate = useNavigate();
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -15,18 +17,29 @@ export function SignupForm(props) {
     const [phoneNumber, setPhoneNumber] = useState("");
 
     const onSubmitForm = useCallback(() => {
-        // TODO
+        console.log("Data verification");
+        console.log("Post user data to API");
+    });
+
+    const handleSignup = useCallback(() => {
+        onSubmitForm();
+        navigate("/");
+    });
+
+    const handleFillInMoreInfo = useCallback(() => {
+        onSubmitForm();
+        navigate("/signup/fill");
     });
 
     return (
-        <form className="signup" onSubmit={onSubmitForm}>
+        <form className="signup" method="post" onSubmit={onSubmitForm}>
             <div className="form-steps">
-                <span className="ball-1"></span>
+                <span className="ball-filled"></span>
                 <span className="line"></span>
-                <span className="ball-1"></span>
+                <span className="ball-unfilled"></span>
             </div>
             <h1>Sign Up</h1>
-            <p>
+            <p className="description">
                 Creating an account allows you to view auction results, discover
                 more, stay up to date and manage your activity.
             </p>
@@ -47,7 +60,7 @@ export function SignupForm(props) {
                 ></Input>
             </div>
             <Input
-                type="text"
+                type="email"
                 name="email"
                 label="Email"
                 icon={EmailLogo}
@@ -79,14 +92,12 @@ export function SignupForm(props) {
                 setInput={setPhoneNumber}
             ></Input>
             <div className="buttons">
-                <button type="submit" value="sign-up">
-                    Sign Up Now
-                </button>
-                <button type="submit" value="fill">
+                <button onClick={handleSignup}>Sign Up Now</button>
+                <button onClick={handleFillInMoreInfo}>
                     Fill In More Info
                 </button>
             </div>
-            <p>
+            <p className="have-account">
                 Already have an account ? <Link to={"/login"}>Log in</Link>
             </p>
         </form>
