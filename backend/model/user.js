@@ -1,19 +1,19 @@
 class User {
-    userId
-    name
-    secondName
-    phoneNb
-    email
-    password
-    auctionsList
+    _userId
+    _name
+    _secondName
+    _phoneNb
+    _email
+    _password
+    _auctionsList
 
     constructor(userId,name, secondName, phoneNb, email, password) {
         this._userId = userId
-        this._name = name
-        this._secondName = secondName
-        this._phoneNb = phoneNb
-        this._email = email
-        this._password = password
+        this.setName(name)
+        this.setSecondName(secondName)
+        this.setPhoneNb(phoneNb)
+        this.setEmail(email)
+        this.setPassword(password)
         this._auctionsList = new Array()
     }
 
@@ -34,41 +34,38 @@ class User {
     // Getters et Setters
     /////////////////////////////////////////////////////////
 
-    set name(name) {
+    setName(name) {
         //The name must be capitalized
-        this._name = name.charAt(0).toUpperCase() + name.slice(1)
+        this._name = name.charAt(0).toUpperCase() + name.substring(1).toLowerCase()
     }
 
-    set secondName(secondName) {
+    setSecondName(secondName) {
         //The second name must be capitalized
-        this._secondName = secondName.charAt(0).toUpperCase() + secondName.slice(1)
+        this._secondName = secondName.charAt(0).toUpperCase() + secondName.slice(1).toLowerCase()
     }
 
-    set phoneNb(phoneNb) {
+    setPhoneNb(phoneNb) {
         //The phone number must be valid, so we define a regex format
-        const regex = "/^\+91\d{10}$/"
-        if(!phoneNb.matches(regex)) {
+        const regex = new RegExp('\\d{10}')
+        const match = phoneNb.match(regex)
+        if(match==null) {
             //If the format is wrong, we throw an error
-            throw new Error("Wrong phone number format")
+            throw Error("Wrong phone number format")
         } else {
             //Otherwise, we set the value
-            this._phoneNb = value
+            this._phoneNb = phoneNb
         }
 
     }
 
-    set email(email) {
+    setEmail(email) {
         /*
         * We must provide a valid email adress. The following regex seems extremly complex.
         * It is a standard regex for email validation (RFC 5322 Official Standard)
         * See more at : https://emailregex.com/
         */
-        const regex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|" +
-            "\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x" +
-            "0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0" +
-            "-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|" +
-            "[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|" +
-            "\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])"
+        //TODO : set a valid regex
+        const regex = ""
 
         if(!email.matches(regex)) {
             //If the format is wrong, we throw an error
@@ -80,7 +77,8 @@ class User {
         this._email = email
     }
 
-    set password(password) {
+    setPassword(password) {
+        //TODO : password encryption constraint
         this._password = password
     }
 
@@ -113,3 +111,4 @@ class User {
     }
 
 }
+module.exports = User
