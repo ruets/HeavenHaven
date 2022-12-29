@@ -9,7 +9,7 @@ export function NavBar() {
                     <Link to="/islands">Islands</Link>
                 </li>
                 <li>
-                    <Link to="/sell">Sell</Link>
+                    <Link to="/sell">Sell Your Island</Link>
                 </li>
                 <li>
                     <Link to="/contact">Contact Us</Link>

@@ -14,6 +14,26 @@ nav {
 
     ul.links {
         gap: 60px;
+
+        a {
+            position: relative;
+
+            &::before {
+                content: "";
+                height: 2px;
+                width: 0%;
+                position: absolute;
+                bottom: -4px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: $dark;
+                transition: 0.2s;
+            }
+
+            &:hover::before {
+                width: 100%;
+            }
+        }
     }
 
     ul.buttons {
