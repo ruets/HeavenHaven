@@ -38,10 +38,6 @@ div.input {
             &::placeholder {
                 color: $form-dark;
             }
-
-            &:focus {
-                outline: none;
-            }
         }
 
         label {

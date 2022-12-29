@@ -11,6 +11,12 @@ header {
     img {
         width: 52px;
     }
+
+    div.right {
+        display: flex;
+        align-items: center;
+        gap: 80px;
+    }
 }
 
 // logo link (has to have the same height as the image)
