@@ -14,7 +14,7 @@ function Input(props) {
                     onBlur={props.onBlur}
                 />
             </div>
-            {props.error ? <p>Champ non valide</p> : <p></p>}
+            {props.errorMessage === "" ? <p>{props.errorMessage}</p> : null}
         </div>
     );
 }

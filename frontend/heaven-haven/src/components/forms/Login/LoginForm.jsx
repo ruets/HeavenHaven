@@ -12,13 +12,19 @@ export function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [isEmailFieldValid, setIsEmailValid] = useState(true);
-    const [isPasswordFieldValid, setIsPasswordValid] = useState(true);
+    const [errorMessageEmail, setErrorMessageEmail] = useState("");
+    const [isPasswordFieldValid, setIsPasswordValid] = useState("");
 
     const validateEmailFieldValue = useCallback(() => {
-        const isEmailFieldValid = email !== "";
-        setIsEmailValid(isEmailFieldValid);
-    }, [setIsEmailValid, email]);
+        const isEmailInputValid =
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+        if (!isEmailInputValid) {
+            setErrorMessageEmail("Le format de l'adresse email est invalide.");
+            console.log(errorMessageEmail);
+        } else {
+            setErrorMessageEmail("");
+        }
+    }, [setErrorMessageEmail, email]);
 
     const validatePasswordFieldValue = useCallback(() => {
         const isPasswordValid = password !== "" && password.length >= 8;
@@ -28,14 +34,14 @@ export function LoginForm() {
     const onSubmitForm = useCallback(() => {
         validateEmailFieldValue();
         validatePasswordFieldValue();
-        if (isEmailFieldValid && isPasswordFieldValid) {
+        if (errorMessageEmail === "" && isPasswordFieldValid) {
             // Post request to log in
             alert("Connexion acceptée !");
         }
     }, [
         validateEmailFieldValue,
         validatePasswordFieldValue,
-        isEmailFieldValid,
+        errorMessageEmail,
         isPasswordFieldValid,
     ]);
 
@@ -48,7 +54,7 @@ export function LoginForm() {
                 label="Email"
                 icon={EmailLogo}
                 value={email}
-                error={!isEmailFieldValid}
+                errorMessage={errorMessageEmail}
                 onBlur={validateEmailFieldValue}
                 setInput={setEmail}
             ></Input>
@@ -59,9 +65,8 @@ export function LoginForm() {
                     label="Password"
                     icon={PasswordLogo}
                     value={password}
-                    error={!isPasswordFieldValid}
+                    errorMessage={!isPasswordFieldValid}
                     setInput={setPassword}
-                    onBlur={validatePasswordFieldValue}
                 ></Input>
                 <Link to="/forgot">Forgot Password ?</Link>
             </div>
