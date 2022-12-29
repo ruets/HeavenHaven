@@ -14,6 +14,7 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<LoginPage />} />
+                <Route path="login" element={<LoginPage />} />
                 <Route path="forgot" element={<ForgotPage />} />
                 <Route path="signup" element={<SignupPage />} />
                 <Route path="*" element={<NotFoundPage />} />
