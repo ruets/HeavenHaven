@@ -4,7 +4,7 @@ import "./loginPage.scss";
 
 export function LoginPage() {
     return (
-        <div className="content">
+        <div className="login">
             <LoginForm></LoginForm>
             <img src={LoginImage} alt="Island" className="login-img" />
         </div>

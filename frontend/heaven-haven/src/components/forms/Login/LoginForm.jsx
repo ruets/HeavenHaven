@@ -26,14 +26,11 @@ export function LoginForm() {
     }, [setIsPasswordValid, password]);
 
     const onSubmitForm = useCallback(() => {
-        validateEmailFieldValue;
-        validatePasswordFieldValue;
+        validateEmailFieldValue();
+        validatePasswordFieldValue();
         if (isEmailFieldValid && isPasswordFieldValid) {
             // Post request to log in
             alert("Connexion acceptée !");
-        } else {
-            // Request denied and do nothing
-            return;
         }
     }, [
         validateEmailFieldValue,
@@ -69,7 +66,9 @@ export function LoginForm() {
                 <Link to="/forgot">Forgot Password ?</Link>
             </div>
             <button type="submit">Sign In</button>
-            <p>No account yet ? Sign up here</p>
+            <p>
+                No account yet ? <Link to={"/signup"}>Sign up here</Link>
+            </p>
         </form>
     );
 }
