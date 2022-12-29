@@ -10,7 +10,11 @@ export function SearchBar(props) {
                 value={props.value}
                 onChange={(e) => props.setInput(e.target.value)}
             />
-            <img src={SearchLogo} alt="SearchLogo" />
+            <img
+                src={SearchLogo}
+                alt="SearchLogo"
+                onClick={props.handleSearch}
+            />
         </div>
     );
 }

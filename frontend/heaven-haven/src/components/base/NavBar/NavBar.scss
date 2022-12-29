@@ -42,10 +42,21 @@ nav {
         a {
             border: 2px solid $cta;
             padding: 8px 24px 8px 24px;
+            transition: 0.2s;
         }
 
         a.btn-1 {
-            background-color: $cta;
+            background: $cta;
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
+        a.btn-2 {
+            &:hover {
+                background: $cta;
+            }
         }
     }
 }

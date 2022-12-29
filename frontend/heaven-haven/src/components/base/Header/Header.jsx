@@ -1,12 +1,20 @@
 import "./Header.scss";
 import Logo from "../../../assets/img/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SearchBar } from "../../fields/SearchBar/SearchBar";
 import { NavBar } from "../NavBar/NavBar";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export function Header() {
     const [searchValue, setSearchValue] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearch = useCallback(() => {
+        if (searchValue !== "") {
+            const link = "/results=" + searchValue;
+            navigate(link);
+        }
+    }, [searchValue]);
 
     return (
         <header>
@@ -17,6 +25,7 @@ export function Header() {
                 <SearchBar
                     value={searchValue}
                     setInput={setSearchValue}
+                    handleSearch={handleSearch}
                 ></SearchBar>
                 <NavBar></NavBar>
             </div>
