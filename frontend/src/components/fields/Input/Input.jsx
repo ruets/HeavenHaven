@@ -14,7 +14,9 @@ function Input(props) {
                     onBlur={props.onBlur ? props.onBlur : null}
                 />
             </div>
-            {props.errorMessage === "" ? <p>{props.errorMessage}</p> : null}
+            {props.errorMessage && props.errorMessage !== "" ? (
+                <p>{props.errorMessage}</p>
+            ) : null}
         </div>
     );
 }

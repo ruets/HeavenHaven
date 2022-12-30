@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
@@ -9,45 +10,73 @@ import "./LoginForm.scss";
  * responsability: handle login,
  */
 export function LoginForm() {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [errorMessageEmail, setErrorMessageEmail] = useState("");
-    const [isPasswordFieldValid, setIsPasswordValid] = useState("");
+    const [errorMessagePassword, setErrorMessagePassword] = useState("");
 
     const validateEmailFieldValue = useCallback(() => {
         const isEmailInputValid =
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
         if (!isEmailInputValid) {
-            setErrorMessageEmail("Le format de l'adresse email est invalide.");
-            console.log(errorMessageEmail);
+            setErrorMessageEmail("The email adress format is not correct.");
         } else {
             setErrorMessageEmail("");
         }
     }, [setErrorMessageEmail, email]);
 
-    const validatePasswordFieldValue = useCallback(() => {
-        const isPasswordValid = password !== "" && password.length >= 8;
-        setIsPasswordValid(isPasswordValid);
-    }, [setIsPasswordValid, password]);
-
+    /* 
     const onSubmitForm = useCallback(
         (e) => {
             e.preventDefault();
             validateEmailFieldValue();
-            validatePasswordFieldValue();
-            if (errorMessageEmail === "" && isPasswordFieldValid) {
-                // Post request to log in
-                alert("Connexion acceptée !");
+            if (errorMessageEmail === "") {
+                // TODO Get request with email and password
+                // if the request is good, sign the user in
+                // else, show that the email or password is not correct
+                axios
+                    .get("/user", {
+                        params: {
+                            email: email,
+                        },
+                    })
+                    .then(function (response) {
+                        // handle success
+                        console.log(response);
+                        const isPasswordValid =
+                            password !== "" && password.length >= 8;
+                        if (!isPasswordValid) {
+                            setErrorMessagePassword(
+                                "The email adress or the password is not correct."
+                            );
+                        } else {
+                            // Connect the user
+
+                            // And go to the landing page
+                            navigate("/");
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                        setErrorMessagePassword(
+                            "The email adress or the password is not correct."
+                        );
+                    });
             }
         },
         [
             validateEmailFieldValue,
-            validatePasswordFieldValue,
             errorMessageEmail,
-            isPasswordFieldValid,
+            errorMessagePassword,
+            setErrorMessagePassword,
+            password,
         ]
     );
+    */
 
     return (
         <form className="login" onSubmit={onSubmitForm}>
@@ -69,7 +98,7 @@ export function LoginForm() {
                     label="Password"
                     icon={PasswordLogo}
                     value={password}
-                    errorMessage={!isPasswordFieldValid}
+                    errorMessage={!errorMessagePassword}
                     setInput={setPassword}
                 ></Input>
                 <Link to="/forgot">Forgot Password ?</Link>
