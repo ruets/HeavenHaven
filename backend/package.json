@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "testEnvironment": "node"
   },
   "scripts": {
     "test": "jest"
@@ -23,8 +24,5 @@
   },
   "devDependencies": {
     "jest": "^29.3.1"
-  },
-  "jest": {
-      "testEnvironment": "node"
   }
 }
