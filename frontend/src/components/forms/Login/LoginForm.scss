@@ -1,0 +1,26 @@
+@import "../../../assets/scss/base/colors";
+
+form.login {
+    h1 {
+        margin: 52px 0 32px 0;
+    }
+
+    div.password {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        a {
+            font-size: 18px;
+            width: max-content;
+        }
+    }
+
+    button {
+        margin: 28px 0 32px 0;
+
+        &:hover {
+            background: $form-btn-bg-light;
+        }
+    }
+}

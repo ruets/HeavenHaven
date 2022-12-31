@@ -1,0 +1,26 @@
+header {
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 68px;
+    background: #fbfbfb;
+    box-shadow: 0px 2px 14px 5px rgba(0, 0, 0, 0.25);
+    padding: 0 20px 0 8px;
+
+    img {
+        width: 52px;
+    }
+
+    div.right {
+        display: flex;
+        align-items: center;
+        gap: 60px;
+    }
+}
+
+// logo link (has to have the same height as the image)
+header > a {
+    height: 52px;
+}

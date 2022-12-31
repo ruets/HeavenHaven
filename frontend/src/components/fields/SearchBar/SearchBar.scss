@@ -1,0 +1,25 @@
+@import "../../../assets/scss/base/colors";
+
+div.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+        border: 2px solid $dark;
+        border-radius: 20px;
+        width: 260px;
+        height: 34px;
+        padding: 0 52px 0 12px;
+        font-family: "Poppins";
+        font-size: 15px;
+        color: $dark;
+    }
+
+    img {
+        cursor: pointer;
+        position: absolute;
+        right: 12px;
+        width: 24px;
+    }
+}
