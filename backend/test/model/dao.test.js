@@ -1,4 +1,4 @@
-const dao = require('../model/dao');
+const dao = require('../../model/dao');
 
 test('DAO - Query', () => {
     dao.query("create table if not exists users (id serial primary key, name varchar(255), email varchar(255), password varchar(255))", []);
