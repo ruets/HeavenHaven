@@ -1,10 +1,8 @@
 # .vscode
 .vscode/
 
-# ajout des nodes modules et packages du backend
+# ajout des nodes modules du backend
 backend/node_modules
-backend/package-lock.json
-
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/netbeans,pycharm+all,xcode,jetbrains+all,kdevelop4,phpstorm+all,vim,emacs,eclipse,intellij+all,windows,linux,macos
