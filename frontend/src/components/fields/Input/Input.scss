@@ -3,12 +3,8 @@
 div.input {
     position: relative;
     display: flex;
-    flex-direction: column;
-
-    div {
-        position: relative;
-        display: flex;
-        align-items: center;
+    align-items: center;
+    width: 100%;
 
         img {
             position: absolute;
@@ -17,17 +13,11 @@ div.input {
         }
 
         input {
-            width: 500px;
+            width: 100%;
             height: 70px;
             background: $form-light;
-            color: $form-dark;
-            box-shadow: 1px 1px 2px rgba(233, 255, 255, 0.3),
-                -1px -1px 2px rgba(155, 176, 171, 0.5),
-                inset -5px 5px 10px rgba(155, 176, 171, 0.2),
-                inset 5px -5px 10px rgba(155, 176, 171, 0.2),
-                inset -5px -5px 10px rgba(233, 255, 255, 0.9),
-                inset 5px 5px 13px rgba(155, 176, 171, 0.9);
-            border-radius: 10px;
+            color: rgba($color: $dark, $alpha: 0.5);
+            box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3), -1px -1px 2px rgba(186, 182, 182, 0.5), inset -5px 5px 10px rgba(186, 182, 182, 0.2), inset 5px -5px 10px rgba(186, 182, 182, 0.2), inset -5px -5px 10px rgba(255, 255, 255, 0.9), inset 5px 5px 13px rgba(186, 182, 182, 0.9);            border-radius: 10px;
             border: 0;
             padding: 0 12px 0 52px;
             font-size: 20px;
@@ -36,24 +26,15 @@ div.input {
             vertical-align: center;
 
             &::placeholder {
-                color: $form-dark;
+                color: $dark;
             }
         }
+    }
 
-        label {
-            margin-left: 50px;
+    div.error {
+        p {
+            margin-top: 8px;
+            height: 23px;
             color: red;
-            visibility: hidden;
-        }
-
-        label.active {
-            visibility: visible;
         }
     }
-
-    p {
-        margin-top: 8px;
-        height: 23px;
-        color: red;
-    }
-}

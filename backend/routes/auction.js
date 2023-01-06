@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const auctionCtrl = require('../controllers/auction');
-const authCtrl = require('../controllers/auth');
+const auth = require('../middleware/auth');
 
-router.post('/bid', auth, authCtrl.bid);
-router.post('/report', auth, authCtrl.report);
+router.post('/bid', auth, auctionCtrl.bid);
+router.post('/report', auth, auctionCtrl.report);

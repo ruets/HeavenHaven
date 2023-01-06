@@ -5,22 +5,36 @@ form.login {
         margin: 52px 0 32px 0;
     }
 
-    div.password {
+    div.fields {
         display: flex;
         flex-direction: column;
         gap: 8px;
+        width: 90%;
+
+        div.inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
 
         a {
             font-size: 18px;
             width: max-content;
+            color: rgba($color: #3a3a3a, $alpha: 0.75);
+            text-decoration: underline;
+            text-decoration-color: rgba($color: #3a3a3a, $alpha: 0.75);
         }
     }
 
     button {
         margin: 28px 0 32px 0;
+    }
 
-        &:hover {
-            background: $form-btn-bg-light;
+    p.no-account {
+        a {
+            color:#3a3a3a;
+            text-decoration: underline;
+            text-decoration-color:#3a3a3a;
         }
     }
 }

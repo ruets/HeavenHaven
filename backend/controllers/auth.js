@@ -1,15 +1,22 @@
+const { PrismaClient } = require('@prisma/client');
+
 const bcrypt = require('bcrypt');
-const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
+    const prisma = new PrismaClient();
+    
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
-        const user = new User({
-          email: req.body.email,
-          password: hash
-        });
-        user.save()
+        prisma.user.create({
+            data: {
+                email: req.body.email,
+                password: hash,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                phone: req.body.phone
+            }
+        })
           .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
           .catch(error => res.status(400).json({ error }));
       })
@@ -17,20 +24,24 @@ exports.signup = (req, res, next) => {
   };
 
   exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email })
+    const prisma = new PrismaClient();
+    prisma.user.findUnique({
+        where: {
+            email: req.body.email
+        }})
         .then(user => {
             if (!user) {
-                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+                return res.status(401).json({ error: 'User or password incorrect !' });
             }
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
+                        return res.status(401).json({ error: 'User or password incorrect !' });
                     }
                     res.status(200).json({
-                        userId: user._id,
+                        userId: user.id,
                         token: jwt.sign(
-                            { userId: user._id },
+                            { userId: user.id },
                             'RANDOM_TOKEN_SECRET',
                             { expiresIn: '24h' }
                         )
