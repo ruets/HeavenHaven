@@ -30,13 +30,12 @@ export function LoginForm() {
 
     const onSubmitForm = useCallback(
         (e) => {
-            /*
             e.preventDefault();
             validateEmailFieldValue();
             if (errorMessageEmail === "") {
                 console.log("Trying to connect");
                 axios
-                    .post("https://81.185.175.9:3000/api/auth/login", {
+                    .post("https://127.0.0.1:3000/api/auth/login", {
                             email: email,
                             password: password,
                     })
@@ -49,7 +48,6 @@ export function LoginForm() {
                         setErrorMessagePassword(error.response.data.error);
                     });
             }
-            */
         },
         [
             validateEmailFieldValue,
