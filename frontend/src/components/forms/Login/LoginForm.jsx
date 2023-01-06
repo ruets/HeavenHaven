@@ -33,8 +33,9 @@ export function LoginForm() {
             e.preventDefault();
             validateEmailFieldValue();
             if (errorMessageEmail === "") {
+                console.log("Trying to connect");
                 axios
-                    .post("https://reqres.in/api/login", {
+                    .post("https://81.185.175.9:3000/api/auth/login", {
                             email: email,
                             password: password,
                     })
