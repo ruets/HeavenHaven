@@ -12,6 +12,7 @@ function Input(props) {
                     value={props.value}
                     placeholder={props.label}
                     onBlur={props.onBlur ? props.onBlur : null}
+                    required
                 />
             </div>
             <div className="error">
