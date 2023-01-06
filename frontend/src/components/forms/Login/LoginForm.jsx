@@ -30,6 +30,7 @@ export function LoginForm() {
 
     const onSubmitForm = useCallback(
         (e) => {
+            /*
             e.preventDefault();
             validateEmailFieldValue();
             if (errorMessageEmail === "") {
@@ -48,6 +49,7 @@ export function LoginForm() {
                         setErrorMessagePassword(error.response.data.error);
                     });
             }
+            */
         },
         [
             validateEmailFieldValue,
