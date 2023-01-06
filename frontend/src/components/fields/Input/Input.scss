@@ -3,12 +3,8 @@
 div.input {
     position: relative;
     display: flex;
-    flex-direction: column;
-
-    div {
-        position: relative;
-        display: flex;
-        align-items: center;
+    align-items: center;
+    width: 100%;
 
         img {
             position: absolute;
@@ -17,7 +13,7 @@ div.input {
         }
 
         input {
-            width: 80%;
+            width: 100%;
             height: 70px;
             background: $form-light;
             color: $form-dark;
@@ -39,21 +35,12 @@ div.input {
                 color: $form-dark;
             }
         }
+    }
 
-        label {
-            margin-left: 50px;
+    div.error {
+        p {
+            margin-top: 8px;
+            height: 23px;
             color: red;
-            visibility: hidden;
-        }
-
-        label.active {
-            visibility: visible;
         }
     }
-
-    p {
-        margin-top: 8px;
-        height: 23px;
-        color: red;
-    }
-}

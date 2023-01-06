@@ -5,10 +5,17 @@ form.login {
         margin: 52px 0 32px 0;
     }
 
-    div.password {
+    div.fields {
         display: flex;
         flex-direction: column;
         gap: 8px;
+        width: 90%;
+
+        div.inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
 
         a {
             font-size: 18px;

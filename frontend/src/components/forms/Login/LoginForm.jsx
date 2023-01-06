@@ -60,6 +60,8 @@ export function LoginForm() {
     return (
         <form className="login" onSubmit={onSubmitForm}>
             <h1>Log In</h1>
+            <div className="fields">
+            <div className="inputs">
             <Input
                 type="email"
                 name="email"
@@ -70,7 +72,6 @@ export function LoginForm() {
                 onBlur={validateEmailFieldValue}
                 setInput={setEmail}
             ></Input>
-            <div className="password">
                 <Input
                     type="password"
                     name="password"
@@ -80,7 +81,8 @@ export function LoginForm() {
                     errorMessage={errorMessagePassword}
                     setInput={setPassword}
                 ></Input>
-                <Link to="/forgot">Forgot Password ?</Link>
+            </div>
+            <Link to="/forgot">Forgot Password ?</Link>
             </div>
             <button type="submit">Sign In</button>
             <p className="no-account">

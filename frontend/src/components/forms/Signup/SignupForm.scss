@@ -42,10 +42,14 @@ form.signup {
     div.names {
         display: flex;
         gap: 12px;
+        width: 90%;
 
-        input {
-            width: 244px;
-            padding-left: 16px;
+        div.global-input {
+            width: 50%;
+
+            input {
+                padding-left: 16px;
+            }
         }
     }
 
