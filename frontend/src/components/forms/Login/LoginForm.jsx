@@ -28,43 +28,23 @@ export function LoginForm() {
         }
     }, [setErrorMessageEmail, email]);
 
-    /* 
     const onSubmitForm = useCallback(
         (e) => {
             e.preventDefault();
             validateEmailFieldValue();
             if (errorMessageEmail === "") {
-                // TODO Get request with email and password
-                // if the request is good, sign the user in
-                // else, show that the email or password is not correct
                 axios
-                    .get("/user", {
-                        params: {
+                    .post("https://reqres.in/api/login", {
                             email: email,
-                        },
+                            password: password,
                     })
                     .then(function (response) {
                         // handle success
-                        console.log(response);
-                        const isPasswordValid =
-                            password !== "" && password.length >= 8;
-                        if (!isPasswordValid) {
-                            setErrorMessagePassword(
-                                "The email adress or the password is not correct."
-                            );
-                        } else {
-                            // Connect the user
-
-                            // And go to the landing page
-                            navigate("/");
-                        }
-                    })
+                        console.log(response.data);
+                    })  
                     .catch(function (error) {
                         // handle error
-                        console.log(error);
-                        setErrorMessagePassword(
-                            "The email adress or the password is not correct."
-                        );
+                        setErrorMessagePassword(error.response.data.error);
                     });
             }
         },
@@ -76,7 +56,6 @@ export function LoginForm() {
             password,
         ]
     );
-    */
 
     return (
         <form className="login" onSubmit={onSubmitForm}>
@@ -98,7 +77,7 @@ export function LoginForm() {
                     label="Password"
                     icon={PasswordLogo}
                     value={password}
-                    errorMessage={!errorMessagePassword}
+                    errorMessage={errorMessagePassword}
                     setInput={setPassword}
                 ></Input>
                 <Link to="/forgot">Forgot Password ?</Link>
