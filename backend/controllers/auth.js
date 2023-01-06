@@ -1,5 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 
+const config = require('../config/config');
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -25,6 +27,7 @@ exports.signup = (req, res, next) => {
 
   exports.login = (req, res, next) => {
     const prisma = new PrismaClient();
+
     prisma.user.findUnique({
         where: {
             email: req.body.email
@@ -42,7 +45,7 @@ exports.signup = (req, res, next) => {
                         userId: user.id,
                         token: jwt.sign(
                             { userId: user.id },
-                            'RANDOM_TOKEN_SECRET',
+                            config.secretKey,
                             { expiresIn: '24h' }
                         )
                     });
