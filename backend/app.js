@@ -1,11 +1,10 @@
 const express = require('express');
 const path = require('path');
-const config = require('./config/config');
 
-const islandRoutes = require('./routes/island');
-const auctionRoutes = require('./routes/auction');
-const billingRoutes = require('./routes/billing');
-const userRoutes = require('./routes/user');
+// const islandRoutes = require('./routes/island');
+// const auctionRoutes = require('./routes/auction');
+// const billingRoutes = require('./routes/billing');
+// const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth')
 
 const app = express();
@@ -18,10 +17,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/islands', islandRoutes);
-app.use('/api/auctions', auctionRoutes);
-app.use('/api/billing', billingRoutes);
-app.use('/api/user', userRoutes);
+// app.use('/api/islands', islandRoutes);
+// app.use('/api/auctions', auctionRoutes);
+// app.use('/api/billing', billingRoutes);
+// app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 
 module.exports = app;
