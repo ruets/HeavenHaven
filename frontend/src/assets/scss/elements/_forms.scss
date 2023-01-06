@@ -7,12 +7,7 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    box-shadow: 6px 6px 12px rgba(165, 178, 175, 0.2),
-        -6px -6px 12px rgba(165, 178, 175, 0.2),
-        6px -6px 12px rgba(247, 255, 255, 0.9),
-        -6px 6px 15px rgba(165, 178, 175, 0.9),
-        inset -1px 1px 2px rgba(247, 255, 255, 0.3),
-        inset 1px -1px 2px rgba(165, 178, 175, 0.5);
+    box-shadow: -5px 5px 10px rgba(218, 218, 218, 0.2), 5px -5px 10px rgba(218, 218, 218, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.9), 5px 5px 13px rgba(218, 218, 218, 0.9), inset 1px 1px 2px rgba(255, 255, 255, 0.3), inset -1px -1px 2px rgba(218, 218, 218, 0.5);
     border-radius: 20px;
 
     h1 {
@@ -24,7 +19,7 @@ form {
         cursor: pointer;
         width: 250px;
         height: 60px;
-        background: $form-btn-bg;
+        background: $cta;
         box-shadow: -1px 1px 2px rgba(162, 171, 171, 0.2),
             1px -1px 2px rgba(162, 171, 171, 0.2),
             -1px -1px 2px rgba(255, 255, 255, 0.9),
@@ -32,11 +27,11 @@ form {
             inset 1px 1px 2px rgba(255, 255, 255, 0.3),
             inset -1px -1px 2px rgba(162, 171, 171, 0.5);
         border-radius: 10px;
-        color: $form-dark;
+        color: $dark;
         transition: 0.15s ease-in-out;
 
         &:hover {
-            background: $form-btn-bg-light;
+            background: $cta;
         }
     }
 
