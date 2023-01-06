@@ -35,13 +35,14 @@ export function LoginForm() {
             if (errorMessageEmail === "") {
                 console.log("Trying to connect");
                 axios
-                    .post("https://127.0.0.1:3000/api/auth/login", {
+                    .post("http://127.0.0.1:3000/api/auth/login", {
                             email: email,
                             password: password,
                     })
                     .then(function (response) {
                         // handle success
-                        console.log(response.data);
+                        alert("Token d'authentification : " + response.data.token);
+                        setErrorMessagePassword("");
                     })  
                     .catch(function (error) {
                         // handle error
