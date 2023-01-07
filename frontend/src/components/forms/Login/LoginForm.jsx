@@ -30,16 +30,13 @@ export function LoginForm() {
 
     const postData = async () => {
         try {
-            const res = await axios.post(
-                "http://127.0.0.1:3000/api/auth/login",
-                {
-                    email: email,
-                    password: password,
-                }
-            );
+            let res = await axios.post("http://127.0.0.1:3000/api/auth/login", {
+                email: email,
+                password: password,
+            });
 
             // handle success
-            alert("Token d'authentification : " + response.data.token);
+            alert("Token d'authentification : " + res.data.token);
             setErrorMessagePassword("");
         } catch (error) {
             // handle error

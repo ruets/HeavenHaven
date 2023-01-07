@@ -1,7 +1,39 @@
 import "./IndexPage.scss";
 import MainImage from "../../assets/img/index-main-img.png";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export function IndexPage() {
+    const [trendingIslands, setTrendingIslands] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const getTrendingIslands = async () => {
+        try {
+            let res = await axios.get("https://reqres.in/api/users?page=2");
+            const data = res.data.data;
+            const islands = data.map((island) => {
+                return (
+                    <div key={island.id}>
+                        {island.id} : {island.email}
+                    </div>
+                );
+            });
+            setTrendingIslands(islands);
+            setIsLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        getTrendingIslands();
+    }, []);
+
+    if (isLoading) {
+        return <h1>Is loading</h1>;
+    }
+
     return (
         <div className="index">
             <div className="section-1">
@@ -14,6 +46,7 @@ export function IndexPage() {
             </div>
             <div className="section">
                 <h2>Trending</h2>
+                <div className="islands">{trendingIslands}</div>
             </div>
         </div>
     );
