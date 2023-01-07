@@ -4,7 +4,7 @@ form.signup {
     div.form-steps {
         display: flex;
         align-items: center;
-        margin-top: 20px;
+        margin: 20px 0 12px 0;
 
         span.ball-filled,
         span.ball-unfilled {
@@ -33,16 +33,18 @@ form.signup {
         font-family: "Poppins";
         color: $dark;
         font-weight: 500;
-        width: 480px;
+        width: 90%;
         text-align: center;
         font-size: 20px;
         line-height: 30px;
+        margin: 12px 0 16px 0;
     }
 
     div.names {
         display: flex;
         gap: 12px;
         width: 90%;
+        margin-bottom: 8px;
 
         div.global-input {
             width: 50%;
@@ -53,12 +55,15 @@ form.signup {
         }
     }
 
-    div.buttons {
+    div.fields {
         display: flex;
-        gap: 12px;
+        flex-direction: column;
+        gap: 8px;
+        width: 90%;
+    }
 
-        button {
-            width: 244px;
-        }
+    button {
+        width: 244px;
+        margin: 16px 0 12px 0;
     }
 }

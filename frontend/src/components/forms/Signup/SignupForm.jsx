@@ -26,11 +26,6 @@ export function SignupForm() {
         console.log("Post user data to API");
     });
 
-    const handleSignup = useCallback(() => {
-        onSubmitForm();
-        navigate("/");
-    });
-
     const handleFillInMoreInfo = useCallback(() => {
         onSubmitForm();
         navigate("/signup/fill");
@@ -64,44 +59,41 @@ export function SignupForm() {
                     setInput={setLastName}
                 ></Input>
             </div>
-            <Input
-                type="email"
-                name="email"
-                label="Email"
-                icon={EmailLogo}
-                value={email}
-                setInput={setEmail}
-            ></Input>
-            <Input
-                type="password"
-                name="password"
-                label="Password"
-                icon={PasswordLogo}
-                value={password}
-                setInput={setPassword}
-            ></Input>
-            <Input
-                type="password"
-                name="confirm-password"
-                label="Confirm Password"
-                icon={PasswordLogo}
-                value={confirmedPassword}
-                setInput={setConfirmedPassword}
-            ></Input>
-            <Input
-                type="text"
-                name="phone-number"
-                label="Phone Number"
-                icon={PhoneIcon}
-                value={phoneNumber}
-                setInput={setPhoneNumber}
-            ></Input>
-            <div className="buttons">
-                <button onClick={handleSignup}>Sign Up Now</button>
-                <button onClick={handleFillInMoreInfo}>
-                    Fill In More Info
-                </button>
+            <div className="fields">
+                <Input
+                    type="email"
+                    name="email"
+                    label="Email"
+                    icon={EmailLogo}
+                    value={email}
+                    setInput={setEmail}
+                ></Input>
+                <Input
+                    type="password"
+                    name="password"
+                    label="Password"
+                    icon={PasswordLogo}
+                    value={password}
+                    setInput={setPassword}
+                ></Input>
+                <Input
+                    type="password"
+                    name="confirm-password"
+                    label="Confirm Password"
+                    icon={PasswordLogo}
+                    value={confirmedPassword}
+                    setInput={setConfirmedPassword}
+                ></Input>
+                <Input
+                    type="text"
+                    name="phone-number"
+                    label="Phone Number"
+                    icon={PhoneIcon}
+                    value={phoneNumber}
+                    setInput={setPhoneNumber}
+                ></Input>
             </div>
+            <button onClick={handleFillInMoreInfo}>Fill In More Info</button>
             <p className="have-account">
                 Already have an account ? <Link to={"/login"}>Log in</Link>
             </p>
