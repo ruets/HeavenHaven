@@ -1,0 +1,22 @@
+@import "../../assets/scss/base/colors";
+
+div.index {
+    div.section-1 {
+        position: relative;
+
+        img {
+            width: 100%;
+        }
+
+        div.title {
+            position: absolute;
+            top: 10rem;
+            left: 8rem;
+        }
+
+        h1 {
+            color: $dark;
+            font-size: 5rem;
+        }
+    }
+}
