@@ -1,3 +1,4 @@
+import { IndexPage } from "./pages/Index/IndexPage";
 import { LoginPage } from "./pages/Connection/Login/LoginPage";
 import { SignupPage } from "./pages/Connection/Signup/SignupPage";
 import { SignupFillPage } from "./pages/Connection/SignupFill/SignupFillPage";
@@ -14,7 +15,7 @@ function App() {
         <div className="App">
             <Header />
             <Routes>
-                <Route path="/" element={<LoginPage />} />
+                <Route path="/" element={<IndexPage />} />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="forgot" element={<ForgotPage />} />
                 <Route path="signup" element={<SignupPage />} />
