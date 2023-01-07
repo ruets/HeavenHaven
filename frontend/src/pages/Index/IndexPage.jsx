@@ -12,6 +12,9 @@ export function IndexPage() {
                     <h1 className="title-3">islands auctions</h1>
                 </div>
             </div>
+            <div className="section">
+                <h2>Trending</h2>
+            </div>
         </div>
     );
 }

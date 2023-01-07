@@ -28,28 +28,32 @@ export function LoginForm() {
         }
     }, [setErrorMessageEmail, email]);
 
+    const postData = async () => {
+        try {
+            const res = await axios.post(
+                "http://127.0.0.1:3000/api/auth/login",
+                {
+                    email: email,
+                    password: password,
+                }
+            );
+
+            // handle success
+            alert("Token d'authentification : " + response.data.token);
+            setErrorMessagePassword("");
+        } catch (error) {
+            // handle error
+            console.error(error);
+        }
+    };
+
     const onSubmitForm = useCallback(
         (e) => {
             e.preventDefault();
             validateEmailFieldValue();
             if (errorMessageEmail === "") {
                 console.log("Trying to connect");
-                axios
-                    .post("http://127.0.0.1:3000/api/auth/login", {
-                        email: email,
-                        password: password,
-                    })
-                    .then(function (response) {
-                        // handle success
-                        alert(
-                            "Token d'authentification : " + response.data.token
-                        );
-                        setErrorMessagePassword("");
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        setErrorMessagePassword(error.response.data.error);
-                    });
+                postData();
             }
         },
         [
