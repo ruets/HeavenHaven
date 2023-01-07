@@ -7,10 +7,11 @@ import { useState } from "react";
 export function IndexPage() {
     const [trendingIslands, setTrendingIslands] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isErrorThrown, setIsErrorThrown] = useState(false);
 
     const getTrendingIslands = async () => {
         try {
-            let res = await axios.get("https://reqres.in/api/users?page=2");
+            let res = await axios.get("https://reqr");
             const data = res.data.data;
             const islands = data.map((island) => {
                 return (
@@ -22,7 +23,7 @@ export function IndexPage() {
             setTrendingIslands(islands);
             setIsLoading(false);
         } catch (error) {
-            console.error(error);
+            setIsErrorThrown(true);
         }
     };
 
@@ -30,7 +31,9 @@ export function IndexPage() {
         getTrendingIslands();
     }, []);
 
-    if (isLoading) {
+    if (isErrorThrown) {
+        return <h1>Please excuse us, an error occured.</h1>;
+    } else if (isLoading) {
         return <h1>Is loading</h1>;
     }
 
