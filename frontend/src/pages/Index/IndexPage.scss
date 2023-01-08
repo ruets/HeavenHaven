@@ -45,4 +45,22 @@ div.index {
             animation: 1s ease-out 0.8s 1 slideInLeft;
         }
     }
+
+    div.section-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+            margin: 20px 0 40px 0;
+        }
+
+        div.islands {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 16px 52px;
+            margin-bottom: 60px;
+        }
+    }
 }

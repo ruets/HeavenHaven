@@ -1,5 +1,6 @@
 import "./IndexPage.scss";
 import MainImage from "../../assets/img/index-main-img.png";
+import IslandCard from "../../components/card/IslandCard";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -11,15 +12,11 @@ export function IndexPage() {
 
     const getTrendingIslands = async () => {
         try {
+            // TODO Change URL to our API
             let res = await axios.get("https://reqres.in/api/users?page=2");
             const data = res.data.data;
             const islands = data.map((island) => {
-                return (
-                    // TODO Change to  IslandCard component
-                    <div key={island.id}>
-                        {island.id} : {island.email}
-                    </div>
-                );
+                return <IslandCard key={island.id} />;
             });
             setTrendingIslands(islands);
             setIsLoading(false);
@@ -48,7 +45,7 @@ export function IndexPage() {
                     <h1 className="title-3">islands auctions</h1>
                 </div>
             </div>
-            <div className="section">
+            <div className="section-2">
                 <h2>Trending</h2>
                 <div className="islands">{trendingIslands}</div>
             </div>
