@@ -11,10 +11,11 @@ export function IndexPage() {
 
     const getTrendingIslands = async () => {
         try {
-            let res = await axios.get("https://reqr");
+            let res = await axios.get("https://reqres.in/api/users?page=2");
             const data = res.data.data;
             const islands = data.map((island) => {
                 return (
+                    // TODO Change to  IslandCard component
                     <div key={island.id}>
                         {island.id} : {island.email}
                     </div>
