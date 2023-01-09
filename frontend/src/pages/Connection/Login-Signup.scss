@@ -7,19 +7,11 @@ div.App {
     align-items: center;
     z-index: -1;
 
-    div.layout {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: calc(100vh - 68px);
-        width: 100%;
-
-        div.content {
+    div.content {
             position: relative;
             display: flex;
             align-items: center;
-            height: 95%;
+            height: 85%;
 
             img.login-img {
                 height: 100%;
@@ -36,4 +28,3 @@ div.App {
             }
         }
     }
-}
