@@ -45,38 +45,5 @@ nav {
             padding: 8px 24px 8px 24px;
             transition: 0.2s;
         }
-
-        a.btn-1 {
-            background: $cta;
-
-            &:hover {
-                border-color: rgba($color: $dark, $alpha: 0.5);
-                background: $cta-hover;
-            }
-        }
-
-        a.btn-2 {
-            position: relative;
-
-            &:before {
-                content: "";
-                height: 0%;
-                width: 100%;
-                position: absolute;
-                z-index: -1;
-                bottom: 0px;
-                left: 0;
-                background: $cta-hover;
-                transition: 0.2s;
-            }
-
-            &:hover::before {
-                height: 100%;
-            }
-
-            &:hover {
-                border-color: rgba($color: $dark, $alpha: 0.5);
-            }
-        }
     }
 }

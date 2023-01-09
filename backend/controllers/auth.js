@@ -65,13 +65,13 @@ exports.login = async (req, res, next) => {
             if (!user) {
                 return res
                     .status(401)
-                    .json({ error: "User or password incorrect !" });
+                    .json({ error: "Email or password incorrect !" });
             }
             
             let valid = await bcrypt.compare(req.body.password, user.password)
             
             if (!valid) {
-                return res.status(401).json({ error: "User or password incorrect !" });
+                return res.status(401).json({ error: "Email or password incorrect !" });
             }
 
             res.status(200).json({

@@ -1,1 +1,10 @@
 @import "../Login-Signup.scss";
+
+div.login {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(145vh - 68px);
+}

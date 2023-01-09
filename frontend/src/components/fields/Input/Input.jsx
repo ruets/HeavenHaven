@@ -4,7 +4,7 @@ function Input(props) {
     return (
         <div className="global-input">
             <div className="input">
-            {props.icon ? <img src={props.icon} alt="Logo" /> : null}
+                {props.icon ? <img src={props.icon} alt="Logo" /> : null}
                 <input
                     name={props.name}
                     type={props.type}
@@ -12,13 +12,14 @@ function Input(props) {
                     value={props.value}
                     placeholder={props.label}
                     onBlur={props.onBlur ? props.onBlur : null}
+                    multiple={props.accept ? multiple : null}
                     required
                 />
             </div>
             <div className="error">
-            {props.errorMessage && props.errorMessage !== "" ? (
-                <p>{props.errorMessage}</p>
-            ) : null}
+                {props.errorMessage && props.errorMessage !== "" ? (
+                    <p>{props.errorMessage}</p>
+                ) : null}
             </div>
         </div>
     );

@@ -4,10 +4,10 @@ import "./LoginPage.scss";
 
 export function LoginPage() {
     return (
-        <div className="layout">
+        <div className="login">
             <div className="content">
-            <LoginForm></LoginForm>
-            <img src={LoginImage} alt="Island" className="login-img" />
+                <LoginForm></LoginForm>
+                <img src={LoginImage} alt="Island" className="login-img" />
             </div>
         </div>
     );

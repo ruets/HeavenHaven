@@ -28,26 +28,29 @@ export function LoginForm() {
         }
     }, [setErrorMessageEmail, email]);
 
+    const postData = async () => {
+        try {
+            let res = await axios.post("http://127.0.0.1:3000/api/auth/login", {
+                email: email,
+                password: password,
+            });
+
+            // handle success
+            alert("Token d'authentification : " + res.data.token);
+            setErrorMessagePassword("");
+        } catch (error) {
+            // handle error
+            console.error(error);
+        }
+    };
+
     const onSubmitForm = useCallback(
         (e) => {
             e.preventDefault();
             validateEmailFieldValue();
             if (errorMessageEmail === "") {
                 console.log("Trying to connect");
-                axios
-                    .post("http://127.0.0.1:3000/api/auth/login", {
-                            email: email,
-                            password: password,
-                    })
-                    .then(function (response) {
-                        // handle success
-                        alert("Token d'authentification : " + response.data.token);
-                        setErrorMessagePassword("");
-                    })  
-                    .catch(function (error) {
-                        // handle error
-                        setErrorMessagePassword(error.response.data.error);
-                    });
+                postData();
             }
         },
         [
@@ -63,28 +66,28 @@ export function LoginForm() {
         <form className="login" onSubmit={onSubmitForm}>
             <h1>Log In</h1>
             <div className="fields">
-            <div className="inputs">
-            <Input
-                type="email"
-                name="email"
-                label="Email"
-                icon={EmailLogo}
-                value={email}
-                errorMessage={errorMessageEmail}
-                onBlur={validateEmailFieldValue}
-                setInput={setEmail}
-            ></Input>
-                <Input
-                    type="password"
-                    name="password"
-                    label="Password"
-                    icon={PasswordLogo}
-                    value={password}
-                    errorMessage={errorMessagePassword}
-                    setInput={setPassword}
-                ></Input>
-            </div>
-            <Link to="/forgot">Forgot Password ?</Link>
+                <div className="inputs">
+                    <Input
+                        type="email"
+                        name="email"
+                        label="Email"
+                        icon={EmailLogo}
+                        value={email}
+                        errorMessage={errorMessageEmail}
+                        onBlur={validateEmailFieldValue}
+                        setInput={setEmail}
+                    ></Input>
+                    <Input
+                        type="password"
+                        name="password"
+                        label="Password"
+                        icon={PasswordLogo}
+                        value={password}
+                        errorMessage={errorMessagePassword}
+                        setInput={setPassword}
+                    ></Input>
+                </div>
+                <Link to="/forgot">Forgot Password ?</Link>
             </div>
             <button type="submit">Sign In</button>
             <p className="no-account">

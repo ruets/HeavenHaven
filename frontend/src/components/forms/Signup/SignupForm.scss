@@ -4,7 +4,7 @@ form.signup {
     div.form-steps {
         display: flex;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 16px;
 
         span.ball-filled,
         span.ball-unfilled {
@@ -18,10 +18,17 @@ form.signup {
             background: $dark;
         }
 
-        span.line {
+        span.line-unfilled, span.line-filled {
             width: 140px;
             height: 4px;
+        }
+
+        span.line-unfilled {
             background: $grey;
+        }
+
+        span.line-filled {
+            background: $dark;
         }
 
         span.ball-unfilled {
@@ -29,20 +36,16 @@ form.signup {
         }
     }
 
-    p.description {
-        font-family: "Poppins";
-        color: $dark;
-        font-weight: 500;
-        width: 480px;
-        text-align: center;
-        font-size: 20px;
-        line-height: 30px;
+    h1 {
+        margin: 12px 0 20px 0;
+        font-family: 'Poppins';
     }
 
     div.names {
         display: flex;
         gap: 12px;
         width: 90%;
+        margin-bottom: 8px;
 
         div.global-input {
             width: 50%;
@@ -53,12 +56,31 @@ form.signup {
         }
     }
 
-    div.buttons {
+    div.fields {
         display: flex;
-        gap: 12px;
+        flex-direction: column;
+        gap: 8px;
+        width: 90%;
+        margin-bottom: 12px;
+    }
 
-        button {
-            width: 244px;
-        }
+    div.checkbox {
+        width: 90%;
+    }
+
+    input.checkbox {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+
+    label.checkbox {
+        font-size: 15px;
+        color: $dark;
+    }
+
+    button {
+        width: 244px;
+        margin: 16px 0 12px 0;
     }
 }
