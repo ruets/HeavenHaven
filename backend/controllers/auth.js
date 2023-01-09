@@ -34,12 +34,12 @@ exports.signup = (req, res, next) => {
         }})
         .then(user => {
             if (!user) {
-                return res.status(401).json({ error: 'User or password incorrect !' });
+                return res.status(401).json({ error: 'Email or password incorrect !' });
             }
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(401).json({ error: 'User or password incorrect !' });
+                        return res.status(401).json({ error: 'Email or password incorrect !' });
                     }
                     res.status(200).json({
                         userId: user.id,

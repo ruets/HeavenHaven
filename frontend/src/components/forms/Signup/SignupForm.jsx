@@ -23,6 +23,15 @@ export function SignupForm() {
     const [confirmedPassword, setConfirmedPassword] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
 
+    const [affiliationCode, setAffiliationCode] = useState("");
+    const [idCard, setIdCard] = useState(null);
+    const [idCardName, setIdCardName] = useState("");
+    const [country, setCountry] = useState("");
+    const [streetAdress, setStreetAdress] = useState("");
+    const [apartment, setApartment] = useState("");
+    const [city, setCity] = useState("");
+    const [zipCode, setZipCode] = useState("");
+
     const handleFillIn = useCallback((e) => {
         // Check if errors in fields
         e.preventDefault();
@@ -38,7 +47,7 @@ export function SignupForm() {
         console.log("Post user data to API");
     });
 
-    if (isFirstPage) {
+    if (!isFirstPage) {
         return (
             <form className="signup" onSubmit={handleFillIn}>
                 <div className="form-steps">
@@ -116,9 +125,44 @@ export function SignupForm() {
                     <span className="ball-filled"></span>
                 </div>
                 <h1>Sign Up</h1>
-                <p className="description">
-                    The following information can be provided later.
-                </p>
+                <div className="fields">
+                    <Input
+                        type="text"
+                        name="affiliation"
+                        label="Affiliation Code"
+                        value={affiliationCode}
+                        setInput={setAffiliationCode}
+                    />
+                    <div className="global-input">
+                        <div className="input">
+                            <input
+                            type="file"
+                            name="id-card"
+                            label="Id Card (max 8 Mo)"
+                            value={idCard}
+                            setInput={setIdCard}
+                            accept=".jpg,.jpeg,.png"
+                            required
+                            multiple
+                            className="id-card"
+                            />
+                        </div>
+                    </div>
+
+                        <select name="countries" id="countries-select" onChange={(event) => props.setCountry(event.target.value)} required>
+                            <option value="" selected="true" disabled="disabled">Country</option>
+                            <option value="france">France</option>
+                            <option value="united-states">United States</option>
+                        </select>
+                    <Input
+                        type="text"
+                        name="phone-number"
+                        label="Phone Number"
+                        icon={PhoneIcon}
+                        value={phoneNumber}
+                        setInput={setPhoneNumber}
+                    ></Input>
+                </div>
                 <div className="buttons">
                     <button onClick={handleBack}>Back</button>
                     <button onClick={onSubmitForm}>Sign Up</button>
