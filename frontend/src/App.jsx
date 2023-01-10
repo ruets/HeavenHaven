@@ -9,7 +9,7 @@ import { Header } from "./components/base/Header/Header";
 import { Footer } from "./components/base/Footer/Footer";
 import { Routes, Route } from "react-router-dom";
 import "./assets/scss/style.scss";
-import "./app.scss";
+import "./App.scss";
 
 function App() {
     return (

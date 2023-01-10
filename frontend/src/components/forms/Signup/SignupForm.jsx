@@ -11,7 +11,6 @@ import UploadLogo from "../../../assets/img/signup-upload-icon.svg"
 
 // Style
 import "./SignupForm.scss";
-import { useEffect } from "react";
 
 export function SignupForm() {
     const navigate = useNavigate();
@@ -44,6 +43,16 @@ export function SignupForm() {
         setIsFirstPage(false);
     })
 
+    const validateEmailFieldValue = useCallback(() => {
+        const isEmailInputValid =
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+        if (!isEmailInputValid) {
+            setErrorMessageEmail("The email adress format is not correct.");
+        } else {
+            setErrorMessageEmail("");
+        }
+    }, [setErrorMessageEmail, email]);
+
     const handleBack = useCallback(() => {
         setIsFirstPage(true);
     })
@@ -53,6 +62,7 @@ export function SignupForm() {
     })
 
     const handleFileChange = e => {
+        setIdCard(e.target.value)
         const files = e.target.files;
         const num = files.length - 1
         if (files.length > 1) {
@@ -67,7 +77,7 @@ export function SignupForm() {
         console.log("Post user data to API");
     });
 
-    if (!isFirstPage) {
+    if (isFirstPage) {
         return (
             <form className="signup" onSubmit={handleFillIn}>
                 <div className="form-steps">
@@ -171,7 +181,7 @@ export function SignupForm() {
                             />
                         </div>
                     </div>
-                        <select name="countries" id="countries-select" defaultValue={""} onChange={(event) => props.setCountry(event.target.value)} required>
+                        <select name="countries" id="countries-select" defaultValue={""} onChange={(event) => setCountry(event.target.value)} required>
                             <option value="" disabled="disabled">Country</option>
                             <option value="france">France</option>
                             <option value="united-states">United States</option>

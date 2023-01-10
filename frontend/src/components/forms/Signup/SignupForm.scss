@@ -99,6 +99,7 @@ form.signup-fill {
 
         div.input {
             position: relative;
+            
             button {
                 position: absolute;
                 cursor: pointer;
@@ -140,11 +141,20 @@ form.signup-fill {
                     inset 5px 5px 13px rgba(186, 182, 182, 0.9);
                 border-radius: 10px;
                 border: 0;
-                padding: 0 12px 0 12px;
+                padding: 0 24px 0 12px;
                 font-size: 20px;
                 font-weight: 500;
                 font-family: "Poppins";
                 vertical-align: center;
+                appearance: none;
+                background-image: url(../../../assets/img/arrow-down-icon.svg);
+                background-size: 20px;
+                background-repeat: no-repeat;
+                background-position: calc(100% - 26px) center;
+        }
+
+        select select {
+            display: none;
         }
     }
 
