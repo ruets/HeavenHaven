@@ -24,7 +24,7 @@ export function SignupForm() {
     const [phoneNumber, setPhoneNumber] = useState("");
 
     const [affiliationCode, setAffiliationCode] = useState("");
-    const [idCard, setIdCard] = useState(null);
+    const [idCard, setIdCard] = useState(undefined);
     const [idCardName, setIdCardName] = useState("");
     const [country, setCountry] = useState("");
     const [streetAdress, setStreetAdress] = useState("");
@@ -56,7 +56,7 @@ export function SignupForm() {
                     <span className="ball-unfilled"></span>
                 </div>
                 <h1>Sign Up</h1>
-                <div className="names">
+                <div className="doubled-inputs">
                     <Input
                         name="first-name"
                         type="text"
@@ -118,7 +118,7 @@ export function SignupForm() {
         );
     } else {
         return (
-            <form className="signup" onSubmit={onSubmitForm}>
+            <form className="signup-fill" onSubmit={onSubmitForm}>
                 <div className="form-steps">
                     <span className="ball-filled"></span>
                     <span className="line-filled"></span>
@@ -148,21 +148,43 @@ export function SignupForm() {
                             />
                         </div>
                     </div>
-
-                        <select name="countries" id="countries-select" onChange={(event) => props.setCountry(event.target.value)} required>
-                            <option value="" selected="true" disabled="disabled">Country</option>
+                        <select name="countries" id="countries-select" defaultValue={""} onChange={(event) => props.setCountry(event.target.value)} required>
+                            <option value="" disabled="disabled">Country</option>
                             <option value="france">France</option>
                             <option value="united-states">United States</option>
                         </select>
                     <Input
                         type="text"
-                        name="phone-number"
-                        label="Phone Number"
-                        icon={PhoneIcon}
-                        value={phoneNumber}
-                        setInput={setPhoneNumber}
+                        name="street-adress"
+                        label="Street Adress"
+                        value={streetAdress}
+                        setInput={setStreetAdress}
+                    ></Input>
+                    <Input
+                        type="text"
+                        name="street-adress"
+                        label="Apt, suite, etc (optional)"
+                        value={apartment}
+                        setInput={setApartment}
+                        required={false}
                     ></Input>
                 </div>
+                <div className="doubled-inputs">
+                    <Input
+                        type="text"
+                        name="City"
+                        label="City"
+                        value={city}
+                        setInput={setCity}
+                    ></Input>
+                    <Input
+                        type="text"
+                        name="zip-code"
+                        label="Zip Code"
+                        value={zipCode}
+                        setInput={setZipCode}
+                    ></Input>
+                    </div>
                 <div className="buttons">
                     <button onClick={handleBack}>Back</button>
                     <button onClick={onSubmitForm}>Sign Up</button>

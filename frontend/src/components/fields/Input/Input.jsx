@@ -13,7 +13,7 @@ function Input(props) {
                     placeholder={props.label}
                     onBlur={props.onBlur ? props.onBlur : null}
                     multiple={props.accept ? multiple : null}
-                    required
+                    required={props.required ? props.required : true}
                 />
             </div>
             <div className="error">

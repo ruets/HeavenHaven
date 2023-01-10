@@ -1,6 +1,6 @@
 @import "../../../assets/scss/base/colors";
 
-form.signup {
+form.signup, form.signup-fill {
     div.form-steps {
         display: flex;
         align-items: center;
@@ -41,7 +41,7 @@ form.signup {
         font-family: 'Poppins';
     }
 
-    div.names {
+    div.doubled-inputs {
         display: flex;
         gap: 12px;
         width: 90%;
@@ -61,7 +61,6 @@ form.signup {
         flex-direction: column;
         gap: 8px;
         width: 90%;
-        margin-bottom: 12px;
     }
 
     div.checkbox {
@@ -82,5 +81,20 @@ form.signup {
     button {
         width: 244px;
         margin: 16px 0 12px 0;
+    }
+}
+
+form.signup {
+    div.fields {
+        margin-bottom: 12px;
+    }
+}
+
+form.signup-fill {
+    div.fields {
+        margin-bottom: 8px;
+        input {
+            padding-left: 16px;
+        }
     }
 }
