@@ -3,7 +3,7 @@ import { LoginPage } from "./pages/Connection/Login/LoginPage";
 import { SignupPage } from "./pages/Connection/Signup/SignupPage";
 import { ForgotPage } from "./pages/Forgot/ForgotPage";
 import { SellingPage } from "./pages/Selling/SellingPage/SellingPage"
-import {ContactPage} from "./pages/Contact/ContactPage";
+import { ContactPage } from "./pages/Contact/ContactPage";
 import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 import { Header } from "./components/base/Header/Header";
 import { Footer } from "./components/base/Footer/Footer";
