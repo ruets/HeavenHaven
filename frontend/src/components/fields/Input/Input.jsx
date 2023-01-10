@@ -1,4 +1,4 @@
-import "./input.scss";
+import "./Input.scss";
 
 function Input(props) {
     return (
