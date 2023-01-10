@@ -135,12 +135,14 @@ export function SignupForm() {
                     />
                     <div className="global-input">
                         <div className="input">
+                        <label htmlFor="id-card">Id Card (max 8 Mo)</label>
+                            <input type="text" name="id-card"/>
                             <input
                             type="file"
-                            name="id-card"
+                            name="id-card-upload"
                             label="Id Card (max 8 Mo)"
                             value={idCard}
-                            setInput={setIdCard}
+                            onChange={e => setIdCard(e.target.value)}
                             accept=".jpg,.jpeg,.png"
                             required
                             multiple
