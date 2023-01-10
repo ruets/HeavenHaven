@@ -135,8 +135,7 @@ export function SignupForm() {
                     />
                     <div className="global-input">
                         <div className="input">
-                        <label htmlFor="id-card">Id Card (max 8 Mo)</label>
-                            <input type="text" name="id-card"/>
+                            <input type="text" name="id-card" placeholder="Id Card (max 8 Mo)" className="id-card" readOnly/>
                             <input
                             type="file"
                             name="id-card-upload"
@@ -146,7 +145,7 @@ export function SignupForm() {
                             accept=".jpg,.jpeg,.png"
                             required
                             multiple
-                            className="id-card"
+                            className="id-card-upload"
                             />
                         </div>
                     </div>
