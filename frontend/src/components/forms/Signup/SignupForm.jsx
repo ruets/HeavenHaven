@@ -7,7 +7,7 @@ import Input from "../../fields/Input/Input";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
 import PhoneIcon from "../../../assets/img/phone-icon.svg";
-import UploadLogo from "../../../assets/img/signup-upload-icon.svg"
+import UploadLogo from "../../../assets/img/signup-upload-icon.svg";
 
 // Style
 import "./SignupForm.scss";
@@ -17,17 +17,20 @@ export function SignupForm() {
 
     const [isFirstPage, setIsFirstPage] = useState(true);
 
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [errorMessageNames, setErrorMessageNames] = useState("");
 
     const [email, setEmail] = useState("");
-    const [errorMessageEmail, setErrorMessageEmail] = useState("");
+    const [errorMessageEmail, setErrorMessageEmail] = useState([]);
 
     const [password, setPassword] = useState("");
-    const [errorMessagePassword, setErrorMessagePassword] = useState([]);
+    const [errorMessagesPassword, setErrorMessagesPassword] = useState("");
 
     const [confirmedPassword, setConfirmedPassword] = useState("");
+
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [errorMessagePhoneNumber, setErrorMessagePhoneNumber] = useState("");
 
     const [affiliationCode, setAffiliationCode] = useState("");
 
@@ -46,9 +49,20 @@ export function SignupForm() {
         // Check if errors in fields
         e.preventDefault();
         setIsFirstPage(false);
-    })
+    });
+
+    const validateNames = useCallback(() => {
+        const isNamesInputsValid =
+            /^[a-zA-Z]+$/.test(firstName) && /^[a-zA-Z]+$/.test(lastName);
+        if (!isNamesInputsValid) {
+            setErrorMessageNames("Your names must only contains letters");
+        } else {
+            setErrorMessageNames("");
+        }
+    }, [setErrorMessageNames, firstName, lastName]);
 
     const validateEmailFieldValue = useCallback(() => {
+        console.log(email);
         const isEmailInputValid =
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
         if (!isEmailInputValid) {
@@ -59,37 +73,83 @@ export function SignupForm() {
     }, [setErrorMessageEmail, email]);
 
     const validatePassword = useCallback(() => {
-        let errorArray = errorMessagePassword;
-        if (password.length < 8) {
-            errorArray.push("Your password must have at least 8 characters.")
-        } else if (password.search[/a-z/i] < 1) {
-            errorArray.push("Your password must contain at least 1 upper case character.")
-        } else if (password.search[/A-Z/i] < 1) {
-            errorArray.push("Your password must contain at least 1 lower case character.")
-        } else if (password.search[/0-9/] < 1) {
-            errorArray.push("Your password must contain at least 1 number.")
+        let errorArray = [];
+        console.log(password);
+        if (
+            password.length > 8 &&
+            password.search[/a-z/i] > 1 &&
+            password.search[/A-Z/i] > 1 &&
+            password.search[/0-9/] > 1
+        ) {
+            setErrorMessagesPassword("");
+        } else {
+            setErrorMessagesPassword("");
+
+            if (password.length < 8) {
+                errorArray.push(
+                    <p key={0}>
+                        Your password must have at least 8 characters.
+                    </p>
+                );
+            }
+
+            if (password.search[/a-z/i] < 1) {
+                errorArray.push(
+                    <p key={1}>
+                        Your password must contain at least 1 upper case
+                        character.
+                    </p>
+                );
+            }
+
+            if (password.search[/A-Z/i] < 1) {
+                errorArray.push(
+                    <p key={2}>
+                        Your password must contain at least 1 lower case
+                        character.
+                    </p>
+                );
+            }
+
+            if (password.search[/0-9/] < 1) {
+                errorArray.push(
+                    <p key={3}>Your password must contain at least 1 number.</p>
+                );
+            }
+
+            setErrorMessagesPassword(errorArray);
         }
-        setErrorMessageEmail(errorArray)
-    }, [setErrorMessagePassword, password])
+    }, [setErrorMessagesPassword]);
+
+    const validatePhoneNumber = useCallback(() => {
+        const isPhoneNumberValid = /^[0-9]+$/.test(phoneNumber);
+        if (!isPhoneNumberValid) {
+            setErrorMessagePhoneNumber(
+                "The phone number must only contain numbers"
+            );
+        } else {
+            setErrorMessagePhoneNumber("");
+        }
+    }, [setErrorMessagePhoneNumber, phoneNumber]);
 
     const handleBack = useCallback(() => {
         setIsFirstPage(true);
-    })
+    });
 
-    const handleOnUploadButtonClick = useCallback(()=> {
+    const handleOnUploadButtonClick = useCallback(() => {
         hiddenFileInput.current.click();
-    })
+    });
 
-    const handleFileChange = e => {
-        setIdCard(e.target.value)
+    const handleFileChange = (e) => {
+        setIdCard(e.target.value);
         const files = e.target.files;
-        const num = files.length - 1
+        const num = files.length - 1;
         if (files.length > 1) {
             setIdCardName(files[0].name + " + " + num.toString());
         } else {
             setIdCardName(files[0].name);
         }
-    }
+    };
 
     const onSubmitForm = useCallback(() => {
         console.log("Data verification");
@@ -119,7 +179,13 @@ export function SignupForm() {
                         value={lastName}
                         label="Last Name"
                         setInput={setLastName}
+                        onBlur={validateNames}
                     ></Input>
+                </div>
+                <div className="error">
+                    {errorMessageNames !== "" ? (
+                        <p>{errorMessageNames}</p>
+                    ) : null}
                 </div>
                 <div className="fields">
                     <Input
@@ -129,6 +195,8 @@ export function SignupForm() {
                         icon={EmailLogo}
                         value={email}
                         setInput={setEmail}
+                        onBlur={validateEmailFieldValue}
+                        errorMessage={errorMessageEmail}
                     ></Input>
                     <Input
                         type="password"
@@ -137,7 +205,9 @@ export function SignupForm() {
                         icon={PasswordLogo}
                         value={password}
                         setInput={setPassword}
+                        onBlur={validatePassword}
                     ></Input>
+                    {errorMessagesPassword}
                     <Input
                         type="password"
                         name="confirm-password"
@@ -153,13 +223,25 @@ export function SignupForm() {
                         icon={PhoneIcon}
                         value={phoneNumber}
                         setInput={setPhoneNumber}
+                        onBlur={validatePhoneNumber}
+                        errorMessage={errorMessagePhoneNumber}
                     ></Input>
                 </div>
                 <div className="checkbox">
-                <input type="checkbox"  name="accept-privacy" className="checkbox" required/>
-                <label htmlFor="accept-privacy" className="checkbox">I have read and agree to the Privacy Policy, heavenhaven.com Terms & Conditions and Terms of Service</label>
+                    <input
+                        type="checkbox"
+                        name="accept-privacy"
+                        className="checkbox"
+                        required
+                    />
+                    <label htmlFor="accept-privacy" className="checkbox">
+                        I have read and agree to the Privacy Policy,
+                        heavenhaven.com Terms & Conditions and Terms of Service
+                    </label>
                 </div>
-                <button className="cta" type="submit">Fill In More Info</button>
+                <button className="cta" type="submit">
+                    Fill In More Info
+                </button>
                 <p className="have-account">
                     Already have an account ? <Link to={"/login"}>Log in</Link>
                 </p>
@@ -184,27 +266,48 @@ export function SignupForm() {
                     />
                     <div className="global-input">
                         <div className="input">
-                            <input type="text" name="id-card" ref={labelForFileInput} value={idCardName} placeholder="Id Card (max 8 Mo)" className="id-card" onClick={handleOnUploadButtonClick} readOnly/>
-                            <button className="upload-btn" onClick={handleOnUploadButtonClick}><img src={ UploadLogo } alt="" /></button>
                             <input
-                            type="file"
-                            ref={hiddenFileInput}
-                            name="id-card-upload"
-                            label="Id Card (max 8 Mo)"
-                            value={idCard}
-                            onChange={handleFileChange}
-                            accept=".jpg,.jpeg,.png"
-                            required
-                            multiple
-                            className="id-card-upload"
+                                type="text"
+                                name="id-card"
+                                ref={labelForFileInput}
+                                value={idCardName}
+                                placeholder="Id Card (max 8 Mo)"
+                                className="id-card"
+                                onClick={handleOnUploadButtonClick}
+                                readOnly
+                            />
+                            <button
+                                className="upload-btn"
+                                onClick={handleOnUploadButtonClick}
+                            >
+                                <img src={UploadLogo} alt="" />
+                            </button>
+                            <input
+                                type="file"
+                                ref={hiddenFileInput}
+                                name="id-card-upload"
+                                label="Id Card (max 8 Mo)"
+                                value={idCard}
+                                onChange={handleFileChange}
+                                accept=".jpg,.jpeg,.png"
+                                required
+                                multiple
+                                className="id-card-upload"
                             />
                         </div>
                     </div>
-                        <select name="countries" id="countries-select" onChange={(event) => setCountry(event.target.value)} required>
-                            <option value="" disabled="disabled">Country</option>
-                            <option value="france">France</option>
-                            <option value="united-states">United States</option>
-                        </select>
+                    <select
+                        name="countries"
+                        id="countries-select"
+                        onChange={(event) => setCountry(event.target.value)}
+                        required
+                    >
+                        <option value="" disabled="disabled">
+                            Country
+                        </option>
+                        <option value="france">France</option>
+                        <option value="united-states">United States</option>
+                    </select>
                     <Input
                         type="text"
                         name="street-adress"
@@ -236,10 +339,14 @@ export function SignupForm() {
                         value={zipCode}
                         setInput={setZipCode}
                     ></Input>
-                    </div>
+                </div>
                 <div className="buttons">
-                    <button className="cta" onClick={handleBack}>Back</button>
-                    <button className="cta" type="submit">Sign Up</button>
+                    <button className="cta" onClick={handleBack}>
+                        Back
+                    </button>
+                    <button className="cta" type="submit">
+                        Sign Up
+                    </button>
                 </div>
                 <p className="have-account">
                     Already have an account ? <Link to={"/login"}>Log in</Link>
