@@ -1,0 +1,26 @@
+@import "../../../assets/scss/base/colors";
+
+form.contact {
+    
+    h1 {
+        margin: 52px 0 0 0;
+    }
+
+    p {
+        font-family: 'Poppins';
+        margin-bottom: 120px;
+    }
+
+    div.fields {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 90%;
+    
+        div.inputs-1 {
+        display : flex;
+        flex-direction: row;
+        }
+    
+    }
+}

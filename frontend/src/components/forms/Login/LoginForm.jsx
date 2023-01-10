@@ -67,7 +67,7 @@ export function LoginForm() {
             <h1>Log In</h1>
             <div className="fields">
                 <div className="inputs">
-                    <Input
+                    <Input className = "name"
                         type="email"
                         name="email"
                         label="Email"
@@ -77,7 +77,7 @@ export function LoginForm() {
                         onBlur={validateEmailFieldValue}
                         setInput={setEmail}
                     ></Input>
-                    <Input
+                    <Input className = "email"
                         type="password"
                         name="password"
                         label="Password"
