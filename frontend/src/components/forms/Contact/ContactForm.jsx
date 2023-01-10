@@ -8,7 +8,7 @@ export function ContactForm() {
             <p>Get in touch and let us know how we can help</p>
             <div className="fields">
                 <div className="inputs-1">
-                <Input type="name"
+                <Input type="text"
                         name="name"
                         label="Name">
                 </Input>
@@ -17,11 +17,11 @@ export function ContactForm() {
                         label="E-mail">
                 </Input>
                 </div>
-                <Input type="topic"
+                <Input type="text"
                         name="topic"
                         label="Topic">
                 </Input>
-                <Input type="messag"
+                <Input type="text"
                         name="message"
                         label="Your message">
                 </Input>
