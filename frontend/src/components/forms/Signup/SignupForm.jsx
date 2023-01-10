@@ -24,6 +24,9 @@ export function SignupForm() {
     const [phoneNumber, setPhoneNumber] = useState("");
 
     const [affiliationCode, setAffiliationCode] = useState("");
+
+    const hiddenFileInput = React.useRef(null);
+
     const [idCard, setIdCard] = useState(undefined);
     const [idCardName, setIdCardName] = useState("");
     const [country, setCountry] = useState("");
@@ -40,6 +43,10 @@ export function SignupForm() {
 
     const handleBack = useCallback(() => {
         setIsFirstPage(true);
+    })
+
+    const handleOnUploadButtonClick = useCallback(()=> {
+        hiddenFileInput.current.click();
     })
 
     const onSubmitForm = useCallback(() => {
@@ -135,9 +142,10 @@ export function SignupForm() {
                     />
                     <div className="global-input">
                         <div className="input">
-                            <input type="text" name="id-card" placeholder="Id Card (max 8 Mo)" className="id-card" readOnly/>
+                            <input type="text" name="id-card" placeholder="Id Card (max 8 Mo)" className="id-card" onClick={handleOnUploadButtonClick} readOnly/>
                             <input
                             type="file"
+                            ref={hiddenFileInput}
                             name="id-card-upload"
                             label="Id Card (max 8 Mo)"
                             value={idCard}
