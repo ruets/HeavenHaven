@@ -39,12 +39,13 @@ div.global-input {
             }
         }
     }
+}
 
-    div.error {
+div.error {
+    width: 90%;
         p {
             margin-top: 8px;
             height: 23px;
             color: red;
         }
     }
-}

@@ -22,10 +22,10 @@ export function SignupForm() {
     const [errorMessageNames, setErrorMessageNames] = useState("");
 
     const [email, setEmail] = useState("");
-    const [errorMessageEmail, setErrorMessageEmail] = useState([]);
+    const [errorMessageEmail, setErrorMessageEmail] = useState("");
 
     const [password, setPassword] = useState("");
-    const [errorMessagesPassword, setErrorMessagesPassword] = useState("");
+    const [errorMessagesPassword, setErrorMessagesPassword] = useState([]);
 
     const [confirmedPassword, setConfirmedPassword] = useState("");
 
@@ -61,8 +61,7 @@ export function SignupForm() {
         }
     }, [setErrorMessageNames, firstName, lastName]);
 
-    const validateEmailFieldValue = useCallback(() => {
-        console.log(email);
+    const validateEmail = useCallback(() => {
         const isEmailInputValid =
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
         if (!isEmailInputValid) {
@@ -74,12 +73,12 @@ export function SignupForm() {
 
     const validatePassword = useCallback(() => {
         let errorArray = [];
-        console.log(password);
+        const containsLowercaseLetter = /^(?=.*[a-z])/;
         if (
             password.length > 8 &&
-            password.search[/a-z/i] > 1 &&
-            password.search[/A-Z/i] > 1 &&
-            password.search[/0-9/] > 1
+            password.search[/a-z/i] > 0 &&
+            password.search[/A-Z/i] > 0 &&
+            password.search[/0-9/] > 0
         ) {
             setErrorMessagesPassword("");
         } else {
@@ -93,7 +92,8 @@ export function SignupForm() {
                 );
             }
 
-            if (password.search[/a-z/i] < 1) {
+            if (containsLowercaseLetter.test(password)) {
+                console.log("fezf");
                 errorArray.push(
                     <p key={1}>
                         Your password must contain at least 1 upper case
@@ -102,7 +102,7 @@ export function SignupForm() {
                 );
             }
 
-            if (password.search[/A-Z/i] < 1) {
+            if (password.search[/A-Z/] === -1) {
                 errorArray.push(
                     <p key={2}>
                         Your password must contain at least 1 lower case
@@ -111,7 +111,7 @@ export function SignupForm() {
                 );
             }
 
-            if (password.search[/0-9/] < 1) {
+            if (password.search[/0-9/] === -1) {
                 errorArray.push(
                     <p key={3}>Your password must contain at least 1 number.</p>
                 );
@@ -195,11 +195,11 @@ export function SignupForm() {
                         icon={EmailLogo}
                         value={email}
                         setInput={setEmail}
-                        onBlur={validateEmailFieldValue}
+                        onBlur={validateEmail}
                         errorMessage={errorMessageEmail}
                     ></Input>
                     <Input
-                        type="password"
+                        type="text"
                         name="password"
                         label="Password"
                         icon={PasswordLogo}
@@ -207,7 +207,7 @@ export function SignupForm() {
                         setInput={setPassword}
                         onBlur={validatePassword}
                     ></Input>
-                    {errorMessagesPassword}
+                    {errorMessagesPassword !== [] ? <div className="error">{errorMessagesPassword}</div> : null}
                     <Input
                         type="password"
                         name="confirm-password"
