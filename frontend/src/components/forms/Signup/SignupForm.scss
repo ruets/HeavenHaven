@@ -1,10 +1,10 @@
 @import "../../../assets/scss/base/colors";
 
-form.signup {
+form.signup, form.signup-fill {
     div.form-steps {
         display: flex;
         align-items: center;
-        margin: 20px 0 12px 0;
+        margin-top: 16px;
 
         span.ball-filled,
         span.ball-unfilled {
@@ -18,10 +18,17 @@ form.signup {
             background: $dark;
         }
 
-        span.line {
+        span.line-unfilled, span.line-filled {
             width: 140px;
             height: 4px;
+        }
+
+        span.line-unfilled {
             background: $grey;
+        }
+
+        span.line-filled {
+            background: $dark;
         }
 
         span.ball-unfilled {
@@ -29,18 +36,12 @@ form.signup {
         }
     }
 
-    p.description {
-        font-family: "Poppins";
-        color: $dark;
-        font-weight: 500;
-        width: 90%;
-        text-align: center;
-        font-size: 20px;
-        line-height: 30px;
-        margin: 12px 0 16px 0;
+    h1 {
+        margin: 12px 0 20px 0;
+        font-family: 'Poppins';
     }
 
-    div.names {
+    div.doubled-inputs {
         display: flex;
         gap: 12px;
         width: 90%;
@@ -62,8 +63,95 @@ form.signup {
         width: 90%;
     }
 
+    div.checkbox {
+        width: 90%;
+    }
+
+    input.checkbox {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+
+    label.checkbox {
+        font-size: 15px;
+        color: $dark;
+    }
+}
+
+form.signup {
+    div.fields {
+        margin-bottom: 12px;
+    }
+
     button {
         width: 244px;
         margin: 16px 0 12px 0;
+    }
+}
+
+form.signup-fill {
+    div.fields {
+        margin-bottom: 8px;
+        input {
+            padding-left: 16px;
+        }
+
+        div.input {
+            position: relative;
+            button {
+                position: absolute;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                right: 12px;
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+                background: $cta-hover;
+                box-shadow: -1px 1px 2px rgba(162, 171, 171, 0.2), 1px -1px 2px rgba(162, 171, 171, 0.2), -1px -1px 2px rgba(255, 255, 255, 0.9), 1px 1px 3px rgba(162, 171, 171, 0.9), inset 1px 1px 2px rgba(255, 255, 255, 0.3), inset -1px -1px 2px rgba(162, 171, 171, 0.5);
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+
+        input.id-card {
+            cursor: default;
+        }
+
+        input.id-card-upload {
+            display: none;
+        }
+
+        select {
+                width: 100%;
+                height: 70px;
+                background: $form-light;
+                color: rgba($color: $dark, $alpha: 0.5);
+                box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3),
+                    -1px -1px 2px rgba(186, 182, 182, 0.5),
+                    inset -5px 5px 10px rgba(186, 182, 182, 0.2),
+                    inset 5px -5px 10px rgba(186, 182, 182, 0.2),
+                    inset -5px -5px 10px rgba(255, 255, 255, 0.9),
+                    inset 5px 5px 13px rgba(186, 182, 182, 0.9);
+                border-radius: 10px;
+                border: 0;
+                padding: 0 12px 0 12px;
+                font-size: 20px;
+                font-weight: 500;
+                font-family: "Poppins";
+                vertical-align: center;
+        }
+    }
+
+    div.buttons {
+        width: 90%;
+        display: flex;
+        gap: 12px;
+        margin: 12px 0 16px 0;
     }
 }

@@ -1,9 +1,9 @@
 import { IndexPage } from "./pages/Index/IndexPage";
 import { LoginPage } from "./pages/Connection/Login/LoginPage";
 import { SignupPage } from "./pages/Connection/Signup/SignupPage";
-import { SignupFillPage } from "./pages/Connection/SignupFill/SignupFillPage";
 import { ForgotPage } from "./pages/Forgot/ForgotPage";
-import { SellingPage } from "./pages/Selling/SellingPage/SellingPage";
+import { SellingPage } from "./pages/Selling/SellingPage/SellingPage"
+import { ContactPage } from "./pages/Contact/ContactPage";
 import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 import { Header } from "./components/base/Header/Header";
 import { Footer } from "./components/base/Footer/Footer";
@@ -20,8 +20,8 @@ function App() {
                 <Route path="login" element={<LoginPage />} />
                 <Route path="forgot" element={<ForgotPage />} />
                 <Route path="signup" element={<SignupPage />} />
-                <Route path="signup/fill" element={<SignupFillPage />} />
                 <Route path="sell" element={<SellingPage />} />
+                <Route path="contact" element={<ContactPage/>}/>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Footer />

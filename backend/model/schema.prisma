@@ -9,11 +9,130 @@ datasource db {
 
 /// /////////
 /// /////////
-model user {
-  id         Int    @id @default(autoincrement())
-  email      String @unique @db.VarChar(255)
-  password   String
-  firstName  String @db.VarChar(255)
-  lastName   String @db.VarChar(255)
-  phone      String
+model User {
+    id          Int         @id @default(autoincrement())
+    email       String      @unique @db.VarChar(255)
+    password    String
+    lastName    String      @db.VarChar(255)
+    firstName   String      @db.VarChar(255)
+    phone       String      @db.VarChar(255)
+
+    address     String      @db.VarChar(255)
+    apt         String?      @db.VarChar(255)
+    city        String      @db.VarChar(255)
+    zip         String      @db.VarChar(255)
+    country     String      @db.VarChar(255)
+
+    idCardLink  String      @db.VarChar(255)
+
+    // Customer
+    customer    Customer?
+
+    // Agent
+    agent       Agent?
+}
+model Customer {
+    //User
+    idUser      Int         @id @unique    
+    user        User        @relation(fields: [idUser], references: [id])
+
+    // Sponsoring
+    sponsorCode String      @unique @db.VarChar(255)
+    sponsorId   Int
+    sponsor     Customer    @relation("sponsor", fields: [sponsorId], references: [idUser])
+    sponsorings Customer[]  @relation("sponsor")
+
+    // Agents
+    agents      Agent[]     @relation("customer")
+
+    // Auctions
+    auctions    Auction[]   @relation("initiator")
+
+    // Bids
+    bids        Bid[]       @relation("bidder")
+
+    // Sales
+    sales       Sale[]      @relation("buyer")
+    purchases   Sale[]      @relation("seller")
+}
+
+model Agent {
+    // User
+    idUser      Int         @id @unique
+    user        User        @relation(fields: [idUser], references: [id])
+
+    // Customer
+    customerId  Int
+    customer    Customer    @relation("customer", fields: [customerId], references: [idUser])
+}
+
+model Island {
+    id          Int         @id @default(autoincrement())
+    name        String      @db.VarChar(255)
+    area        Int
+    latitude    Float
+    longitude   Float
+    country     String      @db.VarChar(255)
+    climate     String?     @db.VarChar(625)
+    wildlife    String?     @db.VarChar(625)
+    activities  String?     @db.VarChar(625)
+    location    String?     @db.VarChar(625)
+    built       Boolean
+
+    // Auction
+    auction     Auction[]   @relation("island")
+
+    // Sale
+    sale        Sale[]      @relation("island")
+}
+
+model Auction {
+    id          Int         @id @default(autoincrement())
+    price       Int
+    remaining   DateTime
+    status      String      @db.VarChar(255)
+    
+    // Island
+    islandId    Int
+    island      Island      @relation("island", fields: [islandId], references: [id])
+
+    // Customer
+    initiatorId Int
+    initiator   Customer    @relation("initiator", fields: [initiatorId], references: [idUser])
+
+    // Bid
+    rise        Bid[]      @relation("bid")
+}
+
+model Bid {
+    id          Int         @id @default(autoincrement())
+    price       Int
+    remaining   DateTime
+    status      String      @db.VarChar(255)
+
+    // Auction
+    auctionId   Int
+    auction     Auction     @relation("bid", fields: [auctionId], references: [id])
+
+    // Customer
+    bidderId    Int
+    bidder      Customer    @relation("bidder", fields: [bidderId], references: [idUser])
+}
+
+model Sale {
+    id          Int         @id @default(autoincrement())
+    price       Int
+    status      String      @db.VarChar(255)
+
+    // Island
+    islandId    Int
+    island      Island      @relation("island", fields: [islandId], references: [id])
+
+    // Buyer
+    buyerId     Int
+    buyer       Customer    @relation("buyer", fields: [buyerId], references: [idUser])
+
+    // Seller
+    sellerId    Int
+    seller      Customer    @relation("seller", fields: [sellerId], references: [idUser])
 }

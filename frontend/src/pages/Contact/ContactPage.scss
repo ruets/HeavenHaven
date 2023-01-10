@@ -1,0 +1,19 @@
+@import "../../assets/scss/base/colors";
+
+div.contact {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: calc(145vh - 68px);
+}
+
+img.contact-img {
+    height: 100%;
+    border-radius: 2%;
+}
+
+
+
+
