@@ -1,5 +1,6 @@
 import "./ContactForm.scss";
 import Input from "../../fields/Input/Input";
+import ArrowIcon from "../../../assets/img/right-arrow.svg";
 
 export function ContactForm() {
     return (
@@ -26,7 +27,7 @@ export function ContactForm() {
                         label="Your message">
                 </Input>
             </div>
-            <button type="submit">Send Message</button>
+            <button type="submit" className="cta"> <p>Send Message</p> <img src={ArrowIcon} alt="" /> </button>
         </form>
 );
 }
