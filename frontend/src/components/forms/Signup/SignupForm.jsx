@@ -171,8 +171,8 @@ export function SignupForm() {
                             />
                         </div>
                     </div>
-                        <select name="countries" id="countries-select" defaultValue={""} onChange={(event) => props.setCountry(event.target.value)} required>
-                            <option value="" disabled="disabled">Country</option>
+                        <select name="countries" placeholder="Country" id="countries-select" onChange={(event) => props.setCountry(event.target.value)} required>
+                            <option value="" disabled="disabled" selected>Country</option>
                             <option value="france">France</option>
                             <option value="united-states">United States</option>
                         </select>

@@ -127,11 +127,18 @@ form.signup-fill {
             display: none;
         }
 
+        select:invalid {
+            color: rgba($color: $dark, $alpha: 0.5);
+        }
+
+        select:valid {
+            color: $dark;
+        }
+
         select {
                 width: 100%;
                 height: 70px;
                 background: $form-light;
-                color: rgba($color: $dark, $alpha: 0.5);
                 box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3),
                     -1px -1px 2px rgba(186, 182, 182, 0.5),
                     inset -5px 5px 10px rgba(186, 182, 182, 0.2),
@@ -146,6 +153,8 @@ form.signup-fill {
                 font-family: "Poppins";
                 vertical-align: center;
         }
+
+    
     }
 
     div.buttons {
@@ -153,5 +162,9 @@ form.signup-fill {
         display: flex;
         gap: 12px;
         margin: 12px 0 16px 0;
+    }
+
+    a{
+        text-decoration: underline;
     }
 }
