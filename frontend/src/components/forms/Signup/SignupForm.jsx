@@ -17,10 +17,15 @@ export function SignupForm() {
 
     const [isFirstPage, setIsFirstPage] = useState(true);
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+
     const [email, setEmail] = useState("");
+    const [errorMessageEmail, setErrorMessageEmail] = useState("");
+
     const [password, setPassword] = useState("");
+    const [errorMessagePassword, setErrorMessagePassword] = useState([]);
+
     const [confirmedPassword, setConfirmedPassword] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -52,6 +57,20 @@ export function SignupForm() {
             setErrorMessageEmail("");
         }
     }, [setErrorMessageEmail, email]);
+
+    const validatePassword = useCallback(() => {
+        let errorArray = errorMessagePassword;
+        if (password.length < 8) {
+            errorArray.push("Your password must have at least 8 characters.")
+        } else if (password.search[/a-z/i] < 1) {
+            errorArray.push("Your password must contain at least 1 upper case character.")
+        } else if (password.search[/A-Z/i] < 1) {
+            errorArray.push("Your password must contain at least 1 lower case character.")
+        } else if (password.search[/0-9/] < 1) {
+            errorArray.push("Your password must contain at least 1 number.")
+        }
+        setErrorMessageEmail(errorArray)
+    }, [setErrorMessagePassword, password])
 
     const handleBack = useCallback(() => {
         setIsFirstPage(true);
