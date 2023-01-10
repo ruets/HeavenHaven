@@ -1,11 +1,8 @@
 const express = require('express');
 const path = require('path');
 
-// const islandRoutes = require('./routes/island');
-// const auctionRoutes = require('./routes/auction');
-// const billingRoutes = require('./routes/billing');
-// const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth')
+const islandsRoutes = require('./routes/islands')
 
 const app = express();
 app.use(express.json());
@@ -17,11 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api/islands', islandRoutes);
-// app.use('/api/auctions', auctionRoutes);
-// app.use('/api/billing', billingRoutes);
-// app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
+app.use('/api/islands', islandsRoutes);
 
 module.exports = app;
