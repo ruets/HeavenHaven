@@ -4,7 +4,7 @@ function Input(props) {
     return (
         <div className="global-input">
             <div className="input">
-                {props.icon ? <img src={props.icon} alt="Logo" /> : null}
+                {props.icon ? <img src={props.icon} className="logo" alt="Logo" /> : null}
                 <input
                     name={props.name}
                     type={props.type}

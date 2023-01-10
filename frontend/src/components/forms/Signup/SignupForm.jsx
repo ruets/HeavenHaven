@@ -7,9 +7,11 @@ import Input from "../../fields/Input/Input";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
 import PhoneIcon from "../../../assets/img/phone-icon.svg";
+import UploadLogo from "../../../assets/img/signup-upload-icon.svg"
 
 // Style
 import "./SignupForm.scss";
+import { useEffect } from "react";
 
 export function SignupForm() {
     const navigate = useNavigate();
@@ -26,6 +28,7 @@ export function SignupForm() {
     const [affiliationCode, setAffiliationCode] = useState("");
 
     const hiddenFileInput = React.useRef(null);
+    const labelForFileInput = React.useRef(null);
 
     const [idCard, setIdCard] = useState(undefined);
     const [idCardName, setIdCardName] = useState("");
@@ -48,6 +51,16 @@ export function SignupForm() {
     const handleOnUploadButtonClick = useCallback(()=> {
         hiddenFileInput.current.click();
     })
+
+    const handleFileChange = e => {
+        const files = e.target.files;
+        const num = files.length - 1
+        if (files.length > 1) {
+            setIdCardName(files[0].name + " + " + num.toString());
+        } else {
+            setIdCardName(files[0].name);
+        }
+    }
 
     const onSubmitForm = useCallback(() => {
         console.log("Data verification");
@@ -117,7 +130,7 @@ export function SignupForm() {
                 <input type="checkbox"  name="accept-privacy" className="checkbox" required/>
                 <label htmlFor="accept-privacy" className="checkbox">I have read and agree to the Privacy Policy, heavenhaven.com Terms & Conditions and Terms of Service</label>
                 </div>
-                <button type="submit">Fill In More Info</button>
+                <button className="cta" type="submit">Fill In More Info</button>
                 <p className="have-account">
                     Already have an account ? <Link to={"/login"}>Log in</Link>
                 </p>
@@ -142,14 +155,15 @@ export function SignupForm() {
                     />
                     <div className="global-input">
                         <div className="input">
-                            <input type="text" name="id-card" placeholder="Id Card (max 8 Mo)" className="id-card" onClick={handleOnUploadButtonClick} readOnly/>
+                            <input type="text" name="id-card" ref={labelForFileInput} value={idCardName} placeholder="Id Card (max 8 Mo)" className="id-card" onClick={handleOnUploadButtonClick} readOnly/>
+                            <button className="upload-btn" onClick={handleOnUploadButtonClick}><img src={ UploadLogo } alt="" /></button>
                             <input
                             type="file"
                             ref={hiddenFileInput}
                             name="id-card-upload"
                             label="Id Card (max 8 Mo)"
                             value={idCard}
-                            onChange={e => setIdCard(e.target.value)}
+                            onChange={handleFileChange}
                             accept=".jpg,.jpeg,.png"
                             required
                             multiple
@@ -195,8 +209,8 @@ export function SignupForm() {
                     ></Input>
                     </div>
                 <div className="buttons">
-                    <button onClick={handleBack}>Back</button>
-                    <button onClick={onSubmitForm}>Sign Up</button>
+                    <button className="cta" onClick={handleBack}>Back</button>
+                    <button className="cta" type="submit">Sign Up</button>
                 </div>
                 <p className="have-account">
                     Already have an account ? <Link to={"/login"}>Log in</Link>
