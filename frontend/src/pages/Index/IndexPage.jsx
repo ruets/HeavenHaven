@@ -1,5 +1,5 @@
 import "./IndexPage.scss";
-import MainImage from "../../assets/img/index-main-img.png";
+import MainImage from "../../assets/img/index-main-img.jpg";
 import IslandCard from "../../components/card/IslandCard";
 import axios from "axios";
 import { useEffect } from "react";

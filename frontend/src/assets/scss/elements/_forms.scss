@@ -1,4 +1,4 @@
-form {
+form.signup, form.signup-fill, form.login {
     position: relative;
     left: 34px;
     width: 500px;
@@ -18,21 +18,6 @@ form {
     h1 {
         font-weight: 500;
         color: $dark;
-    }
-
-    button {
-        cursor: pointer;
-        width: 250px;
-        height: 60px;
-        background: $cta;
-        box-shadow: -1px 1px 2px rgba(178, 153, 129, 0.2), 1px -1px 2px rgba(178, 153, 129, 0.2), -1px -1px 2px rgba(255, 255, 239, 0.9), 1px 1px 3px rgba(178, 153, 129, 0.9), inset 1px 1px 2px rgba(255, 255, 239, 0.3), inset -1px -1px 2px rgba(178, 153, 129, 0.5);
-        border-radius: 10px;
-        color: $dark;
-        transition: 0.15s ease-in-out;
-
-        &:hover {
-            background: $cta-hover;
-        }
     }
 
     p.no-account,
