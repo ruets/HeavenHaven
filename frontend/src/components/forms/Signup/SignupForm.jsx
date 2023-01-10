@@ -200,7 +200,7 @@ export function SignupForm() {
                             />
                         </div>
                     </div>
-                        <select name="countries" id="countries-select" defaultValue={""} onChange={(event) => setCountry(event.target.value)} required>
+                        <select name="countries" id="countries-select" onChange={(event) => setCountry(event.target.value)} required>
                             <option value="" disabled="disabled">Country</option>
                             <option value="france">France</option>
                             <option value="united-states">United States</option>

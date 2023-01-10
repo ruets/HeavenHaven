@@ -73,11 +73,21 @@ model Island {
     latitude    Float
     longitude   Float
     country     String      @db.VarChar(255)
+    
     climate     String?     @db.VarChar(625)
+    climateImg  String?     @db.VarChar(625)
+
     wildlife    String?     @db.VarChar(625)
+    wildlifeImg String?     @db.VarChar(625)
+
     activities  String?     @db.VarChar(625)
+  activitiesImg String?     @db.VarChar(625)
+
     location    String?     @db.VarChar(625)
     built       Boolean
+
+    // Images
+    images      Images[]    @relation("island")
 
     // Auction
     auction     Auction[]   @relation("island")
@@ -135,4 +145,13 @@ model Sale {
     // Seller
     sellerId    Int
     seller      Customer    @relation("seller", fields: [sellerId], references: [idUser])
+}
+
+model Images {
+    id          Int         @id @default(autoincrement())
+    url         String      @db.VarChar(255)
+
+    // Island
+    islandId    Int
+    island      Island      @relation("island", fields: [islandId], references: [id])
 }

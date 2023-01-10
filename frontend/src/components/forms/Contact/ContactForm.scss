@@ -2,13 +2,18 @@
 
 form.contact {
     
+    width: 90%;
+    height: calc(145vh - 68px);
+
     h1 {
-        margin: 52px 0 0 0;
+        margin: 15% 0 0 0;
+        font-size: 80px;
     }
 
     p {
         font-family: 'Poppins';
-        margin-bottom: 120px;
+        margin-bottom: 60px;
+        font-size: 25px;
     }
 
     div.fields {
@@ -16,11 +21,44 @@ form.contact {
         flex-direction: column;
         gap: 30px;
         width: 90%;
+
+        input{
+            padding-left: 15px;
+
+    }
     
         div.inputs-1 {
         display : flex;
         flex-direction: row;
+
+        input[name=name] {
+            width: 80%;
+        }
+        
+        }
+
+        input[name=message] {
+            height : 200px;
+            padding-bottom: 145px;
+            margin-bottom: 60px ;
         }
     
     }
+
+    button {
+       
+        display: flex;
+    
+    p {
+        margin-top:10px;
+        margin-left: 10px;
+    }
+
+    img{
+        width: 30px;
+        margin-left : 10px
+    }
+
+    }
+
 }

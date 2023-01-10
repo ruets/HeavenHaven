@@ -1,5 +1,6 @@
 import "./ContactForm.scss";
 import Input from "../../fields/Input/Input";
+import ArrowIcon from "../../../assets/img/right-arrow.svg";
 
 export function ContactForm() {
     return (
@@ -8,7 +9,7 @@ export function ContactForm() {
             <p>Get in touch and let us know how we can help</p>
             <div className="fields">
                 <div className="inputs-1">
-                <Input type="name"
+                <Input type="text"
                         name="name"
                         label="Name">
                 </Input>
@@ -17,16 +18,16 @@ export function ContactForm() {
                         label="E-mail">
                 </Input>
                 </div>
-                <Input type="topic"
+                <Input type="text"
                         name="topic"
                         label="Topic">
                 </Input>
-                <Input type="messag"
+                <Input type="text"
                         name="message"
                         label="Your message">
                 </Input>
             </div>
-            <button type="submit">Send Message</button>
+            <button type="submit" className="cta"> <p>Send Message</p> <img src={ArrowIcon} alt="" /> </button>
         </form>
 );
 }
