@@ -22,5 +22,6 @@ app.use((req, res, next) => {
 // app.use('/api/billing', billingRoutes);
 // app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
 
 module.exports = app;
