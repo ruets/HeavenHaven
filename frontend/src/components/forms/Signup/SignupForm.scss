@@ -96,5 +96,13 @@ form.signup-fill {
         input {
             padding-left: 16px;
         }
+
+        input.id-card {
+            cursor: pointer;
+        }
+
+        input.id-card-upload {
+            display: none;
+        }
     }
 }
