@@ -30,7 +30,7 @@ export function LoginForm() {
 
     const postData = async () => {
         try {
-            let res = await axios.post("http://127.0.0.1:3000/api/auth/login", {
+            let res = await axios.post("http://192.168.14.210:3000/api/auth/login", {
                 email: email,
                 password: password,
             });
