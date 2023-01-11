@@ -8,7 +8,9 @@ function Input(props) {
                 <input
                     name={props.name}
                     type={props.type}
-                    onChange={(event) => props.setInput?.(event.target.value)}
+                    onChange={(event) => {
+                        props.setInput?.(event.target.value)
+                    }}
                     value={props.value}
                     placeholder={props.label}
                     onBlur={props.onBlur ? props.onBlur : null}

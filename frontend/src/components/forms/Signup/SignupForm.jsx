@@ -37,19 +37,13 @@ export function SignupForm() {
     const hiddenFileInput = React.useRef(null);
     const labelForFileInput = React.useRef(null);
 
-    const [idCard, setIdCard] = useState(undefined);
+    const [idCard, setIdCard] = useState([]);
     const [idCardName, setIdCardName] = useState("");
     const [country, setCountry] = useState("");
     const [streetAdress, setStreetAdress] = useState("");
     const [apartment, setApartment] = useState("");
     const [city, setCity] = useState("");
     const [zipCode, setZipCode] = useState("");
-
-    const handleFillIn = useCallback((e) => {
-        // Check if errors in fields
-        e.preventDefault();
-        setIsFirstPage(false);
-    });
 
     const validateNames = useCallback(() => {
         const isNamesInputsValid =
@@ -73,16 +67,18 @@ export function SignupForm() {
 
     const validatePassword = useCallback(() => {
         let errorArray = [];
-        const containsLowercaseLetter = /^(?=.*[a-z])/;
+        const containsLowercaseLetter = /[a-z]/;
+        const containsUpperCase = /[A-Z]/;
+        const containsNumber = /[0-9]/;
         if (
             password.length > 8 &&
-            password.search[/a-z/i] > 0 &&
-            password.search[/A-Z/i] > 0 &&
-            password.search[/0-9/] > 0
+            containsLowercaseLetter.test(password) &&
+            containsUpperCase.test(password) &&
+            containsNumber.test(password)
         ) {
-            setErrorMessagesPassword("");
+            setErrorMessagesPassword([]);
         } else {
-            setErrorMessagesPassword("");
+            setErrorMessagesPassword([]);
 
             if (password.length < 8) {
                 errorArray.push(
@@ -92,26 +88,25 @@ export function SignupForm() {
                 );
             }
 
-            if (containsLowercaseLetter.test(password)) {
-                console.log("fezf");
+            if (!containsLowercaseLetter.test(password)) {
                 errorArray.push(
                     <p key={1}>
-                        Your password must contain at least 1 upper case
-                        character.
-                    </p>
-                );
-            }
-
-            if (password.search[/A-Z/] === -1) {
-                errorArray.push(
-                    <p key={2}>
                         Your password must contain at least 1 lower case
                         character.
                     </p>
                 );
             }
 
-            if (password.search[/0-9/] === -1) {
+            if (!containsUpperCase.test(password)) {
+                errorArray.push(
+                    <p key={2}>
+                        Your password must contain at least 1 upper case
+                        character.
+                    </p>
+                );
+            }
+
+            if (!containsNumber.test(password)) {
                 errorArray.push(
                     <p key={3}>Your password must contain at least 1 number.</p>
                 );
@@ -119,7 +114,7 @@ export function SignupForm() {
 
             setErrorMessagesPassword(errorArray);
         }
-    }, [setErrorMessagesPassword]);
+    }, [setErrorMessagesPassword, password]);
 
     const validatePhoneNumber = useCallback(() => {
         const isPhoneNumberValid = /^[0-9]+$/.test(phoneNumber);
@@ -132,6 +127,18 @@ export function SignupForm() {
         }
     }, [setErrorMessagePhoneNumber, phoneNumber]);
 
+    const handleFillIn = useCallback((e) => {
+        e.preventDefault();
+        validateNames()
+        validateEmail()
+        validatePassword()
+        validatePhoneNumber()
+        console.log("hello");
+        if (errorMessageNames === "" && errorMessageEmail === "" && errorMessagesPassword.length === 0 && errorMessagePhoneNumber === "") {
+            setIsFirstPage(false);
+        }
+    });
+
     const handleBack = useCallback(() => {
         setIsFirstPage(true);
     });
@@ -140,7 +147,7 @@ export function SignupForm() {
         hiddenFileInput.current.click();
     });
 
-    const handleFileChange = (e) => {
+    const handleFileChange = useCallback((e) => {
         setIdCard(e.target.value);
         const files = e.target.files;
         const num = files.length - 1;
@@ -149,14 +156,35 @@ export function SignupForm() {
         } else {
             setIdCardName(files[0].name);
         }
-    };
+        validateIdCard(files);
+    }, [setIdCard, setIdCardName, hiddenFileInput]);
 
-    const onSubmitForm = useCallback(() => {
+    function validateIdCard(files) {
+        const maxFileSizeKilo = 8192;
+
+        for (let i = 0; i <= files.length - 1; i++) {
+            const fileSizeBytes = files.item(i).size;
+            const fileSizeKilo = Math.round((fileSizeBytes / 1024));
+            console.log(fileSizeKilo);
+            // The size of the file.
+            if (fileSizeKilo >= maxFileSizeKilo) {
+            // Put error message here
+            } else {
+                // setErrorMessage("")
+            }
+        }
+    }
+
+    const onSubmitForm = useCallback((e) => {
+        e.preventDefault();
         console.log("Data verification");
-        console.log("Post user data to API");
+        if (errorMessageNames === "" && errorMessageEmail === "" && errorMessagesPassword === [] && errorMessagePhoneNumber === "") {
+            console.log("Post user data to API");
+            navigate("/");
+        }
     });
 
-    if (isFirstPage) {
+    if (!isFirstPage) {
         return (
             <form className="signup" onSubmit={handleFillIn}>
                 <div className="form-steps">
@@ -199,7 +227,7 @@ export function SignupForm() {
                         errorMessage={errorMessageEmail}
                     ></Input>
                     <Input
-                        type="text"
+                        type="password"
                         name="password"
                         label="Password"
                         icon={PasswordLogo}
@@ -288,7 +316,7 @@ export function SignupForm() {
                                 name="id-card-upload"
                                 label="Id Card (max 8 Mo)"
                                 value={idCard}
-                                onChange={handleFileChange}
+                                onChange={e => handleFileChange(e)}
                                 accept=".jpg,.jpeg,.png"
                                 required
                                 multiple
