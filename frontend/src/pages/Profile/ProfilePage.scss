@@ -23,18 +23,18 @@ div.profil{
 
         h2 {
            font-size: 25px;
-        }
-
-        h2.welcome{
-            margin-bottom: 20px;
+           margin-bottom: 20px;
+           font-weight: bold;
         }
 
         p {
             margin-bottom: 80px;
         }
 
-
-
+        button.bigButton{
+            background: transparent;
+            cursor: pointer;
+        }
 
     }
 }
