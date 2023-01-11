@@ -18,7 +18,7 @@ model Users {
     phone       String      @db.VarChar(255)
 
     address     String      @db.VarChar(255)
-    apt         String?      @db.VarChar(255)
+    apt         String?     @db.VarChar(255)
     city        String      @db.VarChar(255)
     zip         String      @db.VarChar(255)
     country     String      @db.VarChar(255)
@@ -84,16 +84,16 @@ model Island {
   activitiesImg String?     @db.VarChar(625)
 
     location    String?     @db.VarChar(625)
-    built       Boolean
+    description String?     @db.VarChar(150)
 
     // Images
     images      Images[]    @relation("island")
 
     // Auction
-    auction     Auction[]   @relation("island")
+    auctions    Auction[]   @relation("island")
 
     // Sale
-    sale        Sale[]      @relation("island")
+    sales       Sale[]      @relation("island")
 }
 
 model Auction {
@@ -111,14 +111,12 @@ model Auction {
     initiator   Customer    @relation("initiator", fields: [initiatorId], references: [idUser])
 
     // Bid
-    rise        Bid[]      @relation("bid")
+    rises       Bid[]      @relation("bid")
 }
 
 model Bid {
     id          Int         @id @default(autoincrement())
     price       Int
-    remaining   DateTime
-    status      String      @db.VarChar(255)
 
     // Auction
     auctionId   Int
