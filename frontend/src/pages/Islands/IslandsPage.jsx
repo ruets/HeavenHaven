@@ -39,10 +39,10 @@ export function IslandsPage() {
     return (
         <div className="islands">
             <div className="top">
-                <h2>Islands</h2>
-                <button type="submit" className="filter">Filter</button>
+            <h2>Islands</h2>
+            <button type="submit" className="filter">Filter</button>
             </div>
-           <div className="grid">{allIslands}</div>
+            <div className="grid">{allIslands}</div>
         </div>
     );
 }
