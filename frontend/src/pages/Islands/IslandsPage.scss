@@ -1,1 +1,18 @@
-@import "../../../assets/scss/base/colors";
+@import "../../assets/scss/base/colors";
+
+div.islands {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    div.top{
+        display: flex;
+    }
+
+    button.filter{
+        cursor: pointer;
+        justify-self: end;
+        background: #F0F0F0;
+        border-radius: 10px;
+    }
+}

@@ -38,11 +38,11 @@ export function IslandsPage() {
 
     return (
         <div className="islands">
-             <button type="submit" className="button"> <p>Filter</p></button>
-            <div>
+            <div className="top">
                 <h2>Islands</h2>
-                <div className="islands">{allIslands}</div>
+                <button type="submit" className="filter">Filter</button>
             </div>
+           <div className="grid">{allIslands}</div>
         </div>
     );
 }
