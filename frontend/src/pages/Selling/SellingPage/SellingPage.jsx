@@ -14,7 +14,7 @@ export function SellingPage() {
             </div>
             <div className="section-2">
                 <div className="left">
-                    <div className="content">
+                    <div className="layout">
                         <h3>How To Sell</h3>
                         <div>
                             <img
@@ -35,7 +35,7 @@ export function SellingPage() {
                     </div>
                 </div>
                 <div className="right">
-                    <div className="content">
+                    <div className="layout">
                         <h3>Start Selling</h3>
                         <p className="selling-description">
                             Lorem ipsum dolor sit amet consectetur adipisicing

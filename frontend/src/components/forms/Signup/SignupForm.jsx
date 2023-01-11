@@ -39,6 +39,8 @@ export function SignupForm() {
 
     const [idCard, setIdCard] = useState([]);
     const [idCardName, setIdCardName] = useState("");
+    const [errorMessageIdCard, setErrorMessageIdCard] = useState("");
+
     const [country, setCountry] = useState("");
     const [streetAdress, setStreetAdress] = useState("");
     const [apartment, setApartment] = useState("");
@@ -163,24 +165,50 @@ export function SignupForm() {
         const maxFileSizeKilo = 8192;
 
         for (let i = 0; i <= files.length - 1; i++) {
-            const fileSizeBytes = files.item(i).size;
+            const fileSizeBytes = files[i].size;
             const fileSizeKilo = Math.round((fileSizeBytes / 1024));
-            console.log(fileSizeKilo);
-            // The size of the file.
             if (fileSizeKilo >= maxFileSizeKilo) {
-            // Put error message here
+                setErrorMessageIdCard("The file(s) must be less than 8Mo.");
             } else {
-                // setErrorMessage("")
+                setErrorMessageIdCard("");
             }
         }
     }
 
+    const postData = async () => {
+        try {
+            let res = await axios.post("http://127.0.0.1:3000/api/auth/signup", {
+                email: email,
+                password: password,
+                password2: confirmedPassword,
+                lastName: lastName,
+                firstName: firstName,
+                phone: phoneNumber,
+                address: streetAdress,
+                apt: apartment,
+                city: city,
+                zip: zipCode,
+                country: country,
+                idCard: idCard,
+                sponsorCode: affiliationCode
+            });
+
+            // handle success
+            alert("Token d'authentification : " + res.data.token);
+            navigate("/");
+        } catch (error) {
+            // handle error
+            console.error(error);
+        }
+    };
+
     const onSubmitForm = useCallback((e) => {
         e.preventDefault();
         console.log("Data verification");
-        if (errorMessageNames === "" && errorMessageEmail === "" && errorMessagesPassword === [] && errorMessagePhoneNumber === "") {
-            console.log("Post user data to API");
-            navigate("/");
+        validateIdCard(hiddenFileInput.current.value);
+        if (errorMessageIdCard === "") {
+            console.log("Post data to API");
+            postData();
         }
     });
 
@@ -323,6 +351,11 @@ export function SignupForm() {
                                 className="id-card-upload"
                             />
                         </div>
+                        {errorMessageIdCard && errorMessageIdCard !== "" ? (
+                            <div className="error">
+                                <p>{errorMessageIdCard}</p>
+                            </div>
+                        ) : null}
                     </div>
                     <select
                         name="countries"
