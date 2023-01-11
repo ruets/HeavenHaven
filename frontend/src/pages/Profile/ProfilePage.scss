@@ -31,10 +31,41 @@ div.profil{
             margin-bottom: 80px;
         }
 
-        button.bigButton{
+        button.account{
             background: transparent;
             cursor: pointer;
+            margin-bottom: 8%;
         }
+
+        button.dashBoard{
+            background: transparent;
+            cursor: pointer;
+            margin-bottom: 3%;
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            li {
+                margin-bottom: 6%;
+                cursor: pointer;
+                a{
+                    font-size: 22px;
+                }
+            }
+
+            li.lastLink {
+                margin-bottom: 150px;
+            }
+        }
+
+        button.logOut{
+            margin-bottom: 50px;
+        }
+
 
     }
 }

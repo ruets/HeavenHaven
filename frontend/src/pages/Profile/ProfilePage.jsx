@@ -23,16 +23,17 @@ export function ProfilePage() {
                 <img src={ UserProfile} alt="User profile" />
                 <h2 className="welcome"> Welcome, [Jeff] </h2>
                 <p> Affiliation code : [R165IBF963DSF]</p>
-                <button className="bigButton" onClick={e => setIsAccountSettings(true)}> Account settings </button>
-                <button className="bigButton" onClick={e => setIsAccountSettings(false)} > Dashboard </button>
+                <button className="account" onClick={e => setIsAccountSettings(true)}> Account settings </button>
+                <button className="dashBoard" onClick={e => setIsAccountSettings(false)} > Dashboard </button>
                 <ul>
-                    <li> <button className="lilButton"> My islands </button> </li>
-                    <li> <button className="lilButton"> My listings </button> </li>
-                    <li> <button className="lilButton"> Watchlist </button> </li>
-                    <li> <button className="lilButton"> My past auctions </button> </li>
-                    <li> <button className="lilButton"> My agents </button> </li>
-                    <li> <button className="lilButton"> Sponsored parties </button> </li>
+                    <li> <a>My islands</a> </li>
+                    <li> <a>My listings</a> </li>
+                    <li> <a>Watchlist</a> </li>
+                    <li> <a>My past auctions</a> </li>
+                    <li> <a> My agents</a> </li>
+                    <li className="lastLink"> <a>Sponsored parties</a> </li>
                 </ul>
+                <button className="logOut"> Log out </button>
             </aside>
             <div>
                 {elementToShow}
