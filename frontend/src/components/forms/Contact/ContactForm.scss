@@ -3,7 +3,7 @@
 form.contact {
     
     width: 90%;
-    height: calc(145vh - 68px);
+    height: max-content;
 
     h1 {
         margin: 15% 0 0 0;
@@ -12,8 +12,8 @@ form.contact {
 
     p {
         font-family: 'Poppins';
-        margin-bottom: 60px;
-        font-size: 25px;
+        margin-bottom: 20px;
+        font-size: 24px;
     }
 
     div.fields {
@@ -40,7 +40,17 @@ form.contact {
         input[name=message] {
             height : 200px;
             padding-bottom: 145px;
-            margin-bottom: 60px ;
+            margin-bottom: 35px ;
+        }
+
+        div.error {
+            width: 90%;
+            p {
+                margin-top: 8px;
+                height: 0px;
+                color: red;
+                font-size: 100%;
+            }
         }
     
     }
@@ -48,6 +58,7 @@ form.contact {
     button {
        
         display: flex;
+        margin-bottom: 35px;
     
     p {
         margin-top:10px;
