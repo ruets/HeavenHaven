@@ -363,6 +363,7 @@ export function SignupForm() {
                     <select
                         name="countries"
                         id="countries-select"
+                        defaultValue=""
                         onChange={(event) => setCountry(event.target.value)}
                         required
                     >
