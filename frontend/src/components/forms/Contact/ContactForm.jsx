@@ -6,6 +6,20 @@ import ArrowIcon from "../../../assets/img/right-arrow.svg";
 export function ContactForm() {
 
         const [name, setName] = useState("");
+        const [email, setEmail] = useState("");
+        const [topic, setTopic] = useState("");
+        const [message, setMessage] = useState("");
+        const [errorMessageEmail, setErrorMessageEmail] = useState("");
+
+        const validateEmailFieldValue = useCallback(() => {
+                const isEmailInputValid =
+                    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+                if (!isEmailInputValid) {
+                    setErrorMessageEmail("The email adress format is not correct.");
+                } else {
+                    setErrorMessageEmail("");
+                }
+        }, [setErrorMessageEmail, email]);
 
         const onSubmitForm = useCallback(
                 (e) => {
@@ -19,9 +33,6 @@ export function ContactForm() {
                 [
                     validateEmailFieldValue,
                     errorMessageEmail,
-                    errorMessagePassword,
-                    setErrorMessagePassword,
-                    password,
                 ]
         );
 
@@ -40,16 +51,24 @@ export function ContactForm() {
                 </Input>
                 <Input type="email"
                         name="email"
-                        label="E-mail">
+                        label="E-mail"
+                        value={email}
+                        errorMessage={errorMessageEmail}
+                        onBlur={validateEmailFieldValue}
+                        setInput={setEmail}>
                 </Input>
                 </div>
                 <Input type="text"
                         name="topic"
-                        label="Topic">
+                        label="Topic"
+                        value={topic}
+                        setInput={setTopic}>
                 </Input>
                 <Input type="text"
                         name="message"
-                        label="Your message">
+                        label="Your message"
+                        value={message}
+                        setInput={setMessage}>
                 </Input>
             </div>
             <button type="submit" className="cta"> <p>Send Message</p> <img src={ArrowIcon} alt="" /> </button>
