@@ -9,7 +9,7 @@ datasource db {
 
 /// /////////
 /// /////////
-model User {
+model Users {
     id          Int         @id @default(autoincrement())
     email       String      @unique @db.VarChar(255)
     password    String
@@ -32,9 +32,9 @@ model User {
     agent       Agent?
 }
 model Customer {
-    //User
+    //Users
     idUser      Int         @id @unique    
-    user        User        @relation(fields: [idUser], references: [id])
+    user        Users        @relation(fields: [idUser], references: [id])
 
     // Sponsoring
     sponsorCode String      @unique @db.VarChar(255)
@@ -57,9 +57,9 @@ model Customer {
 }
 
 model Agent {
-    // User
+    // Users
     idUser      Int         @id @unique
-    user        User        @relation(fields: [idUser], references: [id])
+    user        Users        @relation(fields: [idUser], references: [id])
 
     // Customer
     customerId  Int

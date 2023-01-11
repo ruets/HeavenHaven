@@ -3,6 +3,9 @@ import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 
+// More
+import axios from "axios";
+
 // Icons
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
@@ -13,6 +16,7 @@ import UploadLogo from "../../../assets/img/signup-upload-icon.svg";
 import "./SignupForm.scss";
 
 export function SignupForm() {
+    
     const navigate = useNavigate();
 
     const [isFirstPage, setIsFirstPage] = useState(true);
@@ -135,7 +139,6 @@ export function SignupForm() {
         validateEmail()
         validatePassword()
         validatePhoneNumber()
-        console.log("hello");
         if (errorMessageNames === "" && errorMessageEmail === "" && errorMessagesPassword.length === 0 && errorMessagePhoneNumber === "") {
             setIsFirstPage(false);
         }
@@ -212,7 +215,7 @@ export function SignupForm() {
         }
     });
 
-    if (!isFirstPage) {
+    if (isFirstPage) {
         return (
             <form className="signup" onSubmit={handleFillIn}>
                 <div className="form-steps">
