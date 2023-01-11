@@ -42,6 +42,8 @@ export function SignupForm() {
     const labelForFileInput = React.useRef(null);
 
     const [idCard, setIdCard] = useState([]);
+    const files = null;
+
     const [idCardName, setIdCardName] = useState("");
     const [errorMessageIdCard, setErrorMessageIdCard] = useState("");
 
@@ -153,7 +155,8 @@ export function SignupForm() {
     });
 
     const handleFileChange = useCallback((e) => {
-        setIdCard(e.target.value);
+        setIdCard(e.target.files);
+        files = e.target.files;
         const files = e.target.files;
         const num = files.length - 1;
         if (files.length > 1) {
@@ -162,7 +165,7 @@ export function SignupForm() {
             setIdCardName(files[0].name);
         }
         validateIdCard(files);
-    }, [setIdCard, setIdCardName, hiddenFileInput]);
+    }, [setIdCard, setIdCardName, hiddenFileInput, files]);
 
     function validateIdCard(files) {
         const maxFileSizeKilo = 8192;
@@ -179,6 +182,9 @@ export function SignupForm() {
     }
 
     const postData = async () => {
+        formData = new FormData();
+        formData.append("files", files);
+        console.log(formData);
         try {
             let res = await axios.post("http://192.168.14.210:3000/api/auth/signup", {
                 email: email,
