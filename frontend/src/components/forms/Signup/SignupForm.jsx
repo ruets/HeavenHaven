@@ -180,9 +180,9 @@ export function SignupForm() {
 
     const postData = async () => {
         try {
-            let res = await axios.post("http://127.0.0.1:3000/api/auth/signup", {
+            let res = await axios.post("http://192.168.14.210:3000/api/auth/signup", {
                 email: email,
-                password: password,
+                password1: password,
                 password2: confirmedPassword,
                 lastName: lastName,
                 firstName: firstName,
@@ -363,6 +363,7 @@ export function SignupForm() {
                     <select
                         name="countries"
                         id="countries-select"
+                        defaultValue=""
                         onChange={(event) => setCountry(event.target.value)}
                         required
                     >
