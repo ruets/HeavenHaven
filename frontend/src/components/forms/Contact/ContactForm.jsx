@@ -71,7 +71,7 @@ export function ContactForm() {
                         setInput={setMessage}>
                 </Input>
             </div>
-            <button type="submit" className="cta"> <p>Send Message</p> <img src={ArrowIcon} alt="" /> </button>
+            <button type="submit" className="cta">Send Message<img src={ArrowIcon} alt="" /> </button>
         </form>
 );
 }
