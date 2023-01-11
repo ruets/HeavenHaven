@@ -1,4 +1,5 @@
 import { IndexPage } from "./pages/Index/IndexPage";
+import {IslandsPage} from "./pages/Islands/IslandsPage";
 import { LoginPage } from "./pages/Connection/Login/LoginPage";
 import { SignupPage } from "./pages/Connection/Signup/SignupPage";
 import { ForgotPage } from "./pages/Forgot/ForgotPage";
@@ -20,6 +21,7 @@ function App() {
                 <Route path="login" element={<LoginPage />} />
                 <Route path="forgot" element={<ForgotPage />} />
                 <Route path="signup" element={<SignupPage />} />
+                <Route path="islands" element={<IslandsPage />} />
                 <Route path="sell" element={<SellingPage />} />
                 <Route path="contact" element={<ContactPage/>}/>
                 <Route path="*" element={<NotFoundPage />} />
