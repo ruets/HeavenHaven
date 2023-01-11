@@ -182,7 +182,7 @@ export function SignupForm() {
         try {
             let res = await axios.post("http://192.168.14.210:3000/api/auth/signup", {
                 email: email,
-                password: password,
+                password1: password,
                 password2: confirmedPassword,
                 lastName: lastName,
                 firstName: firstName,
