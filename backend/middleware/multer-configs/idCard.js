@@ -8,7 +8,7 @@ const MIME_TYPES = {
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "imgs");
+    callback(null, "imgs/idCards");
   },
   filename: (req, file, callback) => {
     const name = file.originalname.split(" ").join("_");
@@ -17,4 +17,4 @@ const storage = multer.diskStorage({
   },
 });
 
-module.exports = multer({ storage: storage });
+module.exports = multer({ storage: storage }).single("idCard");
