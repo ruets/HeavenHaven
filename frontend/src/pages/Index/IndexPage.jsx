@@ -12,8 +12,7 @@ export function IndexPage() {
 
     const getTrendingIslands = async () => {
         try {
-            const requestAdress = serverAdress + "/api/islands/trends"; 
-            let res = await axios.get(requestAdress);
+            let res = await axios.get("http://192.168.14.210:3000/api/islands/trends");
             const data = res.data.data;
             const islands = data.map((island) => {
                 return <IslandCard key={island.id} name={island.name} image={island.image} description={island.description}/>;

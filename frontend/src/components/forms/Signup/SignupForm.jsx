@@ -183,8 +183,7 @@ export function SignupForm() {
         formData.append("files", files);
         console.log(formData);
         try {
-            const requestAdress = serverAdress + "/api/auth/signup"; 
-            let res = await axios.post(requestAdress, {
+            let res = await axios.post("http://192.168.14.210:3000/api/auth/signup", {
                 email: email,
                 password1: password,
                 password2: confirmedPassword,
