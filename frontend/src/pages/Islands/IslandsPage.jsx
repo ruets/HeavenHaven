@@ -1,6 +1,6 @@
 import "./IslandsPage.scss"; 
-import MainImage from "../../assets/img/index-main-img.jpg";
 import IslandCard from "../../components/card/IslandCard";
+import ChevronUpIcon from "../../assets/img/chevron-up.svg";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -39,8 +39,11 @@ export function IslandsPage() {
     return (
         <div className="islands">
             <div className="top">
-            <h2>Islands</h2>
-            <button type="submit" className="filter">Filter</button>
+                <h2>Islands</h2>
+                <button className="filter">Filter <img src={ChevronUpIcon}/></button>
+                <div className="dropdown">
+                    <ul></ul>
+                </div>
             </div>
             <div className="grid">{allIslands}</div>
         </div>
