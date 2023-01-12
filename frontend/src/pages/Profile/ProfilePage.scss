@@ -12,7 +12,7 @@ div.profil{
         background-color : #CEDFDB;
         width: 30%;
 
-        img{
+        img.user{
             margin-top: 25px;
             margin-bottom: 20px;
             height: 200px;
@@ -58,12 +58,21 @@ div.profil{
             }
 
             li.lastLink {
-                margin-bottom: 150px;
+                margin-bottom: 85px;
             }
         }
 
         button.logOut{
-            margin-bottom: 50px;
+            margin-bottom: 25px;
+            margin-right: 60%;
+            background: transparent;
+            cursor: pointer;
+            
+
+            img.exit{
+                width: 25px;
+                vertical-align: middle;
+            }
         }
 
 
