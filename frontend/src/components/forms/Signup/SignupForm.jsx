@@ -159,7 +159,7 @@ export function SignupForm() {
         if (idCard.length > 1) {
             setIdCardName(idCard[0].name + " + " + num.toString());
         } else {
-            setIdCardName(idCard[0].name);
+            setIdCardName(idCard.name);
         }
         validateIdCard(idCard);
     }, [setIdCard, setIdCardName, hiddenFileInput]);

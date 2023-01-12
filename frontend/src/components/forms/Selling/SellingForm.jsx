@@ -18,8 +18,6 @@ export function SellingForm() {
         setPagesCount(pagesCount + 1);
     })
 
-    console.log(pagesCount);
-
     if (pagesCount === 0) {
         return (
             <div className="selling-form-1">
