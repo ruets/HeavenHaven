@@ -42,7 +42,6 @@ export function SignupForm() {
     const labelForFileInput = React.useRef(null);
 
     const [idCard, setIdCard] = useState([]);
-    var idCardFiles = null;
 
     const [idCardName, setIdCardName] = useState("");
     const [errorMessageIdCard, setErrorMessageIdCard] = useState("");
@@ -156,22 +155,20 @@ export function SignupForm() {
 
     const handleFileChange = useCallback((e) => {
         setIdCard(e.target.files);
-        idCardFiles = e.target.files;
-        const files = e.target.files;
-        const num = files.length - 1;
-        if (files.length > 1) {
-            setIdCardName(files[0].name + " + " + num.toString());
+        const num = idCard.length - 1;
+        if (idCard.length > 1) {
+            setIdCardName(idCard[0].name + " + " + num.toString());
         } else {
-            setIdCardName(files[0].name);
+            setIdCardName(idCard[0].name);
         }
-        validateIdCard(files);
-    }, [setIdCard, setIdCardName, hiddenFileInput, files]);
+        validateIdCard(idCard);
+    }, [setIdCard, setIdCardName, hiddenFileInput]);
 
-    function validateIdCard(files) {
+    function validateIdCard(idCard) {
         const maxFileSizeKilo = 8192;
 
-        for (let i = 0; i <= files.length - 1; i++) {
-            const fileSizeBytes = files[i].size;
+        for (let i = 0; i <= idCard.length - 1; i++) {
+            const fileSizeBytes = idCard[i].size;
             const fileSizeKilo = Math.round((fileSizeBytes / 1024));
             if (fileSizeKilo >= maxFileSizeKilo) {
                 setErrorMessageIdCard("The file(s) must be less than 8Mo.");
@@ -186,7 +183,8 @@ export function SignupForm() {
         formData.append("files", files);
         console.log(formData);
         try {
-            let res = await axios.post("http://192.168.14.210:3000/api/auth/signup", {
+            const requestAdress = serverAdress + "/api/auth/signup"; 
+            let res = await axios.post(requestAdress, {
                 email: email,
                 password1: password,
                 password2: confirmedPassword,
@@ -221,7 +219,7 @@ export function SignupForm() {
         }
     });
 
-    if (isFirstPage) {
+    if (!isFirstPage) {
         return (
             <form className="signup" onSubmit={handleFillIn}>
                 <div className="form-steps">
