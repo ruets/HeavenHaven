@@ -3,6 +3,7 @@ import UserProfile from "../../assets/img/user-profile.svg";
 import { useState } from "react";
 import AccountSettings from "../../components/profile/AccountSettings/AccountSettings";
 import DashBoard from "../../components/profile/DashBoard/DashBoard";
+import ExitIcon from "../../assets/img/exit-icon.svg";
 
 export function ProfilePage() {
 
@@ -20,7 +21,7 @@ export function ProfilePage() {
     return (
         <div className="profil">
             <aside> 
-                <img src={ UserProfile} alt="User profile" />
+                <img src={ UserProfile} alt="User profile" className="user" />
                 <h2 className="welcome"> Welcome, [Jeff] </h2>
                 <p> Affiliation code : [R165IBF963DSF]</p>
                 <button className="account" onClick={e => setIsAccountSettings(true)}> Account settings </button>
@@ -33,7 +34,7 @@ export function ProfilePage() {
                     <li> <a> My agents</a> </li>
                     <li className="lastLink"> <a>Sponsored parties</a> </li>
                 </ul>
-                <button className="logOut"> Log out </button>
+                <button className="logOut"> <img src={ExitIcon} alt="Exit" className="exit"/> Log out </button>
             </aside>
             <div>
                 {elementToShow}
