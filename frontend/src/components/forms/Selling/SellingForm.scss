@@ -1,11 +1,40 @@
-div.selling-form-1 {
-    form.selling {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+@import "../../../assets/scss/base/colors";
 
-        div.form-steps {
-            
-        }
+span.ball {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: $grey;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        transform: translateX(-50%);
+        height: 1px;
+        width: 50px;
+        background: $grey;
+    }
+}
+
+span.filled {
+    background: $dark;
+}
+
+div.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form.selling {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    div.form-steps {
+        display: flex;
+        align-items: center ;
     }
 }

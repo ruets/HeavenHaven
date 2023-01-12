@@ -40,7 +40,7 @@ export function LoginForm() {
             setErrorMessagePassword("");
         } catch (error) {
             // handle error
-            console.error(error);
+            setErrorMessagePassword(error.response.error);
         }
     };
 
