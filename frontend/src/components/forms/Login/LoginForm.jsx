@@ -5,7 +5,6 @@ import Input from "../../fields/Input/Input";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
 import "./LoginForm.scss";
-import { serverAdress } from "../../../config/config";
 
 /**
  * responsability: handle login,
@@ -31,8 +30,7 @@ export function LoginForm() {
 
     const postData = async () => {
         try {
-            const requestAdress = serverAdress + "/api/auth/login"; 
-            let res = await axios.post(requestAdress, {
+            let res = await axios.post("http://192.168.14.210:3000/api/auth/login", {
                 email: email,
                 password: password,
             });
