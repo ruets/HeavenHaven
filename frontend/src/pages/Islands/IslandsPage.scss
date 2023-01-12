@@ -32,6 +32,42 @@ div.islands {
     }
 
 
+    div.dropdown{
+        position: absolute;
+        right: 0;
+        display: flex;
+        bottom: -133px;
+        gap: 36px;
+        width: 60%;
+        background: #F0F0F0;
+        display: none;
+
+        div{
+            width: 33.3333%;
+        }
+        
+        ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+    
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                p {
+                    color: $dark;
+                    font-size: 20px;
+                }
+            }
+        }
+
+    }
+    
+   
+
+
     div.grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
