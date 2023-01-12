@@ -21,7 +21,7 @@ div.profil{
             border-radius: 50%;
         }
 
-        h2 {
+        h1 {
            font-size: 25px;
            margin-bottom: 20px;
            font-weight: bold;
@@ -64,7 +64,7 @@ div.profil{
 
         button.logOut{
             margin-bottom: 25px;
-            margin-right: 60%;
+            margin-right: 50%;
             background: transparent;
             cursor: pointer;
             
@@ -72,9 +72,14 @@ div.profil{
             img.exit{
                 width: 25px;
                 vertical-align: middle;
+                margin-right: 10px;
             }
         }
 
 
+    }
+
+    div.elementToShow {
+        width: 100%;
     }
 }

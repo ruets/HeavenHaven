@@ -22,7 +22,7 @@ export function ProfilePage() {
         <div className="profil">
             <aside> 
                 <img src={ UserProfile} alt="User profile" className="user" />
-                <h2 className="welcome"> Welcome, [Jeff] </h2>
+                <h1 className="welcome"> Welcome, [Jeff] </h1>
                 <p> Affiliation code : [R165IBF963DSF]</p>
                 <button className="account" onClick={e => setIsAccountSettings(true)}> Account settings </button>
                 <button className="dashBoard" onClick={e => setIsAccountSettings(false)} > Dashboard </button>
@@ -36,7 +36,7 @@ export function ProfilePage() {
                 </ul>
                 <button className="logOut"> <img src={ExitIcon} alt="Exit" className="exit"/> Log out </button>
             </aside>
-            <div>
+            <div className="elementToShow">
                 {elementToShow}
             </div>
         </div>
