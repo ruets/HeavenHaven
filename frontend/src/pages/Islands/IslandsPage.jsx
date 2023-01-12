@@ -42,24 +42,30 @@ export function IslandsPage() {
                 <h2>Islands</h2>
                 <button className="filter">Filter <img src={ChevronUpIcon}/></button>
                 <div className="dropdown">
-                    <ul>
-                        <h4>Location</h4>
-                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                    </ul>
-                    <ul>
-                        <h4>Price</h4>
-                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                    </ul>
-                    <ul>
+                    <div className="option-1"><h4>Location</h4>
+                        <ul>
+                           <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                           <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                           <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                        </ul>
+                    </div>
+                    <div className="option-2">
+                    <h4>Price</h4>
+                        <ul>
+                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                        </ul>
+                    </div>
+                    
+                    <div className="option-3">
                         <h4>Date</h4>
-                        <li><p>More recent</p><input type="checkbox" name="Lorem"/></li>
-                        <li><p>Less recent</p><input type="checkbox" name="Lorem"/></li>
-                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                    </ul>
+                        <ul>
+                            <li><p>More recent</p><input type="checkbox" name="Lorem"/></li>
+                            <li><p>Less recent</p><input type="checkbox" name="Lorem"/></li>
+                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div className="grid">{allIslands}</div>
