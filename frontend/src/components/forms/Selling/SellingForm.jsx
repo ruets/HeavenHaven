@@ -25,15 +25,15 @@ export function SellingForm() {
             <div className="selling-form-1">
                 <form className="selling">
                     <div className="form-steps">
-                        <div className="step 1">
+                        <div className="step step-1">
                             <span className="ball filled"></span>
                             <p className="filled">General</p>
                         </div>
-                        <div className="step 2">
+                        <div className="step step-2">
                             <span className="ball"></span>
                             <p>Content</p>
                         </div>
-                        <div className="step 3">
+                        <div className="step step-3">
                             <span className="ball"></span>
                             <p>Documents</p>
                         </div>

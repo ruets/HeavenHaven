@@ -6,16 +6,6 @@ span.ball {
     height: 25px;
     border-radius: 50%;
     background: $grey;
-
-    &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        transform: translateX(-50%);
-        height: 1px;
-        width: 50px;
-        background: $grey;
-    }
 }
 
 span.filled {
@@ -23,9 +13,22 @@ span.filled {
 }
 
 div.step {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 33.333%;
+
+    &.step-2::after, &.step-3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 12px;
+        transform: translateX(-50%);
+        height: 2px;
+        width: 100%;
+        background: $grey;
+    }
 }
 
 form.selling {
@@ -34,7 +37,8 @@ form.selling {
     align-items: center;
 
     div.form-steps {
+        width: 100%;
         display: flex;
-        align-items: center ;
+        align-items: center;
     }
 }
