@@ -42,7 +42,7 @@ export function SignupForm() {
     const labelForFileInput = React.useRef(null);
 
     const [idCard, setIdCard] = useState([]);
-    const files = null;
+    var idCardFiles = null;
 
     const [idCardName, setIdCardName] = useState("");
     const [errorMessageIdCard, setErrorMessageIdCard] = useState("");
@@ -156,7 +156,7 @@ export function SignupForm() {
 
     const handleFileChange = useCallback((e) => {
         setIdCard(e.target.files);
-        files = e.target.files;
+        idCardFiles = e.target.files;
         const files = e.target.files;
         const num = files.length - 1;
         if (files.length > 1) {
@@ -272,7 +272,7 @@ export function SignupForm() {
                         setInput={setPassword}
                         onBlur={validatePassword}
                     ></Input>
-                    {errorMessagesPassword !== [] ? <div className="error">{errorMessagesPassword}</div> : null}
+                    {errorMessagesPassword.length !== 0 ? <div className="error">{errorMessagesPassword}</div> : null}
                     <Input
                         type="password"
                         name="confirm-password"
