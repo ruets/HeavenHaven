@@ -32,6 +32,19 @@ div.islands {
     }
 
 
+
+    ul{
+
+        
+        li p{
+        display: block;
+        padding: 20px 25px;
+        color: #FFF;
+    }
+    }
+   
+
+
     div.grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;

@@ -42,7 +42,24 @@ export function IslandsPage() {
                 <h2>Islands</h2>
                 <button className="filter">Filter <img src={ChevronUpIcon}/></button>
                 <div className="dropdown">
-                    <ul></ul>
+                    <ul>
+                        <h4>Location</h4>
+                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                    </ul>
+                    <ul>
+                        <h4>Price</h4>
+                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                    </ul>
+                    <ul>
+                        <h4>Date</h4>
+                        <li><p>More recent</p><input type="checkbox" name="Lorem"/></li>
+                        <li><p>Less recent</p><input type="checkbox" name="Lorem"/></li>
+                        <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                    </ul>
                 </div>
             </div>
             <div className="grid">{allIslands}</div>
