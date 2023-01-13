@@ -3,6 +3,9 @@ import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 
+// Config
+import config from '../../../config/config.json'
+
 // More
 import axios from "axios";
 
@@ -153,15 +156,23 @@ export function SignupForm() {
         hiddenFileInput.current.click();
     });
 
-    const handleFileChange = useCallback((e) => {
-        setIdCard(e.target.files);
-        const num = idCard.length - 1;
-        if (idCard.length > 1) {
-            setIdCardName(idCard[0].name + " + " + num.toString());
+    const handleFileChange = useCallback(() => {
+        const idCard = hiddenFileInput.current.files;
+
+        if (idCard.length > 2) {
+            setErrorMessageIdCard("You cannot put more than 2 files");
+            setIdCardName("");
         } else {
-            setIdCardName(idCard.name);
+            const num = idCard.length - 1;
+
+            if (idCard.length > 1) {
+                setIdCardName(idCard[0].name + " + " + num.toString());
+            } else {
+                setIdCardName(idCard[0].name);
+            }
+            validateIdCard(idCard);
         }
-        validateIdCard(idCard);
+
     }, [setIdCard, setIdCardName, hiddenFileInput]);
 
     function validateIdCard(idCard) {
@@ -179,11 +190,17 @@ export function SignupForm() {
     }
 
     const postData = async () => {
-        formData = new FormData();
-        formData.append("files", files);
-        console.log(formData);
+        var formData = new FormData();
+
+        if (idCard.length == 1) {
+            formData.append("file1", idCard[0]);
+        } else {
+            formData.append("file1", idCard[0]);
+            formData.append("file2", idCard[1]);
+        }
+
         try {
-            let res = await axios.post("http://192.168.14.210:3000/api/auth/signup", {
+            let res = await axios.post(config.serverAdress + "/api/auth/signup", {
                 email: email,
                 password1: password,
                 password2: confirmedPassword,
@@ -195,8 +212,8 @@ export function SignupForm() {
                 city: city,
                 zip: zipCode,
                 country: country,
-                idCard: idCard,
-                sponsorCode: affiliationCode
+                sponsorCode: affiliationCode,
+                idCard: formData,
             });
 
             // handle success
@@ -349,8 +366,10 @@ export function SignupForm() {
                                 ref={hiddenFileInput}
                                 name="id-card-upload"
                                 label="Id Card (max 8 Mo)"
-                                value={idCard}
-                                onChange={e => handleFileChange(e)}
+                                onChange={e => {
+                                    setIdCard(e.target.files);
+                                    handleFileChange();
+                                }}
                                 accept=".jpg,.jpeg,.png"
                                 required
                                 multiple

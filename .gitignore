@@ -3,7 +3,10 @@
 
 # ajout des nodes modules du backend
 backend/node_modules
-
+# données d'environnement du backend
+backend/.env
+# images du backend
+backend/imgs/
 
 # Created by https://www.toptal.com/developers/gitignore/api/netbeans,pycharm+all,xcode,jetbrains+all,kdevelop4,phpstorm+all,vim,emacs,eclipse,intellij+all,windows,linux,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=netbeans,pycharm+all,xcode,jetbrains+all,kdevelop4,phpstorm+all,vim,emacs,eclipse,intellij+all,windows,linux,macos
