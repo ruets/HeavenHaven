@@ -2,11 +2,12 @@ main.accountSettings{
 
     width: 100%;
     height: 100%;
+    display: flex;
 
     div.infoPart{
 
-        width: 60%;
-        height: 100%;
+        width: 700px;
+        height: 80%;
         padding-left: 3%;
         padding-top: 6%;
         
@@ -20,7 +21,7 @@ main.accountSettings{
         div.line{
 
             display: flex;
-            margin-top: 7%;
+            margin-top: 50px;
         
 
             div.last{
@@ -50,5 +51,12 @@ main.accountSettings{
             }
         }
 
+    }
+
+    div.formPart{
+        width: 100%;
+        height: 80%;
+        padding-left: 12%;
+        padding-top: 6%;
     }
 }

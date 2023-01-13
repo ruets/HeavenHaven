@@ -51,7 +51,9 @@ function AccountSettings(props) {
                         </div>
                     </div>
             </div>
+            <div className="formPart">
             <AccountSettingsForm></AccountSettingsForm>
+            </div>
         </main>
     );
 }
