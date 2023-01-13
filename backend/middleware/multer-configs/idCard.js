@@ -17,4 +17,4 @@ const storage = multer.diskStorage({
   },
 });
 
-module.exports = multer({ storage: storage }).single("idCard");
+module.exports = multer({ storage: storage }).array();
