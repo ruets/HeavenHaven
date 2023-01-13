@@ -18,7 +18,6 @@ export function IndexPage() {
             const islands = data.map((island) => {
                 return <IslandCard key={island.id} name={island.name} image={island.image} description={island.description}/>;
             });
-            console.log(res);
             setTrendingIslands(islands);
             setIsLoading(false);
         } catch (error) {

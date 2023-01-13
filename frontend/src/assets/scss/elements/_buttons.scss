@@ -47,4 +47,9 @@ a.btn-2 {
         background: $cta;
         transition: 0.2s;
     }
+
+    &:hover::before {
+        height: 100%;
+        border-color: rgba($color: $dark, $alpha: 0.5);
+    }
 }
