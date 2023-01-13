@@ -38,10 +38,9 @@ export function SellingPage() {
                     <div className="layout">
                         <h3>Start Selling</h3>
                         <p className="selling-description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Ratione maiores doloribus autem? Nesciunt
-                            quisquam quas sint? Quis distinctio commodi est
-                            architecto quidem!
+                        You want to sell your island quickly, to serious buyers. 
+                        Don't wait any longer and do it through us. 
+                        Fill in some information, wait for us to verify it and watch the bids rise ! 
                         </p>
                         <Link className="btn-1" to="/sell/form">
                             List An Island
