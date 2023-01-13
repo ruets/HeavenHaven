@@ -35,7 +35,7 @@ export function IslandsPage() {
             let res = await axios.get(config.serverAdress + "/api/islands/");
             const data = res.data;
             const islands = data.map((island) => {
-                return <IslandCard key={island.id} name={island.name} country={island.country}/>;
+                return <IslandCard key={island.id} id={island.id} name={island.name} country={island.country}/>;
             });
             setAllIslands(islands);
             setIsLoading(false);
