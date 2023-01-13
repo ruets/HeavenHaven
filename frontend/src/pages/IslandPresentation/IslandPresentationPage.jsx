@@ -5,13 +5,14 @@ import calendarIcon from "../../assets/img/calendar-icon.svg";
 import payToBidIcon from "../../assets/img/payToBid-icon.svg";
 import comissionIcon from "../../assets/img/comission-icon.svg";
 import weatherPart from "../../assets/img/weatherPart-test-img.png";
+import wildLifePart from "../../assets/img/wildLife-test-img.png";
 
 export function IslandPresentationPage() {
     return (
         <div className="islandPresentation">
             <div className="topSection">
                 <img src={topImage} alt="islandImage" />
-                <h1>Lorem Ipsum</h1>
+                <h1>[Lorem Ipsum]</h1>
             </div>
             <div className="topInfos">
                 <div className="leftPart">
@@ -42,7 +43,7 @@ export function IslandPresentationPage() {
                 <div className="weatherPart">
                     <div className="text">
                         <p className="tittle">Weather</p>
-                        <p className="description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
+                        <p className="description"> [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
                          Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
                          Etiam non arcu eros. Duis elementum vitae tellus in sodales. 
                          Suspendisse elementum ex eu sodales facilisis. Sed at nibh non felis facilisis vulputate. 
@@ -50,10 +51,26 @@ export function IslandPresentationPage() {
                          Nulla sollicitudin fermentum turpis sed luctus. Nam efficitur, nulla et feugiat pretium, orci lectus fringilla dolor, in tempor libero tortor id dolor. 
                          Phasellus ut ante pharetra, porta dolor at, tempor mauris. 
                          Ut sed nisi in felis sagittis finibus blandit vitae massa. 
-                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.]
                         </p>
                     </div>
                     <img src={weatherPart} alt="weather-Image" />
+                </div>
+                <div className="wildLife">
+                    <div className="text">
+                        <p className="tittle">Wildlife</p>
+                        <p className="description"> [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
+                         Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
+                         Etiam non arcu eros. Duis elementum vitae tellus in sodales. 
+                         Suspendisse elementum ex eu sodales facilisis. Sed at nibh non felis facilisis vulputate. 
+                         Nam pulvinar molestie metus, tincidunt egestas lorem sodales eget. 
+                         Nulla sollicitudin fermentum turpis sed luctus. Nam efficitur, nulla et feugiat pretium, orci lectus fringilla dolor, in tempor libero tortor id dolor. 
+                         Phasellus ut ante pharetra, porta dolor at, tempor mauris. 
+                         Ut sed nisi in felis sagittis finibus blandit vitae massa. 
+                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.]
+                        </p>
+                    </div>
+                    <img src={wildLifePart} alt="weather-Image" />
                 </div>
             </div>
         </div>
