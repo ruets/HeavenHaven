@@ -1,44 +1,109 @@
 @import "../../../assets/scss/base/colors";
 
-span.ball {
-    position: relative;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: $grey;
-}
-
-span.filled {
-    background: $dark;
-}
-
-div.step {
-    position: relative;
+div.form-steps-selling {
+    width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 33.333%;
+    margin-bottom: 48px;
 
-    &.step-2::after, &.step-3::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 12px;
-        transform: translateX(-50%);
-        height: 2px;
-        width: 100%;
-        background: $grey;
+    div.step {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 33.333%;
+
+        span.ball {
+            position: relative;
+            width: 25px;
+            z-index: 1;
+            height: 25px;
+            border-radius: 50%;
+            background: $grey;
+        }
+        
+        span.filled {
+            background: $dark;
+        }
+    
+        p {
+            color: $grey;
+        }
+    
+        p.filled {
+            color: $dark;
+        }
     }
 }
 
-form.selling {
+div.selling-form-1 {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
 
-    div.form-steps {
-        width: 100%;
+    form.selling {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        padding: 32px 0;
+        width: 60%;
+
+        div.step {
+            &.step-2::after, &.step-3::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 12px;
+                transform: translateX(-50%);
+                height: 2px;
+                width: 100%;
+                background: $grey;
+            }
+        }
+    
+        div.fields {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            input {
+                padding-left: 16px;
+            }
+    
+            div.coordinates {
+                display: flex;
+                gap: 12px;
+    
+                div.global-input {
+                    width: 50%;
+                }
+            }
+        }
+
+        button {
+            margin-top: 24px;
+        }
+    }
+}
+
+div.selling-form-2 {
+    div.step {
+        &.step-2::after, &.step-3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 12px;
+            transform: translateX(-50%);
+            height: 2px;
+            width: 100%;
+        }
+
+        &.step-2::after {
+            background: $dark;
+        }
+
+        &.step-3::after {
+            background: $grey;
+        }
+        
     }
 }

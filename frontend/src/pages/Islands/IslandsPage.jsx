@@ -4,6 +4,7 @@ import ChevronUpIcon from "../../assets/img/chevron-up.svg";
 import axios from "axios";
 import { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
+import config from '../../config/config.json'
 
 
 export function IslandsPage() {
@@ -31,11 +32,10 @@ export function IslandsPage() {
 
     const getAllIslands = async () => {
         try {
-            // TODO Change URL to our API
-            let res = await axios.get("https://reqres.in/api/users?page=2");
-            const data = res.data.data;
+            let res = await axios.get(config.serverAdress + "/api/islands/");
+            const data = res.data;
             const islands = data.map((island) => {
-                return <IslandCard key={island.id} />;
+                return <IslandCard key={island.id} id={island.id} name={island.name} country={island.country}/>;
             });
             setAllIslands(islands);
             setIsLoading(false);
