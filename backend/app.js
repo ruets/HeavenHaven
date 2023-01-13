@@ -14,6 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/imgs/islands/', express.static(path.join(__dirname, 'imgs/islands')));
 app.use('/api/auth', authRoutes);
 app.use('/api/islands', islandsRoutes);
 
