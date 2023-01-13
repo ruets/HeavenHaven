@@ -5,7 +5,7 @@ import "./IslandCard.scss";
 function IslandCard(props) {
     return (
         <div className="island-card">
-            <h4>{props.title}</h4>
+            <h4>{props.name}</h4>
             <img src={props.image} alt="" />
             <p>{props.description}</p>
             <div className="buttons">
