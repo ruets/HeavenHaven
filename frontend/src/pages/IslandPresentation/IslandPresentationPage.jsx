@@ -7,7 +7,7 @@ import comissionIcon from "../../assets/img/comission-icon.svg";
 import weatherPart from "../../assets/img/weatherPart-test-img.png";
 import wildLifePart from "../../assets/img/wildLife-test-img.png";
 
-export function IslandPresentationPage() {
+export function IslandPresentationPage(props) {
     return (
         <div className="islandPresentation">
             <div className="topSection">

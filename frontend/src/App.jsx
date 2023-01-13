@@ -10,7 +10,6 @@ import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 import { Header } from "./components/base/Header/Header";
 import { Footer } from "./components/base/Footer/Footer";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
-import { IslandPresentationPage } from "./pages/IslandPresentation/IslandPresentationPage";
 import { Routes, Route } from "react-router-dom";
 import "./assets/scss/style.scss";
 import "./App.scss";
@@ -24,12 +23,11 @@ function App() {
                 <Route path="login" element={<LoginPage />} />
                 <Route path="forgot" element={<ForgotPage />} />
                 <Route path="signup" element={<SignupPage />} />
-                <Route path="islands" element={<IslandsPage />} />
+                <Route path="islands/*" element={<IslandsPage />} />
                 <Route path="sell" element={<SellingPage />} />
                 <Route path="sell/form" element={<SellingForm/>}/>
                 <Route path="contact" element={<ContactPage/>}/>
                 <Route path="profile" element={<ProfilePage/>}/>
-                <Route path="presentation" element={<IslandPresentationPage/>}/>;
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Footer />
