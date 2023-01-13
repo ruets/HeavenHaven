@@ -80,6 +80,7 @@ model Island {
     latitude    Float
     longitude   Float
     country     String      @db.VarChar(255)
+    continent   String      @db.VarChar(15)
     
     //Climate informations
     climate     String?     @db.VarChar(625)
