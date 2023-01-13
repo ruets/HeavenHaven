@@ -28,6 +28,7 @@ div.islands {
 
         img{
             width: 22px;
+            transition: 0.12s;
         }
     }
 
@@ -35,12 +36,13 @@ div.islands {
     div.dropdown{
         position: absolute;
         right: 0;
-        display: flex;
-        bottom: -133px;
+        bottom: calc(-133px - 24px); // div height minus div padding
         gap: 36px;
         width: 60%;
         background: #F0F0F0;
         display: none;
+        padding: 12px 24px;
+
 
         div{
             width: 33.3333%;

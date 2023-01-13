@@ -2,14 +2,32 @@ import "./IslandsPage.scss";
 import IslandCard from "../../components/card/IslandCard";
 import ChevronUpIcon from "../../assets/img/chevron-up.svg";
 import axios from "axios";
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 
 
 export function IslandsPage() {
+
+    const [isOpen, setIsOpen] = useState(false);
+
     const [allIslands, setAllIslands] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isErrorThrown, setIsErrorThrown] = useState(false);
+
+    const refToImage = useRef(null);
+    const refToDropDown = useRef(null);
+    
+    const handleFilterClick = useCallback(() => {
+        if (isOpen) {
+            refToImage.current.style.rotate = "";
+            refToDropDown.current.style.display = "";
+            setIsOpen(false);
+        } else {
+            refToImage.current.style.rotate = "180deg";
+            refToDropDown.current.style.display = "flex";
+            setIsOpen(true);
+        }
+    })
 
     const getAllIslands = async () => {
         try {
@@ -40,8 +58,8 @@ export function IslandsPage() {
         <div className="islands">
             <div className="top">
                 <h2>Islands</h2>
-                <button className="filter">Filter <img src={ChevronUpIcon}/></button>
-                <div className="dropdown">
+                <button className="filter" onClick={handleFilterClick}>Filter <img ref={refToImage} src={ChevronUpIcon}/></button>
+                <div className="dropdown" ref={refToDropDown}>
                     <div className="option-1"><h4>Location</h4>
                         <ul>
                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
