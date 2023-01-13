@@ -1,18 +1,5 @@
 @import "../../../assets/scss/base/colors";
 
-span.ball {
-    position: relative;
-    width: 25px;
-    z-index: 1;
-    height: 25px;
-    border-radius: 50%;
-    background: $grey;
-}
-
-span.filled {
-    background: $dark;
-}
-
 div.form-steps {
     width: 100%;
     display: flex;
@@ -25,6 +12,19 @@ div.form-steps {
         flex-direction: column;
         align-items: center;
         width: 33.333%;
+
+        span.ball {
+            position: relative;
+            width: 25px;
+            z-index: 1;
+            height: 25px;
+            border-radius: 50%;
+            background: $grey;
+        }
+        
+        span.filled {
+            background: $dark;
+        }
     
         p {
             color: $grey;
