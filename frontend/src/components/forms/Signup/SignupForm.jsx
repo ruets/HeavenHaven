@@ -190,7 +190,7 @@ export function SignupForm() {
         var formData = new FormData();
 
         if (idCard.length == 1) {
-            formData.append("file", idCard[0]);
+            formData.append("file1", idCard[0]);
         } else {
             formData.append("file1", idCard[0]);
             formData.append("file2", idCard[1]);
