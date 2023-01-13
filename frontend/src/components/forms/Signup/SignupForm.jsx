@@ -3,6 +3,9 @@ import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 
+// Config
+import config from '../../../config/config.json'
+
 // More
 import axios from "axios";
 
@@ -183,7 +186,7 @@ export function SignupForm() {
         formData.append("files", files);
         console.log(formData);
         try {
-            let res = await axios.post("http://192.168.14.210:3000/api/auth/signup", {
+            let res = await axios.post(config.serverAdress + "/api/auth/signup", {
                 email: email,
                 password1: password,
                 password2: confirmedPassword,
