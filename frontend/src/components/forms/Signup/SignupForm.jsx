@@ -235,7 +235,7 @@ export function SignupForm() {
         }
     });
 
-    if (!isFirstPage) {
+    if (isFirstPage) {
         return (
             <form className="signup" onSubmit={handleFillIn}>
                 <div className="form-steps">

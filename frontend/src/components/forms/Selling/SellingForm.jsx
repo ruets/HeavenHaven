@@ -14,6 +14,12 @@ export function SellingForm() {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
 
+    const validateDate = useCallback(() => {
+        if (startDate) {
+            
+        }
+    })
+
     const handleNextPage = useCallback(() => {
         setPagesCount(pagesCount + 1);
     })
@@ -22,7 +28,7 @@ export function SellingForm() {
         return (
             <div className="selling-form-1">
                 <form className="selling" onSubmit={handleNextPage}>
-                    <div className="form-steps">
+                    <div className="form-steps-selling">
                         <div className="step step-1">
                             <span className="ball filled"></span>
                             <p className="filled">General</p>
@@ -55,7 +61,7 @@ export function SellingForm() {
         return (
             <div className="selling-form-2">
                 <form className="selling" onSubmit={handleNextPage}>
-                    <div className="form-steps">
+                    <div className="form-steps-selling">
                         <div className="step step-1">
                             <span className="ball filled"></span>
                             <p className="filled">General</p>

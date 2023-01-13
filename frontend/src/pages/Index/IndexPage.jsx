@@ -14,9 +14,9 @@ export function IndexPage() {
     const getTrendingIslands = async () => {
         try {
             let res = await axios.get(config.serverAdress + "/api/islands/trends");
-            const data = res.data.data;
+            const data = res.data;
             const islands = data.map((island) => {
-                return <IslandCard key={island.id} name={island.name} image={island.image} description={island.description}/>;
+                return <IslandCard key={island.id} name={island.name} country={island.country}/>;
             });
             setTrendingIslands(islands);
             setIsLoading(false);
