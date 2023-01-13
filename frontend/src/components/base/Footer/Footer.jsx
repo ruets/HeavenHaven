@@ -30,7 +30,7 @@ export function Footer() {
             <div className="right">
                 <div>
                     <p>© 2022-2023 Heaven Haven, All Rights Reserved.</p>
-                    <p>2 Pl. Doyen Gosse, 38000 Grenoble</p>
+                    <p className="adresse">2 Pl. Doyen Gosse, 38000 Grenoble</p>
                 </div>
                 <p>Terms Of Service | Privacy | Legal notice | Contacts</p>
             </div>
