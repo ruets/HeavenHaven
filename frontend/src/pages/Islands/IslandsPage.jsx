@@ -60,28 +60,33 @@ export function IslandsPage() {
                 <h2>Islands</h2>
                 <button className="filter" onClick={handleFilterClick}>Filter <img ref={refToImage} src={ChevronUpIcon}/></button>
                 <div className="dropdown" ref={refToDropDown}>
-                    <div className="option-1"><h4>Location</h4>
+                    <div className="option-1">
+                        <h4>Location</h4>
                         <ul>
-                           <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                           <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                           <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                            <li><p>Africa</p><input type="checkbox" name="africa"/></li>
+                            <li><p>America</p><input type="checkbox" name="america"/></li>
+                            <li><p>Europe</p><input type="checkbox" name="europe"/></li>
+                            <li><p>Oceania</p><input type="checkbox" name="oceania"/></li>
                         </ul>
                     </div>
+                    <span className="line"></span>
                     <div className="option-2">
-                    <h4>Price</h4>
+                    <h4>Climate</h4>
                         <ul>
-                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
-                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                            <li><p>Tropical</p><input type="checkbox" name="tropical"/></li>
+                            <li><p>Dry</p><input type="checkbox" name="dry"/></li>
+                            <li><p>Temperate</p><input type="checkbox" name="temperate"/></li>
+                            <li><p>Continental</p><input type="checkbox" name="continental"/></li>
+                            <li><p>Polar</p><input type="checkbox" name="polar"/></li>
                         </ul>
                     </div>
-                    
+                    <span className="line"></span>
                     <div className="option-3">
-                        <h4>Date</h4>
+                        <h4>Installations</h4>
                         <ul>
-                            <li><p>More recent</p><input type="checkbox" name="Lorem"/></li>
-                            <li><p>Less recent</p><input type="checkbox" name="Lorem"/></li>
-                            <li><p>Lorem</p><input type="checkbox" name="Lorem"/></li>
+                            <li><p>Accommodations</p><input type="checkbox" name="accomodations"/></li>
+                            <li><p>Landing strip</p><input type="checkbox" name="landingstrip"/></li>
+                            <li><p>Port</p><input type="checkbox" name="port"/></li>
                         </ul>
                     </div>
                 </div>

@@ -25,6 +25,7 @@ div.islands {
         display: flex;
         align-items: center;
         gap: 8px;
+        font-family: "Roboto Slab";
 
         img{
             width: 22px;
@@ -32,11 +33,11 @@ div.islands {
         }
     }
 
-
     div.dropdown{
         position: absolute;
         right: 0;
-        bottom: calc(-133px - 24px); // div height minus div padding
+        height: 250px;
+        bottom: -250px;
         gap: 36px;
         width: 60%;
         background: #F0F0F0;
@@ -47,12 +48,17 @@ div.islands {
         div{
             width: 33.3333%;
         }
+
+        h4{
+            font-family: "Roboto Slab";
+        }
         
         ul {
             list-style: none;
             display: flex;
             flex-direction: column;
             gap: 8px;
+            margin-top: 16px;
     
             li {
                 display: flex;
@@ -65,11 +71,15 @@ div.islands {
             }
         }
 
+        .line {
+            border-left: 1px solid $dark;
+            height: 80%;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
     }
     
-   
-
-
     div.grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
