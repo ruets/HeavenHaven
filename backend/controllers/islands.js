@@ -12,8 +12,6 @@ exports.getTrends = async (req, res, next) => {
             trendings.forEach((island) => {
                 if (randomIslands.length < 6) {
                     randomIslands.push(island);
-                } else {
-                    res.status(200).json(randomIslands);
                 }
             });
 
