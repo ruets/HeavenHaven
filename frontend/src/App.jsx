@@ -10,6 +10,7 @@ import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 import { Header } from "./components/base/Header/Header";
 import { Footer } from "./components/base/Footer/Footer";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
+import{IslandPresentationPage} from "./pages/IslandPresentation/IslandPresentationPage"
 import { Routes, Route } from "react-router-dom";
 import "./assets/scss/style.scss";
 import "./App.scss";
@@ -29,6 +30,7 @@ function App() {
                 <Route path="contact" element={<ContactPage />} />
                 <Route path="profile" element={<ProfilePage />} />
                 <Route path="*" element={<NotFoundPage />} />
+                <Route path="presentation" element={<IslandPresentationPage/>}/>
             </Routes>
             <Footer />
         </div>
