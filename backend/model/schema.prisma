@@ -23,13 +23,14 @@ model User {
 
     //Geographical informations
     address     String      @db.VarChar(255)
-    apt         String?      @db.VarChar(255)
+    apt         String?     @db.VarChar(255)
     city        String      @db.VarChar(255)
     zip         String      @db.VarChar(255)
     country     String      @db.VarChar(255)
 
     //Link to the ID card image
-    idCardLink  String      @db.VarChar(255)
+    idCardLink1 String      @db.VarChar(255)
+    idCardLink2 String?     @db.VarChar(255)
 
     // An user can be attached to a classical customer
     customer    Customer?  
@@ -48,7 +49,7 @@ model Customer {
 
     // The client can sponsor other clients with the sponsorCode. The sponsorcode can be used twice
     sponsorCode String      @unique @db.VarChar(255)
-    remainingUses    Int         @default(2)
+    remainingUses    Int    @default(2)
 
     //A customer can sign up its own agents
     agents      Agent[]     @relation("customer")
