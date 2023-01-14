@@ -116,6 +116,9 @@ div.form-2 {
 
         div.fields {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
 
             div.ctn {
                 display: grid;

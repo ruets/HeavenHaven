@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 
 // Config
-import config from '../../../config/config.json'
+import config from "../../../config/config.json";
 
 // More
 import axios from "axios";
@@ -19,7 +19,6 @@ import UploadLogo from "../../../assets/img/signup-upload-icon.svg";
 import "./SignupForm.scss";
 
 export function SignupForm() {
-    
     const navigate = useNavigate();
 
     const [isFirstPage, setIsFirstPage] = useState(true);
@@ -139,11 +138,16 @@ export function SignupForm() {
 
     const handleFillIn = useCallback((e) => {
         e.preventDefault();
-        validateNames()
-        validateEmail()
-        validatePassword()
-        validatePhoneNumber()
-        if (errorMessageNames === "" && errorMessageEmail === "" && errorMessagesPassword.length === 0 && errorMessagePhoneNumber === "") {
+        validateNames();
+        validateEmail();
+        validatePassword();
+        validatePhoneNumber();
+        if (
+            errorMessageNames === "" &&
+            errorMessageEmail === "" &&
+            errorMessagesPassword.length === 0 &&
+            errorMessagePhoneNumber === ""
+        ) {
             setIsFirstPage(false);
         }
     });
@@ -154,7 +158,7 @@ export function SignupForm() {
 
     const handleOnUploadButtonClick = useCallback(() => {
         hiddenFileInput.current.click();
-    });
+    }, [hiddenFileInput]);
 
     const handleFileChange = useCallback(() => {
         const idCard = hiddenFileInput.current.files;
@@ -172,15 +176,14 @@ export function SignupForm() {
             }
             validateIdCard(idCard);
         }
-
-    }, [setIdCard, setIdCardName, hiddenFileInput]);
+    }, [setIdCardName, hiddenFileInput]);
 
     function validateIdCard(idCard) {
         const maxFileSizeKilo = 8192;
 
         for (let i = 0; i <= idCard.length - 1; i++) {
             const fileSizeBytes = idCard[i].size;
-            const fileSizeKilo = Math.round((fileSizeBytes / 1024));
+            const fileSizeKilo = Math.round(fileSizeBytes / 1024);
             if (fileSizeKilo >= maxFileSizeKilo) {
                 setErrorMessageIdCard("The file(s) must be less than 8Mo.");
             } else {
@@ -200,21 +203,24 @@ export function SignupForm() {
         }
 
         try {
-            let res = await axios.post(config.serverAdress + "/api/auth/signup", {
-                email: email,
-                password1: password,
-                password2: confirmedPassword,
-                lastName: lastName,
-                firstName: firstName,
-                phone: phoneNumber,
-                address: streetAdress,
-                apt: apartment,
-                city: city,
-                zip: zipCode,
-                country: country,
-                sponsorCode: affiliationCode,
-                idCard: formData,
-            });
+            let res = await axios.post(
+                config.serverAdress + "/api/auth/signup",
+                {
+                    email: email,
+                    password1: password,
+                    password2: confirmedPassword,
+                    lastName: lastName,
+                    firstName: firstName,
+                    phone: phoneNumber,
+                    address: streetAdress,
+                    apt: apartment,
+                    city: city,
+                    zip: zipCode,
+                    country: country,
+                    sponsorCode: affiliationCode,
+                    idCard: formData,
+                }
+            );
 
             // handle success
             alert("Token d'authentification : " + res.data.token);
@@ -286,7 +292,9 @@ export function SignupForm() {
                         setInput={setPassword}
                         onBlur={validatePassword}
                     ></Input>
-                    {errorMessagesPassword.length !== 0 ? <div className="error">{errorMessagesPassword}</div> : null}
+                    {errorMessagesPassword.length !== 0 ? (
+                        <div className="error">{errorMessagesPassword}</div>
+                    ) : null}
                     <Input
                         type="password"
                         name="confirm-password"
@@ -365,8 +373,7 @@ export function SignupForm() {
                                 type="file"
                                 ref={hiddenFileInput}
                                 name="id-card-upload"
-                                label="Id Card (max 8 Mo)"
-                                onChange={e => {
+                                onChange={(e) => {
                                     setIdCard(e.target.files);
                                     handleFileChange();
                                 }}
