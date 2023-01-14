@@ -44,7 +44,7 @@ export function SellingForm() {
             "The ending date must be after the starting date"
         );
         console.log(errorMessageGeneral);
-    }, [setErrorMessageGeneral, errorMessageGeneral]);
+    }, []);
 
     const validateFirstStep = useCallback(
         (e) => {
