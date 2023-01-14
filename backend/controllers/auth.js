@@ -10,7 +10,7 @@ exports.signup = async (req, res, next) => {
     try {
         let hash = await bcrypt.hash(req.body.password1, 10);
 
-        let valid = await bcrypt.compare(req.body.password1, req.body.password2)
+        let valid = await bcrypt.compare(req.body.password2, hash)
 
         if (!valid) {
             return res.status(400).json({ error: "Passwords do not match !" });
@@ -21,23 +21,30 @@ exports.signup = async (req, res, next) => {
                 sponsorCode: req.body.sponsorCode
             }
         })
-
+        
         if (!sponsor) {
             return res.status(400).json({ error: "Incorrect sponsor code !" });
         } else {
-            let sponsorings = await prisma.Customer.findMany({
-                where: {
-                    sponsorId: sponsor.idUser
-                }
-            })
-
-            if (sponsorings.length >= 2) {
+            if (sponsor.remainingUses <= 0) {
                 return res.status(400).json({ error: "Maximum number of uses of this sponsor code reached !" });
             }
         }
 
+        let files = req.files;
+        let file1, file2;
+
+        if (!files) {
+            return res.status(400).json({ error: "Missing id cards !" });
+        } else if (files.length === 1) {
+            file1 = `${req.protocol}://${req.get('host')}/imgs/idCards/${files[0].filename}`;
+            file2 = null;
+        } else if (files.length === 2) {
+            file1 = `${req.protocol}://${req.get('host')}/imgs/idCards/${files[0].filename}`;
+            file2 = `${req.protocol}://${req.get('host')}/imgs/idCards/${files[1].filename}`;
+        }
+        
         try {
-            await prisma.User.create({
+            let customer = await prisma.User.create({
                 data: {
                     email: req.body.email,
                     password: hash,
@@ -51,28 +58,38 @@ exports.signup = async (req, res, next) => {
                     zip: req.body.zip,
                     country: req.body.country,
     
-                    idCardLink: `${req.protocol}://${req.get('host')}/imgs/idCards/${req.file.filename}`,
+                    idCardLink1: file1,
+                    idCardLink2: file2,
                     
                     customer : {
                         create: {
                             sponsorCode: sponsorCode(),
-    
-                            sponsor: {
-                                connect: {
-                                    sponsorCode: req.body.sponsorCode
-                                }        
-                            }
                         }
                     }
                 }
             });
+
+            await prisma.Customer.update({
+                where: {
+                    idUser: sponsor.idUser
+                },
+                data: {
+                    remainingUses: sponsor.remainingUses - 1
+                }
+            })
             
-            res.status(201).json({ message: "Created customer !" });
+            res.status(201).json({
+                message: "Created customer !",
+                userId: customer.id,
+                token: jwt.sign({ userId: customer.id }, config.secretKey, {
+                    expiresIn: "24h",
+                })
+            });
         } catch (error) {
-            res.status(400).json({ error });
+            res.status(400).json({ error: "Intern error with error code 400 !" });
         }
     } catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ error: "Intern error with error code 500 !" });
     }
 };
 
@@ -104,7 +121,7 @@ exports.login = async (req, res, next) => {
         });
     
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(500).json({ error: "Intern error with error code 500 !" });
     }
 };
 
