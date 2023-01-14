@@ -4,7 +4,7 @@ import IslandCard from "../../components/card/IslandCard";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import config from '../../config/config.json'
+import config from "../../config/config.json";
 
 export function IndexPage() {
     const [trendingIslands, setTrendingIslands] = useState([]);
@@ -13,10 +13,19 @@ export function IndexPage() {
 
     const getTrendingIslands = async () => {
         try {
-            let res = await axios.get(config.serverAdress + "/api/islands/trends");
+            let res = await axios.get(
+                config.serverAdress + "/api/islands/trends"
+            );
             const data = res.data;
             const islands = data.map((island) => {
-                return <IslandCard key={island.id} id={island.id} name={island.name} country={island.country}/>;
+                return (
+                    <IslandCard
+                        key={island.id}
+                        id={island.id}
+                        name={island.name}
+                        country={island.country}
+                    />
+                );
             });
             setTrendingIslands(islands);
             setIsLoading(false);

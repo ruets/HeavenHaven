@@ -1,10 +1,10 @@
 import { IndexPage } from "./pages/Index/IndexPage";
-import {IslandsPage} from "./pages/Islands/IslandsPage";
+import { IslandsPage } from "./pages/Islands/IslandsPage";
 import { LoginPage } from "./pages/Connection/Login/LoginPage";
 import { SignupPage } from "./pages/Connection/Signup/SignupPage";
 import { ForgotPage } from "./pages/Forgot/ForgotPage";
-import { SellingPage } from "./pages/Selling/SellingPage/SellingPage"
-import { SellingForm } from "./components/forms/Selling/SellingForm"
+import { SellingPage } from "./pages/Selling/SellingPage/SellingPage";
+import { SellingForm } from "./components/forms/Selling/SellingForm";
 import { ContactPage } from "./pages/Contact/ContactPage";
 import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 import { Header } from "./components/base/Header/Header";
@@ -25,9 +25,9 @@ function App() {
                 <Route path="signup" element={<SignupPage />} />
                 <Route path="islands/*" element={<IslandsPage />} />
                 <Route path="sell" element={<SellingPage />} />
-                <Route path="sell/form" element={<SellingForm/>}/>
-                <Route path="contact" element={<ContactPage/>}/>
-                <Route path="profile" element={<ProfilePage/>}/>
+                <Route path="sell/form" element={<SellingForm />} />
+                <Route path="contact" element={<ContactPage />} />
+                <Route path="profile" element={<ProfilePage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Footer />
