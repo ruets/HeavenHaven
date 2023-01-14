@@ -3,7 +3,6 @@ import Input from "../../../components/fields/Input/Input";
 import "./SellingForm.scss";
 
 export function SellingForm() {
-
     const [pagesCount, setPagesCount] = useState(0);
 
     const [islandName, setIslandName] = useState("");
@@ -15,18 +14,17 @@ export function SellingForm() {
     const [endDate, setEndDate] = useState("");
 
     const validateDate = useCallback(() => {
-        if (startDate) {
-            
-        }
-    })
+        console.log("Have to validate date here");
+    });
 
     const handleNextPage = useCallback(() => {
         setPagesCount(pagesCount + 1);
-    })
+        console.log(pagesCount);
+    });
 
     if (pagesCount === 0) {
         return (
-            <div className="selling-form-1">
+            <div className="selling form-1">
                 <form className="selling" onSubmit={handleNextPage}>
                     <div className="form-steps-selling">
                         <div className="step step-1">
@@ -43,23 +41,74 @@ export function SellingForm() {
                         </div>
                     </div>
                     <div className="fields">
-                        <Input type="text" name="island-name" label="Island Name" value={islandName} setInput={setIslandName} required></Input>
+                        <Input
+                            type="text"
+                            name="island-name"
+                            label="Island Name"
+                            value={islandName}
+                            setInput={setIslandName}
+                            required
+                        ></Input>
                         <div className="coordinates">
-                        <Input type="text" name="longitude" label="Longitude" value={logitude} setInput={setLongitude} required></Input>
-                        <Input type="text" name="latitude" label="Latitude" value={latitude} setInput={setLatitude} required></Input>
+                            <Input
+                                type="text"
+                                name="longitude"
+                                label="Longitude"
+                                value={logitude}
+                                setInput={setLongitude}
+                                required
+                            ></Input>
+                            <Input
+                                type="text"
+                                name="latitude"
+                                label="Latitude"
+                                value={latitude}
+                                setInput={setLatitude}
+                                required
+                            ></Input>
                         </div>
-                        <Input type="text" name="surface" label="Surface" value={surface} setInput={setSurface} required></Input>
-                        <Input type="text" name="reserve-price" label="Reserve Price" value={reservePrice} setInput={setReservePrice} required></Input>
-                        <Input type="date" name="start-date" label="Start Date" value={startDate} setInput={setStartDate} required></Input>
-                        <Input type="date" name="end-date" label="End Date" value={endDate} setInput={setEndDate} required></Input>
+                        <Input
+                            type="text"
+                            name="surface"
+                            label="Surface"
+                            value={surface}
+                            setInput={setSurface}
+                            required
+                        ></Input>
+                        <Input
+                            type="text"
+                            name="reserve-price"
+                            label="Reserve Price"
+                            value={reservePrice}
+                            setInput={setReservePrice}
+                            required
+                        ></Input>
+                        <Input
+                            type="date"
+                            name="start-date"
+                            label="Start Date"
+                            value={startDate}
+                            setInput={setStartDate}
+                            required
+                        ></Input>
+                        <Input
+                            type="date"
+                            name="end-date"
+                            label="End Date"
+                            value={endDate}
+                            setInput={setEndDate}
+                            required
+                        ></Input>
                     </div>
-                    <button className="cta" type="submit">Next</button>
+                    <button className="cta" type="submit">
+                        Next
+                    </button>
                 </form>
             </div>
         );
     } else if (pagesCount === 1) {
         return (
-            <div className="selling-form-2">
+            <div className="selling form-2">
                 <form className="selling" onSubmit={handleNextPage}>
                     <div className="form-steps-selling">
                         <div className="step step-1">
@@ -76,19 +125,70 @@ export function SellingForm() {
                         </div>
                     </div>
                     <div className="fields">
-                        <Input type="text" name="island-name" label="Island Name" value={islandName} setInput={setIslandName} required></Input>
+                        <Input
+                            type="text"
+                            name="island-name"
+                            label="Island Name"
+                            value={islandName}
+                            setInput={setIslandName}
+                            required
+                        ></Input>
                         <div className="coordinates">
-                        <Input type="text" name="longitude" label="Longitude" value={logitude} setInput={setLongitude} required></Input>
-                        <Input type="text" name="latitude" label="Latitude" value={latitude} setInput={setLatitude} required></Input>
+                            <Input
+                                type="text"
+                                name="longitude"
+                                label="Longitude"
+                                value={logitude}
+                                setInput={setLongitude}
+                                required
+                            ></Input>
+                            <Input
+                                type="text"
+                                name="latitude"
+                                label="Latitude"
+                                value={latitude}
+                                setInput={setLatitude}
+                                required
+                            ></Input>
                         </div>
-                        <Input type="text" name="surface" label="Surface" value={surface} setInput={setSurface} required></Input>
-                        <Input type="text" name="reserve-price" label="Reserve Price" value={reservePrice} setInput={setReservePrice} required></Input>
-                        <Input type="date" name="start-date" label="Start Date" value={startDate} setInput={setStartDate} required></Input>
-                        <Input type="date" name="end-date" label="End Date" value={endDate} setInput={setEndDate} required></Input>
+                        <Input
+                            type="text"
+                            name="surface"
+                            label="Surface"
+                            value={surface}
+                            setInput={setSurface}
+                            required
+                        ></Input>
+                        <Input
+                            type="text"
+                            name="reserve-price"
+                            label="Reserve Price"
+                            value={reservePrice}
+                            setInput={setReservePrice}
+                            required
+                        ></Input>
+                        <Input
+                            type="date"
+                            name="start-date"
+                            label="Start Date"
+                            value={startDate}
+                            setInput={setStartDate}
+                            required
+                        ></Input>
+                        <Input
+                            type="date"
+                            name="end-date"
+                            label="End Date"
+                            value={endDate}
+                            setInput={setEndDate}
+                            required
+                        ></Input>
                     </div>
-                    <button className="cta" type="submit">Next</button>
+                    <button className="cta" type="submit">
+                        Next
+                    </button>
                 </form>
             </div>
-        )
+        );
     }
 }

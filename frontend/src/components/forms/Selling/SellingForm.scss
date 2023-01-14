@@ -1,54 +1,75 @@
 @import "../../../assets/scss/base/colors";
 
-div.form-steps-selling {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 48px;
-
-    div.step {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 33.333%;
-
-        span.ball {
-            position: relative;
-            width: 25px;
-            z-index: 1;
-            height: 25px;
-            border-radius: 50%;
-            background: $grey;
-        }
-        
-        span.filled {
-            background: $dark;
-        }
-    
-        p {
-            color: $grey;
-        }
-    
-        p.filled {
-            color: $dark;
-        }
-    }
-}
-
-div.selling-form-1 {
+div.selling {
     display: flex;
     justify-content: center;
+    width: 70%;
 
     form.selling {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 32px 0;
-        width: 60%;
+        width: 100%;
 
+        div.form-steps-selling {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 48px;
+
+            div.step {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 33.333%;
+
+                span.ball {
+                    position: relative;
+                    width: 25px;
+                    z-index: 1;
+                    height: 25px;
+                    border-radius: 50%;
+                    background: $grey;
+                }
+
+                span.filled {
+                    background: $dark;
+                }
+
+                p {
+                    color: $grey;
+                }
+
+                p.filled {
+                    color: $dark;
+                }
+            }
+        }
+
+        div.fields {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 60%;
+
+            input {
+                padding-left: 16px;
+            }
+        }
+
+        button {
+            margin-top: 24px;
+        }
+    }
+}
+
+div.form-1 {
+    form.selling {
         div.step {
-            &.step-2::after, &.step-3::after {
+            &.step-2::after,
+            &.step-3::after {
                 content: "";
                 position: absolute;
                 left: 0;
@@ -59,51 +80,39 @@ div.selling-form-1 {
                 background: $grey;
             }
         }
-    
-        div.fields {
+
+        div.coordinates {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 12px;
 
-            input {
-                padding-left: 16px;
+            div.global-input {
+                width: 50%;
             }
-    
-            div.coordinates {
-                display: flex;
-                gap: 12px;
-    
-                div.global-input {
-                    width: 50%;
-                }
-            }
-        }
-
-        button {
-            margin-top: 24px;
         }
     }
 }
 
-div.selling-form-2 {
-    div.step {
-        &.step-2::after, &.step-3::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 12px;
-            transform: translateX(-50%);
-            height: 2px;
-            width: 100%;
-        }
+div.form-2 {
+    form.selling {
+        div.step {
+            &.step-2::after,
+            &.step-3::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 12px;
+                transform: translateX(-50%);
+                height: 2px;
+                width: 100%;
+            }
 
-        &.step-2::after {
-            background: $dark;
-        }
+            &.step-2::after {
+                background: $dark;
+            }
 
-        &.step-3::after {
-            background: $grey;
+            &.step-3::after {
+                background: $grey;
+            }
         }
-        
     }
 }
