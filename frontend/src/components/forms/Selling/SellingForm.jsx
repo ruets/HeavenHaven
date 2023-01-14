@@ -150,29 +150,127 @@ export function SellingForm() {
                         </div>
                     </div>
                     <div className="fields">
-                        <div className="weather">
+                        <div className="ctn weather">
                             <div className="left">
                                 <h3>Weather</h3>
-                                <input
-                                    type="text"
-                                    name="weather"
-                                    value={weather}
-                                    onChange={(e) => setWeather(e.target.value)}
-                                    ref={refToWeatherInput}
-                                />
-                                <input
-                                    type="checkbox"
-                                    name="weatherCheckbox"
-                                    ref={refToWeatherCheckbox}
-                                    onClick={handleCheckboxChange}
-                                />
+                                <div className="text">
+                                    <textarea
+                                        name="weather"
+                                        value={weather}
+                                        placeholder="You are free to write a paragraph about the climate of your island, such as its type, the amount of precipitation or its average temperature during the different seasons. "
+                                        onChange={(e) =>
+                                            setWeather(e.target.value)
+                                        }
+                                        ref={refToWeatherInput}
+                                    />
+                                    <p>200 - 625 characters</p>
+                                </div>
+                                <div className="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="weatherCheckbox"
+                                        ref={refToWeatherCheckbox}
+                                        onClick={handleCheckboxChange}
+                                    />
+                                    <label htmlFor="weatherCheckbox">
+                                        If you don't want to do this description
+                                        yourself, we will do it for you.
+                                    </label>
+                                </div>
                             </div>
                             <div className="right"></div>
                         </div>
-                        <div className="wildlife"></div>
-                        <div className="activities"></div>
-                        <div className="location"></div>
-                        <div className="pictures"></div>
+                        <div className="ctn wildlife">
+                            <div className="left">
+                                <h3>Weather</h3>
+                                <div className="text">
+                                    <textarea
+                                        name="weather"
+                                        value={weather}
+                                        placeholder="You are free to write a paragraph about the climate of your island, such as its type, the amount of precipitation or its average temperature during the different seasons. "
+                                        onChange={(e) =>
+                                            setWeather(e.target.value)
+                                        }
+                                        ref={refToWeatherInput}
+                                    />
+                                    <p>200 - 625 characters</p>
+                                </div>
+                                <div className="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="weatherCheckbox"
+                                        ref={refToWeatherCheckbox}
+                                        onClick={handleCheckboxChange}
+                                    />
+                                    <label htmlFor="weatherCheckbox">
+                                        If you don't want to do this description
+                                        yourself, we will do it for you.
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="right"></div>
+                        </div>
+                        <div className="ctn activities">
+                            <div className="left">
+                                <h3>Weather</h3>
+                                <div className="text">
+                                    <textarea
+                                        name="weather"
+                                        value={weather}
+                                        placeholder="You are free to write a paragraph about the climate of your island, such as its type, the amount of precipitation or its average temperature during the different seasons. "
+                                        onChange={(e) =>
+                                            setWeather(e.target.value)
+                                        }
+                                        ref={refToWeatherInput}
+                                    />
+                                    <p>200 - 625 characters</p>
+                                </div>
+                                <div className="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="weatherCheckbox"
+                                        ref={refToWeatherCheckbox}
+                                        onClick={handleCheckboxChange}
+                                    />
+                                    <label htmlFor="weatherCheckbox">
+                                        If you don't want to do this description
+                                        yourself, we will do it for you.
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="right"></div>
+                        </div>
+                        <div className="ctn location">
+                            <div className="left">
+                                <h3>Weather</h3>
+                                <div className="text">
+                                    <textarea
+                                        name="weather"
+                                        value={weather}
+                                        placeholder="You are free to write a paragraph about the climate of your island, such as its type, the amount of precipitation or its average temperature during the different seasons. "
+                                        onChange={(e) =>
+                                            setWeather(e.target.value)
+                                        }
+                                        ref={refToWeatherInput}
+                                    />
+                                    <p>200 - 625 characters</p>
+                                </div>
+                                <div className="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="weatherCheckbox"
+                                        ref={refToWeatherCheckbox}
+                                        onClick={handleCheckboxChange}
+                                    />
+                                    <label htmlFor="weatherCheckbox">
+                                        If you don't want to do this description
+                                        yourself, we will do it for you.
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="right"></div>
+                        </div>
+                        <div className="ctn pictures"></div>
                     </div>
                     <div className="buttons">
                         <button
