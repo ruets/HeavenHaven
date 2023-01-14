@@ -267,9 +267,9 @@ export function SellingForm() {
                     </div>
                     <div className="fields">
                         <div className="ctn weather">
-                            <div className="left">
-                                <h3>Weather</h3>
-                                <div className="text">
+                            <h3>Weather</h3>
+                            <div className="grid">
+                                <div className="left">
                                     <textarea
                                         name="weather"
                                         value={weather}
@@ -281,42 +281,42 @@ export function SellingForm() {
                                     />
                                     <p>200 - 625 characters</p>
                                 </div>
-                                <div className="checkbox">
+                                <div className="right">
                                     <input
-                                        type="checkbox"
-                                        name="weatherCheckbox"
-                                        ref={refToWeatherCheckbox}
-                                        onClick={handleWeatherCheckboxChange}
+                                        type="text"
+                                        name="weatherImageText"
+                                        ref={refToLabelForWeatherFileInput}
+                                        value={weatherImageName}
+                                        placeholder="Click here to upload the image of your property that presents the weather"
+                                        className="image-text"
+                                        onClick={handleWeatherImageClick}
+                                        readOnly
                                     />
-                                    <label htmlFor="weatherCheckbox">
-                                        If you don't want to do this description
-                                        yourself, we will do it for you.
-                                    </label>
+                                    <input
+                                        type="file"
+                                        ref={refToHiddenWeatherFileInput}
+                                        name="weatherImageUpload"
+                                        onChange={(e) => {
+                                            setWeatherImage(e.target.files);
+                                            handleWeatherImageChange();
+                                        }}
+                                        accept=".jpg,.jpeg,.png"
+                                        required
+                                        className="image"
+                                    />
                                 </div>
                             </div>
-                            <div className="right">
+                            <div className="checkbox">
                                 <input
-                                    type="text"
-                                    name="weatherImageText"
-                                    ref={refToLabelForWeatherFileInput}
-                                    value={weatherImageName}
-                                    placeholder="Click here to upload the image of your property that presents the weather"
-                                    className="image-text"
-                                    onClick={handleWeatherImageClick}
-                                    readOnly
+                                    type="checkbox"
+                                    name="weatherCheckbox"
+                                    ref={refToWeatherCheckbox}
+                                    onClick={handleWeatherCheckboxChange}
                                 />
-                                <input
-                                    type="file"
-                                    ref={refToHiddenWeatherFileInput}
-                                    name="weatherImageUpload"
-                                    onChange={(e) => {
-                                        setWeatherImage(e.target.files);
-                                        handleWeatherImageChange();
-                                    }}
-                                    accept=".jpg,.jpeg,.png"
-                                    required
-                                    className="image"
-                                />
+                                <label htmlFor="weatherCheckbox">
+                                    If you don't want to do this description
+                                    yourself, we will do it for you.
+                                </label>
                             </div>
                         </div>
                         <div className="ctn wildlife">
