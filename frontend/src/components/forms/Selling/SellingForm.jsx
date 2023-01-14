@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState, useCallback, useRef } from "react";
 import SellingUploadImage from "../../../assets/img/selling-upload-icon.svg";
 import Input from "../../../components/fields/Input/Input";
@@ -17,17 +18,27 @@ export function SellingForm() {
         const fileSizeBytes = image[0].size;
         const fileSizeKilo = Math.round(fileSizeBytes / 1024);
         if (fileSizeKilo >= maxFileSizeKilo) {
-            setErrorMessageContent(
-                "The " + image.name + " file must be less than 8Mo."
-            );
+            refToErrorMessageContent.current.innerText =
+                "The " + image.name + " file must be less than 8Mo.";
         } else {
-            setErrorMessageContent("");
+            refToErrorMessageContent.current.innerText = "";
+        }
+    }
+
+    function validateTextarea(text, checkbox) {
+        if (checkbox.checked) {
+            return true;
+        } else if (text.value.length < 200 || text.value.length > 625) {
+            text.style.border = "1px red solid";
+            return false;
+        } else {
+            return true;
         }
     }
 
     // Error Messages
-    const [errorMessageGeneral, setErrorMessageGeneral] = useState("");
-    const [errorMessageContent, setErrorMessageContent] = useState("");
+    const refToErrorMessageGeneral = useRef(null);
+    const refToErrorMessageContent = useRef(null);
 
     // Step 1
 
@@ -39,23 +50,26 @@ export function SellingForm() {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
 
-    const validateDate = useCallback(() => {
-        setErrorMessageGeneral(
-            "The ending date must be after the starting date"
-        );
-        console.log(errorMessageGeneral);
-    }, []);
+    function validateDate() {
+        if (endDate <= startDate) {
+            refToErrorMessageGeneral.current.innerText =
+                "The ending date must be after the starting date";
+        } else {
+            refToErrorMessageGeneral.current.innerText = "";
+        }
+    }
 
-    const validateFirstStep = useCallback(
-        (e) => {
-            e.preventDefault();
-            validateDate();
-            if (errorMessageGeneral === "") {
-                handleNextPage();
-            }
-        },
-        [errorMessageGeneral, validateDate, handleNextPage]
-    );
+    function validateFirstStep(e) {
+        e.preventDefault();
+        validateDate();
+        validateErrorMessage(refToErrorMessageGeneral.current.innerText);
+    }
+
+    const validateErrorMessage = useCallback((errorMessageGeneral) => {
+        if (errorMessageGeneral === "") {
+            handleNextPage();
+        }
+    });
 
     // Step 2
 
@@ -239,7 +253,8 @@ export function SellingForm() {
         const picturesImage = refToHiddenPicturesFileInput.current.files;
 
         if (picturesImage.length > 5) {
-            setErrorMessageContent("You cannot put more than 2 files");
+            refToErrorMessageContent.current.innerText =
+                "You cannot put more than 5 files in the Pictures field";
             setPicturesImageName("");
         } else {
             const num = picturesImage.length - 1;
@@ -258,6 +273,9 @@ export function SellingForm() {
     const validateSecondStep = useCallback(
         (e) => {
             e.preventDefault();
+            let isImagesValid = true;
+
+            // Images verification
             if (
                 weatherImageName === "" ||
                 wildlifeImageName === "" ||
@@ -265,11 +283,55 @@ export function SellingForm() {
                 locationImageName === "" ||
                 picturesImageName === ""
             ) {
-                setErrorMessageContent(
-                    "You must put 1 image for each category, and multiple for the Pictures one."
-                );
+                isImagesValid = false;
             }
-            if (errorMessageContent === "") {
+
+            // Text verifications
+            let isTextsValid = true;
+
+            isTextsValid =
+                isTextsValid &&
+                validateTextarea(
+                    refToWeatherInput.current,
+                    refToWeatherCheckbox.current
+                );
+
+            isTextsValid =
+                isTextsValid &&
+                validateTextarea(
+                    refToWildlifeInput.current,
+                    refToWildlifeCheckbox.current
+                );
+
+            isTextsValid =
+                isTextsValid &&
+                validateTextarea(
+                    refToActivitiesInput.current,
+                    refToActivitiesCheckbox.current
+                );
+
+            isTextsValid =
+                isTextsValid &&
+                validateTextarea(
+                    refToLocationInput.current,
+                    refToLocationCheckbox.current
+                );
+
+            if (!isImagesValid) {
+                refToErrorMessageContent.current.innerText =
+                    "You must put 1 image for each category, and multiple for the Pictures one.";
+            }
+
+            if (!isTextsValid) {
+                refToErrorMessageContent.current.innerText =
+                    "Your texts must have between 200 and 625 characters";
+            }
+
+            if (isImagesValid && isTextsValid) {
+                refToErrorMessageContent.current.innerText = "";
+            }
+
+            if (refToErrorMessageContent.current.innerText === "") {
                 handleNextPage();
             }
         },
@@ -279,8 +341,7 @@ export function SellingForm() {
             activitiesImageName,
             locationImageName,
             picturesImageName,
-            setErrorMessageContent,
-            errorMessageContent,
+            refToErrorMessageContent,
         ]
     );
 
@@ -365,6 +426,7 @@ export function SellingForm() {
                             required
                         ></Input>
                     </div>
+                    <p ref={refToErrorMessageGeneral} className="error"></p>
                     <button className="cta" type="submit">
                         Next
                     </button>
@@ -709,6 +771,7 @@ export function SellingForm() {
                             </div>
                         </div>
                     </div>
+                    <p ref={refToErrorMessageContent} className="error"></p>
                     <div className="buttons">
                         <button
                             className="cta"
