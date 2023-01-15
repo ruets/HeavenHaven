@@ -7,7 +7,7 @@ import "./SellingForm.scss";
 
 export function SellingForm() {
     // Global variable
-    const [pagesCount, setPagesCount] = useState(3);
+    const [pagesCount, setPagesCount] = useState(0);
     const navigate = useNavigate();
 
     // Global functions
