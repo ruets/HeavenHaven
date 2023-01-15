@@ -101,6 +101,7 @@ div.islandPresentation{
         flex-direction: column;
         padding : 0 50px 0 50px;
         gap: 55px;
+        margin-bottom: 4%;
         
         h2{
             font-family: "Roboto Slab";
@@ -110,7 +111,7 @@ div.islandPresentation{
             margin-bottom: 3%;
         }
 
-        div.weatherPart{
+        div{
             display: flex;
             div.text{
                 width: 100%;
@@ -127,7 +128,7 @@ div.islandPresentation{
                 p.description{
                     font-family: "Roboto Slab";
                     color: $dark;
-                    font-size: 1.4rem;
+                    font-size: 1.4vw;
                 }
             }
             img{
@@ -136,61 +137,88 @@ div.islandPresentation{
                 align-self: center;
             }
         }
+    }
 
-        div.wildLifePart{
-            display: flex;
+    div.picturesSection{
+        display : flex;
+        flex-direction: column;
+        padding : 0 50px 0 50px;
 
-            div.text{
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                padding: 0 50px 0 50px;
-                p.tittle{
-                    align-self: center;
-                    font-family: "Roboto Slab";
-                    color: $dark;
-                    font-size: 2rem;
-                    margin-bottom: 5%;
-                }
-                p.description{
-                    font-family: "Roboto Slab";
-                    color: $dark;
-                    font-size: 1.4rem;
-                }
-            }
-            img{
-                width: 50%;
-                height: 50%;
-                align-self: center;
-            }
+        hr{
+            width: 80%;
+            align-self: center;
         }
 
-        div.activitiesPart{
+        h2{
+            font-family: "Roboto Slab";
+            color: $dark;
+            font-size: 3rem;
+            align-self: center;
+            margin-bottom: 3%;
+            margin-top: 4%;
+        }
+    }
+
+    div.locationSection{
+        display : flex;
+        flex-direction: column;
+        padding : 0 50px 0 50px;
+
+        hr{
+            width: 80%;
+            align-self: center;
+        }
+
+        h2{
+            font-family: "Roboto Slab";
+            color: $dark;
+            font-size: 3rem;
+            align-self: center;
+            margin-bottom: 3%;
+            margin-top: 4%;
+        }
+
+        
+        iframe{
+            align-self: center;
+            width: 90%;
+            height: 600px;
+            margin-bottom: 3%;
+        }
+
+        div.info{
             display: flex;
 
-            div.text{
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                padding: 0 50px 0 50px;
-                p.tittle{
-                    align-self: center;
-                    font-family: "Roboto Slab";
-                    color: $dark;
-                    font-size: 2rem;
-                    margin-bottom: 5%;
-                }
-                p.description{
-                    font-family: "Roboto Slab";
-                    color: $dark;
-                    font-size: 1.4rem;
-                }
+            p.leftText{
+                margin-left: 5%;
             }
-            img{
-                width: 50%;
-                height: 50%;
-                align-self: center;
+
+            p.rightText{
+                margin-right: 5%;
             }
+        }
+        
+    }
+
+    div.interested{
+        display : flex;
+        flex-direction: column;
+        padding : 0 50px 0 50px;
+        margin-top: 5%;
+
+        hr{
+            width: 80%;
+            align-self: center;
+        }
+
+        h3{
+            align-self: center;
+            margin-top: 3%;
+        }
+
+        button{
+            margin: 3% 0 4% 0;
+            align-self: center;
         }
     }
 }
