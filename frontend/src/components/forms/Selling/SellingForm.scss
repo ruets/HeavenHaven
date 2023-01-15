@@ -173,7 +173,7 @@ div.form-2 {
                 gap: 12px;
                 height: 40vh;
 
-                div.grid {
+                div.flex {
                     display: flex;
                     gap: 60px;
                     height: 80%;
@@ -240,5 +240,106 @@ div.form-2 {
         margin-top: 24px;
         display: flex;
         gap: 24px;
+    }
+}
+
+div.form-3 {
+    form.selling {
+        div.step {
+            &.step-2::after,
+            &.step-3::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 12px;
+                transform: translateX(-50%);
+                height: 2px;
+                width: 100%;
+                background: $dark;
+            }
+        }
+
+        div.flex {
+            display: flex;
+            width: 100%;
+            margin-bottom: 20px;
+
+            div.left {
+                width: 35%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+
+                p {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+            }
+
+            div.right {
+                width: 65%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                input[type="file"] {
+                    display: none;
+                }
+
+                input[type="text"] {
+                    width: 100%;
+                    border: 0;
+                    background: transparent;
+                    cursor: pointer;
+                    font-size: 18px;
+                    font-family: "Poppins";
+                    padding: 0;
+                    margin-top: 8px;
+                    text-decoration: underline;
+                    text-align: center;
+                }
+
+                div.document-bg {
+                    cursor: pointer;
+                    width: 70%;
+                    height: 100%;
+                    border: $dark dashed 4px;
+                    border-radius: 25px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    div.document-content {
+                        width: 50%;
+                        height: 70%;
+                        text-align: center;
+
+                        img {
+                            height: 50%;
+                        }
+
+                        p {
+                            font-family: "Poppins";
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    div.buttons {
+        margin-top: 20px;
+        display: flex;
+        gap: 24px;
+    }
+}
+
+div.congratulations {
+    width: 70%;
+    height: 60%;
+
+    div.content {
+        display: flex;
     }
 }

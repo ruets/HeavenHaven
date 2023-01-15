@@ -1,12 +1,14 @@
-import { useEffect } from "react";
 import { useState, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import SellingUploadImage from "../../../assets/img/selling-upload-icon.svg";
+import CongratulationsIcon from "../../../assets/img/congrats-icon.png";
 import Input from "../../../components/fields/Input/Input";
 import "./SellingForm.scss";
 
 export function SellingForm() {
     // Global variable
-    const [pagesCount, setPagesCount] = useState(0);
+    const [pagesCount, setPagesCount] = useState(3);
+    const navigate = useNavigate();
 
     // Global functions
     const handleNextPage = useCallback(() => {
@@ -19,9 +21,21 @@ export function SellingForm() {
         const fileSizeKilo = Math.round(fileSizeBytes / 1024);
         if (fileSizeKilo >= maxFileSizeKilo) {
             refToErrorMessageContent.current.innerText =
-                "The " + image.name + " file must be less than 8Mo.";
+                "The " + image.name + " image must be less than 8Mo.";
         } else {
             refToErrorMessageContent.current.innerText = "";
+        }
+    }
+
+    function validateFile(file) {
+        const maxFileSizeKilo = 8192;
+        const fileSizeBytes = file[0].size;
+        const fileSizeKilo = Math.round(fileSizeBytes / 1024);
+        if (fileSizeKilo >= maxFileSizeKilo) {
+            refToErrorMessageDocument.current.innerText =
+                "The " + file.name + " image must be less than 8Mo.";
+        } else {
+            refToErrorMessageDocument.current.innerText = "";
         }
     }
 
@@ -345,6 +359,38 @@ export function SellingForm() {
         ]
     );
 
+    // Step 3
+
+    const refToHiddenOwnershipFileInput = useRef(null);
+    const refToLabelForOwnershipFileInput = useRef(null);
+    const [ownershipDocument, setOwnershipDocument] = useState([]);
+    const [ownershipDocumentName, setOwnershipDocumentName] = useState("");
+
+    const refToErrorMessageDocument = useRef(null);
+
+    const handleOwnershipDocumentClick = useCallback(() => {
+        refToHiddenOwnershipFileInput.current.click();
+    }, [refToHiddenOwnershipFileInput]);
+
+    const handleOwnershipDocumentChange = useCallback(() => {
+        const ownershipDocument = refToHiddenOwnershipFileInput.current.files;
+        setOwnershipDocumentName(ownershipDocument[0].name);
+
+        validateFile(ownershipDocument);
+    }, [refToHiddenOwnershipFileInput, setOwnershipDocumentName]);
+
+    const validateThirdStep = useCallback((e) => {
+        e.preventDefault();
+        if (ownershipDocumentName === "") {
+            refToErrorMessageDocument.current.innerText =
+                "Please put your ownership in the requested field.";
+        } else {
+            // Post request to API
+
+            handleNextPage(pagesCount + 1);
+        }
+    });
+
     if (pagesCount === 0) {
         return (
             <div className="selling form-1">
@@ -457,7 +503,7 @@ export function SellingForm() {
                     <div className="fields">
                         <div className="ctn weather">
                             <h3>Weather</h3>
-                            <div className="grid">
+                            <div className="flex">
                                 <div className="left">
                                     <textarea
                                         name="weather"
@@ -526,7 +572,7 @@ export function SellingForm() {
                         </div>
                         <div className="ctn wildlife">
                             <h3>Wildlife</h3>
-                            <div className="grid">
+                            <div className="flex">
                                 <div className="left">
                                     <textarea
                                         name="wildlife"
@@ -595,7 +641,7 @@ export function SellingForm() {
                         </div>
                         <div className="ctn activities">
                             <h3>Activities</h3>
-                            <div className="grid">
+                            <div className="flex">
                                 <div className="left">
                                     <textarea
                                         name="activities"
@@ -664,7 +710,7 @@ export function SellingForm() {
                         </div>
                         <div className="ctn location">
                             <h3>Location</h3>
-                            <div className="grid">
+                            <div className="flex">
                                 <div className="left">
                                     <textarea
                                         name="location"
@@ -784,6 +830,112 @@ export function SellingForm() {
                         </button>
                     </div>
                 </form>
+            </div>
+        );
+    } else if (pagesCount === 2) {
+        return (
+            <div className="selling form-3">
+                <form
+                    className="selling"
+                    onSubmit={(e) => validateThirdStep(e)}
+                >
+                    <div className="form-steps-selling">
+                        <div className="step step-1">
+                            <span className="ball filled"></span>
+                            <p className="filled">General</p>
+                        </div>
+                        <div className="step step-2">
+                            <span className="ball filled"></span>
+                            <p className="filled">Content</p>
+                        </div>
+                        <div className="step step-3">
+                            <span className="ball filled"></span>
+                            <p className="filled">Documents</p>
+                        </div>
+                    </div>
+                    <div className="flex">
+                        <div className="left">
+                            <p>
+                                We invite you to deposit the title deed of the
+                                island you wish to sell in the area opposite.
+                                The latter must obviously be authentic and in
+                                your name, otherwise the auction of your
+                                property cannot be set up.
+                            </p>
+                        </div>
+                        <div className="right">
+                            <input
+                                type="file"
+                                ref={refToHiddenOwnershipFileInput}
+                                name="ownershipDocumentUpload"
+                                onChange={(e) => {
+                                    setOwnershipDocument(e.target.files);
+                                    handleOwnershipDocumentChange();
+                                }}
+                                accept=".jpg,.jpeg,.png,.pdf"
+                                className="Document"
+                            />
+                            <div
+                                className="document-bg"
+                                onClick={handleOwnershipDocumentClick}
+                            >
+                                <div className="document-content">
+                                    <img
+                                        src={SellingUploadImage}
+                                        alt="UploadIcon"
+                                    />
+                                    <p>
+                                        Click here to upload the ownership of
+                                        your island
+                                    </p>
+                                    <input
+                                        type="text"
+                                        name="ownershipImageText"
+                                        ref={refToLabelForOwnershipFileInput}
+                                        value={ownershipDocumentName}
+                                        placeholder=""
+                                        className="document-text"
+                                        readOnly
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p ref={refToErrorMessageDocument} className="error"></p>
+                    <div className="buttons">
+                        <button
+                            className="cta"
+                            onClick={() => setPagesCount(pagesCount - 1)}
+                        >
+                            Back
+                        </button>
+                        <button className="cta" type="submit">
+                            Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        );
+    } else if (pagesCount === 3) {
+        return (
+            <div className="congratulations">
+                <div className="content">
+                    <div className="left">
+                        <img src={CongratulationsIcon} alt="" />
+                    </div>
+                    <div className="right">
+                        <h1>Congratulations</h1>
+                        <p>
+                            Your information, images and documents have just
+                            been sent to us. We will check them as soon as
+                            possible and keep you informed in order to start the
+                            auction in time.{" "}
+                        </p>
+                        <button className="cta" onClick={() => navigate("/")}>
+                            Go To Home Page
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }
