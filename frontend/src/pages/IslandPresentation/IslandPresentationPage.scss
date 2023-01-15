@@ -100,7 +100,7 @@ div.islandPresentation{
         display : flex;
         flex-direction: column;
         padding : 0 50px 0 50px;
-        gap: 75px;
+        gap: 55px;
         
         h2{
             font-family: "Roboto Slab";
@@ -112,15 +112,11 @@ div.islandPresentation{
 
         div.weatherPart{
             display: flex;
-            border: solid;
-
             div.text{
-                border: solid;
                 width: 100%;
-                border: solid red;
                 display: flex;
                 flex-direction: column;
-                padding: 0 150px 0 150px;
+                padding: 0 50px 0 50px;
                 p.tittle{
                     align-self: center;
                     font-family: "Roboto Slab";
@@ -131,12 +127,69 @@ div.islandPresentation{
                 p.description{
                     font-family: "Roboto Slab";
                     color: $dark;
-                    font-size: 1.6rem;
+                    font-size: 1.4rem;
                 }
             }
             img{
-                border: solid green;
+                width: 50%;
+                height: 50%;
+                align-self: center;
+            }
+        }
+
+        div.wildLifePart{
+            display: flex;
+
+            div.text{
                 width: 100%;
+                display: flex;
+                flex-direction: column;
+                padding: 0 50px 0 50px;
+                p.tittle{
+                    align-self: center;
+                    font-family: "Roboto Slab";
+                    color: $dark;
+                    font-size: 2rem;
+                    margin-bottom: 5%;
+                }
+                p.description{
+                    font-family: "Roboto Slab";
+                    color: $dark;
+                    font-size: 1.4rem;
+                }
+            }
+            img{
+                width: 50%;
+                height: 50%;
+                align-self: center;
+            }
+        }
+
+        div.activitiesPart{
+            display: flex;
+
+            div.text{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                padding: 0 50px 0 50px;
+                p.tittle{
+                    align-self: center;
+                    font-family: "Roboto Slab";
+                    color: $dark;
+                    font-size: 2rem;
+                    margin-bottom: 5%;
+                }
+                p.description{
+                    font-family: "Roboto Slab";
+                    color: $dark;
+                    font-size: 1.4rem;
+                }
+            }
+            img{
+                width: 50%;
+                height: 50%;
+                align-self: center;
             }
         }
     }
