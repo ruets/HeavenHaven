@@ -1,4 +1,6 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useContext } from "react";
+import { LoginContext } from "../../../App";
+import { ForbiddenPage } from "../../../pages/ForbiddenPage/ForbiddenPage";
 import { useNavigate } from "react-router-dom";
 import SellingUploadImage from "../../../assets/img/selling-upload-icon.svg";
 import CongratulationsIcon from "../../../assets/img/congrats-icon.png";
@@ -6,6 +8,13 @@ import Input from "../../../components/fields/Input/Input";
 import "./SellingForm.scss";
 
 export function SellingForm() {
+    // Getting the user context
+    const loginContext = useContext(LoginContext);
+
+    if (!loginContext.isUserLoggedIn) {
+        return <ForbiddenPage />;
+    }
+
     // Global variable
     const [pagesCount, setPagesCount] = useState(0);
     const navigate = useNavigate();
