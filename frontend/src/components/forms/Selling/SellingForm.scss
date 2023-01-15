@@ -337,9 +337,29 @@ div.form-3 {
 
 div.congratulations {
     width: 70%;
-    height: 60%;
+    margin: 160px 0;
+    height: 40vh;
 
     div.content {
         display: flex;
+
+        div.left {
+            img {
+                width: 100%;
+                min-width: 200px;
+            }
+        }
+
+        div.right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+
+            p {
+                text-align: center;
+                width: 70%;
+            }
+        }
     }
 }
