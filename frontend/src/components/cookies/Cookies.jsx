@@ -1,24 +1,6 @@
 import "./Cookies.scss";
-import SetCookie from "../../hooks/cookies/setCookie";
-import { CookiesContext } from "../../App";
-import { useContext } from "react";
-import { useCallback } from "react";
 
 export function Cookies() {
-
-    const cookiesContext = useContext(CookiesContext);
-
-    const handleAccept = useCallback(() => {
-        SetCookie("cookieAccepted", true);
-        cookiesContext.setIsCookiesClicked(true);
-        cookiesContext.setIsCookiesAccepted(true);
-    })
-
-    const handleReject = useCallback(() => {
-        cookiesContext.setIsCookiesClicked(true);
-        cookiesContext.setIsCookiesAccepted(false);
-    });
-
     return (
         <div className="cookies">
             <h2>Cookie consent</h2>
@@ -29,8 +11,8 @@ export function Cookies() {
                   privacy policy to learn more.
              </p>
              <div className="buttons">
-                <button onClick={handleAccept}>Accept</button>
-                <button onClick={handleReject}>Reject</button>
+                <button>Accept</button>
+                <button>Reject</button>
             </div>
             <a href="#">Privacy policy</a>
         </div>
