@@ -3,6 +3,7 @@ import React, { useState, useCallback, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
+import GetCookie from "../../../hooks/cookies/getCookie";
 import SetCookie from "../../../hooks/cookies/setCookie";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
@@ -46,7 +47,9 @@ export function LoginForm() {
             );
 
             // handle success
-            SetCookie("userToken", JSON.parse(res.data.token));
+            if (GetCookie("cookieAccepted")) {
+                SetCookie("userToken", res.data.token);
+            }
             navigate("/");
         } catch (error) {
             // handle error
