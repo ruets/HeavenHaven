@@ -18,32 +18,21 @@ import "./App.scss";
 import { BiddingPage } from "./pages/Bidding/BiddingPage";
 
 export const LoginContext = createContext({
-    isUserLoggedIn: false,
-    setIsUserLoggedIn: (auth) => {},
-});
-
-export const CookiesContext = createContext({
-    isCookiesClicked: false,
-    setIsCookiesClicked: (auth) => {},
-    isCookiesAccepted: false,
-    setIsCookiesAccepted: (auth) => {},
+    loggedIn: false,
+    setLoggedIn: (auth) => {},
 });
 
 function App() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
-    const [isCookiesClicked, setIsCookiesClicked] = useState(false);
-    const [isCookiesAccepted, setIsCookiesAccepted] = useState(false);
-
     return (
         <div className="App">
-            <CookiesContext.Provider value={{ isCookiesClicked, setIsCookiesClicked, isCookiesAccepted, setIsCookiesAccepted }}>
             <LoginContext.Provider
                 value={{ isUserLoggedIn, setIsUserLoggedIn }}
             >
                 <Header />
                 <Routes>
-                    <Route path="/*" element={<IndexPage />} />
+                    <Route path="/" element={<IndexPage />} />
                     <Route path="login" element={<LoginPage />} />
                     <Route path="forgot" element={<ForgotPage />} />
                     <Route path="signup" element={<SignupPage />} />
@@ -61,7 +50,6 @@ function App() {
                 </Routes>
                 <Footer />
             </LoginContext.Provider>
-            </CookiesContext.Provider>
         </div>
     );
 }
