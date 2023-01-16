@@ -1,3 +1,5 @@
+@import "../../../assets/scss/base/colors";
+
 main.accountSettings{
 
     width: 100%;
@@ -35,7 +37,7 @@ main.accountSettings{
             }
 
             p.info{
-                background-color : #CEDFDB;
+                background-color : $form-light;
                 width: 250px;
                 height: 55px;
                 padding-top: 13px;
@@ -43,7 +45,7 @@ main.accountSettings{
             }
 
             p.small{
-                background-color : #CEDFDB;
+                background-color : $form-light;
                 width: 120px;
                 height: 55px;
                 padding-top: 13px;

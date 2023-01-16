@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"
 import ErrorIcon from "../../assets/img/cancel-icon.svg";
 import "./NotFoundPage.scss";
 
 export function NotFoundPage() {
-    const navigate = useNavigate();
-
     return (
         <div className="not-found">
             <div className="content">
@@ -18,9 +16,11 @@ export function NotFoundPage() {
                         sure you are on the right link. You can also go to the
                         Home Page by clicking this button.
                     </p>
-                    <button className="cta" onClick={() => navigate("/")}>
-                        Go To Home Page
-                    </button>
+                    <Link to="/">
+                        <button className="cta">
+                            Go To Home Page
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

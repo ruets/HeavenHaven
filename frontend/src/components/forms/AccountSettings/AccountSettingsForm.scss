@@ -35,7 +35,7 @@ form.account{
             input{
                 width: 250px;
                 height: 55px;
-                background-color : #CEDFDB;;
+                background-color : $form-light;
                 color: $dark;
                 box-shadow: none;
                 border-radius: 0px;
@@ -50,25 +50,8 @@ form.account{
     }
 
     button{
-        font-size: 20px;
-        margin-left: 30%;
-        margin-top: 60%;
+        position: absolute;
+        bottom: 40px;
+        right: 60px;
     }
-
-    button.cta {
-        cursor: pointer;
-        width: 170px;
-        height: 60px;
-        background: $cta;
-        box-shadow: none;
-        border-radius: 0px;
-        color: $dark;
-        transition: 0.15s ease-in-out;
-        background-color: #CEDFDB;
-    
-        &:hover {
-            background: $cta-hover;
-        }
-    }
-    
 }
