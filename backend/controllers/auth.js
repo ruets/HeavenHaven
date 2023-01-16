@@ -31,16 +31,14 @@ exports.signup = async (req, res, next) => {
         }
 
         let files = req.files;
-        let file1, file2;
-
+        let filesReturned = [];
+        
         if (!files) {
             return res.status(400).json({ error: "Missing id cards !" });
-        } else if (files.length === 1) {
-            file1 = `${req.protocol}://${req.get('host')}/imgs/idCards/${files[0].filename}`;
-            file2 = null;
-        } else if (files.length === 2) {
-            file1 = `${req.protocol}://${req.get('host')}/imgs/idCards/${files[0].filename}`;
-            file2 = `${req.protocol}://${req.get('host')}/imgs/idCards/${files[1].filename}`;
+        } else {
+            files.forEach((file) => {
+                filesReturned.push(`${req.protocol}://${req.get('host')}/imgs/idCards/${files[0].filename}`)
+            });
         }
         
         try {
@@ -58,8 +56,7 @@ exports.signup = async (req, res, next) => {
                     zip: req.body.zip,
                     country: req.body.country,
     
-                    idCardLink1: file1,
-                    idCardLink2: file2,
+                    idCardLink: filesReturned,
                     
                     customer : {
                         create: {
@@ -77,6 +74,7 @@ exports.signup = async (req, res, next) => {
                     remainingUses: sponsor.remainingUses - 1
                 }
             })
+            console.log(customer);
             
             res.status(201).json({
                 message: "Created customer !",
@@ -86,7 +84,7 @@ exports.signup = async (req, res, next) => {
                 })
             });
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({ error: "Intern error with error code 400 !"});
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
