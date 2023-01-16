@@ -1,4 +1,5 @@
 import "./ProfilePage.scss";
+import RemoveCookie from "../../hooks/cookies/removeCookie";
 import UserProfile from "../../assets/img/user-profile.svg";
 import { useState, useContext, useCallback } from "react";
 import AccountSettings from "../../components/profile/AccountSettings/AccountSettings";
@@ -15,6 +16,7 @@ export function ProfilePage() {
     const [isAccountSettings, setIsAccountSettings] = useState(true);
 
     const handleLogOut = useCallback(() => {
+        RemoveCookie("userToken");
         loginContext.setIsUserLoggedIn(false);
         navigate("/");
     });

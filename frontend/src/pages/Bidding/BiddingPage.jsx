@@ -62,7 +62,6 @@ export function BiddingPage(props) {
                             <p>Bidding threshold : ${props.treshold}</p>
                             <p>Minimum bid  : ${minimumBid}</p>
                         </div>
-                        
                     </div>
                 </div>
             </div>
