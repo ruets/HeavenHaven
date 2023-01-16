@@ -34,6 +34,8 @@ export function LoginForm() {
 
     const postData = async () => {
         try {
+            setErrorMessagePassword("");
+            loginContext.setIsUserLoggedIn(true);
             let res = await axios.post(
                 config.serverAdress + "/api/auth/login",
                 {
@@ -44,8 +46,6 @@ export function LoginForm() {
 
             // handle success
             alert("Token d'authentification : " + res.data.token);
-            setErrorMessagePassword("");
-            loginContext.setIsUserLoggedIn(true);
             navigate("/");
         } catch (error) {
             // handle error
