@@ -6,8 +6,12 @@ import payToBidIcon from "../../assets/img/payToBid-icon.svg";
 import comissionIcon from "../../assets/img/comission-icon.svg";
 import weatherPart from "../../assets/img/weatherPart-test-img.png";
 import wildLifePart from "../../assets/img/wildLife-test-img.png";
+import activitiesPart from "../../assets/img/activitiesPart-test-img.png";
+import carouselImage1 from "../../assets/img/Sliders Components - 1.png";
+import carouselImage2 from "../../assets/img/Sliders Components - 2.png";
+import carouselImage3 from "../../assets/img/Sliders Components - 3.png";
 
-export function IslandPresentationPage() {
+export function IslandPresentationPage(props) {
     return (
         <div className="islandPresentation">
             <div className="topSection">
@@ -56,7 +60,8 @@ export function IslandPresentationPage() {
                     </div>
                     <img src={weatherPart} alt="weather-Image" />
                 </div>
-                <div className="wildLife">
+                <div className="wildLifePart">
+                    <img src={wildLifePart} alt="wildLife-Image" />
                     <div className="text">
                         <p className="tittle">Wildlife</p>
                         <p className="description"> [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
@@ -70,9 +75,91 @@ export function IslandPresentationPage() {
                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.]
                         </p>
                     </div>
-                    <img src={wildLifePart} alt="weather-Image" />
+                </div>
+                <div className="activitiesPart">
+                    <div className="text">
+                        <p className="tittle">Activities</p>
+                        <p className="description"> [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
+                         Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
+                         Etiam non arcu eros. Duis elementum vitae tellus in sodales. 
+                         Suspendisse elementum ex eu sodales facilisis. Sed at nibh non felis facilisis vulputate. 
+                         Nam pulvinar molestie metus, tincidunt egestas lorem sodales eget. 
+                         Nulla sollicitudin fermentum turpis sed luctus.]</p>
+                    </div>
+                    <img src={activitiesPart} alt="activities-Image" />
                 </div>
             </div>
+            <div className="picturesSection">
+                <hr />
+                <h2>Pictures</h2>
+                <section>
+                    <div className="container">
+                        <div className="carousel">
+                            <input type="radio" name="slides" defaultChecked id="slide-1"/>
+                            <input type="radio" name="slides" defaultChecked id="slide-2"/>
+                            <input type="radio" name="slides" defaultChecked id="slide-3"/>
+                            <ul className="carousel-slides">
+                                <li className="carousel-slide">
+                                    <figure>
+                                        <div>
+                                            <img src={carouselImage1} alt="" />
+                                        </div>
+                                        <figcaption> Lorem ipsum dolor sit amet consectetur adipisicing elit.</figcaption>
+                                    </figure>
+                                </li>
+                                <li className="carousel-slide">
+                                    <figure>
+                                        <div>
+                                            <img src={carouselImage2} alt="" />
+                                        </div>
+                                        <figcaption> Lorem ipsum dolor sit amet consectetur adipisicing elit.</figcaption>
+                                    </figure>
+                                </li>
+                                <li className="carousel-slide">
+                                    <figure>
+                                        <div>
+                                            <img src={carouselImage3} alt="" />
+                                        </div>
+                                        <figcaption> Lorem ipsum dolor sit amet consectetur adipisicing elit.</figcaption>
+                                    </figure>
+                                </li>
+                            </ul>
+                            <ul className="carousel-thumbnails">
+                                <li>
+                                    <label htmlFor="slide-1"><img src={carouselImage1} alt="" /></label>
+                                </li>
+                                <li>
+                                    <label htmlFor="slide-2"><img src={carouselImage2} alt="" /></label>
+                                </li>
+                                <li>
+                                    <label htmlFor="slide-3"><img src={carouselImage3} alt="" /></label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div className="locationSection">
+                <hr />
+                <h2>Location</h2>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.6650811495997!2d-77.7610641494411!3d25.44945837758531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8925e610d2be164b%3A0x41a1a7d5032b888e!2sLittle%20Whale%20Cay!5e0!3m2!1sen!2sfr!4v1673853050507!5m2!1sen!2sfr" 
+                width="600" height="450" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                 <div className="info">
+                    <p className="leftText">[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
+                        Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
+                        Etiam non arcu eros. Duis elementum vitae tellus in sodales. Suspendisse elementum ex eu sodales facilisis.] 
+                    </p>
+                    <p className="rightText">[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
+                        Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
+                        Etiam non arcu eros. Duis elementum vitae tellus in sodales. Suspendisse elementum ex eu sodales facilisis.]
+                    </p>
+                 </div>
+            </div>
+            <div className="interested">
+                <hr />
+                <h3>Interested in this island ?</h3>
+                <button type="submit" className="cta">Join the auction</button>
+            </div>
         </div>
-    );
+    )
 }

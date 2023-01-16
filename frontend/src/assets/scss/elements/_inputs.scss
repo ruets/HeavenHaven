@@ -3,3 +3,9 @@ input {
         outline: none;
     }
 }
+
+textarea {
+    &:focus {
+        outline: none;
+    }
+}

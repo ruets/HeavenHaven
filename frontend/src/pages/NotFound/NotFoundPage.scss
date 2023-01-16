@@ -1,0 +1,34 @@
+@import "../../assets/scss/base/colors";
+
+div.not-found {
+    width: 70%;
+    margin: 160px 0;
+    height: 40vh;
+
+    div.content {
+        display: flex;
+        justify-content: center;
+        
+        div.left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+                width: 70%;
+                min-width: 200px;
+            }
+        }
+
+        div.right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+
+            p {
+                width: 60%;
+            }
+        }
+    }
+}

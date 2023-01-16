@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export function SellingPage() {
     return (
-        <div className="selling">
+        <div className="selling-page">
             <div className="section-1">
                 <img src={MainImage} alt="" />
                 <h1>Sell Your Island</h1>
@@ -38,9 +38,10 @@ export function SellingPage() {
                     <div className="layout">
                         <h3>Start Selling</h3>
                         <p className="selling-description">
-                        You want to sell your island quickly, to serious buyers. 
-                        Don't wait any longer and do it through us. 
-                        Fill in some information, wait for us to verify it and watch the bids rise ! 
+                            You want to sell your island quickly, to serious
+                            buyers. Don't wait any longer and do it through us.
+                            Fill in some information, wait for us to verify it
+                            and watch the bids rise !
                         </p>
                         <Link className="btn-1" to="/sell/form">
                             List An Island

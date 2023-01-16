@@ -2,6 +2,7 @@
 
 nav {
     display: flex;
+    align-items: center;
     gap: 44px;
 
     ul {
@@ -33,6 +34,15 @@ nav {
             &:hover::before {
                 width: 100%;
             }
+        }
+    }
+
+    a.user {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        img {
+            width: 45px;
         }
     }
 

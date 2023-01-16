@@ -1,16 +1,19 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
 import "./LoginForm.scss";
-import config from '../../../config/config.json'
+import config from "../../../config/config.json";
+import { LoginContext } from "../../../App";
 
 /**
  * responsability: handle login,
  */
 export function LoginForm() {
+    const loginContext = useContext(LoginContext);
+
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
@@ -31,14 +34,19 @@ export function LoginForm() {
 
     const postData = async () => {
         try {
-            let res = await axios.post(config.serverAdress + "/api/auth/login", {
-                email: email,
-                password: password,
-            });
+            setErrorMessagePassword("");
+            loginContext.setIsUserLoggedIn(true);
+            let res = await axios.post(
+                config.serverAdress + "/api/auth/login",
+                {
+                    email: email,
+                    password: password,
+                }
+            );
 
             // handle success
             alert("Token d'authentification : " + res.data.token);
-            setErrorMessagePassword("");
+            navigate("/");
         } catch (error) {
             // handle error
             setErrorMessagePassword(error.response.data.error);
@@ -68,7 +76,8 @@ export function LoginForm() {
             <h1>Log In</h1>
             <div className="fields">
                 <div className="inputs">
-                    <Input className = "name"
+                    <Input
+                        className="name"
                         type="email"
                         name="email"
                         label="Email"
@@ -78,7 +87,8 @@ export function LoginForm() {
                         onBlur={validateEmailFieldValue}
                         setInput={setEmail}
                     ></Input>
-                    <Input className = "email"
+                    <Input
+                        className="email"
                         type="password"
                         name="password"
                         label="Password"
@@ -90,7 +100,9 @@ export function LoginForm() {
                 </div>
                 <Link to="/forgot">Forgot Password ?</Link>
             </div>
-            <button type="submit" className="cta">Sign In</button>
+            <button type="submit" className="cta">
+                Sign In
+            </button>
             <p className="no-account">
                 No account yet ? <Link to={"/signup"}>Sign up here</Link>
             </p>
