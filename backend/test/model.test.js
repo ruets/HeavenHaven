@@ -12,7 +12,7 @@ const { PrismaClient } = require("@prisma/client");
        assert.doesNotThrow( async () => {
         let user = await prisma.user.create({
             data: {
-                email: "teste.test@test.test",
+                email: "email",
                 password: "password",
                 firstName: "Francis",
                 lastName: "Boyd",
@@ -23,27 +23,30 @@ const { PrismaClient } = require("@prisma/client");
                 city: "TestCity",
                 zip: "029302882838",
                 country: "Republic of Testing",
-        
-
                 customer : {
                     create: {
-                        sponsorCode: "HH",
+                        sponsorCode: "HHHHH",
                     }
                 }
             }
+            
 
        });
+       console.log(user);
         
     });
 }); 
         it("Should return the created customer", async function() {
+
+
                 let user = await prisma.user.findUnique({
                     where: {
-                        email: "teste.test@test.test"
+                        email: "email"
                     }
                 });
-
-                assert.equal(user.firstName, "Jeff");
+                
+                console.log(user);
+                assert.equal(user.firstName, "Francis");
         });
     
     
