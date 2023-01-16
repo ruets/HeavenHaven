@@ -1,9 +1,14 @@
+@import "../../assets/scss/base/colors";
+
 div.not-found {
     width: 70%;
     margin: 160px 0;
     height: 40vh;
+
     div.content {
         display: flex;
+        justify-content: center;
+        
         div.left {
             display: flex;
             justify-content: center;
