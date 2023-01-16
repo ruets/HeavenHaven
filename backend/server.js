@@ -2,10 +2,18 @@ const https = require('https');
 const app = require('./app');
 const config = require('./config/config');
 const fs = require('fs');
-const https_options = {
-  key: fstat.readFileSync("/etc/ssl/HH-v1.key"),
-  cert: fstat.readFileSync("/etc/ssl/HH.crt")
-};
+
+const https_options = {}
+
+if(process.argv[2] === "debug") {
+  
+  https_options = {
+    key: fs.readFileSync("/etc/ssl/HH-v1.key"),
+    cert: fs.readFileSync("/etc/ssl/HH.crt")
+  };
+}
+
+ 
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
