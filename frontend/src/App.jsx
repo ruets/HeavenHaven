@@ -15,6 +15,7 @@ import { Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import "./assets/scss/style.scss";
 import "./App.scss";
+import { BiddingPage } from "./pages/Bidding/BiddingPage";
 
 export const LoginContext = createContext({
     loggedIn: false,
@@ -36,6 +37,7 @@ function App() {
                     <Route path="forgot" element={<ForgotPage />} />
                     <Route path="signup" element={<SignupPage />} />
                     <Route path="islands/*" element={<IslandsPage />} />
+                    <Route path="bidding" element={<BiddingPage name="Little Whale Cay" endingDate="2023-02-02"/>}/>
                     <Route path="sell" element={<SellingPage />} />
                     <Route path="sell/form" element={<SellingForm />} />
                     <Route path="contact" element={<ContactPage />} />
