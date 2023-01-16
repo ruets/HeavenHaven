@@ -7,9 +7,6 @@ import comissionIcon from "../../assets/img/comission-icon.svg";
 import weatherPart from "../../assets/img/weatherPart-test-img.png";
 import wildLifePart from "../../assets/img/wildLife-test-img.png";
 import activitiesPart from "../../assets/img/activitiesPart-test-img.png";
-import carouselImage1 from "../../assets/img/Sliders Components - 1.png";
-import carouselImage2 from "../../assets/img/Sliders Components - 2.png";
-import carouselImage3 from "../../assets/img/Sliders Components - 3.png";
 
 export function IslandPresentationPage(props) {
     return (
@@ -92,52 +89,7 @@ export function IslandPresentationPage(props) {
             <div className="picturesSection">
                 <hr />
                 <h2>Pictures</h2>
-                <section>
-                    <div className="container">
-                        <div className="carousel">
-                            <input type="radio" name="slides" defaultChecked id="slide-1"/>
-                            <input type="radio" name="slides" defaultChecked id="slide-2"/>
-                            <input type="radio" name="slides" defaultChecked id="slide-3"/>
-                            <ul className="carousel-slides">
-                                <li className="carousel-slide">
-                                    <figure>
-                                        <div>
-                                            <img src={carouselImage1} alt="" />
-                                        </div>
-                                        <figcaption> Lorem ipsum dolor sit amet consectetur adipisicing elit.</figcaption>
-                                    </figure>
-                                </li>
-                                <li className="carousel-slide">
-                                    <figure>
-                                        <div>
-                                            <img src={carouselImage2} alt="" />
-                                        </div>
-                                        <figcaption> Lorem ipsum dolor sit amet consectetur adipisicing elit.</figcaption>
-                                    </figure>
-                                </li>
-                                <li className="carousel-slide">
-                                    <figure>
-                                        <div>
-                                            <img src={carouselImage3} alt="" />
-                                        </div>
-                                        <figcaption> Lorem ipsum dolor sit amet consectetur adipisicing elit.</figcaption>
-                                    </figure>
-                                </li>
-                            </ul>
-                            <ul className="carousel-thumbnails">
-                                <li>
-                                    <label htmlFor="slide-1"><img src={carouselImage1} alt="" /></label>
-                                </li>
-                                <li>
-                                    <label htmlFor="slide-2"><img src={carouselImage2} alt="" /></label>
-                                </li>
-                                <li>
-                                    <label htmlFor="slide-3"><img src={carouselImage3} alt="" /></label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+                
             </div>
             <div className="locationSection">
                 <hr />
