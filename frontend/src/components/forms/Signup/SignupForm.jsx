@@ -323,7 +323,7 @@ export function SignupForm() {
                         heavenhaven.com Terms & Conditions and Terms of Service
                     </label>
                 </div>
-                <button className="cta" type="submit">
+                <button type="submit" className="cta">
                     Fill In More Info
                 </button>
                 <p className="have-account">
