@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { LoginContext } from "../../../App";
 import { useContext } from "react";
 import UserIcon from "../../../assets/img/user-icon-unfilled.svg";
+import GetCookie from "../../../hooks/cookies/getCookie";
 
 export function NavBar() {
     const loginContext = useContext(LoginContext);
+    
+    let isUserConnected = loginContext.isUserLoggedIn || GetCookie("userToken") !== undefined
 
     return (
         <nav>
@@ -20,7 +23,7 @@ export function NavBar() {
                     <Link to="/contact">Contact Us</Link>
                 </li>
             </ul>
-            {loginContext.isUserLoggedIn === true ? (
+            {isUserConnected ? (
                 <Link to={"/profile"} className="user">
                     <img src={UserIcon} alt="" />
                 </Link>
