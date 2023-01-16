@@ -1,12 +1,10 @@
-import "./LoginForm.scss";
 import React, { useState, useCallback, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
-import GetCookie from "../../../hooks/cookies/getCookie";
-import SetCookie from "../../../hooks/cookies/setCookie";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
+import "./LoginForm.scss";
 import config from "../../../config/config.json";
 import { LoginContext } from "../../../App";
 
@@ -47,13 +45,11 @@ export function LoginForm() {
             );
 
             // handle success
-            if (GetCookie("cookieAccepted")) {
-                SetCookie("userToken", res.data.token);
-            }
+            alert("Token d'authentification : " + res.data.token);
             navigate("/");
         } catch (error) {
             // handle error
-            error.response ? setErrorMessagePassword(error.response.data.error) : console.log(error);
+            setErrorMessagePassword(error.response.data.error);
         }
     };
 
