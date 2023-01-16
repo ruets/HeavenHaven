@@ -15,7 +15,8 @@ import axios from "axios";
 export function IslandPresentationPage() {
     const location = useLocation();
     const islandId = location.pathname.split('/')[2]
-    let islandData = null;
+
+    const [islandData, setislandData] = useState({})
 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -23,8 +24,7 @@ export function IslandPresentationPage() {
     const getIslandData = async () => {
         try {
             const res = await axios.get(config.serverAdress + "/api/islands/" + islandId);
-            console.log(res.data);
-            islandData = res.data;
+            setislandData(res.data)
             setIsLoading(false);
         } catch (error) {
             setError(true)
@@ -37,19 +37,18 @@ export function IslandPresentationPage() {
 
     if (error) {
         return (
-            <h1>Loading</h1>
+            <h1>Error</h1>
         )
     } else if (isLoading) {
         return (
-            <h1>Error</h1>
+            <h1>Loading</h1>
         )
     } else {
-
     return (
         <div className="islandPresentation">
             <div className="topSection">
                 <img src={topImage} alt="islandImage" />
-                <h1>[Lorem Ipsum]</h1>
+                <h1>{islandData.name}</h1>
             </div>
             <div className="topInfos">
                 <div className="leftPart">
