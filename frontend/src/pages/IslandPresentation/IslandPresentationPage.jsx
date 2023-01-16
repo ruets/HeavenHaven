@@ -98,8 +98,8 @@ export function IslandPresentationPage(props) {
                             <input type="radio" name="slides" defaultChecked id="slide-1"/>
                             <input type="radio" name="slides" defaultChecked id="slide-2"/>
                             <input type="radio" name="slides" defaultChecked id="slide-3"/>
-                            <ul className="carousel__slides">
-                                <li className="carousel__slide">
+                            <ul className="carousel-slides">
+                                <li className="carousel-slide">
                                     <figure>
                                         <div>
                                             <img src={carouselImage1} alt="" />
@@ -107,7 +107,7 @@ export function IslandPresentationPage(props) {
                                         <figcaption> Lorem ipsum dolor sit amet consectetur adipisicing elit.</figcaption>
                                     </figure>
                                 </li>
-                                <li className="carousel__slide">
+                                <li className="carousel-slide">
                                     <figure>
                                         <div>
                                             <img src={carouselImage2} alt="" />
@@ -115,7 +115,7 @@ export function IslandPresentationPage(props) {
                                         <figcaption> Lorem ipsum dolor sit amet consectetur adipisicing elit.</figcaption>
                                     </figure>
                                 </li>
-                                <li className="carousel__slide">
+                                <li className="carousel-slide">
                                     <figure>
                                         <div>
                                             <img src={carouselImage3} alt="" />
@@ -124,7 +124,7 @@ export function IslandPresentationPage(props) {
                                     </figure>
                                 </li>
                             </ul>
-                            <ul className="carousel__thumbnails">
+                            <ul className="carousel-thumbnails">
                                 <li>
                                     <label htmlFor="slide-1"><img src={carouselImage1} alt="" /></label>
                                 </li>
