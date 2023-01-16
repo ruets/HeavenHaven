@@ -74,7 +74,6 @@ exports.signup = async (req, res, next) => {
                     remainingUses: sponsor.remainingUses - 1
                 }
             })
-            console.log(customer);
             
             res.status(201).json({
                 message: "Created customer !",

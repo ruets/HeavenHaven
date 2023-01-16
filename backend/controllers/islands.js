@@ -47,63 +47,67 @@ exports.getOne = async (req, res, next) => {
         try {
             let island = await prisma.Island.findUnique({
                 where: {
-                    id: req.params.id,
+                    id: parseInt(req.params.id),
                 },
             });
 
             res.status(200).json(island);
         } catch (error) {
-            res.status(400).json({ error });
+            res.status(400).json({ error: "Intern error with error code 400 !"});
         }
     } catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ error: "Intern error with error code 500 !" });
     }
 };
 
 exports.sell = async (req, res, next) => {
     const prisma = new PrismaClient();
 
-    // add all pics to pics json object
-    let bodyPics = [];
-
-    if (req.files.pics) {
-        req.files.pics.forEach((pic) => {
-            bodyPics.push({
-                url: `${req.protocol}://${req.get('host')}/imgs/islands/${pic.filename}`,
-            });
-        });
-    }
-
     try {
+        // add all images to images json object
+        let imgs = req.files.images
+        let otherImgs = [];
+
+        if (imgs) {
+            imgs.forEach((img) => {
+                otherImgs.push(`${req.protocol}://${req.get('host')}/imgs/islands/${img.filename}`);
+            });
+        }
+
         try {
             await prisma.Island.create({
                 data: {
                     name: req.body.name,
-                    area: req.body.area,
-                    latitude: req.body.latitude,
-                    longitude: req.body.longitude,
+                    area: parseInt(req.body.area),
+                    latitude: parseInt(req.body.latitude),
+                    longitude: parseInt(req.body.longitude),
                     country: req.body.country,
+                    continent: req.body.continent,
 
-                    climate: req.body.weather,
-                    climateImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.weather[0].filename}`,
+                    weather: req.body.weather,
+                    weatherImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.weatherImg[0].filename}`,
 
                     wildlife: req.body.wildlife,
-                    wildlifeImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.wildlife[0].filename}`,
+                    wildlifeImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.wildlifeImg[0].filename}`,
 
                     activities: req.body.activities,
-                    activitiesImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.activities[0].filename}`,
+                    activitiesImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.activitiesImg[0].filename}`,
 
                     location: req.body.location,
 
-                    images: {
-                        create: bodyPics,
-                    }
+                    mainImg: otherImgs[0],
+                    document: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.document[0].filename}`,
+                    images: otherImgs,
+
+                    
                 }
             });
+
+            res.status(201).json({ message: "Island created !" });
         } catch (error) {
-            res.status(400).json({ error });
+            res.status(400).json({ error: "Intern error with error code 400 !"});
         }
     } catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ error: "Intern error with error code 500 !" });
     }
 };

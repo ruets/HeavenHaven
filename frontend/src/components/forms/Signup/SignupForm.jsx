@@ -412,7 +412,6 @@ export function SignupForm() {
                         label="Apt, suite, etc (optional)"
                         value={apartment}
                         setInput={setApartment}
-                        required={false}
                     ></Input>
                 </div>
                 <div className="doubled-inputs">

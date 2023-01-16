@@ -18,15 +18,26 @@ import "./App.scss";
 import { BiddingPage } from "./pages/Bidding/BiddingPage";
 
 export const LoginContext = createContext({
-    loggedIn: false,
-    setLoggedIn: (auth) => {},
+    isUserLoggedIn: false,
+    setIsUserLoggedIn: (auth) => {},
+});
+
+export const CookiesContext = createContext({
+    isCookiesClicked: false,
+    setIsCookiesClicked: (auth) => {},
+    isCookiesAccepted: false,
+    setIsCookiesAccepted: (auth) => {},
 });
 
 function App() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
+    const [isCookiesClicked, setIsCookiesClicked] = useState(false);
+    const [isCookiesAccepted, setIsCookiesAccepted] = useState(false);
+
     return (
         <div className="App">
+            <CookiesContext.Provider value={{ isCookiesClicked, setIsCookiesClicked, isCookiesAccepted, setIsCookiesAccepted }}>
             <LoginContext.Provider
                 value={{ isUserLoggedIn, setIsUserLoggedIn }}
             >
@@ -37,7 +48,8 @@ function App() {
                     <Route path="forgot" element={<ForgotPage />} />
                     <Route path="signup" element={<SignupPage />} />
                     <Route path="islands/*" element={<IslandsPage />} />
-                    <Route path="bidding" element={<BiddingPage name="Little Whale Cay" endingDate="2023-02-02"/>}/>
+                    <Route path="island/*" element={<IslandPresentationPage/>}/>
+                    <Route path="bidding" element={<BiddingPage name="Little Whale Cay" endingDate="2023-02-02" currentBid="5000000" treshold="500000"/>}/>
                     <Route path="sell" element={<SellingPage />} />
                     <Route path="sell/form" element={<SellingForm />} />
                     <Route path="contact" element={<ContactPage />} />
@@ -50,6 +62,7 @@ function App() {
                 </Routes>
                 <Footer />
             </LoginContext.Provider>
+            </CookiesContext.Provider>
         </div>
     );
 }

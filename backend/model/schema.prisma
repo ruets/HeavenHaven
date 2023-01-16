@@ -103,7 +103,7 @@ model Island {
 
     // Illustration images
     mainImg         String
-    documents       String[]
+    document        String
     images          String[]
 
     //An island is linked to an auction

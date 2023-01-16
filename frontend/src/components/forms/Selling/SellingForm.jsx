@@ -6,12 +6,13 @@ import SellingUploadImage from "../../../assets/img/selling-upload-icon.svg";
 import CongratulationsIcon from "../../../assets/img/congrats-icon.png";
 import Input from "../../../components/fields/Input/Input";
 import "./SellingForm.scss";
+import GetCookie from "../../../hooks/cookies/getCookie";
 
 export function SellingForm() {
     // Getting the user context
     const loginContext = useContext(LoginContext);
 
-    if (!loginContext.isUserLoggedIn) {
+    if (!(GetCookie("userToken") !== undefined || loginContext.isUserLoggedIn)) {
         return <ForbiddenPage />;
     }
 
