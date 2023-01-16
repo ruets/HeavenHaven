@@ -43,11 +43,12 @@ function App() {
             >
                 <Header />
                 <Routes>
-                    <Route path="/*" element={<IndexPage />} />
+                    <Route path="/" element={<IndexPage />} />
                     <Route path="login" element={<LoginPage />} />
                     <Route path="forgot" element={<ForgotPage />} />
                     <Route path="signup" element={<SignupPage />} />
                     <Route path="islands/*" element={<IslandsPage />} />
+                    <Route path="island/*" element={<IslandPresentationPage/>}/>
                     <Route path="bidding" element={<BiddingPage name="Little Whale Cay" endingDate="2023-02-02" currentBid="5000000" treshold="500000"/>}/>
                     <Route path="sell" element={<SellingPage />} />
                     <Route path="sell/form" element={<SellingForm />} />

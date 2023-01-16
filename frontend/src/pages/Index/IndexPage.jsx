@@ -19,8 +19,6 @@ export function IndexPage() {
 
     let cookieElement = null
 
-    console.log(GetCookie("cookieAccepted"));
-
     if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
         cookieElement = <Cookies/>
     }

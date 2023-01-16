@@ -7,8 +7,44 @@ import comissionIcon from "../../assets/img/comission-icon.svg";
 import weatherPart from "../../assets/img/weatherPart-test-img.png";
 import wildLifePart from "../../assets/img/wildLife-test-img.png";
 import activitiesPart from "../../assets/img/activitiesPart-test-img.png";
+import { useEffect, useState } from "react";
+import config from "../../config/config.json";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
-export function IslandPresentationPage(props) {
+export function IslandPresentationPage() {
+    const location = useLocation();
+    const islandId = location.pathname.split('/')[2]
+    let islandData = null;
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    const getIslandData = async () => {
+        try {
+            const res = await axios.get(config.serverAdress + "/api/islands/" + islandId);
+            console.log(res.data);
+            islandData = res.data;
+            setIsLoading(false);
+        } catch (error) {
+            setError(true)
+        }
+    }
+
+    useEffect(() => {
+        getIslandData();
+    }, [])
+
+    if (error) {
+        return (
+            <h1>Loading</h1>
+        )
+    } else if (isLoading) {
+        return (
+            <h1>Error</h1>
+        )
+    } else {
+
     return (
         <div className="islandPresentation">
             <div className="topSection">
@@ -114,4 +150,5 @@ export function IslandPresentationPage(props) {
             </div>
         </div>
     )
+}
 }
