@@ -3,8 +3,11 @@ const app = require('./app');
 const config = require('./config/config');
 const fs = require('fs');
 
+//HTTPS options are used to check HTTPS certificates
 const https_options = {}
 
+//We added a debug option that enables the devs to run the server in local. 
+//If we specify "debug" mode, the program will search for the certificates
 if(process.argv[2] === "debug") {
   
   https_options = {

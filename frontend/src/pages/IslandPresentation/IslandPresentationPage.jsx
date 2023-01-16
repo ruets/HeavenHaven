@@ -89,20 +89,21 @@ export function IslandPresentationPage(props) {
             <div className="picturesSection">
                 <hr />
                 <h2>Pictures</h2>
+                
             </div>
             <div className="locationSection">
                 <hr />
                 <h2>Location</h2>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7205.329875314818!2d-77.76324747708112!3d25.449463172904125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8925e610d2be164b%3A0x41a1a7d5032b888e!2sLittle%20Whale%20Cay!5e0!3m2!1sfr!2sfr!4v1673771960174!5m2!1sfr!2sfr"
-                 style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.6650811495997!2d-77.7610641494411!3d25.44945837758531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8925e610d2be164b%3A0x41a1a7d5032b888e!2sLittle%20Whale%20Cay!5e0!3m2!1sen!2sfr!4v1673853050507!5m2!1sen!2sfr" 
+                width="600" height="450" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                  <div className="info">
-                    <p className="leftText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
+                    <p className="leftText">[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
                         Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
-                        Etiam non arcu eros. Duis elementum vitae tellus in sodales. Suspendisse elementum ex eu sodales facilisis. 
+                        Etiam non arcu eros. Duis elementum vitae tellus in sodales. Suspendisse elementum ex eu sodales facilisis.] 
                     </p>
-                    <p className="rightText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
+                    <p className="rightText">[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
                         Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
-                        Etiam non arcu eros. Duis elementum vitae tellus in sodales. Suspendisse elementum ex eu sodales facilisis. 
+                        Etiam non arcu eros. Duis elementum vitae tellus in sodales. Suspendisse elementum ex eu sodales facilisis.]
                     </p>
                  </div>
             </div>
