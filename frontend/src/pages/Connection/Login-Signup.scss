@@ -11,10 +11,15 @@ div.App {
             position: relative;
             display: flex;
             align-items: center;
-            height: 85%;
+            //height: 85%;
 
             img.login-img {
-                height: 75%;
+                max-height: 900px;
+                min-height: 200px;
+                //height: 100%;
+                //width: 100%;
+                //min-width: 100px;
+                //max-width: 100%;
                 position: relative;
                 right: 34px;
                 border-radius: 5px;

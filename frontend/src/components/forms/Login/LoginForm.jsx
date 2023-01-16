@@ -81,7 +81,7 @@ export function LoginForm() {
             <div className="fields">
                 <div className="inputs">
                     <Input
-                        className="name"
+                        className="email"
                         type="email"
                         name="email"
                         label="Email"
@@ -92,7 +92,7 @@ export function LoginForm() {
                         setInput={setEmail}
                     ></Input>
                     <Input
-                        className="email"
+                        className="password"
                         type="password"
                         name="password"
                         label="Password"

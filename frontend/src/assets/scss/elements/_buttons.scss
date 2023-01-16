@@ -7,7 +7,8 @@ button {
 
 button.cta {
     cursor: pointer;
-    width: 250px;
+    //width: 250px;
+    width: 50%;
     height: 60px;
     background: $cta;
     filter: drop-shadow(-2px 2px 2px rgba(0, 0, 0, 0.25));
