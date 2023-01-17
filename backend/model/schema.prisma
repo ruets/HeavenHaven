@@ -78,7 +78,7 @@ model Agent {
 model Island {
     //Basic informations
     id              Int         @id @default(autoincrement())
-    name            String      @db.VarChar(255)
+    name            String      @db.VarChar(255)@unique
     area            Int
     latitude        Float
     longitude       Float
