@@ -8,6 +8,9 @@ import axios from "axios"
 import config from "../../config/config.json"
 import { useLocation } from "react-router-dom";
 import "./BiddingPage.scss";
+import Input from "../../components/fields/Input/Input"
+import DollarIcon from "../../assets/img/dollar-icon.svg"
+
 
 export function BiddingPage() {
 
@@ -20,6 +23,8 @@ export function BiddingPage() {
     const [error, setError] = useState(false);
 
     const [timeLeft, setTimeLeft] = useState("")
+
+    const [amountInput, setAmountInput] = useState("");
 
     const getIslandData = async () => {
         try {
@@ -99,6 +104,10 @@ export function BiddingPage() {
                     <div className="info">
                         <div className="currentBid">
                             <p>Current bid</p>
+                            <p className="value"></p>
+                        </div>
+                        <div>
+                            <p>Pay To Bid </p>
                             <p className="value"></p>
                         </div>
                         <div className="timeLeft">
