@@ -6,6 +6,9 @@ import axios from "axios"
 import config from "../../config/config.json"
 import { useLocation } from "react-router-dom";
 import "./BiddingPage.scss";
+import Input from "../../components/fields/Input/Input"
+import DollarIcon from "../../assets/img/dollar-icon.svg"
+
 
 export function BiddingPage() {
 
@@ -18,6 +21,8 @@ export function BiddingPage() {
     const [error, setError] = useState(false);
 
     const [timeLeft, setTimeLeft] = useState("")
+
+    const [amountInput, setAmountInput] = useState("");
 
     const getIslandData = async () => {
         try {
@@ -98,12 +103,23 @@ export function BiddingPage() {
                             <p>Current bid</p>
                             <p className="value"></p>
                         </div>
+                        <div>
+                            <p>Pay To Bid </p>
+                            <p className="value"></p>
+                        </div>
                         <div className="timeLeft">
                         <p>Available until</p>
                         <p className="value"></p>
                         </div>
                     </div>    
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
+                        <div className="amount">
+                            <Input type="text" name="amount" value={amountInput} setInput={setAmountInput} icon={DollarIcon}/>
+                        </div>
+                    <div className="total-cost">
+                        <p>Cost of the auction</p>
+                        <p className="value"> $ </p>
+                    </div>
                     <button type="submit" className="cta">Place a bid</button>
                 </div>
             </div>
