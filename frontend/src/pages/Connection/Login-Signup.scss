@@ -25,5 +25,16 @@ div.App {
                 border-radius: 5px;
                 z-index: 0;
             }
+
+            div.global-input {
+                width: 100%;
+                height: 70px;
+                max-width: 500px;
+
+                div.input {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
         }
     }
