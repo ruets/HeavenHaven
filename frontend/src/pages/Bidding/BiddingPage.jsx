@@ -126,6 +126,10 @@ export function BiddingPage() {
                             alert("Transaction completed by : " + details.payer.name.given_name)
                         })
                     }}
+                    style={{
+                        layout: "vertical",
+                        label: "paypal"
+                    }}
                     />
                 </PayPalScriptProvider>
             </div>
