@@ -3,7 +3,9 @@ import GetCookie from "../../hooks/cookies/getCookie";
 import PaypalLogo from "../../assets/img/paypal-logo.png"
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import MainImage from "../../assets/img/presentationPage-test-img.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { LoginContext } from "../../App";
+import { ForbiddenPage } from "../ForbiddenPage/ForbiddenPage";
 import axios from "axios"
 import config from "../../config/config.json"
 import { useLocation } from "react-router-dom";
@@ -13,6 +15,13 @@ import DollarIcon from "../../assets/img/dollar-icon.svg"
 
 
 export function BiddingPage() {
+
+    // Getting the user context
+    const loginContext = useContext(LoginContext);
+
+    if (!(GetCookie("userToken") !== undefined || loginContext.isUserLoggedIn)) {
+        return <ForbiddenPage />;
+    }
 
     const location = useLocation();
     const islandId = location.pathname.split('/')[2]
