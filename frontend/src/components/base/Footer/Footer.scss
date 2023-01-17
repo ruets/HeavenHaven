@@ -30,6 +30,7 @@ footer {
             }
         }
     }
+    
 
     span.line {
         width: 2px;
@@ -42,22 +43,51 @@ footer {
         flex-direction: column;
         align-items: center;
         gap: 12px;
+        margin-top: 24px;
 
-        div {
+        div.info {
             display: flex;
             flex-direction: column;
             gap: 8px;
+            align-items: center;
         }
 
         p {
             color: $dark;
-            margin-top: 30px;
+            
         }
 
-        p.adresse {
-            margin-left: 30px;
+        div.links {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        
+        a {
+            position: relative;
+            color: $dark;
+            cursor: pointer;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                transform: scaleX(0);
+                height: 1px;
+                bottom: 0;
+                left: 0;
+                background-color: $dark;
+                transform-origin: bottom right;
+                transition: transform 0.25s ease-out;
+            }
+
+            &:hover::after {
+                transform: scaleX(1);
+                transform-origin: bottom left;
+            }
         }
-    }
+    }     
+    }     
+
 
     a.logo {
         font-size: 0;

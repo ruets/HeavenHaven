@@ -3,6 +3,7 @@ import SetCookie from "../../hooks/cookies/setCookie";
 import { CookiesContext } from "../../App";
 import { useContext } from "react";
 import { useCallback } from "react";
+import PrivacyPolicyPDF from "../../assets/documents/Privacy-policy-Heaven-Haven.pdf";
 
 export function Cookies() {
 
@@ -32,7 +33,7 @@ export function Cookies() {
                 <button onClick={handleAccept}>Accept</button>
                 <button onClick={handleReject}>Reject</button>
             </div>
-            <a href="#">Privacy policy</a>
+            <a href={PrivacyPolicyPDF} target="_blank">Privacy policy</a>
         </div>
     );
 }

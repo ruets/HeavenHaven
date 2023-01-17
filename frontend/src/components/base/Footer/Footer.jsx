@@ -4,6 +4,8 @@ import InstagramLogo from "../../../assets/img/instagram.svg";
 import FacebookLogo from "../../../assets/img/facebook.svg";
 import PinterestLogo from "../../../assets/img/pinterest.svg";
 import LinkedinLogo from "../../../assets/img/linkedin.svg";
+import PrivacyPolicyPDF from "../../../assets/documents/Privacy-policy-Heaven-Haven.pdf";
+import TermsConditionsPDF from "../../../assets/documents/Terms-and-conditions-of-use-of-Heaven-Haven-website.pdf";
 import { Link } from "react-router-dom";
 
 export function Footer() {
@@ -28,14 +30,19 @@ export function Footer() {
             </div>
             <span className="line"></span>
             <div className="right">
-                <div>
+                <div className="info">
                     <p>© 2022-2023 Heaven Haven, All Rights Reserved.</p>
-                    <p className="adresse">2 Pl. Doyen Gosse, 38000 Grenoble</p>
+                    <p>2 Pl. Doyen Gosse, 38000 Grenoble</p>
                 </div>
-                <p>Terms Of Service | Privacy | Legal notice | Contacts</p>
+                <div className="links">
+                    <a href={TermsConditionsPDF}>Terms Of Service</a>
+                    <a href={PrivacyPolicyPDF} target="_blank">Privacy</a>
+                    <Link to="/contact">Contact Us</Link>
+                </div>
+                 
             </div>
             <Link to="/">
-                <img src={Logo} alt="Logo" />
+                <img src={Logo} alt="Logo"/>
             </Link>
         </footer>
     );
