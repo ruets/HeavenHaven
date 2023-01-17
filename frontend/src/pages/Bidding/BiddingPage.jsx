@@ -117,7 +117,7 @@ export function BiddingPage() {
                         </div>
                         <div>
                             <p>Pay To Bid </p>
-                            <p className="value"></p>
+                            <p className="value"> 5% </p>
                         </div>
                         <div className="timeLeft">
                         <p>Available until</p>
