@@ -9,7 +9,7 @@ import wildLifePart from "../../assets/img/wildLife-test-img.png";
 import activitiesPart from "../../assets/img/activitiesPart-test-img.png";
 import { useEffect, useState } from "react";
 import config from "../../config/config.json";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
 
 export function IslandPresentationPage() {
@@ -128,7 +128,7 @@ export function IslandPresentationPage() {
             <div className="interested">
                 <hr />
                 <h3>Interested in this island ?</h3>
-                <button type="submit" className="cta">Join the auction</button>
+                <Link to={"/bidding/" + islandId}><button className="cta">Join the auction</button></Link>
             </div>
         </div>
     )
