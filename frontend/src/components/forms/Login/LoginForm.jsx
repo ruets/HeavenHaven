@@ -49,6 +49,8 @@ export function LoginForm() {
             // handle success
             if (GetCookie("cookieAccepted")) {
                 SetCookie("userToken", res.data.token);
+            } else {
+                loginContext.setUserToken(res.data.token);
             }
             navigate("/");
         } catch (error) {

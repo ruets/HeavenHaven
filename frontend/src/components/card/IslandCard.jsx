@@ -1,5 +1,4 @@
-import { Link, Routes, Route  } from "react-router-dom";
-import { IslandPresentationPage } from "../../pages/IslandPresentation/IslandPresentationPage";
+import { Link  } from "react-router-dom";
 import "./IslandCard.scss";
 
 function IslandCard(props) {

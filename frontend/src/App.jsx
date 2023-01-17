@@ -11,15 +11,17 @@ import { Header } from "./components/base/Header/Header";
 import { Footer } from "./components/base/Footer/Footer";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
 import { IslandPresentationPage } from "./pages/IslandPresentation/IslandPresentationPage";
+import { BiddingPage } from "./pages/Bidding/BiddingPage";
 import { Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import "./assets/scss/style.scss";
 import "./App.scss";
-import { BiddingPage } from "./pages/Bidding/BiddingPage";
 
 export const LoginContext = createContext({
     isUserLoggedIn: false,
     setIsUserLoggedIn: (auth) => {},
+    userToken: "",
+    setUserToken (auth) {}
 });
 
 export const CookiesContext = createContext({
@@ -31,6 +33,7 @@ export const CookiesContext = createContext({
 
 function App() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+    const [userToken, setUserToken] = useState("")
 
     const [isCookiesClicked, setIsCookiesClicked] = useState(false);
     const [isCookiesAccepted, setIsCookiesAccepted] = useState(false);
@@ -39,7 +42,7 @@ function App() {
         <div className="App">
             <CookiesContext.Provider value={{ isCookiesClicked, setIsCookiesClicked, isCookiesAccepted, setIsCookiesAccepted }}>
             <LoginContext.Provider
-                value={{ isUserLoggedIn, setIsUserLoggedIn }}
+                value={{ isUserLoggedIn, setIsUserLoggedIn, userToken, setUserToken }}
             >
                 <Header />
                 <Routes>
@@ -49,7 +52,7 @@ function App() {
                     <Route path="signup" element={<SignupPage />} />
                     <Route path="islands/*" element={<IslandsPage />} />
                     <Route path="island/*" element={<IslandPresentationPage/>}/>
-                    <Route path="bidding" element={<BiddingPage name="Little Whale Cay" endingDate="2023-02-02" currentBid="5000000" treshold="500000"/>}/>
+                    <Route path="bidding/*" element={<BiddingPage/>}/>
                     <Route path="sell" element={<SellingPage />} />
                     <Route path="sell/form" element={<SellingForm />} />
                     <Route path="contact" element={<ContactPage />} />

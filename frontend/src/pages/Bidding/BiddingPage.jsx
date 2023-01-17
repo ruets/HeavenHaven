@@ -1,16 +1,34 @@
 import { useCallback } from "react";
 import PaypalLogo from "../../assets/img/paypal-logo.png"
-import HeartIcon from "../../assets/img/heart-icon.svg"
 import MainImage from "../../assets/img/presentationPage-test-img.png";
 import { useState, useEffect } from "react";
+import axios from "axios"
+import config from "../../config/config.json"
+import { useLocation } from "react-router-dom";
 import "./BiddingPage.scss";
 
-export function BiddingPage(props) {
+export function BiddingPage() {
+
+    const location = useLocation();
+    const islandId = location.pathname.split('/')[2]
+
+    const [islandData, setislandData] = useState({})
+
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(false);
 
     const [timeLeft, setTimeLeft] = useState("")
-    const [isLoading, setIsLoading] = useState(true)
 
-    const minimumBid = parseInt(props.currentBid) + parseInt(props.treshold); 
+    const getIslandData = async () => {
+        try {
+            const res = await axios.get(config.serverAdress + "/api/islands/" + islandId);
+            setislandData(res.data)
+            setIsLoading(false);
+        } catch (error) {
+            console.error(error);
+            setError(true)
+        }
+    }
 
     const msToTime = useCallback((duration) => {
         var seconds = Math.floor((duration / 1000) % 60),
@@ -26,43 +44,67 @@ export function BiddingPage(props) {
       );
 
     useEffect(() => {
-        var timer = setTimeout(() => {
-            const endingDate = new Date(Date.parse(props.endingDate.replace(/-/g, '/')));
+        getIslandData();
+        /* var timer = setTimeout(() => {
+            const endingDate = new Date(Date.parse(islandData.endingDate.replace(/-/g, '/')));
             let currentDate = new Date();
             const currentTimeLeft = Math.abs(endingDate - currentDate);
             const currentDaysLeft = Math.ceil(currentTimeLeft / (1000 * 60 * 60 * 24)); 
             const timeString = currentDaysLeft + "d " + msToTime(currentTimeLeft);
             setTimeLeft(timeString);
             setIsLoading(false);
-        }, 1000)
+        }, 1000) */
 
-        return function cleanUp() {
+        /* return function cleanUp() {
             clearTimeout(timer);
-        }
-    })
+        } */
+    }, [])
 
-    if (isLoading) {
+    const minimumBid = parseInt(islandData.currentBid) + parseInt(islandData.treshold); 
+
+    if (error) {
+        return (
+            <h1>Error</h1>
+        )
+    } else if (isLoading) {
         return <h1>Loading</h1>
     } else {
         return (
             <div className="bidding">
-                <div className="title">
-                    <h1>{props.name}</h1>
-                    <h3>Time Left : {timeLeft}</h3>
+                <div className="leftPart">
+                    <img src={MainImage} alt="" />
                 </div>
-                <div className="grid">
-                    <div className="left">
-                        <img src={MainImage} alt="" />
-                        <button><img src={HeartIcon} alt="" /></button>
-                        <p>Payments : <img src={PaypalLogo} alt="" /></p>
+                <div className="rightPart">
+                    <h1>{islandData.name}</h1>
+                    <div className="minimumBid">    
+                        <p>Minimum bid</p>
+                        <p className="value"></p>
                     </div>
-                    <div className="right">
-                        <div className="info">
-                            <p>Current bid : ${props.currentBid}</p>
-                            <p>Bidding threshold : ${props.treshold}</p>
-                            <p>Minimum bid  : ${minimumBid}</p>
+                    <div className="description">
+                        <h2> Description </h2>
+                        <p>
+                        [Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nunc rutrum, leo quis vulputate laoreet, metus nibh efficitur nisl, vitae vehicula tellus elit vitae arcu.
+                        Suspendisse blandit neque ligula, eu finibus erat venenatis in. 
+                        Praesent semper euismod lacus. 
+                        Fusce porta augue at nibh sollicitudin, ut porttitor est sagittis. 
+                        Praesent eget turpis molestie dolor congue ullamcorper at a lacus. Mauris scelerisque feugiat metus sed accumsan. 
+                        In congue et purus sit amet molestie. Vestibulum porta blandit condimentum. 
+                        Proin interdum eu neque in iaculis. Suspendisse egestas, quam vestibulum pellentesque dictum, nunc ex venenatis tortor, et finibus sem tellus vel ante.]
+                        </p>
+                    </div>
+                    <div className="info">
+                        <div className="currentBid">
+                            <p>Current bid</p>
+                            <p className="value"></p>
                         </div>
-                    </div>
+                        <div className="timeLeft">
+                        <p>Available until</p>
+                        <p className="value"></p>
+                        </div>
+                    </div>    
+                    <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
+                    <button type="submit" className="cta">Place a bid</button>
                 </div>
             </div>
         );

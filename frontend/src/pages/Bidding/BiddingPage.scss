@@ -1,65 +1,85 @@
+@import "../../assets/scss/base/colors";
+
 div.bidding {
     width: 100%;
+    display: flex;
 
-    div.title {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 2%;
+    div.leftPart{
+
+        width: 80%;
+        padding: 20px 0 20px 20px;
+        img{
+            width: 95%;
+            height: 100%;
+        };
     }
 
-    div.grid {
-        display: grid;
-        grid-template-columns: 55% 45%;
-        grid-template-rows: 1fr;
-        margin-bottom: 3%;
-
-        div.left {
-            position: relative;
-            margin: 3% 0 0 10%;
-
-            img {
-                width: 100%;
-                border-radius: 15px;
+    div.rightPart{
+        width: 30%;
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        div.minimumBid{
+            display: flex;
+            p{
+                font-family: Poppins;
+                margin-left: 10px;
+                font-size: 15px;
+                color: $grey;
             }
-
-            button {
-                position: absolute;
-                top: 24px;
-                right: 36px;
-                font-size: 0;
-                background: transparent;
-                cursor: pointer;
-
-                img {
-                    width: 60px;
-                }
+            p.value{
+                font-weight: 550;
+                color: $dark;
             }
-
-            p {
+        }
+        div.description{
+            h2{
+                font-family: Poppins;
+                font-size: 20px;
+                margin-top: 20px;
+                font-weight: 450;
+            }
+            p{
+                font-family: Poppins;
+                font-size: 15px;
+            }
+        }
+        div.info{
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            div{
                 display: flex;
-                align-items: center;
-                font-size: 24px;
-                img {
-                    width: 165px;
-                    height: 70px;
-                    margin-left: 4%;
+                flex-direction: column;
+                p{
+                    font-family: Poppins;
+                    color: $grey;
+                }
+                p.value{
+                    align-self: center;
+                    color: $dark;
                 }
             }
         }
-
-        div.right {
-            margin: 4% 0 0 0;
+        p.payment {
             display: flex;
-            flex-direction: column;
-            div.info{
-                align-self: center;
-                width: 50%;
-                p{
-                    font-size: 24px;
-                    margin-bottom: 5%;
-                }
+            align-items: center;
+            font-size: 16px;
+            font-family: Poppins;
+            color: $grey;
+            align-self: center;
+            margin: 20px 0 20px 0;
+            img {
+                width: 120px;
+                height: 50px;
+                margin-left: 10px;
             }
+        }
+        button.cta{
+            align-self: center;
+            border-radius: 40px;
+            margin-bottom: 30px;
         }
     }
 }

@@ -1,4 +1,5 @@
 import "./ProfilePage.scss";
+import GetCookie from "../../hooks/cookies/getCookie";
 import RemoveCookie from "../../hooks/cookies/removeCookie";
 import UserProfile from "../../assets/img/user-profile.svg";
 import { useState, useContext, useCallback } from "react";
@@ -7,6 +8,9 @@ import DashBoard from "../../components/profile/DashBoard/DashBoard";
 import ExitIcon from "../../assets/img/exit-icon.svg";
 import { LoginContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import config from "../../config/config.json"
+import axios from "axios";
 
 export function ProfilePage() {
     const loginContext = useContext(LoginContext);
@@ -14,6 +18,27 @@ export function ProfilePage() {
     const navigate = useNavigate();
 
     const [isAccountSettings, setIsAccountSettings] = useState(true);
+    const [accountData, setAccountData] = useState({})
+
+    const getAccountData = async () => {
+        let currentUserToken = "";
+        if (GetCookie("userToken") !== undefined) {
+            currentUserToken = GetCookie("userToken");
+        } else {
+            currentUserToken = loginContext.userToken;
+            console.log(currentUserToken);
+        }
+        try {
+            const res = await axios.get(config.serverAdress + "/api/profile/" + currentUserToken);
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getAccountData();
+    }, [])
 
     const handleLogOut = useCallback(() => {
         RemoveCookie("userToken");

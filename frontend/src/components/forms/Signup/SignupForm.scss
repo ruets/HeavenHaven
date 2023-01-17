@@ -87,6 +87,12 @@ form.signup {
     button {
         width: 244px;
         margin: 16px 0 12px 0;
+        width: 50%;
+    }
+
+    a{
+        text-decoration: underline;
+        cursor: pointer;
     }
 }
 
