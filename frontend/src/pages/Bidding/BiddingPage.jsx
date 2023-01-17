@@ -62,7 +62,8 @@ export function BiddingPage() {
         } */
     }, [])
 
-    const minimumBid = parseInt(islandData.currentBid) + parseInt(islandData.treshold); 
+    const minimumBid = parseInt(islandData.currentBid) + parseInt(islandData.treshold);
+    const paypalStyle = {"layout":"horizontal", "color":"blue", "tagline":"false"}
 
     if (error) {
         return (
@@ -106,9 +107,7 @@ export function BiddingPage() {
                         </div>
                     </div>    
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
-                    <button type="submit" className="cta">Place a bid</button>
-                </div>
-                <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
+                    <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
                     <PayPalButtons
                     createOrder={(data, actions) => {
                         return actions.order.create({
@@ -126,12 +125,10 @@ export function BiddingPage() {
                             alert("Transaction completed by : " + details.payer.name.given_name)
                         })
                     }}
-                    style={{
-                        layout: "vertical",
-                        label: "paypal"
-                    }}
+                    style={paypalStyle}
                     />
                 </PayPalScriptProvider>
+                </div>
             </div>
         );
     }
