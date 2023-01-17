@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import config from "../../config/config.json";
 import { useContext } from "react";
+import ReactLoading from 'react-loading';
 
 export function IndexPage() {
     const [trendingIslands, setTrendingIslands] = useState([]);
@@ -53,7 +54,12 @@ export function IndexPage() {
     if (isErrorThrown) {
         return <h1>Please excuse us, an error occured.</h1>;
     } else if (isLoading) {
-        return <h1>Is loading</h1>;
+        return (
+        <div className="loading">
+            <h1> Loading ... </h1>
+            <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />;
+        </div>
+        )
     }
 
     return (
