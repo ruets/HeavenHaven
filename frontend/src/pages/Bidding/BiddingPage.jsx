@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import GetCookie from "../../hooks/cookies/getCookie";
 import PaypalLogo from "../../assets/img/paypal-logo.png"
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import MainImage from "../../assets/img/presentationPage-test-img.png";
