@@ -26,8 +26,9 @@ const storage = multer.diskStorage({
 });
 
 module.exports = multer({ storage: storage }).fields([
-    { name: "weather", maxCount: 1 },
-    { name: "wildlife", maxCount: 1 },
-    { name: "activities", maxCount: 1 },
-    { name: "pics", maxCount: 8 }
+    { name: "weatherImg", maxCount: 1 },
+    { name: "wildlifeImg", maxCount: 1 },
+    { name: "activitiesImg", maxCount: 1 },
+    { name: "document", maxCount: 1 },
+    { name: "images", maxCount: 5 },
 ]);

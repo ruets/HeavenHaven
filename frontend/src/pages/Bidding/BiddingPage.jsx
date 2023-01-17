@@ -46,23 +46,40 @@ export function BiddingPage(props) {
     } else {
         return (
             <div className="bidding">
-                <div className="title">
-                    <h1>{props.name}</h1>
-                    <h3>Time Left : {timeLeft}</h3>
+                <div className="leftPart">
+                    <img src={MainImage} alt="" />
                 </div>
-                <div className="grid">
-                    <div className="left">
-                        <img src={MainImage} alt="" />
-                        <button><img src={HeartIcon} alt="" /></button>
-                        <p>Payments : <img src={PaypalLogo} alt="" /></p>
+                <div className="rightPart">
+                    <h1>{props.name}</h1>
+                    <div className="minimumBid">    
+                        <p>Minimum bid</p>
+                        <p className="value"> ${minimumBid} </p>
                     </div>
-                    <div className="right">
-                        <div className="info">
-                            <p>Current bid : ${props.currentBid}</p>
-                            <p>Bidding threshold : ${props.treshold}</p>
-                            <p>Minimum bid  : ${minimumBid}</p>
+                    <div className="description">
+                        <h2> Description </h2>
+                        <p>
+                        [Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nunc rutrum, leo quis vulputate laoreet, metus nibh efficitur nisl, vitae vehicula tellus elit vitae arcu.
+                        Suspendisse blandit neque ligula, eu finibus erat venenatis in. 
+                        Praesent semper euismod lacus. 
+                        Fusce porta augue at nibh sollicitudin, ut porttitor est sagittis. 
+                        Praesent eget turpis molestie dolor congue ullamcorper at a lacus. Mauris scelerisque feugiat metus sed accumsan. 
+                        In congue et purus sit amet molestie. Vestibulum porta blandit condimentum. 
+                        Proin interdum eu neque in iaculis. Suspendisse egestas, quam vestibulum pellentesque dictum, nunc ex venenatis tortor, et finibus sem tellus vel ante.]
+                        </p>
+                    </div>
+                    <div className="info">
+                        <div className="currentBid">
+                            <p>Current bid</p>
+                            <p className="value">${props.currentBid}</p>
                         </div>
-                    </div>
+                        <div className="timeLeft">
+                        <p>Available until</p>
+                        <p className="value">{timeLeft}</p>
+                        </div>
+                    </div>    
+                    <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
+                    <button type="submit" className="cta">Place a bid</button>
                 </div>
             </div>
         );
