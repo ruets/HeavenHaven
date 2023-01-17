@@ -3,7 +3,9 @@ import GetCookie from "../../hooks/cookies/getCookie";
 import PaypalLogo from "../../assets/img/paypal-logo.png"
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import MainImage from "../../assets/img/presentationPage-test-img.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { LoginContext } from "../../App";
+import { ForbiddenPage } from "../ForbiddenPage/ForbiddenPage";
 import axios from "axios"
 import config from "../../config/config.json"
 import { useLocation } from "react-router-dom";
@@ -13,6 +15,13 @@ import DollarIcon from "../../assets/img/dollar-icon.svg"
 
 
 export function BiddingPage() {
+
+    // Getting the user context
+    const loginContext = useContext(LoginContext);
+
+    if (!(GetCookie("userToken") !== undefined || loginContext.isUserLoggedIn)) {
+        return <ForbiddenPage />;
+    }
 
     const location = useLocation();
     const islandId = location.pathname.split('/')[2]
@@ -24,7 +33,7 @@ export function BiddingPage() {
 
     const [timeLeft, setTimeLeft] = useState("")
 
-    const [amountInput, setAmountInput] = useState("");
+    const [amountInput, setAmountInput] = useState(0);
 
     const getIslandData = async () => {
         try {
@@ -116,6 +125,13 @@ export function BiddingPage() {
                         </div>
                     </div>    
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
+                    <div className="amount">
+                        <Input type="number" name="amount" icon={DollarIcon} value={amountInput} setInput={setAmountInput}/>
+                    </div>
+                    <div className="total-cost">
+                        <p>Cost of the auction</p>
+                        <p className="value">${Math.round((amountInput * 0.05)*100) / 100}</p>
+                    </div>
                     <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
                     <PayPalButtons
                     createOrder={(data, actions) => {
@@ -123,7 +139,7 @@ export function BiddingPage() {
                             purchase_units: [
                                 {
                                     amount: {
-                                        value: "00.01"
+                                        value: ((amountInput * 0.05) * 100) / 100
                                     }
                                 }
                             ]
