@@ -2,6 +2,8 @@
 import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
+import PrivacyPolicyPDF from "../../../assets/documents/Privacy-policy-Heaven-Haven.pdf";
+import TermsConditionsPDF from "../../../assets/documents/Terms-and-conditions-of-use-of-Heaven-Haven-website.pdf";
 
 // Config
 import config from "../../../config/config.json";
@@ -319,10 +321,7 @@ export function SignupForm() {
                         required
                     />
                     <label htmlFor="accept-privacy" className="checkbox">
-                        I have read and agree to the <a href="../../../documents/Privacy-policy-Heaven-Haven.pdf#toolbar=0">
-                        Privacy Policy</a>, heavenhaven.com <a href="../../../documents/Terms-and-conditions-of-use-of-Heaven-Haven-website.pdf#toolbar=0">
-                        Terms & Conditions</a> and <a href="../../../assets/documents/TermsOfService.txt">Terms of 
-                        Service</a>.
+                        I have read and agree to the <a href={PrivacyPolicyPDF} target="_blank">Privacy Policy</a>, heavenhaven.com <a href={TermsConditionsPDF} target="_blank">Terms & Conditions</a> and <a href="../../../assets/documents/TermsOfService.txt" target="_blank">Terms of Service</a>.
                     </label>{/*<embed src="file_name.pdf" width="800px" height="2100px" />*/}        
                 </div>
                 <button type="submit" className="cta">
