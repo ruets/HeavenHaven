@@ -47,13 +47,13 @@ export function IslandPresentationPage() {
     return (
         <div className="islandPresentation">
             <div className="topSection">
-                <img src={topImage} alt="islandImage" />
+                <img src={topImage} alt="islandImage" /> {/* TO CHANGE */}
                 <h1>{islandData.name}</h1>
             </div>
             <div className="topInfos">
                 <div className="leftPart">
                     <p className="tittle">Auction Informations</p>
-                    <p className="other"> <img src={dollarIcon} alt="dollar" /> Reserve price : [$4.5M]</p>
+                    <p className="other"> <img src={dollarIcon} alt="dollar" /> Reserve price : {}</p>
                     <p className="other"> <img src={calendarIcon} alt="dollar" />Bidding Opens : [Jan 24, 2023 1 AM EST]</p>
                 </div>
                 <div className="rightPart">
@@ -79,15 +79,8 @@ export function IslandPresentationPage() {
                 <div className="weatherPart">
                     <div className="text">
                         <p className="tittle">Weather</p>
-                        <p className="description"> [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
-                         Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
-                         Etiam non arcu eros. Duis elementum vitae tellus in sodales. 
-                         Suspendisse elementum ex eu sodales facilisis. Sed at nibh non felis facilisis vulputate. 
-                         Nam pulvinar molestie metus, tincidunt egestas lorem sodales eget. 
-                         Nulla sollicitudin fermentum turpis sed luctus. Nam efficitur, nulla et feugiat pretium, orci lectus fringilla dolor, in tempor libero tortor id dolor. 
-                         Phasellus ut ante pharetra, porta dolor at, tempor mauris. 
-                         Ut sed nisi in felis sagittis finibus blandit vitae massa. 
-                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.]
+                        <p className="description"> 
+                        {islandData.weather}
                         </p>
                     </div>
                     <img src={weatherPart} alt="weather-Image" />
@@ -96,27 +89,17 @@ export function IslandPresentationPage() {
                     <img src={wildLifePart} alt="wildLife-Image" />
                     <div className="text">
                         <p className="tittle">Wildlife</p>
-                        <p className="description"> [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
-                         Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
-                         Etiam non arcu eros. Duis elementum vitae tellus in sodales. 
-                         Suspendisse elementum ex eu sodales facilisis. Sed at nibh non felis facilisis vulputate. 
-                         Nam pulvinar molestie metus, tincidunt egestas lorem sodales eget. 
-                         Nulla sollicitudin fermentum turpis sed luctus. Nam efficitur, nulla et feugiat pretium, orci lectus fringilla dolor, in tempor libero tortor id dolor. 
-                         Phasellus ut ante pharetra, porta dolor at, tempor mauris. 
-                         Ut sed nisi in felis sagittis finibus blandit vitae massa. 
-                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.]
+                        <p className="description">
+                        {islandData.wildlife}
                         </p>
                     </div>
                 </div>
                 <div className="activitiesPart">
                     <div className="text">
                         <p className="tittle">Activities</p>
-                        <p className="description"> [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor metus sed sodales cursus.
-                         Pellentesque pellentesque sollicitudin dignissim. Etiam non tellus vitae lorem luctus ultricies. 
-                         Etiam non arcu eros. Duis elementum vitae tellus in sodales. 
-                         Suspendisse elementum ex eu sodales facilisis. Sed at nibh non felis facilisis vulputate. 
-                         Nam pulvinar molestie metus, tincidunt egestas lorem sodales eget. 
-                         Nulla sollicitudin fermentum turpis sed luctus.]</p>
+                        <p className="description">
+                        {islandData.activities}
+                        </p>
                     </div>
                     <img src={activitiesPart} alt="activities-Image" />
                 </div>
