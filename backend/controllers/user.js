@@ -1,6 +1,49 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient, prisma } = require("@prisma/client");
 const e = require("express");
 const { json } = require("express");
+
+///////////////////////////////////////////////////////////
+//                      User informations                //
+///////////////////////////////////////////////////////////
+
+/**
+ * This functions returns the profile informations of the authentified user
+ * @param {} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.getProfileInformations = async(req, res, next) => {
+    //We initialize our Prisma client
+    const prisma = new PrismaClient();
+    //The connected user has an id
+    const id = req.auth.userId;
+
+
+    try{
+        try {
+
+            //We find the user profile from the id
+            const connectedUser = await prisma.user.findUnique({
+                where:{
+                    userId: id
+                }
+            });
+            if(connectedUser) {
+                res.status(200).json(connectedUser);
+            } else {
+                res.status(401).json({message: "User not found"});
+            }
+
+        } catch(error) {
+            res.status(400).json({error: error});
+        }
+    } catch(error) {
+        res.status(500).json({error: error});
+    }
+    
+
+
+}
 
 
 ///////////////////////////////////////////////////////////

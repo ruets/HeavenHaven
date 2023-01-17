@@ -6,3 +6,4 @@ const auth = require('../middleware/auth');
 
 router.post('/signupAgent', userCtrl.signupAgent);
 router.post('/validateSponsorship/:id', userCtrl.validateSponsorship);
+router.get('getProfile', auth, userCtrl.getProfileInformations);
