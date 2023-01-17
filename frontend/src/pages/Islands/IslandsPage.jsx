@@ -86,7 +86,8 @@ export function IslandsPage() {
             // first filter --- "location"
             // chose
             let take = false;
-            const islandsLocated = data.map((island) => {
+            console.log("Filtre des continents :");
+            let islandsLocated = data.map((island) => {
                 switch (island.continent) {
                         case "America":
                             if(filterMap["america"]){
@@ -115,7 +116,6 @@ export function IslandsPage() {
                 }
                 // if no filter take all the island
                 if(!filterMap["africa"] && !filterMap["oceania"] && !filterMap["europe"] && !filterMap["america"]){
-                    take = true;
                     return island
                 }
                 else if (take == true){ // else only return the island who pass the filter
@@ -125,9 +125,13 @@ export function IslandsPage() {
             });
             console.log(islandsLocated);
             // second filter "weather"
+            islandsLocated = islandsLocated.filter(element => element != undefined);
+            console.log(islandsLocated);
+
             take = false;
+
+            console.log("Filtre du climat :");
             const islandsWeather = islandsLocated.map((island) => {
-                console.log(island.weather);
                 switch (island.weather) {
                         case "Tropical":
                             if(filterMap["tropical"]){
@@ -162,16 +166,17 @@ export function IslandsPage() {
                 }
                 // if no filter take all the island
                 if(!filterMap["tropical"] && !filterMap["dry"] && !filterMap["temperate"] && !filterMap["continental"] && !filterMap["polar"]){
-                    take = true;
                     return island
                 }
                 else if (take == true){ // else only return the island who pass the filter
                     take = false;
                     return island;
                 }
-            });
 
-            const islandsFiltered = islandsWeather.map((island) => {
+            });
+            console.log("ile apres le climat")
+            console.log(islandsWeather);
+            const islandsFiltered = islandsLocated.map((island) => {
                 try{
                 return (
                     <IslandCard
@@ -184,12 +189,19 @@ export function IslandsPage() {
                 );
                 }
                 catch{
+                    console.error(error);
                     console.log("pas de donnée");
                 }
             });
-            setAllIslands(islandsFiltered);
+            if(islandsFiltered.length == 0){
+                setAllIslands(undefined);
+            }
+            else{
+                setAllIslands(islandsFiltered);
+            }
             setIsLoading(false);
         } catch (error) {
+            console.error(error);
             setIsErrorThrown(true);
         }
     };

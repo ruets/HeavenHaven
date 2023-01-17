@@ -321,7 +321,7 @@ export function SignupForm() {
                         required
                     />
                     <label htmlFor="accept-privacy" className="checkbox">
-                        I have read and agree to the <a href={PrivacyPolicyPDF} target="_blank">Privacy Policy</a>, heavenhaven.com <a href={TermsConditionsPDF} target="_blank">Terms & Conditions</a> and <a href="../../../assets/documents/TermsOfService.txt" target="_blank">Terms of Service</a>.
+                        I have read and agree to the <a href={PrivacyPolicyPDF} target="_blank">Privacy Policy</a>, heavenhaven.com and <a href={TermsConditionsPDF} target="_blank">Terms of Services.</a>
                     </label>        
                 </div>
                 <button type="submit" className="cta">
