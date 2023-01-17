@@ -3,13 +3,14 @@ const expect = require('chai').expect;
 const { PrismaClient } = require("@prisma/client");
 const except = require('except');
 
-const prisma = new PrismaClient();
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                                   ISLAND CRUD                                //////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 describe("Create an island", function() {
+    const prisma = new PrismaClient();
 
     it("Should create a new island", async function(done) {
 
@@ -53,9 +54,10 @@ describe("Create an island", function() {
 
 });
 
-/*
+
 describe("Update an island", function() {
 
+    const prisma = new PrismaClient();
     it("Should update the island", async function(done) {
 
         const updateIsland = await prisma.island.update({
@@ -81,4 +83,4 @@ describe("Update an island", function() {
 
         done();
     });
-});*/
+});
