@@ -70,7 +70,7 @@ exports.sell = async (req, res, next) => {
 
         if (imgs) {
             imgs.forEach((img) => {
-                otherImgs.push(`${req.protocol}://${req.get('host')}/imgs/islands/${img.filename}`);
+                otherImgs.push(`${req.protocol}://${req.get('host')}/imgs/islands/${req.body.name.split(" ").join("_")}/${img.filename}`);
             });
         }
 
@@ -85,21 +85,26 @@ exports.sell = async (req, res, next) => {
                     continent: req.body.continent,
 
                     weather: req.body.weather,
-                    weatherImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.weatherImg[0].filename}`,
+                    weatherImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.body.name.split(" ").join("_")}/${req.files.weatherImg[0].filename}`,
 
                     wildlife: req.body.wildlife,
-                    wildlifeImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.wildlifeImg[0].filename}`,
+                    wildlifeImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.body.name.split(" ").join("_")}/${req.files.wildlifeImg[0].filename}`,
 
                     activities: req.body.activities,
-                    activitiesImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.activitiesImg[0].filename}`,
+                    activitiesImg: `${req.protocol}://${req.get('host')}/imgs/islands/${req.body.name.split(" ").join("_")}/${req.files.activitiesImg[0].filename}`,
 
                     location: req.body.location,
 
                     mainImg: otherImgs[0],
-                    document: `${req.protocol}://${req.get('host')}/imgs/islands/${req.files.document[0].filename}`,
+                    document: `${req.protocol}://${req.get('host')}/imgs/islands/${req.body.name.split(" ").join("_")}/${req.files.document[0].filename}`,
                     images: otherImgs,
 
-                    
+                    auction: {
+                        create: {
+                            price: req.body.price,
+                                
+                        },
+                    },
                 }
             });
 
