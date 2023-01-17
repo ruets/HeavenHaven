@@ -1,11 +1,16 @@
 import { useCallback } from "react";
+import GetCookie from "../../hooks/cookies/getCookie";
 import PaypalLogo from "../../assets/img/paypal-logo.png"
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import MainImage from "../../assets/img/presentationPage-test-img.png";
 import { useState, useEffect } from "react";
 import axios from "axios"
 import config from "../../config/config.json"
 import { useLocation } from "react-router-dom";
 import "./BiddingPage.scss";
+import Input from "../../components/fields/Input/Input"
+import DollarIcon from "../../assets/img/dollar-icon.svg"
+
 
 export function BiddingPage() {
 
@@ -18,6 +23,8 @@ export function BiddingPage() {
     const [error, setError] = useState(false);
 
     const [timeLeft, setTimeLeft] = useState("")
+
+    const [amountInput, setAmountInput] = useState("");
 
     const getIslandData = async () => {
         try {
@@ -60,7 +67,8 @@ export function BiddingPage() {
         } */
     }, [])
 
-    const minimumBid = parseInt(islandData.currentBid) + parseInt(islandData.treshold); 
+    const minimumBid = parseInt(islandData.currentBid) + parseInt(islandData.treshold);
+    const paypalStyle = {"layout":"horizontal", "color":"blue", "tagline":"false"}
 
     if (error) {
         return (
@@ -98,13 +106,37 @@ export function BiddingPage() {
                             <p>Current bid</p>
                             <p className="value"></p>
                         </div>
+                        <div>
+                            <p>Pay To Bid </p>
+                            <p className="value"></p>
+                        </div>
                         <div className="timeLeft">
                         <p>Available until</p>
                         <p className="value"></p>
                         </div>
                     </div>    
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
-                    <button type="submit" className="cta">Place a bid</button>
+                    <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
+                    <PayPalButtons
+                    createOrder={(data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [
+                                {
+                                    amount: {
+                                        value: "00.01"
+                                    }
+                                }
+                            ]
+                        })
+                    }}
+                    onApprove={() => {
+                        return actions.order.capture().then(function (details) {
+                            alert("Transaction completed by : " + details.payer.name.given_name)
+                        })
+                    }}
+                    style={paypalStyle}
+                    />
+                </PayPalScriptProvider>
                 </div>
             </div>
         );
