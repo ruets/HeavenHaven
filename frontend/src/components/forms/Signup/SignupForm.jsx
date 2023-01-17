@@ -319,9 +319,11 @@ export function SignupForm() {
                         required
                     />
                     <label htmlFor="accept-privacy" className="checkbox">
-                        I have read and agree to the Privacy Policy,
-                        heavenhaven.com Terms & Conditions and Terms of Service
-                    </label>
+                        I have read and agree to the <a href="../../../documents/Privacy-policy-Heaven-Haven.pdf#toolbar=0">
+                        Privacy Policy</a>, heavenhaven.com <a href="../../../documents/Terms-and-conditions-of-use-of-Heaven-Haven-website.pdf#toolbar=0">
+                        Terms & Conditions</a> and <a href="../../../assets/documents/TermsOfService.txt">Terms of 
+                        Service</a>.
+                    </label>{/*<embed src="file_name.pdf" width="800px" height="2100px" />*/}        
                 </div>
                 <button type="submit" className="cta">
                     Fill In More Info
