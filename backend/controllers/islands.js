@@ -59,6 +59,25 @@ exports.getOne = async (req, res, next) => {
         res.status(500).json({ error: "Intern error with error code 500 !" });
     }
 };
+exports.getWithFilter = async (req, res, next) => {
+    const prisma = new PrismaClient();
+
+    try {
+        try {
+            let island = await prisma.Island.findMany({
+                where: {
+                    name: parseInt(req.params.id),
+                },
+            });
+
+            res.status(200).json(island);
+        } catch (error) {
+            res.status(400).json({ error: "Intern error with error code 400 !"});
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Intern error with error code 500 !" });
+    }
+};
 
 exports.sell = async (req, res, next) => {
     const prisma = new PrismaClient();
