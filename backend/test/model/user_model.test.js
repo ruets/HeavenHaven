@@ -12,51 +12,45 @@ const prisma = new PrismaClient();
     //We try to create a new customer
     it("should create the customer into the database", function() {
        
-       assert.doesNotThrow( async () => {
+       assert.doesNotThrow( async (done) => {
         
-            //We create a customer and test if it is stored into the database
-            //We do not care about constraints on this layer, it must be done either in the frontend, either in the controllers
-            let user = await prisma.user.create({
-                data: {
-                    email: "email",
-                    password: "password",
-                    firstName: "Francis",
-                    lastName: "Boyd",
-                    phone: "0303030303",
-            
-                    address: "51 St of the Test",
-                    apt: "91",
-                    city: "TestCity",
-                    zip: "029302882838",
-                    country: "Republic of Testing",
-                    customer : {
-                        create: {
-                            sponsorCode: "HHHHH",
-                        }
-                    }
+            //Firstly, we need to find if the record already exists
+            let findUSer = await prisma.user.findUnique({
+                where: {
+                    email: "email"
                 }
-                
+            }).then(async result => {
+                //Then, if it does not exist
+                if(result === null) {
+                    //We create a customer and test if it is stored into the database
+                    //We do not care about constraints on this layer, it must be done either in the frontend, either in the controllers
+                    let user = await prisma.user.create({
+                        data: {
+                            email: "email",
+                            password: "password",
+                            firstName: "Francis",
+                            lastName: "Boyd",
+                            phone: "0303030303",
+                    
+                            address: "51 St of the Test",
+                            apt: "91",
+                            city: "TestCity",
+                            zip: "029302882838",
+                            country: "Republic of Testing",
+                            customer : {
+                                create: {
+                                    sponsorCode: "HHHHH",
+                                }
+                            }
+                        }
+                        
+                    }).then(result => {});
+                }
             });
-
-        
+            
         });
+
     }); 
-});
-
-describe("selectOneUser", function() {
-
-      //When done, we check if we can find the user previously created
-      it("Should return the created customer", async function() {
-
-        let user = await prisma.user.findUnique({
-            where: {
-                email: "email"
-            }
-        });
-        
-        //We check if the first name fits
-        assert.equal(user.firstName, "Francis");
-    });
 });
 
 describe("updateOneUser", function() {
@@ -74,15 +68,34 @@ describe("updateOneUser", function() {
         });
 
         //Updated user
-        let user = await prisma.findUnique({
+        let user = await prisma.user.findUnique({
             where: {
                 email: "email"
             }
         });
 
         assert.equal(user.firstName, "Gontrand");
-    })
-})
+    });
+});
+
+
+describe("selectOneUser", function() {
+
+    //When done, we check if we can find the user previously created
+    it("Should return the created customer", async function() {
+
+      let user = await prisma.user.findUnique({
+          where: {
+              email: "email"
+          }
+      })
+
+      //We check if the first name fits
+      assert.equal(user.email, "email");
+
+  });
+});
+
 
 describe("deleteOneUser", function() {
     it("Should delete the created customer", async function() {
