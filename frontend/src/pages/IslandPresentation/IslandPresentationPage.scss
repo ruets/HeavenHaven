@@ -129,6 +129,7 @@ div.islandPresentation{
                     font-family: "Roboto Slab";
                     color: $dark;
                     font-size: 1.4vw;
+                    text-align: justify;
                 }
             }
             img{
@@ -189,18 +190,16 @@ div.islandPresentation{
             margin-bottom: 3%;
         }
 
-        div.info{
+        div.info {
             display: flex;
+            justify-content: center;
+            width: 100%;
 
-            p.leftText{
-                margin-left: 5%;
-            }
-
-            p.rightText{
-                margin-right: 5%;
+            p {
+                width: 90%;
+                text-align: justify ;
             }
         }
-        
     }
 
     div.interested{

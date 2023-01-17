@@ -35,7 +35,8 @@ export function IndexPage() {
                         key={island.id}
                         id={island.id}
                         name={island.name}
-                        country={island.country}
+                        description={island.description}
+                        image={island.mainImg}
                     />
                 );
             });
