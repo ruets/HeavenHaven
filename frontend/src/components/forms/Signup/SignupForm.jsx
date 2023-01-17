@@ -224,7 +224,7 @@ export function SignupForm() {
             navigate("/");
         } catch (error) {
             // handle error
-            console.error(error);
+            console.error(error.response);
         }
     };
 

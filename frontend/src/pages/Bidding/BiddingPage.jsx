@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import PaypalLogo from "../../assets/img/paypal-logo.png"
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import MainImage from "../../assets/img/presentationPage-test-img.png";
 import { useState, useEffect } from "react";
 import axios from "axios"
@@ -106,6 +107,26 @@ export function BiddingPage() {
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
                     <button type="submit" className="cta">Place a bid</button>
                 </div>
+                <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
+                    <PayPalButtons
+                    createOrder={(data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [
+                                {
+                                    amount: {
+                                        value: "00.01"
+                                    }
+                                }
+                            ]
+                        })
+                    }}
+                    onApprove={() => {
+                        return actions.order.capture().then(function (details) {
+                            alert("Transaction completed by : " + details.payer.name.given_name)
+                        })
+                    }}
+                    />
+                </PayPalScriptProvider>
             </div>
         );
     }
