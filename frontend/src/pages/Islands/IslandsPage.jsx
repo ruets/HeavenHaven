@@ -12,6 +12,7 @@ export function IslandsPage() {
     const [allIslands, setAllIslands] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isErrorThrown, setIsErrorThrown] = useState(false);
+    const [filterMap, setFilterMap] = useState([]);
 
     const refToImage = useRef(null);
     const refToDropDown = useRef(null);
@@ -39,6 +40,7 @@ export function IslandsPage() {
                         id={island.id}
                         name={island.name}
                         country={island.country}
+                        image={island.mainImg}
                     />
                 );
             });
@@ -51,7 +53,94 @@ export function IslandsPage() {
 
     useEffect(() => {
         getAllIslands();
+        let enumFilter = [
+            "africa",
+            "america",
+            "europe",
+            "oceania",
+            "tropical",
+            "dry",
+            "temperate",
+            "continental",
+            "polar",
+            "accomodations",
+            "landingstrip",
+            "port"
+        ];
+        enumFilter.forEach(element => {
+            let newArray = filterMap;
+            newArray.push({element:false});
+            setFilterMap(newArray);
+        });
     }, []);
+
+
+    const ClickOnCheckbox = async (e) => {
+        // modification de l'attribut en fonction de la case coché
+        filterMap[e.target.value]= e.target.checked;
+        try {
+            // requête vers l'api
+            let res = await axios.get(config.serverAdress + "/api/islands/");
+            const data = res.data;
+            let take = false;
+            const islandsLocated = data.map((island) => {
+                switch (island.continent) {
+                        case "America":
+                            if(filterMap["america"]){
+                            take = true;
+                        }
+                            break;
+                        case "Africa":
+                            if(filterMap["africa"]){
+                                take = true;
+                            }
+                            break;
+                        case "Europe":
+                            if(filterMap["europe"]){
+                                take = true;
+                            }
+                            break;  
+                        case "Oceania":
+                            if(filterMap["oceania"]){
+                                take = true;
+                            }
+                            break;
+                        default:
+                            take = false
+                            break;
+
+                }
+                console.log(take);
+                if (take == true){
+                    take = false;
+                    return island;
+                }
+                
+
+            });
+            console.log(islandsLocated);
+            const truc = islandsLocated.map((island) => {
+                try{
+                return (
+                    <IslandCard
+                        key={island.id}
+                        id={island.id}
+                        name={island.name}
+                        country={island.country}
+                        image={island.mainImg}
+                    />
+                );
+                }
+                catch{
+                    console.log("pas de donnée");
+                }
+            });
+            setAllIslands(truc);
+            setIsLoading(false);
+        } catch (error) {
+            setIsErrorThrown(true);
+        }
+    };
 
     if (isErrorThrown) {
         return <h1>Please excuse us, an error occured.</h1>;
@@ -72,19 +161,19 @@ export function IslandsPage() {
                         <ul>
                             <li>
                                 <p>Africa</p>
-                                <input type="checkbox" name="africa" />
+                                <input type="checkbox" name="africa" value="africa" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>America</p>
-                                <input type="checkbox" name="america" />
+                                <input type="checkbox" name="america" value="america" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>Europe</p>
-                                <input type="checkbox" name="europe" />
+                                <input type="checkbox" name="europe" value="europe" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>Oceania</p>
-                                <input type="checkbox" name="oceania" />
+                                <input type="checkbox" name="oceania" value="oceania" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                         </ul>
                     </div>
@@ -94,23 +183,23 @@ export function IslandsPage() {
                         <ul>
                             <li>
                                 <p>Tropical</p>
-                                <input type="checkbox" name="tropical" />
+                                <input type="checkbox" name="tropical" value="tropical" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>Dry</p>
-                                <input type="checkbox" name="dry" />
+                                <input type="checkbox" name="dry" value="dry" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>Temperate</p>
-                                <input type="checkbox" name="temperate" />
+                                <input type="checkbox" name="temperate" value="temperate" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>Continental</p>
-                                <input type="checkbox" name="continental" />
+                                <input type="checkbox" name="continental" value="continental" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>Polar</p>
-                                <input type="checkbox" name="polar" />
+                                <input type="checkbox" name="polar" value="polar" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                         </ul>
                     </div>
@@ -120,15 +209,15 @@ export function IslandsPage() {
                         <ul>
                             <li>
                                 <p>Accommodations</p>
-                                <input type="checkbox" name="accomodations" />
+                                <input type="checkbox" name="accomodations" value="accomodations" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>Landing strip</p>
-                                <input type="checkbox" name="landingstrip" />
+                                <input type="checkbox" name="landingstrip" value="landingstrip" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                             <li>
                                 <p>Port</p>
-                                <input type="checkbox" name="port" />
+                                <input type="checkbox" name="port" value="port" onClick={(e) => ClickOnCheckbox(e)}/>
                             </li>
                         </ul>
                     </div>
