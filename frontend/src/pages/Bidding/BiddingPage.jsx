@@ -130,7 +130,7 @@ export function BiddingPage() {
                     </div>
                     <div className="total-cost">
                         <p>Cost of the auction</p>
-                        <p className="value">${amountInput * 0.05}</p>
+                        <p className="value">${Math.round((amountInput * 0.05)*100) / 100}</p>
                     </div>
                     <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
                     <PayPalButtons
@@ -139,7 +139,7 @@ export function BiddingPage() {
                             purchase_units: [
                                 {
                                     amount: {
-                                        value: amountInput * 0.05
+                                        value: ((amountInput * 0.05) * 100) / 100
                                     }
                                 }
                             ]

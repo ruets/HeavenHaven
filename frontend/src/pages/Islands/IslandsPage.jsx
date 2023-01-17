@@ -5,6 +5,7 @@ import axios from "axios";
 import { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import config from "../../config/config.json";
+import { useFetcher } from "react-router-dom";
 
 export function IslandsPage() {
     const [isOpen, setIsOpen] = useState(false);
@@ -82,6 +83,8 @@ export function IslandsPage() {
             // requête vers l'api
             let res = await axios.get(config.serverAdress + "/api/islands/");
             const data = res.data;
+            // first filter --- "location"
+            // chose
             let take = false;
             const islandsLocated = data.map((island) => {
                 switch (island.continent) {
@@ -110,16 +113,65 @@ export function IslandsPage() {
                             break;
 
                 }
-                console.log(take);
-                if (take == true){
+                // if no filter take all the island
+                if(!filterMap["africa"] && !filterMap["oceania"] && !filterMap["europe"] && !filterMap["america"]){
+                    take = true;
+                    return island
+                }
+                else if (take == true){ // else only return the island who pass the filter
                     take = false;
                     return island;
                 }
-                
-
             });
             console.log(islandsLocated);
-            const truc = islandsLocated.map((island) => {
+            // second filter "weather"
+            take = false;
+            const islandsWeather = islandsLocated.map((island) => {
+                console.log(island.weather);
+                switch (island.weather) {
+                        case "Tropical":
+                            if(filterMap["tropical"]){
+                            take = true;
+                        }
+                            break;
+                        case "Dry":
+                            if(filterMap["dry"]){
+                                take = true;
+                            }
+                            break;
+                        case "Temperate":
+                            if(filterMap["temperate"]){
+                                take = true;
+                            }
+                            break;  
+                        case "Continental":
+                            if(filterMap["continental"]){
+                                take = true;
+                            }
+                            break;
+                        case "Polar":
+                            if(filterMap["polar"]){
+                                take = true;
+                            }
+                            break;
+
+                        default:
+                            take = false
+                            break;
+
+                }
+                // if no filter take all the island
+                if(!filterMap["tropical"] && !filterMap["dry"] && !filterMap["temperate"] && !filterMap["continental"] && !filterMap["polar"]){
+                    take = true;
+                    return island
+                }
+                else if (take == true){ // else only return the island who pass the filter
+                    take = false;
+                    return island;
+                }
+            });
+
+            const islandsFiltered = islandsWeather.map((island) => {
                 try{
                 return (
                     <IslandCard
@@ -135,7 +187,7 @@ export function IslandsPage() {
                     console.log("pas de donnée");
                 }
             });
-            setAllIslands(truc);
+            setAllIslands(islandsFiltered);
             setIsLoading(false);
         } catch (error) {
             setIsErrorThrown(true);
