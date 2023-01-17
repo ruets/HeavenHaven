@@ -29,7 +29,7 @@ model User {
     country         String      @db.VarChar(255)
 
     //Link to the ID card image
-    idCardLink      String[]    @db.VarChar(255)
+    idCardLink      String[]
 
     // An user can be attached to a classical customer
     customer        Customer?  
