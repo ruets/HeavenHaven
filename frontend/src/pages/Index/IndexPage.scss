@@ -57,6 +57,7 @@ div.index {
 
         div.islands {
             display: grid;
+            width: max-content;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr;
             gap: 16px 52px;
