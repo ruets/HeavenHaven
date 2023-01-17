@@ -20,6 +20,8 @@ import { BiddingPage } from "./pages/Bidding/BiddingPage";
 export const LoginContext = createContext({
     isUserLoggedIn: false,
     setIsUserLoggedIn: (auth) => {},
+    userToken: "",
+    setUserToken (auth) {}
 });
 
 export const CookiesContext = createContext({
@@ -31,6 +33,7 @@ export const CookiesContext = createContext({
 
 function App() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+    const [userToken, setUserToken] = useState("")
 
     const [isCookiesClicked, setIsCookiesClicked] = useState(false);
     const [isCookiesAccepted, setIsCookiesAccepted] = useState(false);
@@ -39,7 +42,7 @@ function App() {
         <div className="App">
             <CookiesContext.Provider value={{ isCookiesClicked, setIsCookiesClicked, isCookiesAccepted, setIsCookiesAccepted }}>
             <LoginContext.Provider
-                value={{ isUserLoggedIn, setIsUserLoggedIn }}
+                value={{ isUserLoggedIn, setIsUserLoggedIn, userToken, setUserToken }}
             >
                 <Header />
                 <Routes>
