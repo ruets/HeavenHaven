@@ -18,8 +18,8 @@ exports.getProfileInformations = async(req, res, next) => {
     //The connected user has an id
     const id = req.auth.userId;
 
-
     try{
+
         try {
 
             //We find the user profile from the id
@@ -31,7 +31,7 @@ exports.getProfileInformations = async(req, res, next) => {
             if(connectedUser) {
                 res.status(200).json(connectedUser);
             } else {
-                res.status(401).json({message: "User not found"});
+                res.status(400).json({message: "User not found"});
             }
 
         } catch(error) {
