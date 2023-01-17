@@ -8,8 +8,8 @@ function IslandCard(props) {
             <img src={props.image} alt="" />
             <p>{props.country}</p>
             <div className="buttons">
-                <Link to={"/island/" + props.id} className="btn-1">See More</Link>
-                <Link to={"/bidding/" + props.id} className="btn-1">Join The Auction</Link>
+                <Link to={"/island/" + props.id}><button className="cta">See More</button></Link>
+                <Link to={"/bidding/" + props.id}><button className="cta">Join The Auction</button></Link>
             </div>
         </div>
     );

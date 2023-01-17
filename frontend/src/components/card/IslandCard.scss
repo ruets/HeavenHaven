@@ -28,10 +28,10 @@ div.island-card {
 
         a {
             width: 50%;
-            position: relative;
-            padding: 8px 16px 8px 16px;
-            transition: 0.2s;
-            text-align: center;
+            button {
+                font-size: 18px;
+                width: 100%;
+            }
         }
     }
 }

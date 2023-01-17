@@ -36,8 +36,6 @@ export function LoginForm() {
 
     const postData = async () => {
         try {
-            setErrorMessagePassword("");
-            loginContext.setIsUserLoggedIn(true);
             let res = await axios.post(
                 config.serverAdress + "/api/auth/login",
                 {
@@ -47,6 +45,8 @@ export function LoginForm() {
             );
 
             // handle success
+            setErrorMessagePassword("");
+            loginContext.setIsUserLoggedIn(true);
             if (GetCookie("cookieAccepted")) {
                 SetCookie("userToken", res.data.token);
             } else {
