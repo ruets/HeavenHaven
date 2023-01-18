@@ -1,8 +1,12 @@
 import "./SearchBar.scss";
 import SearchLogo from "../../../assets/img/search-icon.svg";
-import { useCallback } from "react";
+import { useCallback, useEffect, location } from "react";
+import { useLocation } from "react-router-dom";
 
 export function SearchBar(props) {
+
+    const location = useLocation();
+
     const verifyEnterKey = useCallback(
         (e) => {
             console.log("daz");
@@ -12,7 +16,9 @@ export function SearchBar(props) {
         },
         [props.handleSearch]
     );
-
+    useEffect(() => {
+        props.setInput(location.pathname.split('=')[1]);
+    }, [])
     return (
         <div className="search-bar">
             <input

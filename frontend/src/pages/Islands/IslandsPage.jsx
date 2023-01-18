@@ -15,7 +15,7 @@ export function IslandsPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [isErrorThrown, setIsErrorThrown] = useState(false);
     const [filterMap, setFilterMap] = useState([]);
-
+    const [lastSearch, setLastSearch] = useState(String);
     const refToImage = useRef(null);
     const refToDropDown = useRef(null);
 
@@ -54,7 +54,7 @@ export function IslandsPage() {
     };
     const getIslandsWithSearch = async (search) =>{
         try{
-            let res = await axios.get(config.serverAdress + "/api/islands/" + search);
+            let res = await axios.get(config.serverAdress + "/api/islands/search/" + search);
             const data = res.data;
             const islands = data.map((island) => {
                 return (
@@ -67,25 +67,22 @@ export function IslandsPage() {
                     />
                 );
             });
-            setAllIslands(islands);
-            setIsLoading(false);
-
+            console.log(islands);
+            if(islands == []){
+                setIsErrorThrown(true);
+            }
+            else{
+                setAllIslands(islands);
+                setIsLoading(false);
+            }
         }
         catch(error){
             setIsErrorThrown(true);
         }
+        return;
 
     }
     useEffect(() => {
-        var url = new URL(document.location.href);
-        var search_params = new URLSearchParams(url.search);
-        var search = search_params.get('search');
-        console.log(search);
-        if(search !== null){
-            console.log(search);
-            getIslandsWithSearch(search);
-        }
-        else{
         getAllIslands();
         let enumFilter = [
             "africa",
@@ -106,10 +103,9 @@ export function IslandsPage() {
             newArray.push({element:false});
             setFilterMap(newArray);
         });
-    }
-    }, []);
+        }
 
-
+    , []);
     const ClickOnCheckbox = async (e) => {
         // modification de l'attribut en fonction de la case coché
         filterMap[e.target.value]= e.target.checked;
@@ -243,6 +239,17 @@ export function IslandsPage() {
         )
     }
 
+    let url = new URL(document.location.href); // non utiliser location.pathname
+    var search_params = new URLSearchParams(url.search);
+    var search = search_params.get('search');
+    console.log(search);
+    console.log(lastSearch);
+    if(search !== null && search !== lastSearch){
+        console.log("Paramètre pris en compte");
+        getIslandsWithSearch(search);
+        setLastSearch(search);
+    }
+
     return (
         <div className="islands">
             <div className="top">
@@ -321,4 +328,5 @@ export function IslandsPage() {
             <div className="grid">{allIslands}</div>
         </div>
     );
+
 }
