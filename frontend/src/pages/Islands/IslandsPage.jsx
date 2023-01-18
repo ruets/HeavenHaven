@@ -53,6 +53,16 @@ export function IslandsPage() {
     };
 
     useEffect(() => {
+        var url = new URL(document.location.href);
+        var search_params = new URLSearchParams(url.search);
+        var search = search_params.get('search');
+        let res = await axios.get(config.serverAdress + "/api/islands/", { pattern: search });
+
+        console.log(search);
+        if(search !== undefined){
+            console.log(search);
+        }
+        else{
         getAllIslands();
         let enumFilter = [
             "africa",
@@ -73,6 +83,7 @@ export function IslandsPage() {
             newArray.push({element:false});
             setFilterMap(newArray);
         });
+    }
     }, []);
 
 
@@ -86,7 +97,6 @@ export function IslandsPage() {
             // first filter --- "location"
             // chose
             let take = false;
-            console.log("Filtre des continents :");
             let islandsLocated = data.map((island) => {
                 switch (island.continent) {
                         case "America":
@@ -123,14 +133,9 @@ export function IslandsPage() {
                     return island;
                 }
             });
-            console.log(islandsLocated);
             // second filter "weather"
             islandsLocated = islandsLocated.filter(element => element != undefined);
-            console.log(islandsLocated);
-
             take = false;
-
-            console.log("Filtre du climat :");
             const islandsWeather = islandsLocated.map((island) => {
                 switch (island.weather) {
                         case "Tropical":
@@ -174,8 +179,6 @@ export function IslandsPage() {
                 }
 
             });
-            console.log("ile apres le climat")
-            console.log(islandsWeather);
             const islandsFiltered = islandsLocated.map((island) => {
                 try{
                 return (
@@ -184,13 +187,13 @@ export function IslandsPage() {
                         id={island.id}
                         name={island.name}
                         country={island.country}
+                        description={island.description}
                         image={island.mainImg}
                     />
                 );
                 }
                 catch{
                     console.error(error);
-                    console.log("pas de donnée");
                 }
             });
             if(islandsFiltered.length == 0){
