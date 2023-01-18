@@ -80,6 +80,8 @@ export function BiddingPage() {
     const minimumBid = parseInt(islandData.currentBid) + parseInt(islandData.treshold);
     const paypalStyle = {"layout":"horizontal", "color":"blue", "tagline":"false"}
 
+    // const paypalValue = (parseFloat(((amountInput * 0.05) * 100) / 100)).toString();
+
     if (error) {
         return (
             <h1>Error</h1>
@@ -101,14 +103,7 @@ export function BiddingPage() {
                     <div className="description">
                         <h2> Description </h2>
                         <p>
-                        [Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Nunc rutrum, leo quis vulputate laoreet, metus nibh efficitur nisl, vitae vehicula tellus elit vitae arcu.
-                        Suspendisse blandit neque ligula, eu finibus erat venenatis in. 
-                        Praesent semper euismod lacus. 
-                        Fusce porta augue at nibh sollicitudin, ut porttitor est sagittis. 
-                        Praesent eget turpis molestie dolor congue ullamcorper at a lacus. Mauris scelerisque feugiat metus sed accumsan. 
-                        In congue et purus sit amet molestie. Vestibulum porta blandit condimentum. 
-                        Proin interdum eu neque in iaculis. Suspendisse egestas, quam vestibulum pellentesque dictum, nunc ex venenatis tortor, et finibus sem tellus vel ante.]
+                        {islandData.location}
                         </p>
                     </div>
                     <div className="info">
@@ -140,7 +135,7 @@ export function BiddingPage() {
                             purchase_units: [
                                 {
                                     amount: {
-                                        value: ((amountInput * 0.05) * 100) / 100
+                                        value: "00.01"
                                     }
                                 }
                             ]
