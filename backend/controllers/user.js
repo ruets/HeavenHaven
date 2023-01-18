@@ -24,6 +24,17 @@ exports.getProfileInformations = async (req, res, next) => {
                 where: {
                     id: req.auth.id,
                 },
+                include: {
+                    island: true,
+                    customer: {
+                        include: { 
+                            auctions: { include: { island: true }},
+                            agents: true,
+                        },
+                    },
+                    agent: true,
+                    watchlist: true,
+                },
             });
             if (connectedUser) {
                 connectedUser.password = undefined;
