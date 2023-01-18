@@ -67,7 +67,7 @@ model Customer {
 model Agent {
 
     //The agent contains a classical profile 
-    id          Int         @id @unique
+    id          Int             @id @unique
     user            User        @relation(fields: [id], references: [id])
 
     //An agent is linked to a customer

@@ -47,7 +47,9 @@ exports.getProfileInformations = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -116,7 +118,9 @@ exports.changePassword = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -175,7 +179,9 @@ exports.getIslands = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -221,7 +227,9 @@ exports.getListings = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -266,7 +274,9 @@ exports.getWatchlist = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -307,7 +317,9 @@ exports.addToWatchlist = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -347,6 +359,8 @@ exports.removeFromWatchlist = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };

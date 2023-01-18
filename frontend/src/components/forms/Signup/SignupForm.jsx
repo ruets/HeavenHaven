@@ -197,10 +197,7 @@ export function SignupForm() {
     const postData = async () => {
         var formData = new FormData();
 
-        for (let i = 0; i <= idCard.length - 1; i++) {
-            formData.append("idCard", idCard[i]);
-        }
-
+        
         formData.append("email", email);
         formData.append("password1", password);
         formData.append("password2", confirmedPassword);
@@ -213,8 +210,14 @@ export function SignupForm() {
         formData.append("zip", zipCode);
         formData.append("country", country);
         formData.append("sponsorCode", affiliationCode);
-
+        
+        for (let i = 0; i <= idCard.length - 1; i++) {
+            formData.append("idCard", idCard[i]);
+        }
+        
         try {
+
+            console.log(formData);
             let res = await axios.post(config.serverAddress + "/api/auth/signup", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'

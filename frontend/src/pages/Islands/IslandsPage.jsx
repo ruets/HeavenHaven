@@ -15,7 +15,7 @@ export function IslandsPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [isErrorThrown, setIsErrorThrown] = useState(false);
     const [filterMap, setFilterMap] = useState([]);
-
+    const [lastSearch, setLastSearch] = useState(String);
     const refToImage = useRef(null);
     const refToDropDown = useRef(null);
 
@@ -54,7 +54,7 @@ export function IslandsPage() {
     };
     const getIslandsWithSearch = async (search) =>{
         try{
-            let res = await axios.get(config.serverAdress + "/api/islands/" + search);
+            let res = await axios.get(config.serverAddress + "/api/islands/search/" + search);
             const data = res.data;
             const islands = data.map((island) => {
                 return (
@@ -67,26 +67,21 @@ export function IslandsPage() {
                     />
                 );
             });
-            setAllIslands(islands);
-            setIsLoading(false);
-
+            if(islands == []){
+                setIsErrorThrown(true);
+            }
+            else{
+                setAllIslands(islands);
+                setIsLoading(false);
+            }
         }
         catch(error){
             setIsErrorThrown(true);
         }
+        return;
 
     }
     useEffect(() => {
-        var url = new URL(document.location.href);
-        var search_params = new URLSearchParams(url.search);
-        var search = search_params.get('search');
-        console.log(search);
-        if(search !== null){
-            console.log(search);
-            getIslandsWithSearch(search);
-        }
-        else{
-        getAllIslands();
         let enumFilter = [
             "africa",
             "america",
@@ -101,21 +96,31 @@ export function IslandsPage() {
             "landingstrip",
             "port"
         ];
+        getAllIslands();
+        let newArray = [];
         enumFilter.forEach(element => {
-            let newArray = filterMap;
-            newArray.push({element:false});
-            setFilterMap(newArray);
-        });
-    }
-    }, []);
+        newArray.push( { element: false } ) ;
+        setFilterMap(newArray)
 
+        
+        });
+}, []);
 
     const ClickOnCheckbox = async (e) => {
         // modification de l'attribut en fonction de la case coché
         filterMap[e.target.value]= e.target.checked;
+        let url = new URL(document.location.href);
+        var search_params = new URLSearchParams(url.search);
+        var search = search_params.get('search');
         try {
             // requête vers l'api
-            let res = await axios.get(config.serverAdress + "/api/islands/");
+            let res;
+            if(search == null){
+                res = await axios.get(config.serverAddress + "/api/islands/");
+            }
+            else{
+                res = await axios.get(config.serverAddress + "/api/islands/search/" + search);
+            }
             const data = res.data;
             // first filter --- "location"
             // chose
@@ -156,10 +161,12 @@ export function IslandsPage() {
                     return island;
                 }
             });
+
             // second filter "weather"
             islandsLocated = islandsLocated.filter(element => element != undefined);
             take = false;
-            const islandsWeather = islandsLocated.map((island) => {
+            var islandsWeather = islandsLocated.map((island) => {
+                take = false;
                 switch (island.weather) {
                         case "Tropical":
                             if(filterMap["tropical"]){
@@ -202,7 +209,8 @@ export function IslandsPage() {
                 }
 
             });
-            const islandsFiltered = islandsLocated.map((island) => {
+            islandsWeather = islandsWeather.filter(element => element != undefined);
+            const islandsFiltered = islandsWeather.map((island) => {
                 try{
                 return (
                     <IslandCard
@@ -241,6 +249,13 @@ export function IslandsPage() {
             <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
         </div>
         )
+    }
+    let url = new URL(document.location.href);
+    var search_params = new URLSearchParams(url.search);
+    var search = search_params.get('search');
+    if(search !== null && search !== lastSearch){
+        getIslandsWithSearch(search);
+        setLastSearch(search);
     }
 
     return (
@@ -321,4 +336,5 @@ export function IslandsPage() {
             <div className="grid">{allIslands}</div>
         </div>
     );
+
 }

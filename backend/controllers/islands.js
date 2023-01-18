@@ -32,7 +32,9 @@ exports.getTrends = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -57,7 +59,9 @@ exports.getAll = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -87,7 +91,9 @@ exports.getOne = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -114,7 +120,9 @@ exports.getWithFilter = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -226,6 +234,8 @@ exports.sell = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
