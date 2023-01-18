@@ -2,6 +2,14 @@ const { PrismaClient } = require("@prisma/client");
 
 const auctionCtrl = require("./auction");
 
+/**
+ * This function returns the trending islands. The islands returned are randomly selected.
+ * The function returns 6 islands.
+ * 
+ * @param {*} req   Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.getTrends = async (req, res, next) => {
     const prisma = new PrismaClient();
 
@@ -28,6 +36,13 @@ exports.getTrends = async (req, res, next) => {
     }
 };
 
+/**
+ * This function returns all the islands. 
+ *  
+ * @param {} req    Request 
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.getAll = async (req, res, next) => {
     const prisma = new PrismaClient();
 
@@ -46,6 +61,12 @@ exports.getAll = async (req, res, next) => {
     }
 };
 
+/**
+ * This function returns one island from its id. The id is contained in the request.
+ * @param {} req    Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.getOne = async (req, res, next) => {
     const prisma = new PrismaClient();
     try {
@@ -69,6 +90,13 @@ exports.getOne = async (req, res, next) => {
         res.status(500).json({ error: "Intern error with error code 500 !" });
     }
 };
+
+/**
+ * This function returns all the islands matching a certain pattern. The pattern concerns the name of the island.
+ * @param {} req    Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.getWithFilter = async (req, res, next) => {
     const prisma = new PrismaClient();
     try {
@@ -91,6 +119,13 @@ exports.getWithFilter = async (req, res, next) => {
     }
 };
 
+/**
+ * This function creates a new island and the associated auction. 
+ * This also contains all the features that permites to start the auction at a certain date
+ * @param {} req    Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.sell = async (req, res, next) => {
     const prisma = new PrismaClient();
 
