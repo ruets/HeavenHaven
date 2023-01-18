@@ -44,7 +44,7 @@ export function IslandsPage() {
                         description={island.description}
                         image={island.mainImg}
                     />
-                );
+                )
             });
             setAllIslands(islands);
             setIsLoading(false);
@@ -54,7 +54,7 @@ export function IslandsPage() {
     };
     const getIslandsWithSearch = async (search) =>{
         try{
-            let res = await axios.get(config.serverAdress + "/api/islands/", { pattern: search });
+            let res = await axios.get(config.serverAdress + "/api/islands/" + search);
             const data = res.data;
             const islands = data.map((island) => {
                 return (

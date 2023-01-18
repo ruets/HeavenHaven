@@ -101,14 +101,13 @@ exports.getWithFilter = async (req, res, next) => {
     const prisma = new PrismaClient();
     try {
         try {
-            let island = await prisma.Island.findMany({
+            let islands = await prisma.Island.findMany({
                 where: {
-                    name: {contain : req.params.pattern, 
-                    },
+                    name: {contains : req.params.pattern},
                 },
             });
 
-            res.status(200).json(island);
+            res.status(200).json(islands);
         } catch (error) {
             res.status(400).json({
                 error: "Intern error with error code 400 !",
