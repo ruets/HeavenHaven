@@ -94,7 +94,9 @@ exports.signup = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -129,7 +131,9 @@ exports.login = async (req, res, next) => {
             }),
         });
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 

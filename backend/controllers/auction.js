@@ -20,7 +20,9 @@ exports.getOne = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -64,7 +66,9 @@ exports.bid = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
@@ -89,7 +93,9 @@ exports.getLastBid = async (req, res, next) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ error: "Intern error with error code 500 !" });
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
     }
 };
 
