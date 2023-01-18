@@ -55,6 +55,9 @@ exports.getOne = async (req, res, next) => {
                 where: {
                     id: parseInt(req.params.id),
                 },
+                include: {
+                    auction: true,
+                },
             });
 
             res.status(200).json(island);

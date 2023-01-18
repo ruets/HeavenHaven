@@ -34,7 +34,7 @@ exports.bid = async (req, res, next) => {
                     id: parseInt(req.params.id),
                 },
             });
-
+            
             if (auction && auction.status === "started") {
                 let bid = await prisma.Bid.create({
                     data: {
@@ -59,9 +59,30 @@ exports.bid = async (req, res, next) => {
                 });
             }
         } catch (error) {
-            res.status(400).json({
-                error: "Intern error with error code 400 !" + error,
+            res.status(400).json({ error: "Intern error with error code 400 !" });
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Intern error with error code 500 !" });
+    }
+};
+
+exports.getLastBid = async (req, res, next) => {
+    const prisma = new PrismaClient();
+
+    try {
+        try {
+            let bid = await prisma.Bid.findFirst({
+                where: {
+                    auctionId: parseInt(req.params.id),
+                },
+                orderBy: {
+                    price: "desc",
+                }
             });
+
+            res.status(200).json(bid);
+        } catch (error) {
+            res.status(400).json({ error: "Intern error with error code 400 !" });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
@@ -75,6 +96,9 @@ exports.init = async (island) => {
         where: {
             islandId: island.id,
         },
+        include: {
+            island: true,
+        },
     });
 
     let splitStartDate = auction.startDate.split("-");
@@ -84,17 +108,17 @@ exports.init = async (island) => {
         splitStartDate[0],
         splitStartDate[1] - 1,
         splitStartDate[2],
-        0,
-        0,
-        0
+        0, //splitStartDate[3],
+        0, //splitStartDate[4],
+        0  //splitStartDate[5]
     );
     let endingDate = new Date(
         splitEndDate[0],
         splitEndDate[1] - 1,
         splitEndDate[2],
-        0,
-        0,
-        0
+        0, //splitEndDate[3],
+        0, //splitEndDate[4],
+        0  //splitEndDate[5]
     );
 
     const jobStart = schedule.scheduleJob(startingDate, async () => {
@@ -109,7 +133,11 @@ exports.init = async (island) => {
             });
 
             console.log(
-                "Auction " + island.name + " (" + auction.id + ") started !"
+                "Auction " +
+                island.name +
+                " (" +
+                auction.id +
+                ") started !"
             );
         }
     });
@@ -118,6 +146,10 @@ exports.init = async (island) => {
         let auction = await prisma.Auction.findUnique({
             where: {
                 islandId: island.id,
+            },
+            include: {
+                island: true,
+                initiator: true,
             },
         });
 
@@ -179,9 +211,9 @@ exports.init = async (island) => {
                 "service_l3r60im",
                 "template_p8drlsa",
                 {
-                    name: "test",
-                    island_name: "test",
-                    mail: "dev@ruets.pro",
+                    name: auction.initiator.name,
+                    island_name: auction.island.name,
+                    mail: auction.initiator.email,
                 },
                 {
                     publicKey: "iEM8tV4oLhBTqhQss",
@@ -189,20 +221,24 @@ exports.init = async (island) => {
                 }
             );
             console.log(
-                "Auction " + island.name + " (" + auction.id + ") issued !"
+                "Auction " +
+                island.name +
+                " (" +
+                auction.id +
+                ") issued !"
             );
         }
     });
 
     console.log(
         "Auction " +
-            auction.name +
-            " (" +
-            auction.id +
-            ") will start at " +
-            startingDate.toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) +
-            " and will end at " +
-            endingDate.toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) +
-            " !"
+        auction.island.name +
+        " (" +
+        auction.id +
+        ") will start at " +
+        startingDate.toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) +
+        " and will end at " +
+        endingDate.toLocaleString("fr-FR", { timeZone: "Europe/Paris" }) +
+        " !"
     );
 };
