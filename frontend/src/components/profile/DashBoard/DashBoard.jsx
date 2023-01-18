@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { LoginContext } from "../../../App";
 import axios from 'axios'
 import GetCookie from "../../../hooks/cookies/getCookie"
@@ -32,7 +32,7 @@ function DashBoard() {
             )
         }))
       },
-      [second],
+      [],
     )
     
 
