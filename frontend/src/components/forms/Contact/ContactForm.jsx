@@ -30,15 +30,20 @@ export function ContactForm() {
             console.log("Sending Email");
 
             try {
-                    const res = await emailjs.sendForm(
-                    "service_jzu7peu",
-                    "template_kvrfwzk",
-                    form.current,
-                    "4L1rLxiOGSbrS-xqJ"
+                const res = await emailjs.sendForm(
+                "service_jzu7peu",
+                "template_kvrfwzk",
+                form.current,
+                "4L1rLxiOGSbrS-xqJ"
                 );
-                console.log(res.text);
+                alert("Your email is sent !");
+                setName("");
+                setEmail("");
+                setTopic("");
+                setMessage("");
             } catch (error) {
                 console.log(console.log(error));
+                alert("An error occured, please try again later");
             }
         }
     };
@@ -73,15 +78,15 @@ export function ContactForm() {
                     value={topic}
                     setInput={setTopic}
                 ></Input>
-                <Input
-                    type="text"
+                <textarea type="text"
                     name="message"
-                    label="Your message"
+                    placeholder="Your message"
                     value={message}
-                    setInput={setMessage}
-                ></Input>
+                    onChange={e => setMessage(e.target.value)}
+
+                ></textarea>
             </div>
-            <button type="reset" className="cta" onProgress={()=>this.setState({value : ''})}>
+            <button type="submit" className="cta">
                 Send Message
                 <img src={ArrowIcon} alt="" />{" "}
             </button>
