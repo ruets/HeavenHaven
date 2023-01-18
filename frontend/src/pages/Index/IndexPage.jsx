@@ -22,14 +22,17 @@ export function IndexPage() {
     let cookieElement = null;
 
     const refToCookieGreyDiv = useRef(null);
-  
 
-    const cookieGreyStopScroll = useCallback(() => {
-            if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
-            cookieElement = <Cookies/>;
-            refToCookieGreyDiv.current.style.background = "red";
-        }
+    const handleCookieClick = useCallback(() => {
+        refToCookieGreyDiv.current.style.display = "none"
+        document.body.style.overflowY = "auto"
     })
+
+    function showCookie() {
+        if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
+            return (<div className="cookie-grey" ref={refToCookieGreyDiv}><Cookies onClick={handleCookieClick}/></div>)
+        }
+    }
 
     const getTrendingIslands = async () => {
         try {
@@ -56,6 +59,9 @@ export function IndexPage() {
     };
 
     useEffect(() => {
+        if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
+            document.body.style.overflowY = "hidden";
+        }
         getTrendingIslands();
     }, []);
 
@@ -71,10 +77,8 @@ export function IndexPage() {
     }
 
     return (
+        <>
         <div className="index">
-            <div className="cookieGrey" ref={refToCookieGreyDiv}>
-                {cookieGreyStopScroll()}
-                {cookieElement}
                 <div className="section-1">
                     <img src={MainImage} alt="" />
                     <div className="title">
@@ -87,7 +91,8 @@ export function IndexPage() {
                     <h2>Trending</h2>
                     <div className="islands">{trendingIslands}</div>
                 </div>
-            </div>
         </div>
+            {showCookie()}
+        </>
     );
 }

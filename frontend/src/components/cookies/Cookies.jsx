@@ -5,17 +5,19 @@ import { useContext } from "react";
 import { useCallback } from "react";
 import PrivacyPolicyPDF from "../../assets/documents/Privacy-policy-Heaven-Haven.pdf";
 
-export function Cookies() {
+export function Cookies(props) {
 
     const cookiesContext = useContext(CookiesContext);
 
     const handleAccept = useCallback(() => {
         SetCookie("cookieAccepted", true);
+        props.onClick()
         cookiesContext.setIsCookiesClicked(true);
         cookiesContext.setIsCookiesAccepted(true);
     })
 
     const handleReject = useCallback(() => {
+        props.onClick()
         cookiesContext.setIsCookiesClicked(true);
         cookiesContext.setIsCookiesAccepted(false);
     });
