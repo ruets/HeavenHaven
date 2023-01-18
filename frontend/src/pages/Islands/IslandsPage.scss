@@ -91,4 +91,14 @@ div.islands {
         gap: 16px 52px;
         margin-bottom: 60px;
     }
+    
+    div.loading{
+        display : flex;
+        flex-direction: column;
+        h1{
+            margin: 20px 0 20px 0;
+            align-self: center;
+        }
+    }
+    
 }

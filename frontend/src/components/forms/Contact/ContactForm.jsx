@@ -30,7 +30,7 @@ export function ContactForm() {
             console.log("Sending Email");
 
             try {
-                const res = await emailjs.sendForm(
+                    const res = await emailjs.sendForm(
                     "service_jzu7peu",
                     "template_kvrfwzk",
                     form.current,
@@ -81,7 +81,7 @@ export function ContactForm() {
                     setInput={setMessage}
                 ></Input>
             </div>
-            <button type="submit" className="cta">
+            <button type="reset" className="cta" onProgress={()=>this.setState({value : ''})}>
                 Send Message
                 <img src={ArrowIcon} alt="" />{" "}
             </button>
