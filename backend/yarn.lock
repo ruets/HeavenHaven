@@ -298,10 +298,10 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
-"@emailjs/browser@^3.10.0":
-  "integrity" "sha512-pregUOBkSjjctQoAgn8DcSaeY4ypHjXAJEzWlJysM3RkQXw1ulavfHva3YYeAkxfJ7qbIhpyvRmhyQlgNG4GVg=="
-  "resolved" "https://registry.npmjs.org/@emailjs/browser/-/browser-3.10.0.tgz"
-  "version" "3.10.0"
+"@emailjs/nodejs@^2.1.1":
+  "integrity" "sha512-K0V/XVoH3WC0wRYNZNt6+XJMyp1LE2ai8ITq5Ow/W8+TfZNXTCHTl1XiM8N0yNyA+K3/a2EMQK1fXOVCVvzwFA=="
+  "resolved" "https://registry.npmjs.org/@emailjs/nodejs/-/nodejs-2.1.1.tgz"
+  "version" "2.1.1"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   "integrity" "sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ=="
