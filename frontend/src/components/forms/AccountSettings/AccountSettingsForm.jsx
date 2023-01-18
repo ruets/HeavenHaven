@@ -8,22 +8,22 @@ export function AccountSettingsForm() {
         <h1> Password </h1>
             <div className="field">
                 <p> Old password </p>
-                <Input type="text"
+                <Input type="password"
                         name="oldPassword"
                         label="">
                 </Input>
             </div>
             <div className="field">
                 <p> New password </p>
-                <Input type="text"
+                <Input type="password"
                         name="newPassword"
                         label="">
             
                 </Input>
             </div>
             <div className="field">
-                <p> Confirm new password </p>
-                <Input type="text"
+                <p> Confirm new password</p>
+                <Input type="password"
                         name="confirmation"
                         label="">
             
