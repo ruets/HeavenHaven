@@ -11,7 +11,7 @@ div.islands {
         position: relative;
         display: flex;
         justify-content: center;
-        width: 100%;
+        width: 80%;
         margin: 40px 0 32px 0;
     }
 
@@ -87,7 +87,8 @@ div.islands {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: auto;
-        gap: 16px 52px;
+        justify-content: space-between;
+        width: 80%;
         margin-bottom: 60px;
     }
     

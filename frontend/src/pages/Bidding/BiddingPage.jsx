@@ -80,8 +80,6 @@ export function BiddingPage() {
     const minimumBid = parseInt(islandData.currentBid) + parseInt(islandData.treshold);
     const paypalStyle = {"layout":"horizontal", "color":"blue", "tagline":"false"}
 
-    // const paypalValue = (parseFloat(((amountInput * 0.05) * 100) / 100)).toString();
-
     if (error) {
         return (
             <h1>Error</h1>

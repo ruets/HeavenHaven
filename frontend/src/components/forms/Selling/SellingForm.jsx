@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import SellingUploadImage from "../../../assets/img/selling-upload-icon.svg";
 import CongratulationsIcon from "../../../assets/img/congrats-icon.png";
 import Input from "../../../components/fields/Input/Input";
+import config from "../../../config/config.json"
 import "./SellingForm.scss";
 import GetCookie from "../../../hooks/cookies/getCookie";
+import axios from "axios";
 
 export function SellingForm() {
     // Getting the user context
@@ -67,9 +69,11 @@ export function SellingForm() {
     // Step 1
 
     const [islandName, setIslandName] = useState("");
-    const [logitude, setLongitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     const [latitude, setLatitude] = useState("");
     const [surface, setSurface] = useState("");
+    const [country, setCountry] = useState("");
+    const [continent, setContinent] = useState("");
     const [reservePrice, setReservePrice] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -389,14 +393,55 @@ export function SellingForm() {
         validateFile(ownershipDocument);
     }, [refToHiddenOwnershipFileInput, setOwnershipDocumentName]);
 
+    const postData = async () => {
+        var formData = new FormData();
+
+        formData.append("weatherImg", weatherImage[0]);
+        formData.append("wildlifeImg", wildlifeImage[0]);
+        formData.append("activitiesImg", activitiesImage[0]);
+        formData.append("document", ownershipDocument[0]);
+        for (let i = 0; i < picturesImage.length; i++) {
+            formData.append("images", picturesImage[i]);
+        }
+        formData.append("name", islandName);
+        formData.append("area", surface);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("country", country);
+        formData.append("continent", continent);
+        formData.append("weather", weather);
+        formData.append("wildlife", wildlife);
+        formData.append("activities", activities);
+        formData.append("location", location);
+        formData.append("price", reservePrice);
+        formData.append("startDate", startDate);
+        formData.append("endDate", endDate);
+
+        try {
+            let currentUserToken = "";
+        if (GetCookie("userToken") !== undefined) {
+            currentUserToken = GetCookie("userToken");
+        } else {
+            currentUserToken = loginContext.userToken;
+        }
+            const headers = {
+                headers: { Authorization: `Bearer ${currentUserToken}`,
+                            "Content-Type": 'multipart/form-data'}
+            }
+            const res = await axios.post(config.serverAddress + "/api/islands/sell", formData, headers)
+            console.log(res.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const validateThirdStep = useCallback((e) => {
         e.preventDefault();
         if (ownershipDocumentName === "") {
             refToErrorMessageDocument.current.innerText =
                 "Please put your ownership in the requested field.";
         } else {
-            // Post request to API
-
+            postData();
             handleNextPage(pagesCount + 1);
         }
     });
@@ -436,7 +481,7 @@ export function SellingForm() {
                                 type="text"
                                 name="longitude"
                                 label="Longitude"
-                                value={logitude}
+                                value={longitude}
                                 setInput={setLongitude}
                                 required
                             ></Input>
@@ -455,6 +500,22 @@ export function SellingForm() {
                             label="Surface"
                             value={surface}
                             setInput={setSurface}
+                            required
+                        ></Input>
+                        <Input
+                            type="text"
+                            name="country"
+                            label="Country"
+                            value={country}
+                            setInput={setCountry}
+                            required
+                        ></Input>
+                        <Input
+                            type="text"
+                            name="continent"
+                            label="Continent"
+                            value={continent}
+                            setInput={setContinent}
                             required
                         ></Input>
                         <Input
