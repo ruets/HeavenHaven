@@ -35,6 +35,9 @@ export function IslandPresentationPage() {
     useEffect(() => {
         getIslandData();
     }, [])
+    
+    const startDate = islandData.auction.startDate.split("-");
+    let date = new Date(startDate[0], startDate[1], startDate[2], 0, 0, 0);
 
     if (error) {
         return (
@@ -54,8 +57,8 @@ export function IslandPresentationPage() {
             <div className="topInfos">
                 <div className="leftPart">
                     <p className="tittle">Auction Informations</p>
-                    <p className="other"> <img src={dollarIcon} alt="dollar" /> Reserve price : {}</p>
-                    <p className="other"> <img src={calendarIcon} alt="dollar" />Bidding Opens : {}</p>
+                    <p className="other"> <img src={dollarIcon} alt="dollar" /> Reserve price : ${islandData.auction.reservePrice}</p>
+                    <p className="other"> <img src={calendarIcon} alt="dollar" />Bidding Opens : {date.toLocaleString()}</p>
                 </div>
                 <div className="rightPart">
                     <p className="tittle">Fees and Commission</p>
