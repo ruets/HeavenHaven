@@ -10,7 +10,7 @@ exports.signup = async (req, res, next) => {
     try {
         let hash = await bcrypt.hash(req.body.password1, 10);
 
-        let valid = await bcrypt.compare(req.body.password2, hash)
+        let valid = await bcrypt.compare(req.body.password2, hash);
 
         if (!valid) {
             return res.status(400).json({ error: "Passwords do not match !" });
@@ -18,29 +18,35 @@ exports.signup = async (req, res, next) => {
 
         let sponsor = await prisma.Customer.findUnique({
             where: {
-                sponsorCode: req.body.sponsorCode
-            }
-        })
-        
+                sponsorCode: req.body.sponsorCode,
+            },
+        });
+
         if (!sponsor) {
             return res.status(400).json({ error: "Incorrect sponsor code !" });
         } else {
             if (sponsor.remainingUses <= 0) {
-                return res.status(400).json({ error: "Maximum number of uses of this sponsor code reached !" });
+                return res.status(400).json({
+                    error: "Maximum number of uses of this sponsor code reached !",
+                });
             }
         }
 
         let files = req.files;
         let filesReturned = [];
-        
+
         if (!files) {
             return res.status(400).json({ error: "Missing id cards !" });
         } else {
             files.forEach((file) => {
-                filesReturned.push(`${req.protocol}://${req.get('host')}/imgs/idCards/${files[0].filename}`)
+                filesReturned.push(
+                    `${req.protocol}://${req.get("host")}/imgs/idCards/${
+                        files[0].filename
+                    }`
+                );
             });
         }
-        
+
         try {
             let customer = await prisma.User.create({
                 data: {
@@ -49,41 +55,43 @@ exports.signup = async (req, res, next) => {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     phone: req.body.phone,
-    
+
                     address: req.body.address,
                     apt: req.body.apt,
                     city: req.body.city,
                     zip: req.body.zip,
                     country: req.body.country,
-    
+
                     idCardLink: filesReturned,
-                    
-                    customer : {
+
+                    customer: {
                         create: {
                             sponsorCode: sponsorCode(),
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             });
 
             await prisma.Customer.update({
                 where: {
-                    idUser: sponsor.idUser
+                    id: sponsor.id,
                 },
                 data: {
-                    remainingUses: sponsor.remainingUses - 1
-                }
-            })
-            
+                    remainingUses: sponsor.remainingUses - 1,
+                },
+            });
+
             res.status(201).json({
                 message: "Created customer !",
-                userId: customer.id,
-                token: jwt.sign({ userId: customer.id }, config.secretKey, {
+                id: customer.id,
+                token: jwt.sign({ id: customer.id }, config.secretKey, {
                     expiresIn: "24h",
-                })
+                }),
             });
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !"});
+            res.status(400).json({
+                error: "Intern error with error code 400 !",
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
@@ -97,26 +105,29 @@ exports.login = async (req, res, next) => {
         let user = await prisma.User.findUnique({
             where: {
                 email: req.body.email,
-            }
-        })
-    
+            },
+        });
+
         if (!user) {
-            return res.status(401).json({ error: "Email or password incorrect !" });
+            return res
+                .status(401)
+                .json({ error: "Email or password incorrect !" });
         }
-        
-        let valid = await bcrypt.compare(req.body.password, user.password)
-        
+
+        let valid = await bcrypt.compare(req.body.password, user.password);
+
         if (!valid) {
-            return res.status(401).json({ error: "Email or password incorrect !" });
+            return res
+                .status(401)
+                .json({ error: "Email or password incorrect !" });
         }
 
         res.status(200).json({
-            userId: user.id,
-            token: jwt.sign({ userId: user.id }, config.secretKey, {
+            id: user.id,
+            token: jwt.sign({ id: user.id }, config.secretKey, {
                 expiresIn: "24h",
             }),
         });
-    
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
     }

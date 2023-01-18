@@ -5,11 +5,12 @@ import IslandCard from "../../components/card/IslandCard";
 import { CookiesContext } from "../../App";
 import GetCookie from "../../hooks/cookies/getCookie";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useState } from "react";
 import config from "../../config/config.json";
 import { useContext } from "react";
 import ReactLoading from 'react-loading';
+import { useRef } from "react";
 
 export function IndexPage() {
     const [trendingIslands, setTrendingIslands] = useState([]);
@@ -18,11 +19,17 @@ export function IndexPage() {
 
     const cookiesContext = useContext(CookiesContext);
 
-    let cookieElement = null
+    let cookieElement = null;
 
-    if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
-        cookieElement = <Cookies/>
-    }
+    const refToCookieGreyDiv = useRef(null);
+  
+
+    const cookieGreyStopScroll = useCallback(() => {
+            if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
+            cookieElement = <Cookies/>;
+            refToCookieGreyDiv.current.style.background = "red";
+        }
+    })
 
     const getTrendingIslands = async () => {
         try {
@@ -58,25 +65,28 @@ export function IndexPage() {
         return (
         <div className="loading">
             <h1> Loading ... </h1>
-            <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />;
+            <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
         </div>
         )
     }
 
     return (
         <div className="index">
-            {cookieElement}
-            <div className="section-1">
-                <img src={MainImage} alt="" />
-                <div className="title">
-                    <h1 className="title-1">Your best</h1>
-                    <h1 className="title-2">solution for</h1>
-                    <h1 className="title-3">islands auctions</h1>
+            <div className="cookieGrey" ref={refToCookieGreyDiv}>
+                {cookieGreyStopScroll()}
+                {cookieElement}
+                <div className="section-1">
+                    <img src={MainImage} alt="" />
+                    <div className="title">
+                        <h1 className="title-1">Your best</h1>
+                        <h1 className="title-2">solution for</h1>
+                        <h1 className="title-3">islands auctions</h1>
+                    </div>
                 </div>
-            </div>
-            <div className="section-2">
-                <h2>Trending</h2>
-                <div className="islands">{trendingIslands}</div>
+                <div className="section-2">
+                    <h2>Trending</h2>
+                    <div className="islands">{trendingIslands}</div>
+                </div>
             </div>
         </div>
     );
