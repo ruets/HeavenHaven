@@ -14,16 +14,16 @@ export function Footer() {
             <div className="left">
                 <h3>Connect With Us</h3>
                 <div className="socials">
-                    <a href="https://www.instagram.com/heavenhaven_off">
+                    <a href="https://www.instagram.com/heavenhaven_off" target="_blank">
                         <img src={InstagramLogo} alt="" />
                     </a>
-                    <a href="https://www.facebook.com/profile.php?id=100089191488645">
+                    <a href="https://www.facebook.com/profile.php?id=100089191488645" target="_blank">
                         <img src={FacebookLogo} alt="" />
                     </a>
-                    <a href="https://www.linkedin.com/in/heaven-haven-8b56ba261/">
+                    <a href="https://www.linkedin.com/in/heaven-haven-8b56ba261/" target="_blank">
                         <img src={PinterestLogo} alt="" />
                     </a>
-                    <a href="https://www.pinterest.fr/heavenhaven0322/">
+                    <a href="https://www.pinterest.fr/heavenhaven0322/" target="_blank">
                         <img src={LinkedinLogo} alt="" />
                     </a>
                 </div>
