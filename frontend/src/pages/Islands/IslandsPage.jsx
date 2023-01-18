@@ -67,7 +67,6 @@ export function IslandsPage() {
                     />
                 );
             });
-            console.log(islands);
             if(islands == []){
                 setIsErrorThrown(true);
             }
@@ -83,7 +82,6 @@ export function IslandsPage() {
 
     }
     useEffect(() => {
-        getAllIslands();
         let enumFilter = [
             "africa",
             "america",
@@ -98,20 +96,31 @@ export function IslandsPage() {
             "landingstrip",
             "port"
         ];
+        getAllIslands();
+        let newArray = [];
         enumFilter.forEach(element => {
-            let newArray = filterMap;
-            newArray.push({element:false});
-            setFilterMap(newArray);
-        });
-        }
+        newArray.push( { element: false } ) ;
+        setFilterMap(newArray)
 
-    , []);
+        
+        });
+}, []);
+
     const ClickOnCheckbox = async (e) => {
         // modification de l'attribut en fonction de la case coché
         filterMap[e.target.value]= e.target.checked;
+        let url = new URL(document.location.href);
+        var search_params = new URLSearchParams(url.search);
+        var search = search_params.get('search');
         try {
             // requête vers l'api
-            let res = await axios.get(config.serverAdress + "/api/islands/");
+            let res;
+            if(search == null){
+                res = await axios.get(config.serverAdress + "/api/islands/");
+            }
+            else{
+                res = await axios.get(config.serverAdress + "/api/islands/search/" + search);
+            }
             const data = res.data;
             // first filter --- "location"
             // chose
@@ -152,10 +161,12 @@ export function IslandsPage() {
                     return island;
                 }
             });
+
             // second filter "weather"
             islandsLocated = islandsLocated.filter(element => element != undefined);
             take = false;
-            const islandsWeather = islandsLocated.map((island) => {
+            var islandsWeather = islandsLocated.map((island) => {
+                take = false;
                 switch (island.weather) {
                         case "Tropical":
                             if(filterMap["tropical"]){
@@ -198,7 +209,8 @@ export function IslandsPage() {
                 }
 
             });
-            const islandsFiltered = islandsLocated.map((island) => {
+            islandsWeather = islandsWeather.filter(element => element != undefined);
+            const islandsFiltered = islandsWeather.map((island) => {
                 try{
                 return (
                     <IslandCard
@@ -238,14 +250,10 @@ export function IslandsPage() {
         </div>
         )
     }
-
-    let url = new URL(document.location.href); // non utiliser location.pathname
+    let url = new URL(document.location.href);
     var search_params = new URLSearchParams(url.search);
     var search = search_params.get('search');
-    console.log(search);
-    console.log(lastSearch);
     if(search !== null && search !== lastSearch){
-        console.log("Paramètre pris en compte");
         getIslandsWithSearch(search);
         setLastSearch(search);
     }

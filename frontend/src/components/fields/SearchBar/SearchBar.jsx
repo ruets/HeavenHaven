@@ -5,11 +5,10 @@ import { useLocation } from "react-router-dom";
 
 export function SearchBar(props) {
 
-    const location = useLocation();
+    const location = useLocation
 
     const verifyEnterKey = useCallback(
         (e) => {
-            console.log("daz");
             if (e.code === "Enter" || e.key === "Enter") {
                 props.handleSearch();
             }
@@ -17,7 +16,7 @@ export function SearchBar(props) {
         [props.handleSearch]
     );
     useEffect(() => {
-        props.setInput(location.pathname.split('=')[1]);
+        props.setInput(document.location.href.split('=')[1]);
     }, [])
     return (
         <div className="search-bar">

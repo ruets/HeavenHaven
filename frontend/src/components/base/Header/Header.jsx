@@ -17,6 +17,7 @@ export function Header() {
             navigate(link);
             location.reload();
         }
+        navigate("/islands");
        
         
     }, [searchValue]);

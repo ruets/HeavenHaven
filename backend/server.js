@@ -52,8 +52,8 @@ const errorHandler = error => {
   }
 };
 
-// const server = https.createServer(https_options,app);
-const server = http.createServer(app);
+const server = https.createServer(https_options,app);
+//const server = http.createServer(app);
 
 server.on('error', errorHandler);
 server.on('listening', () => {
