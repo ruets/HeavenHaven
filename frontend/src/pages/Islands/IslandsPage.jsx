@@ -52,16 +52,38 @@ export function IslandsPage() {
             setIsErrorThrown(true);
         }
     };
+    const getIslandsWithSearch = async (search) =>{
+        try{
+            let res = await axios.get(config.serverAdress + "/api/islands/", { pattern: search });
+            const data = res.data;
+            const islands = data.map((island) => {
+                return (
+                    <IslandCard
+                        key={island.id}
+                        id={island.id}
+                        name={island.name}
+                        description={island.description}
+                        image={island.mainImg}
+                    />
+                );
+            });
+            setAllIslands(islands);
+            setIsLoading(false);
 
+        }
+        catch(error){
+            setIsErrorThrown(true);
+        }
+
+    }
     useEffect(() => {
         var url = new URL(document.location.href);
         var search_params = new URLSearchParams(url.search);
         var search = search_params.get('search');
-        let res = await axios.get(config.serverAdress + "/api/islands/", { pattern: search });
-
         console.log(search);
-        if(search !== undefined){
+        if(search !== null){
             console.log(search);
+            getIslandsWithSearch(search);
         }
         else{
         getAllIslands();
