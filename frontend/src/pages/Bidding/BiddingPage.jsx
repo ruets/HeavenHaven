@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import "./BiddingPage.scss";
 import Input from "../../components/fields/Input/Input"
 import DollarIcon from "../../assets/img/dollar-icon.svg"
+import HeartIcon from "../../assets/img/heart-icon.svg"
 
 
 export function BiddingPage() {
@@ -90,7 +91,8 @@ export function BiddingPage() {
         return (
             <div className="bidding">
                 <div className="leftPart">
-                    <img src={MainImage} alt="" />
+                    <img src={MainImage} alt="" className="main" />
+                    <img src={HeartIcon} alt="" className="like"/>
                 </div>
                 <div className="rightPart">
                     <h1>{islandData.name}</h1>
