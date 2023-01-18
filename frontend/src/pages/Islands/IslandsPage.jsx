@@ -33,7 +33,7 @@ export function IslandsPage() {
 
     const getAllIslands = async () => {
         try {
-            let res = await axios.get(config.serverAdress + "/api/islands/");
+            let res = await axios.get(config.serverAddress + "/api/islands/");
             const data = res.data;
             const islands = data.map((island) => {
                 return (

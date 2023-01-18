@@ -37,7 +37,7 @@ export function LoginForm() {
     const postData = async () => {
         try {
             let res = await axios.post(
-                config.serverAdress + "/api/auth/login",
+                config.serverAddress + "/api/auth/login",
                 {
                     email: email,
                     password: password,

@@ -23,7 +23,8 @@ export function IslandPresentationPage() {
 
     const getIslandData = async () => {
         try {
-            const res = await axios.get(config.serverAdress + "/api/islands/" + islandId);
+            const res = await axios.get(config.serverAddress + "/api/islands/" + islandId);
+            console.log(res.data);
             setislandData(res.data)
             setIsLoading(false);
         } catch (error) {
@@ -34,6 +35,12 @@ export function IslandPresentationPage() {
     useEffect(() => {
         getIslandData();
     }, [])
+    
+    function fetchDate() {
+        const startDate = islandData.auction.startDate.split("-");
+        let date = new Date(startDate[0], startDate[1], startDate[2], 0, 0, 0);
+        return date.toLocaleString();
+    }
 
     if (error) {
         return (
@@ -53,8 +60,8 @@ export function IslandPresentationPage() {
             <div className="topInfos">
                 <div className="leftPart">
                     <p className="tittle">Auction Informations</p>
-                    <p className="other"> <img src={dollarIcon} alt="dollar" /> Reserve price : {}</p>
-                    <p className="other"> <img src={calendarIcon} alt="dollar" />Bidding Opens : {}</p>
+                    <p className="other"> <img src={dollarIcon} alt="dollar" /> Reserve price : ${islandData.auction.reservePrice}</p>
+                    <p className="other"> <img src={calendarIcon} alt="dollar" />Bidding Opens : {fetchDate()}</p>
                 </div>
                 <div className="rightPart">
                     <p className="tittle">Fees and Commission</p>
@@ -106,8 +113,55 @@ export function IslandPresentationPage() {
             </div>
             <div className="picturesSection">
                 <hr />
-                <h2>Pictures</h2>
-                
+                <h2>Pictures</h2> 
+                {/* Image slider start */}
+                <div className="slider">
+                    <div className="slides">
+                        {/* Radio buttons start */}
+                        <input type="radio" name="radio-btn" id="radio1"/>
+                        <input type="radio" name="radio-btn" id="radio2"/>
+                        <input type="radio" name="radio-btn" id="radio3"/>
+                        <input type="radio" name="radio-btn" id="radio4"/>
+                        <input type="radio" name="radio-btn" id="radio5"/>
+                        {/* Radio buttons end */}
+                        {/* Slide images start */}
+                        <div className="slide first">
+                            <img src="https://picsum.photos/id/1041/800/450" alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src="https://picsum.photos/id/1043/800/450" alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src="https://picsum.photos/id/1044/800/450" alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src="https://picsum.photos/id/1045/800/450" alt="" />
+                        </div>
+                        <div className="slide">
+                            <img src="https://picsum.photos/id/1049/800/450" alt="" />
+                        </div>
+                        {/* Slide images end */}
+                        {/* Automatic navigation start */}
+                        <div className="navigation-auto"> 
+                            <div className="auto-btn1"></div>
+                            <div className="auto-btn2"></div>
+                            <div className="auto-btn3"></div>
+                            <div className="auto-btn4"></div>
+                            <div className="auto-btn5"></div>
+                        </div>
+                        {/* Automatic navigation end */}
+                    </div>
+                    {/* Manual navigation start */}
+                    <div className="navigation-manual">
+                        <label htmlFor="radio1" className="manual-btn"></label>
+                        <label htmlFor="radio2" className="manual-btn"></label>
+                        <label htmlFor="radio3" className="manual-btn"></label>
+                        <label htmlFor="radio4" className="manual-btn"></label>
+                        <label htmlFor="radio5" className="manual-btn"></label>
+                    </div>
+                    {/* Manual navigation end */}
+                </div>
+                {/* Image slider end */}
             </div>
             <div className="locationSection">
                 <hr />

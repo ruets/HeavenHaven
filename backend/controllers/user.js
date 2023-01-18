@@ -16,13 +16,23 @@ const bcrypt = require("bcrypt");
 exports.getProfileInformations = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
-    
+
     try {
         try {
             //We find the profile of the connected user from the token
             const connectedUser = await prisma.User.findUnique({
                 where: {
                     id: req.auth.id,
+                },
+                include: {
+                    customer: {
+                        include: {
+                            auctions: { include: { island: true } },
+                            agents: true,
+                        },
+                    },
+                    agent: true,
+                    watchlist: true,
                 },
             });
             if (connectedUser) {
@@ -32,7 +42,9 @@ exports.getProfileInformations = async (req, res, next) => {
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
@@ -65,16 +77,23 @@ exports.changePassword = async (req, res, next) => {
 
             if (connectedUser) {
                 //We check if the old password is correct
-                let valid = await bcrypt.compare(oldPassword, connectedUser.password);
+                let valid = await bcrypt.compare(
+                    oldPassword,
+                    connectedUser.password
+                );
                 if (!valid) {
-                    return res.status(401).json({ error: "Old password incorrect !" });
+                    return res
+                        .status(401)
+                        .json({ error: "Old password incorrect !" });
                 } else {
                     //We check if the new password is correct
                     let hash = await bcrypt.hash(password1, 10);
                     let validNew = await bcrypt.compare(password2, hash);
 
                     if (!validNew) {
-                        return res.status(401).json({ error: "Passwords do not match !" });
+                        return res
+                            .status(401)
+                            .json({ error: "Passwords do not match !" });
                     } else {
                         //We update the password
                         const updatedUser = await prisma.User.update({
@@ -92,7 +111,9 @@ exports.changePassword = async (req, res, next) => {
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
@@ -108,7 +129,6 @@ exports.changePassword = async (req, res, next) => {
  * An user has a watchlist, and also a list of the auctions initiated.
  */
 
-
 /**
  * This function returns the islands that the authentified user has initiated.
  * @param {*} req   Request
@@ -118,7 +138,7 @@ exports.changePassword = async (req, res, next) => {
 exports.getIslands = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
-    
+
     try {
         try {
             //We find the profile of the connected user from the token
@@ -126,24 +146,33 @@ exports.getIslands = async (req, res, next) => {
                 where: {
                     id: req.auth.id,
                 },
-                include: { customer: {
-                    include: { auctions: {
-                        include: { island: true }}}},
+                include: {
+                    customer: {
+                        include: {
+                            auctions: {
+                                include: { island: true },
+                            },
+                        },
+                    },
                     agent: true,
                 },
             });
 
             if (connectedUser && connectedUser.customer) {
                 //If the user is gotten, we get the islands
-                const islands = connectedUser.customer.auctions.map((auction) => {
-                    return auction.island;
-                });
+                const islands = connectedUser.customer.auctions.map(
+                    (auction) => {
+                        return auction.island;
+                    }
+                );
                 res.status(200).json(islands);
             } else {
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" + error });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error + error,
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
@@ -153,7 +182,7 @@ exports.getIslands = async (req, res, next) => {
 exports.getListings = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
-    
+
     try {
         try {
             //We find the profile of the connected user from the token
@@ -161,32 +190,40 @@ exports.getListings = async (req, res, next) => {
                 where: {
                     id: req.auth.id,
                 },
-                include: { customer: {
-                    include: { auctions: {
-                        include: { island: true }}}},
+                include: {
+                    customer: {
+                        include: {
+                            auctions: {
+                                include: { island: true },
+                            },
+                        },
+                    },
                     agent: true,
                 },
             });
 
             if (connectedUser && connectedUser.customer) {
                 //If the user is gotten, we get the islands
-                const islands = connectedUser.customer.auctions.map((auction) => {
-                    if (auction.status == "started") {
-                        return auction.island;
+                const islands = connectedUser.customer.auctions.map(
+                    (auction) => {
+                        if (auction.status == "started") {
+                            return auction.island;
+                        }
                     }
-                });
+                );
                 res.status(200).json(islands);
             } else {
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" + error });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error + error,
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
     }
 };
-
 
 ///////////////////////////////////////////////////////////
 //                      Watchlist                        //
@@ -224,7 +261,9 @@ exports.getWatchlist = async (req, res, next) => {
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
@@ -263,7 +302,9 @@ exports.addToWatchlist = async (req, res, next) => {
             });
             res.status(200).json("Added to watchlist !");
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
@@ -301,7 +342,9 @@ exports.removeFromWatchlist = async (req, res, next) => {
             });
             res.status(200).json("Removed from watchlist !");
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });

@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { LoginContext } from "../../../App";
 import axios from 'axios'
 import GetCookie from "../../../hooks/cookies/getCookie"
@@ -32,7 +32,7 @@ function DashBoard() {
             )
         }))
       },
-      [second],
+      [],
     )
     
 
@@ -52,8 +52,19 @@ function DashBoard() {
 
     return (
         <div className="dashboard">
-            <div className="my-islands">
-
+            <div className="my-islands" >
+                <h3>My islands</h3>
+                <h3>My listings</h3>
+                <h3>Watchlist</h3>
+                <h3>My past auctions</h3>
+                <h3>My agents</h3>
+                <h3>Sponsored parties</h3>
+                <h3>My islands</h3>
+                <h3>My islands</h3>
+                <h3>My islands</h3>
+                <h3>My islands</h3>
+                <h3>My islands</h3>
+                <h3>My islands</h3>
             </div>
         </div>
     );

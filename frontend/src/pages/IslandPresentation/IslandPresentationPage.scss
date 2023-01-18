@@ -8,6 +8,9 @@ div.islandPresentation{
     div.topSection{
 
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         h1{
             font-family: "Roboto Slab";
@@ -21,7 +24,8 @@ div.islandPresentation{
         }
 
         img{
-            width: 100%;
+            width: 65%;
+            align-self: center;
         }
 
     }
@@ -29,7 +33,7 @@ div.islandPresentation{
     div.topInfos{
         
         display: flex;
-        margin: 5% 8% 0 8%;
+        margin: 2% 8% 0 8%;
         justify-content: space-around;
         margin-bottom: 3.5%;
         border-bottom: solid $grey 2px;
@@ -38,7 +42,7 @@ div.islandPresentation{
             font-family: "Roboto Slab";
             font-size: 1.8rem;
             color: $dark;
-            margin-left: 25%;
+            margin-left: 28%;
         }
 
         div.leftPart{
@@ -53,7 +57,7 @@ div.islandPresentation{
                 img{
                     width: 75px;
                     margin-right: 7%;
-                    margin-left: 25%;
+                    margin-left: 28%;
                 }
             }
 
@@ -61,11 +65,19 @@ div.islandPresentation{
 
         div.rightPart{
             width: 100%;
+
+            p.tittle{
+                font-family: "Roboto Slab";
+                font-size: 1.8rem;
+                color: $dark;
+                margin-left: 30%;
+            }
             
 
             div.infoAtTop{
                 display: flex;
                 height: 75px;
+                margin-left: 5px;
                 div{
                     margin-top: 2%;
                     p{
@@ -128,7 +140,7 @@ div.islandPresentation{
                 p.description{
                     font-family: "Roboto Slab";
                     color: $dark;
-                    font-size: 1.4vw;
+                    font-size: 20px;
                     text-align: justify;
                 }
             }
@@ -144,6 +156,8 @@ div.islandPresentation{
         display : flex;
         flex-direction: column;
         padding : 0 50px 0 50px;
+        justify-content: center;
+        align-items: center;
 
         hr{
             width: 80%;
@@ -158,8 +172,80 @@ div.islandPresentation{
             margin-bottom: 3%;
             margin-top: 4%;
         }
-
         
+        div.slider{
+            width: 1200px;
+            height: 750px;
+            overflow: hidden;
+        }
+
+        div.slides{
+            width: 500%;
+            height: 750px;
+            display: flex;
+            
+            input{
+                display: none;
+            }
+
+            div.slide{
+                width: 20%;
+                transition: 2s;
+
+                img{
+                    width: 1200px;
+                    height: 750px;
+                }
+            }
+        }
+
+        /* CSS for manual slide navigation  */
+        
+        div.navigation-manual{
+            position: absolute;
+            width: 1200px;
+            margin-top: -60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        label.manual-btn{
+            border: 2px solid $light;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 1s;
+            width: 20px;
+            height: 20px;
+        }
+
+        .manual-btn:not(:last-child){
+            margin-right: 60px;
+        }
+
+        .manual-btn:hover{
+            background: $light;
+        }
+
+        #radio1:checked ~ .first{
+            margin-left: 0;
+        }
+
+        #radio2:checked ~ .first{
+            margin-left: -20%;
+        }
+
+        #radio3:checked ~ .first{
+            margin-left: -40%;
+        }
+
+        #radio4:checked ~ .first{
+            margin-left: -60%;
+        }
+
+        #radio5:checked ~ .first{
+            margin-left: -80%;
+        }
         
     }
 
@@ -169,6 +255,7 @@ div.islandPresentation{
         padding : 0 50px 0 50px;
 
         hr{
+            margin-top: 60px;
             width: 80%;
             align-self: center;
         }
@@ -198,6 +285,7 @@ div.islandPresentation{
             p {
                 width: 90%;
                 text-align: justify ;
+                font-size: 20px;
             }
         }
     }

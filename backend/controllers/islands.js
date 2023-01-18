@@ -5,7 +5,7 @@ const auctionCtrl = require("./auction");
 /**
  * This function returns the trending islands. The islands returned are randomly selected.
  * The function returns 6 islands.
- * 
+ *
  * @param {*} req   Request
  * @param {*} res   JSON response
  * @param {*} next  next callback
@@ -28,7 +28,7 @@ exports.getTrends = async (req, res, next) => {
             res.status(200).json(randomIslands);
         } catch (error) {
             res.status(400).json({
-                error: "Intern error with error code 400 !",
+                error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
@@ -37,9 +37,9 @@ exports.getTrends = async (req, res, next) => {
 };
 
 /**
- * This function returns all the islands. 
- *  
- * @param {} req    Request 
+ * This function returns all the islands.
+ *
+ * @param {} req    Request
  * @param {*} res   JSON response
  * @param {*} next  next callback
  */
@@ -53,7 +53,7 @@ exports.getAll = async (req, res, next) => {
             res.status(200).json(islands);
         } catch (error) {
             res.status(400).json({
-                error: "Intern error with error code 400 !",
+                error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
@@ -83,7 +83,7 @@ exports.getOne = async (req, res, next) => {
             res.status(200).json(island);
         } catch (error) {
             res.status(400).json({
-                error: "Intern error with error code 400 !",
+                error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
@@ -103,14 +103,14 @@ exports.getWithFilter = async (req, res, next) => {
         try {
             let islands = await prisma.Island.findMany({
                 where: {
-                    name: {contains : req.params.pattern},
+                    name: { contains: req.params.pattern },
                 },
             });
 
             res.status(200).json(islands);
         } catch (error) {
             res.status(400).json({
-                error: "Intern error with error code 400 !",
+                error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
@@ -119,7 +119,7 @@ exports.getWithFilter = async (req, res, next) => {
 };
 
 /**
- * This function creates a new island and the associated auction. 
+ * This function creates a new island and the associated auction.
  * This also contains all the features that permites to start the auction at a certain date
  * @param {} req    Request
  * @param {*} res   JSON response
@@ -150,11 +150,9 @@ exports.sell = async (req, res, next) => {
                 .status(400)
                 .json({ error: "Start date must be before end date !" });
         } else if (req.body.startDate === req.body.endDate) {
-            return res
-                .status(400)
-                .json({
-                    error: "Start date must be different from end date !",
-                });
+            return res.status(400).json({
+                error: "Start date must be different from end date !",
+            });
         } else if (req.body.startDate <= Date.now()) {
             return res
                 .status(400)
@@ -223,7 +221,9 @@ exports.sell = async (req, res, next) => {
 
             res.status(201).json({ message: "Island created !" });
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });

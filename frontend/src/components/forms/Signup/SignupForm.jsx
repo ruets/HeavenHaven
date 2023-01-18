@@ -215,7 +215,7 @@ export function SignupForm() {
         formData.append("sponsorCode", affiliationCode);
 
         try {
-            let res = await axios.post(config.serverAdress + "/api/auth/signup", formData, {
+            let res = await axios.post(config.serverAddress + "/api/auth/signup", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
