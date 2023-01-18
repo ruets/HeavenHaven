@@ -10,7 +10,7 @@ div.profil{
         display : flex;
         flex-direction: column;
         align-items: center;
-        background-color : #CEDFDB;
+        background-color : $form-light;
         width: 30%;
 
         img.user{

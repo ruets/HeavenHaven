@@ -1,10 +1,12 @@
+import "./LoginForm.scss";
 import React, { useState, useCallback, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
+import GetCookie from "../../../hooks/cookies/getCookie";
+import SetCookie from "../../../hooks/cookies/setCookie";
 import EmailLogo from "../../../assets/img/email-icon.svg";
 import PasswordLogo from "../../../assets/img/lock-icon.svg";
-import "./LoginForm.scss";
 import config from "../../../config/config.json";
 import { LoginContext } from "../../../App";
 
@@ -34,8 +36,6 @@ export function LoginForm() {
 
     const postData = async () => {
         try {
-            setErrorMessagePassword("");
-            loginContext.setIsUserLoggedIn(true);
             let res = await axios.post(
                 config.serverAdress + "/api/auth/login",
                 {
@@ -45,11 +45,17 @@ export function LoginForm() {
             );
 
             // handle success
-            alert("Token d'authentification : " + res.data.token);
+            setErrorMessagePassword("");
+            loginContext.setIsUserLoggedIn(true);
+            if (GetCookie("cookieAccepted")) {
+                SetCookie("userToken", res.data.token);
+            } else {
+                loginContext.setUserToken(res.data.token);
+            }
             navigate("/");
         } catch (error) {
             // handle error
-            setErrorMessagePassword(error.response.data.error);
+            error.response ? setErrorMessagePassword(error.response.data.error) : console.log(error);
         }
     };
 
@@ -77,7 +83,7 @@ export function LoginForm() {
             <div className="fields">
                 <div className="inputs">
                     <Input
-                        className="name"
+                        className="email"
                         type="email"
                         name="email"
                         label="Email"
@@ -88,7 +94,7 @@ export function LoginForm() {
                         setInput={setEmail}
                     ></Input>
                     <Input
-                        className="email"
+                        className="password"
                         type="password"
                         name="password"
                         label="Password"

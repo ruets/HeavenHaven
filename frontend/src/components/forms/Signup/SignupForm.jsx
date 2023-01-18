@@ -2,6 +2,8 @@
 import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
+import PrivacyPolicyPDF from "../../../assets/documents/Privacy-policy-Heaven-Haven.pdf";
+import TermsConditionsPDF from "../../../assets/documents/Terms-and-conditions-of-use-of-Heaven-Haven-website.pdf";
 
 // Config
 import config from "../../../config/config.json";
@@ -224,7 +226,7 @@ export function SignupForm() {
             navigate("/");
         } catch (error) {
             // handle error
-            console.error(error);
+            console.error(error.response);
         }
     };
 
@@ -319,11 +321,10 @@ export function SignupForm() {
                         required
                     />
                     <label htmlFor="accept-privacy" className="checkbox">
-                        I have read and agree to the Privacy Policy,
-                        heavenhaven.com Terms & Conditions and Terms of Service
-                    </label>
+                        I have read and agree to the <a href={PrivacyPolicyPDF} target="_blank">Privacy Policy</a>, heavenhaven.com and <a href={TermsConditionsPDF} target="_blank">Terms of Services.</a>
+                    </label>        
                 </div>
-                <button className="cta" type="submit">
+                <button type="submit" className="cta">
                     Fill In More Info
                 </button>
                 <p className="have-account">
@@ -412,7 +413,6 @@ export function SignupForm() {
                         label="Apt, suite, etc (optional)"
                         value={apartment}
                         setInput={setApartment}
-                        required={false}
                     ></Input>
                 </div>
                 <div className="doubled-inputs">

@@ -14,7 +14,7 @@ function Input(props) {
                     value={props.value}
                     placeholder={props.label}
                     onBlur={props.onBlur ? props.onBlur : null}
-                    required
+                    required={props.required ? "required" : null}
                 />
             </div>
             {props.errorMessage && props.errorMessage !== "" ? (

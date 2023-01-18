@@ -10,5 +10,6 @@ router.get("/trends", islandsCtrl.getTrends);
 router.get('/:id', islandsCtrl.getOne);
 router.get('/', islandsCtrl.getAll);
 // router.post("/", auth, islandsCtrl.sell);
+router.post("/sell", multer, islandsCtrl.sell);
 
 module.exports = router;

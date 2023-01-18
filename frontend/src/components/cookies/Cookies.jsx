@@ -1,6 +1,25 @@
 import "./Cookies.scss";
+import SetCookie from "../../hooks/cookies/setCookie";
+import { CookiesContext } from "../../App";
+import { useContext } from "react";
+import { useCallback } from "react";
+import PrivacyPolicyPDF from "../../assets/documents/Privacy-policy-Heaven-Haven.pdf";
 
 export function Cookies() {
+
+    const cookiesContext = useContext(CookiesContext);
+
+    const handleAccept = useCallback(() => {
+        SetCookie("cookieAccepted", true);
+        cookiesContext.setIsCookiesClicked(true);
+        cookiesContext.setIsCookiesAccepted(true);
+    })
+
+    const handleReject = useCallback(() => {
+        cookiesContext.setIsCookiesClicked(true);
+        cookiesContext.setIsCookiesAccepted(false);
+    });
+
     return (
         <div className="cookies">
             <h2>Cookie consent</h2>
@@ -11,10 +30,10 @@ export function Cookies() {
                   privacy policy to learn more.
              </p>
              <div className="buttons">
-                <button>Accept</button>
-                <button>Reject</button>
+                <button onClick={handleAccept}>Accept</button>
+                <button onClick={handleReject}>Reject</button>
             </div>
-            <a href="#">Privacy policy</a>
+            <a href={PrivacyPolicyPDF} target="_blank">Privacy policy</a>
         </div>
     );
 }

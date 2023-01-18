@@ -14,167 +14,161 @@ model User {
     //The User type corresponds to a basic user profile, with all the informations
 
     //Identity informations
-    id          Int         @id @default(autoincrement())
-    email       String      @unique @db.VarChar(255)
-    password    String
-    lastName    String      @db.VarChar(255)
-    firstName   String      @db.VarChar(255)
-    phone       String      @db.VarChar(255)
+    id              Int         @id @default(autoincrement())
+    email           String      @unique @db.VarChar(255)
+    password        String
+    lastName        String      @db.VarChar(255)
+    firstName       String      @db.VarChar(255)
+    phone           String      @db.VarChar(255)
 
     //Geographical informations
-    address     String      @db.VarChar(255)
-    apt         String?      @db.VarChar(255)
-    city        String      @db.VarChar(255)
-    zip         String      @db.VarChar(255)
-    country     String      @db.VarChar(255)
+    address         String      @db.VarChar(255)
+    apt             String?     @db.VarChar(255)
+    city            String      @db.VarChar(255)
+    zip             String      @db.VarChar(255)
+    country         String      @db.VarChar(255)
 
     //Link to the ID card image
-    idCardLink  String      @db.VarChar(255)
+    idCardLink      String[]
 
     // An user can be attached to a classical customer
-    customer    Customer?  
+    customer        Customer?  
 
     // An user can be attached to an agent customer
-    agent       Agent?
+    agent           Agent?
 
     //An user can like and save some auctions in tis watchlist
-    watchlist   Auction[]   @relation("watchlist")
+    watchlist       Auction[]   @relation("watchlist")
 }
 model Customer {
 
     //The client contains a User profile
-    idUser      Int         @id @unique    
-    user        User        @relation(fields: [idUser], references: [id])
+    idUser          Int         @id @unique    
+    user            User        @relation(fields: [idUser], references: [id])
 
     // The client can sponsor other clients with the sponsorCode. The sponsorcode can be used twice
-    sponsorCode String      @unique @db.VarChar(255)
-    remainingUses    Int         @default(2)
+    sponsorCode     String      @unique @db.VarChar(255)
+    remainingUses   Int         @default(2)
 
     //A customer can sign up its own agents
-    agents      Agent[]     @relation("customer")
+    agents          Agent[]     @relation("customer")
 
     //The customer can initiate several auctions
-    auctions    Auction[]   @relation("initiator")
+    auctions        Auction[]   @relation("initiator")
 
     //The customer can bid multiple times
-    bids        Bid[]       @relation("bidder")
+    bids            Bid[]       @relation("bidder")
 
     //The customer can either be a buyer or a seller, and can be both, multiple times
-    sales       Sale[]      @relation("buyer")
-    purchases   Sale[]      @relation("seller")
+    sales           Sale[]      @relation("buyer")
+    purchases       Sale[]      @relation("seller")
 }
 
 model Agent {
 
     //The agent contains a classical profile 
-    idUser      Int         @id @unique
-    user        User        @relation(fields: [idUser], references: [id])
+    idUser          Int         @id @unique
+    user            User        @relation(fields: [idUser], references: [id])
 
     //An agent is linked to a customer
-    customerId  Int
-    customer    Customer    @relation("customer", fields: [customerId], references: [idUser])
+    customerId      Int
+    customer        Customer    @relation("customer", fields: [customerId], references: [idUser])
 }
 
 model Island {
     //Basic informations
-    id          Int         @id @default(autoincrement())
-    name        String      @db.VarChar(255)
-    area        Int
-    latitude    Float
-    longitude   Float
-    country     String      @db.VarChar(255)
-    continent   String      @db.VarChar(15)
+    id              Int         @id @default(autoincrement())
+    name            String      @db.VarChar(255)@unique
+    area            Int
+    latitude        Float
+    longitude       Float
+    country         String      @db.VarChar(255)
+    continent       String      @db.VarChar(15)
     
     //Climate informations
-    climate     String?     @db.VarChar(625)
-    climateImg  String?     @db.VarChar(625)
+    weather         String?     @db.VarChar(625)
+    weatherImg      String
 
     //Wildlife informations
-    wildlife    String?     @db.VarChar(625)
-    wildlifeImg String?     @db.VarChar(625)
+    wildlife        String?     @db.VarChar(625)
+    wildlifeImg     String
 
     //Activities intormations
-    activities  String?     @db.VarChar(625)
-    activitiesImg String?     @db.VarChar(625)
+    activities      String?     @db.VarChar(625)
+    activitiesImg   String
 
     //Other informations
-    location    String?     @db.VarChar(625)
-    built       Boolean
+    location        String?     @db.VarChar(625)
+    description     String?     @db.VarChar(255)
 
     // Illustration images
-    images      Image[]    @relation("islandImages")
+    mainImg         String
+    document        String
+    images          String[]
 
     //An island is linked to an auction
-    auction     Auction?     @relation("onAuction")
+    auction         Auction?    @relation("onAuction")
 
     // An island can be linked to a selling
-    sale        Sale[]      @relation("sellIsland")
+    sale            Sale[]      @relation("sellIsland")
 }
 
 
 model Auction {
 
     //Auction informations
-    id          Int         @id @default(autoincrement())
-    price       Int
-    remaining   DateTime
-    status      String      @db.VarChar(255)
+    id              Int         @id @default(autoincrement())
+    price           Int
+    startDate       DateTime
+    endDate         DateTime
+    status          String      @db.VarChar(255)
     
     // An auction is linked to an island
-    islandId    Int         @unique
-    island      Island      @relation("onAuction", fields: [islandId], references: [id])
+    islandId        Int         @unique
+    island          Island      @relation("onAuction", fields: [islandId], references: [id])
 
 
     // An auction is initiated by a customer
-    initiatorId Int
-    initiator   Customer    @relation("initiator", fields: [initiatorId], references: [idUser])
+    initiatorId     Int
+    initiator       Customer    @relation("initiator", fields: [initiatorId], references: [idUser])
 
-    user        User[]        @relation("watchlist")
+    user            User[]      @relation("watchlist")
 
     // An auction contains bids
-    rise        Bid[]      @relation("bid")
+    rise            Bid[]       @relation("bid")
 }
 
 model Bid {
     //Bid informations
-    id          Int         @id @default(autoincrement())
-    price       Int
-    remaining   DateTime
-    status      String      @db.VarChar(255)
+    id              Int         @id @default(autoincrement())
+    price           Int
+    remaining       DateTime
+    status          String      @db.VarChar(255)
 
     // A bid is linked to an auction
-    auctionId   Int
-    auction     Auction     @relation("bid", fields: [auctionId], references: [id])
+    auctionId       Int
+    auction         Auction     @relation("bid", fields: [auctionId], references: [id])
 
     // A bid is done by a customer
-    bidderId    Int
-    bidder      Customer    @relation("bidder", fields: [bidderId], references: [idUser])
+    bidderId        Int
+    bidder          Customer    @relation("bidder", fields: [bidderId], references: [idUser])
 }
 
 model Sale {
     //Sale informations
-    id          Int         @id @default(autoincrement())
-    price       Int
-    status      String      @db.VarChar(255)
+    id              Int         @id @default(autoincrement())
+    price           Int
+    status          String      @db.VarChar(255)
 
     // A selling concerns one island
-    islandId    Int
-    island      Island      @relation("sellIsland", fields: [islandId], references: [id])
+    islandId        Int
+    island          Island      @relation("sellIsland", fields: [islandId], references: [id])
 
     // A selling contains a buyer
-    buyerId     Int
-    buyer       Customer    @relation("buyer", fields: [buyerId], references: [idUser])
+    buyerId         Int
+    buyer           Customer    @relation("buyer", fields: [buyerId], references: [idUser])
 
     // A selling contains a seller
-    sellerId    Int
-    seller      Customer    @relation("seller", fields: [sellerId], references: [idUser])
-}
-
-model Image {
-    id          Int         @id @default(autoincrement())
-    url         String      @db.VarChar(255)
-
-    // Island
-    islandId    Int
-    island      Island      @relation("islandImages", fields: [islandId], references: [id])
+    sellerId        Int
+    seller          Customer    @relation("seller", fields: [sellerId], references: [idUser])
 }

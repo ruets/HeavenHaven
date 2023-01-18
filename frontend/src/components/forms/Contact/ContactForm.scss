@@ -2,10 +2,9 @@
 
 form.contact {
     width: 90%;
-    height: max-content;
 
     h1 {
-        margin: 15% 0 0 0;
+        margin-top: 10%;
         font-size: 80px;
     }
 
@@ -22,7 +21,8 @@ form.contact {
         width: 90%;
 
         input {
-            padding-left: 15px;
+            padding-left: 12px;
+            height: 70px;
         }
 
         div.inputs-1 {
@@ -32,6 +32,11 @@ form.contact {
             input[name="user_name"] {
                 width: 80%;
             }
+        }
+
+        div.global-input {
+            max-width: 100%;
+            height: auto;
         }
 
         input[name="message"] {
@@ -53,14 +58,18 @@ form.contact {
 
     button {
         display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
         margin-bottom: 35px;
-        padding-top: 10px;
-        padding-left: 10px;
+        padding: 20px;
+
+        &.cta {
+            width: auto;
+        }
 
         img {
             width: 30px;
-            margin-left: 10px;
-            margin-bottom: 8px;
         }
     }
 }

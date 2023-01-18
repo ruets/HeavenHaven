@@ -43,8 +43,8 @@ export function SellingPage() {
                             Fill in some information, wait for us to verify it
                             and watch the bids rise !
                         </p>
-                        <Link className="btn-1" to="/sell/form">
-                            List An Island
+                        <Link to="/sell/form">
+                            <button className="cta">List An Island</button>
                         </Link>
                     </div>
                 </div>
