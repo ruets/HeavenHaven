@@ -83,7 +83,6 @@ export function ContactForm() {
                     placeholder="Your message"
                     value={message}
                     onChange={e => setMessage(e.target.value)}
-
                 ></textarea>
             </div>
             <button type="submit" className="cta">
