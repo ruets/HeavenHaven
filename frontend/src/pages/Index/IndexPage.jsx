@@ -35,7 +35,7 @@ export function IndexPage() {
     const getTrendingIslands = async () => {
         try {
             let res = await axios.get(
-                config.serverAdress + "/api/islands/trends"
+                config.serverAddress + "/api/islands/trends"
             );
             const data = res.data;
             const islands = data.map((island) => {

@@ -73,7 +73,7 @@ export function ProfilePage() {
                 <aside>
                     <img src={UserProfile} alt="User profile" className="user" />
                     <h1 className="welcome"> Welcome, {accountData.firstName + " " + accountData.lastName} </h1>
-                    <p> Affiliation code : </p>
+                    <p> Affiliation code : {accountData.customer.sponsorCode}</p>
                     <button
                         className="account"
                         onClick={(e) => setIsAccountSettings(true)}

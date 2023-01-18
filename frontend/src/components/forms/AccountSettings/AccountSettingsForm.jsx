@@ -30,6 +30,7 @@ export function AccountSettingsForm() {
                 newPassword1: newPassword1,
                 newPassword2: newPassword2
             }, headers)
+            console.log(res);
         } catch (error) {
             console.error(error);
         }
