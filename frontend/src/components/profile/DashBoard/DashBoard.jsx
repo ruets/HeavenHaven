@@ -52,7 +52,7 @@ function DashBoard() {
 
     return (
         <div className="dashboard">
-            <div className="my-islands" >
+            <div id="dashboard-sections">
                 <h3>My islands</h3>
                 <h3>My listings</h3>
                 <h3>Watchlist</h3>
