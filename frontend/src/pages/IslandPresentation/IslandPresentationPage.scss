@@ -162,14 +162,14 @@ div.islandPresentation{
         }
         
         div.slider{
-            width: 800px;
-            height: 500px;
+            width: 1200px;
+            height: 750px;
             overflow: hidden;
         }
 
         div.slides{
             width: 500%;
-            height: 500px;
+            height: 750px;
             display: flex;
             
             input{
@@ -181,8 +181,8 @@ div.islandPresentation{
                 transition: 2s;
 
                 img{
-                    width: 800px;
-                    height: 500px;
+                    width: 1200px;
+                    height: 750px;
                 }
             }
         }
@@ -191,8 +191,8 @@ div.islandPresentation{
         
         div.navigation-manual{
             position: absolute;
-            width: 800px;
-            margin-top: -40px;
+            width: 1200px;
+            margin-top: -60px;
             display: flex;
             justify-content: center;
         }
@@ -203,10 +203,12 @@ div.islandPresentation{
             border-radius: 10px;
             cursor: pointer;
             transition: 1s;
+            width: 20px;
+            height: 20px;
         }
 
         .manual-btn:not(:last-child){
-            margin-right: 40px;
+            margin-right: 60px;
         }
 
         .manual-btn:hover{
@@ -232,6 +234,7 @@ div.islandPresentation{
         #radio5:checked ~ .first{
             margin-left: -80%;
         }
+        
     }
 
     div.locationSection{
