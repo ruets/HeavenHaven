@@ -24,6 +24,7 @@ export function IslandPresentationPage() {
     const getIslandData = async () => {
         try {
             const res = await axios.get(config.serverAdress + "/api/islands/" + islandId);
+            console.log(res.data);
             setislandData(res.data)
             setIsLoading(false);
         } catch (error) {

@@ -33,7 +33,7 @@ export function ProfilePage() {
             const headers = {
                 headers: { Authorization: `Bearer ${currentUserToken}` }
             }
-            const res = await axios.get(config.serverAdress + "/api/user/getProfile", headers);
+            const res = await axios.get(config.serverAddress + "/api/user/getProfile", headers);
             console.log(res.data);
             setAccountData(res.data);
             setIsLoading(false);
@@ -52,7 +52,7 @@ export function ProfilePage() {
         navigate("/");
     });
 
-    let elementToShow = <AccountSettings />;
+    let elementToShow;
 
     if (isLoading) {
         return (
@@ -63,7 +63,7 @@ export function ProfilePage() {
             ) 
     } else {
         if (isAccountSettings) {
-            elementToShow = <AccountSettings firstName={accountData.firstName} lastName={accountData.lastName} email={accountData.email} phone={accountData.phone} country={accountData.country} streetAdress={accountData.adress} apt={accountData.apt} city={accountData.city} zip={accountData.zip}/>;
+            elementToShow = <AccountSettings data={accountData}/>;
         } else {
             elementToShow = <DashBoard />;
         }
