@@ -38,6 +38,7 @@ export function BiddingPage() {
     const [timeLeft, setTimeLeft] = useState("")
 
     const [amountInput, setAmountInput] = useState(0);
+    const [isPaypalButtonDisabled, setIsPaypalButtonDisabled] = useState(true);
 
     const getIslandData = async () => {
         try {
@@ -63,8 +64,12 @@ export function BiddingPage() {
                 headers: { Authorization: `Bearer ${currentUserToken}` }
             }
             const res = await axios.get(config.serverAddress + "/api/auction/lastBid/" + islandData.auction.id, headers);
-            setLastBid(res.data);
-            setMinimumBid((parseInt(res.data.price) + parseInt(islandData.auction.reservePrice) * 0.05).toString())
+            if (res.data === null) {
+                setMinimumBid((parseInt(islandData.auction.reservePrice)));
+            } else {
+                setLastBid(res.data);
+                setMinimumBid((parseInt(res.data.price) + parseInt(islandData.auction.reservePrice) * 0.05).toString())
+            }
         } catch (error) {
             console.error(error);
             setError(true)
@@ -84,6 +89,25 @@ export function BiddingPage() {
       }
     );
 
+    const postBid = async () => {
+        let currentUserToken = "";
+        if (GetCookie("userToken") !== undefined) {
+            currentUserToken = GetCookie("userToken");
+        } else {
+            currentUserToken = loginContext.userToken;
+        }
+        try {
+            const headers = {
+                headers: { Authorization: `Bearer ${currentUserToken}` }
+            }
+            console.log(islandDataState.auction.id);
+            const res = await axios.post(config.serverAddress + "/api/auction/bid/" + islandDataState.auction.id, {price: parseInt(amountInput)} , headers) 
+            console.log(res.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     useEffect(() => {
         getIslandData();
         setInterval(() => {
@@ -97,6 +121,16 @@ export function BiddingPage() {
         }, 1000)
         setAmountInput(minimumBid);
     }, [])
+
+    useEffect(() => {
+        if (minimumBid === "") {
+            setIsPaypalButtonDisabled(true);
+        } else if (amountInput >= minimumBid) {
+            setIsPaypalButtonDisabled(false);
+        } else {
+            setIsPaypalButtonDisabled(true);
+        }
+    }, [amountInput])
 
     const paypalStyle = {"layout":"horizontal", "color":"blue", "tagline":"false"}
 
@@ -123,7 +157,7 @@ export function BiddingPage() {
                     <div className="info">
                         <div className="currentBid">
                             <p>Current bid</p>
-                            <p className="value">${lastBid.price}</p>
+                            <p className="value">{lastBid.price ? "$" + lastBid.price : "No bid"}</p>
                         </div>
                         <div>
                             <p>Pay To Bid </p>
@@ -136,7 +170,7 @@ export function BiddingPage() {
                     </div>    
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
                     <div className="amount">
-                        <Input type="number" name="amount" icon={DollarIcon} label={"Minimum bid : " + minimumBid} value={amountInput} setInput={setAmountInput}/>
+                        <Input type="number" name="amount" icon={DollarIcon} label={minimumBid ? "Minimum bid : " + minimumBid : "Minimum bid : " + islandDataState.auction.reservePrice} value={amountInput} setInput={setAmountInput}/>
                     </div>
                     <div className="total-cost">
                         <p>Cost of the auction</p>
@@ -144,9 +178,11 @@ export function BiddingPage() {
                     </div>
                     <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
                     <PayPalButtons
+                    disabled={isPaypalButtonDisabled}
                     onApprove={(data, actions) => {
                         return actions.order.capture().then(function (details) {
-                            alert("Transaction completed by : " + details.payer.name.given_name)
+                            alert("Transaction completed by : " + details.payer.name.given_name);
+                            postBid();
                         })
                     }}
                     style={paypalStyle}
