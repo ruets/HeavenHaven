@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import config from "../../config/config.json";
 import { useFetcher } from "react-router-dom";
+import ReactLoading from 'react-loading';
 
 export function IslandsPage() {
     const [isOpen, setIsOpen] = useState(false);
@@ -209,7 +210,12 @@ export function IslandsPage() {
     if (isErrorThrown) {
         return <h1>Please excuse us, an error occured.</h1>;
     } else if (isLoading) {
-        return <h1>Is loading</h1>;
+        return (
+        <div className="loading">
+            <h1> Loading ... </h1>
+            <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
+        </div>
+        )
     }
 
     return (

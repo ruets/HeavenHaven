@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 
 const authRoutes = require('./routes/auth')
-const islandsRoutes = require('./routes/islands')
 const userRoutes = require('./routes/user')
+const islandsRoutes = require('./routes/islands')
+const auctionRoutes = require('./routes/auction')
 
 const app = express();
 app.use(express.json());
@@ -17,7 +18,8 @@ app.use((req, res, next) => {
 
 app.use('/imgs/islands/', express.static(path.join(__dirname, 'imgs/islands')));
 app.use('/api/auth', authRoutes);
-app.use('/api/islands', islandsRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/islands', islandsRoutes);
+app.use('/api/auction', auctionRoutes);
 
 module.exports = app;

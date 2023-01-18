@@ -65,7 +65,7 @@ export function IndexPage() {
         return (
         <div className="loading">
             <h1> Loading ... </h1>
-            <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />;
+            <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
         </div>
         )
     }

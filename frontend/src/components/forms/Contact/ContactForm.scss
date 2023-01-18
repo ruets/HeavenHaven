@@ -39,10 +39,25 @@ form.contact {
             height: auto;
         }
 
-        input[name="message"] {
+        textarea[name="message"] {
             height: 200px;
-            padding-bottom: 145px;
+            resize: none;
             margin-bottom: 35px;
+            background: $form-light;
+            color: $dark;
+            box-shadow: -1px 1px 2px rgba(255, 251, 251, 0.3), 
+            1px -1px 2px rgba(210, 205, 205, 0.5), 
+            inset 4px 4px 8px rgba(210, 205, 205, 0.2), 
+            inset -4px -4px 8px rgba(210, 205, 205, 0.2), 
+            inset 4px -4px 8px rgba(255, 251, 251, 0.9), 
+            inset -4px 4px 10px rgba(210, 205, 205, 0.9);
+            border-radius: 5px;
+            border: 0;
+            padding: 8px 12px 8px 12px;
+            font-size: 20px;
+            font-weight: 500;
+            font-family: "Poppins";
+            vertical-align: center;
         }
 
         div.error {
