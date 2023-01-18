@@ -25,7 +25,6 @@ exports.getProfileInformations = async (req, res, next) => {
                     id: req.auth.id,
                 },
                 include: {
-                    island: true,
                     customer: {
                         include: { 
                             auctions: { include: { island: true }},
@@ -43,7 +42,7 @@ exports.getProfileInformations = async (req, res, next) => {
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({ error: "Intern error with error code 400 !" + error });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
