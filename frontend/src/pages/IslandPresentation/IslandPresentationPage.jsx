@@ -54,7 +54,7 @@ export function IslandPresentationPage() {
                 <div className="leftPart">
                     <p className="tittle">Auction Informations</p>
                     <p className="other"> <img src={dollarIcon} alt="dollar" /> Reserve price : {}</p>
-                    <p className="other"> <img src={calendarIcon} alt="dollar" />Bidding Opens : [Jan 24, 2023 1 AM EST]</p>
+                    <p className="other"> <img src={calendarIcon} alt="dollar" />Bidding Opens : {}</p>
                 </div>
                 <div className="rightPart">
                     <p className="tittle">Fees and Commission</p>
@@ -62,14 +62,14 @@ export function IslandPresentationPage() {
                         <img src={payToBidIcon} alt="" />
                         <div>
                             <p> Pay To Bid </p>
-                            <p> [0.5%] </p>
+                            <p>0.5%</p>
                         </div>
                     </div>
                     <div className="infoAtBottom">
                         <img src={comissionIcon} alt="payToBid-icon" />
                         <div>
                             <p> Co-broke Commission </p>
-                            <p> [5%] </p>
+                            <p>5%</p>
                         </div>
                     </div>
                 </div>
