@@ -48,7 +48,6 @@ exports.getAll = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
     const prisma = new PrismaClient();
-
     try {
         try {
             let island = await prisma.Island.findUnique({
@@ -72,12 +71,12 @@ exports.getOne = async (req, res, next) => {
 };
 exports.getWithFilter = async (req, res, next) => {
     const prisma = new PrismaClient();
-
     try {
         try {
             let island = await prisma.Island.findMany({
                 where: {
-                    name: parseInt(req.params.id),
+                    name: {contain : req.params.pattern, 
+                    },
                 },
             });
 

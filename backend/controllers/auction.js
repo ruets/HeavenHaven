@@ -15,9 +15,7 @@ exports.getOne = async (req, res, next) => {
 
             res.status(200).json(auction);
         } catch (error) {
-            res.status(400).json({
-                error: "Intern error with error code 400 !",
-            });
+            res.status(400).json({ error: "Intern error with error code 400 !" });
         }
     } catch (error) {
         res.status(500).json({ error: "Intern error with error code 500 !" });
@@ -110,7 +108,7 @@ exports.init = async (island) => {
         splitStartDate[2],
         0, //splitStartDate[3],
         0, //splitStartDate[4],
-        0  //splitStartDate[5]
+        0, //splitStartDate[5]
     );
     let endingDate = new Date(
         splitEndDate[0],
@@ -118,115 +116,131 @@ exports.init = async (island) => {
         splitEndDate[2],
         0, //splitEndDate[3],
         0, //splitEndDate[4],
-        0  //splitEndDate[5]
+        0, //splitEndDate[5]
     );
 
     const jobStart = schedule.scheduleJob(startingDate, async () => {
         if (auction.status === "pending") {
-            await prisma.Auction.update({
-                where: {
-                    id: auction.id,
-                },
-                data: {
-                    status: "started",
-                },
-            });
-
-            console.log(
-                "Auction " +
-                island.name +
-                " (" +
-                auction.id +
-                ") started !"
-            );
+            try {
+                await prisma.Auction.update({
+                    where: {
+                        id: auction.id,
+                    },
+                    data: {
+                        status: "started",
+                    },
+                });
+    
+                console.log(
+                    "Auction " +
+                    island.name +
+                    " (" +
+                    auction.id +
+                    ") started !"
+                );
+            } catch (error) {
+                console.log(error);
+            }
         }
     });
 
     const jobEnd = schedule.scheduleJob(endingDate, async () => {
-        let auction = await prisma.Auction.findUnique({
-            where: {
-                islandId: island.id,
-            },
-            include: {
-                island: true,
-                initiator: true,
-            },
-        });
-
-        let bid = await prisma.Bid.findFirst({
-            where: {
-                auctionId: auction.id,
-            },
-            orderBy: {
-                price: "desc",
-            },
-        });
-
-        if (auction.status === "started" && bid) {
-            await prisma.Auction.update({
+        try {
+            let auction = await prisma.Auction.findUnique({
                 where: {
-                    id: auction.id,
+                    islandId: island.id,
                 },
-                data: {
-                    status: "ended",
-                },
-            });
-
-            await prisma.Sale.create({
-                data: {
-                    price: bid.price,
-                    status: "pending",
-                    island: {
-                        connect: {
-                            id: auction.islandId,
-                        },
-                    },
-                    buyer: {
-                        connect: {
-                            id: bid.bidderId,
-                        },
-                    },
-                    seller: {
-                        connect: {
-                            id: auction.initiatorId,
-                        },
-                    },
+                include: {
+                    island: true,
+                    initiator: true,
                 },
             });
-
-            console.log(
-                "Auction " + island.name + " (" + auction.id + ") " + " ended !"
-            );
-        } else {
-            await prisma.Auction.update({
+    
+            let bid = await prisma.Bid.findFirst({
                 where: {
-                    id: auction.id,
+                    auctionId: auction.id,
                 },
-                data: {
-                    status: "issued",
+                orderBy: {
+                    price: "desc",
                 },
             });
-
-            emailjs.send(
-                "service_l3r60im",
-                "template_p8drlsa",
-                {
-                    name: auction.initiator.name,
-                    island_name: auction.island.name,
-                    mail: auction.initiator.email,
-                },
-                {
-                    publicKey: "iEM8tV4oLhBTqhQss",
-                    privateKey: "U7ZNfB8u1YiHGCjyvEXtR",
+    
+            if (auction.status === "started" && bid) {
+                try {
+                    await prisma.Auction.update({
+                        where: {
+                            id: auction.id,
+                        },
+                        data: {
+                            status: "ended",
+                        },
+                    });
+        
+                    await prisma.Sale.create({
+                        data: {
+                            price: bid.price,
+                            status: "pending",
+                            island: {
+                                connect: {
+                                    id: auction.islandId,
+                                },
+                            },
+                            buyer: {
+                                connect: {
+                                    id: bid.bidderId,
+                                },
+                            },
+                            seller: {
+                                connect: {
+                                    id: auction.initiatorId,
+                                },
+                            },
+                        },
+                    });
+        
+                    console.log(
+                        "Auction " + island.name + " (" + auction.id + ") " + " ended !"
+                    );
+                } catch (error) {
+                    console.log(error);
                 }
-            );
-            console.log(
-                "Auction " +
-                island.name +
-                " (" +
-                auction.id +
-                ") issued !"
-            );
+            } else {
+                try {
+                    await prisma.Auction.update({
+                        where: {
+                            id: auction.id,
+                        },
+                        data: {
+                            status: "issued",
+                        },
+                    });
+        
+                    emailjs.send(
+                        "service_l3r60im",
+                        "template_p8drlsa",
+                        {
+                            name: auction.initiator.name,
+                            island_name: auction.island.name,
+                            mail: auction.initiator.email,
+                        },
+                        {
+                            publicKey: "iEM8tV4oLhBTqhQss",
+                            privateKey: "U7ZNfB8u1YiHGCjyvEXtR",
+                        }
+                    );
+                    console.log(
+                        "Auction " +
+                        island.name +
+                        " (" +
+                        auction.id +
+                        ") issued !"
+                    );
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        } catch (error) {
+            console.log(error);
         }
     });
 
