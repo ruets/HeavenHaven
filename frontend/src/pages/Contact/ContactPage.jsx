@@ -7,7 +7,6 @@ export function ContactPage() {
         <div className="contact">
             <div className="content">
             <ContactForm></ContactForm>
-            
             <img src={ContactImage} alt="IslandSunShine" className="contact-img" />
             </div>
         </div>
