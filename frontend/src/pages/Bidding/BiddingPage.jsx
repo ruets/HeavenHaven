@@ -37,7 +37,7 @@ export function BiddingPage() {
 
     const getIslandData = async () => {
         try {
-            const res = await axios.get(config.serverAdress + "/api/islands/" + islandId);
+            const res = await axios.get(config.serverAddress + "/api/islands/" + islandId);
             console.log(res.data);
             setislandData(res.data)
             setIsLoading(false);
