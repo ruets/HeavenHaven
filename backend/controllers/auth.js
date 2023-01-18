@@ -90,7 +90,7 @@ exports.signup = async (req, res, next) => {
             });
         } catch (error) {
             res.status(400).json({
-                error: "Intern error with error code 400 !",
+                error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {

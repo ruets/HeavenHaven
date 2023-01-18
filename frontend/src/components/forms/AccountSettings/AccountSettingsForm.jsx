@@ -41,7 +41,7 @@ export function AccountSettingsForm() {
         <h1> Password </h1>
             <div className="field">
                 <p> Old password </p>
-                <Input type="text"
+                <Input type="password"
                         name="oldPassword"
                         label=""
                         value={oldPassword}
@@ -50,7 +50,7 @@ export function AccountSettingsForm() {
             </div>
             <div className="field">
                 <p> New password </p>
-                <Input type="text"
+                <Input type="password"
                         name="newPassword"
                         label=""
                         value={newPassword1}
@@ -59,8 +59,8 @@ export function AccountSettingsForm() {
                 </Input>
             </div>
             <div className="field">
-                <p> Confirm new password </p>
-                <Input type="text"
+                <p> Confirm new password</p>
+                <Input type="password"
                         name="confirmation"
                         label=""
                         value={newPassword2}

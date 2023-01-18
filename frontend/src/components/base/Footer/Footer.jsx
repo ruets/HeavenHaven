@@ -35,7 +35,7 @@ export function Footer() {
                     <p>2 Pl. Doyen Gosse, 38000 Grenoble</p>
                 </div>
                 <div className="links">
-                    <a href={TermsConditionsPDF}>Terms Of Service</a>
+                    <a href={TermsConditionsPDF} target="_blank">Terms Of Service</a>
                     <a href={PrivacyPolicyPDF} target="_blank">Privacy</a>
                     <Link to="/contact">Contact Us</Link>
                 </div>
