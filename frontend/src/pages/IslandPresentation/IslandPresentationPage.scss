@@ -144,6 +144,8 @@ div.islandPresentation{
         display : flex;
         flex-direction: column;
         padding : 0 50px 0 50px;
+        justify-content: center;
+        align-items: center;
 
         hr{
             width: 80%;
@@ -158,9 +160,78 @@ div.islandPresentation{
             margin-bottom: 3%;
             margin-top: 4%;
         }
+        
+        div.slider{
+            width: 800px;
+            height: 500px;
+            overflow: hidden;
+        }
 
+        div.slides{
+            width: 500%;
+            height: 500px;
+            display: flex;
+            
+            input{
+                display: none;
+            }
+
+            div.slide{
+                width: 20%;
+                transition: 2s;
+
+                img{
+                    width: 800px;
+                    height: 500px;
+                }
+            }
+        }
+
+        /* CSS for manual slide navigation  */
         
-        
+        div.navigation-manual{
+            position: absolute;
+            width: 800px;
+            margin-top: -40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        label.manual-btn{
+            border: 2px solid $light;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 1s;
+        }
+
+        .manual-btn:not(:last-child){
+            margin-right: 40px;
+        }
+
+        .manual-btn:hover{
+            background: $light;
+        }
+
+        #radio1:checked ~ .first{
+            margin-left: 0;
+        }
+
+        #radio2:checked ~ .first{
+            margin-left: -20%;
+        }
+
+        #radio3:checked ~ .first{
+            margin-left: -40%;
+        }
+
+        #radio4:checked ~ .first{
+            margin-left: -60%;
+        }
+
+        #radio5:checked ~ .first{
+            margin-left: -80%;
+        }
     }
 
     div.locationSection{
@@ -169,6 +240,7 @@ div.islandPresentation{
         padding : 0 50px 0 50px;
 
         hr{
+            margin-top: 60px;
             width: 80%;
             align-self: center;
         }
