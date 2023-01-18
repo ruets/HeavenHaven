@@ -8,10 +8,10 @@ const bcrypt = require("bcrypt");
 ///////////////////////////////////////////////////////////
 
 /**
- * This functions returns the profile informations of the authentified user
- * @param {} req
- * @param {*} res
- * @param {*} next
+ * This function returns the profile informations of the authentified user
+ * @param {} req    Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
  */
 exports.getProfileInformations = async (req, res, next) => {
     //We initialize our Prisma client
@@ -39,6 +39,13 @@ exports.getProfileInformations = async (req, res, next) => {
     }
 };
 
+/**
+ * This function changes the password of the authentified user. The password is obviously encrypted.
+ * @param {*} req   Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ * @returns         The reponse, whether the password has been changer or not
+ */
 exports.changePassword = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
@@ -95,6 +102,19 @@ exports.changePassword = async (req, res, next) => {
 ///////////////////////////////////////////////////////////
 //                       Islands                         //
 ///////////////////////////////////////////////////////////
+
+/*
+ * This part of the controller is dedicated to manage the islands linked to the authentified user.
+ * An user has a watchlist, and also a list of the auctions initiated.
+ */
+
+
+/**
+ * This function returns the islands that the authentified user has initiated.
+ * @param {*} req   Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.getIslands = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
@@ -172,8 +192,16 @@ exports.getListings = async (req, res, next) => {
 //                      Watchlist                        //
 ///////////////////////////////////////////////////////////
 
-//Normalement cette méthode est complète mais pas testée
+/*
+ * This part focuses on the watchlist of the user
+ */
 
+/**
+ * This function returns the watchlist of the authenticated user.
+ * @param {*} req   Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.getWatchlist = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
@@ -203,7 +231,12 @@ exports.getWatchlist = async (req, res, next) => {
     }
 };
 
-//Normalement cette méthode est complète mais pas testée
+/**
+ * This function performs the adding of a new island to the watchlist of the authenticated user
+ * @param {*} req   Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.addToWatchlist = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
@@ -237,7 +270,12 @@ exports.addToWatchlist = async (req, res, next) => {
     }
 };
 
-//Pour l'instant pas fini
+/**
+ * This function removes an item from the watchlist of the authenticated user
+ * @param {*} req   Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.removeFromWatchlist = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
