@@ -54,7 +54,7 @@ export function IslandsPage() {
     };
     const getIslandsWithSearch = async (search) =>{
         try{
-            let res = await axios.get(config.serverAdress + "/api/islands/search/" + search);
+            let res = await axios.get(config.serverAddress + "/api/islands/search/" + search);
             const data = res.data;
             const islands = data.map((island) => {
                 return (
@@ -116,10 +116,10 @@ export function IslandsPage() {
             // requête vers l'api
             let res;
             if(search == null){
-                res = await axios.get(config.serverAdress + "/api/islands/");
+                res = await axios.get(config.serverAddress + "/api/islands/");
             }
             else{
-                res = await axios.get(config.serverAdress + "/api/islands/search/" + search);
+                res = await axios.get(config.serverAddress + "/api/islands/search/" + search);
             }
             const data = res.data;
             // first filter --- "location"
