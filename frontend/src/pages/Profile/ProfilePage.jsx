@@ -5,9 +5,10 @@ import UserProfile from "../../assets/img/user-profile.svg";
 import { useState, useContext, useCallback } from "react";
 import AccountSettings from "../../components/profile/AccountSettings/AccountSettings";
 import DashBoard from "../../components/profile/DashBoard/DashBoard";
+import ReactLoading from 'react-loading';
 import ExitIcon from "../../assets/img/exit-icon.svg";
 import { LoginContext } from "../../App";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import { useEffect } from "react";
 import config from "../../config/config.json"
 import axios from "axios";
@@ -17,6 +18,7 @@ export function ProfilePage() {
 
     const navigate = useNavigate();
 
+    const [isLoading, setIsLoading] = useState(true)
     const [isAccountSettings, setIsAccountSettings] = useState(true);
     const [accountData, setAccountData] = useState({})
 
@@ -26,11 +28,15 @@ export function ProfilePage() {
             currentUserToken = GetCookie("userToken");
         } else {
             currentUserToken = loginContext.userToken;
-            console.log(currentUserToken);
         }
         try {
-            const res = await axios.get(config.serverAdress + "/api/profile/" + currentUserToken);
-            console.log(res);
+            const headers = {
+                headers: { Authorization: `Bearer ${currentUserToken}` }
+            }
+            const res = await axios.get(config.serverAdress + "/api/user/getProfile", headers);
+            console.log(res.data);
+            setAccountData(res.data);
+            setIsLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -48,55 +54,64 @@ export function ProfilePage() {
 
     let elementToShow = <AccountSettings />;
 
-    if (isAccountSettings) {
-        elementToShow = <AccountSettings />;
+    if (isLoading) {
+        return (
+            <div className="loading">
+                <h1> Loading ... </h1>
+                <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
+            </div>
+            ) 
     } else {
-        elementToShow = <DashBoard />;
+        if (isAccountSettings) {
+            elementToShow = <AccountSettings firstName={accountData.firstName} lastName={accountData.lastName} email={accountData.email} phone={accountData.phone} country={accountData.country} streetAdress={accountData.adress} apt={accountData.apt} city={accountData.city} zip={accountData.zip}/>;
+        } else {
+            elementToShow = <DashBoard />;
+        }
+    
+        return (
+            <div className="profil">
+                <aside>
+                    <img src={UserProfile} alt="User profile" className="user" />
+                    <h1 className="welcome"> Welcome, {accountData.firstName + " " + accountData.lastName} </h1>
+                    <p> Affiliation code : </p>
+                    <button
+                        className="account"
+                        onClick={(e) => setIsAccountSettings(true)}
+                    >
+                        Account settings
+                    </button>
+                    <button
+                        className="dashBoard"
+                        onClick={(e) => setIsAccountSettings(false)}
+                    >
+                        Dashboard
+                    </button>
+                    <ul>
+                        <li>
+                            <a>My islands</a>
+                        </li>
+                        <li>
+                            <a>My listings</a>
+                        </li>
+                        <li>
+                            <a>Watchlist</a>
+                        </li>
+                        <li>
+                            <a>My past auctions</a>
+                        </li>
+                        <li>
+                            <a> My agents</a>
+                        </li>
+                        <li className="lastLink">
+                            <a>Sponsored parties</a>
+                        </li>
+                    </ul>
+                    <button className="logOut" onClick={handleLogOut}>
+                        <img src={ExitIcon} alt="Exit" className="exit" /> Log out
+                    </button>
+                </aside>
+                <div className="elementToShow">{elementToShow}</div>
+            </div>
+        );
     }
-
-    return (
-        <div className="profil">
-            <aside>
-                <img src={UserProfile} alt="User profile" className="user" />
-                <h1 className="welcome"> Welcome, [Jeff] </h1>
-                <p> Affiliation code : [R165IBF963DSF]</p>
-                <button
-                    className="account"
-                    onClick={(e) => setIsAccountSettings(true)}
-                >
-                    Account settings
-                </button>
-                <button
-                    className="dashBoard"
-                    onClick={(e) => setIsAccountSettings(false)}
-                >
-                    Dashboard
-                </button>
-                <ul>
-                    <li>
-                        <a>My islands</a>
-                    </li>
-                    <li>
-                        <a>My listings</a>
-                    </li>
-                    <li>
-                        <a>Watchlist</a>
-                    </li>
-                    <li>
-                        <a>My past auctions</a>
-                    </li>
-                    <li>
-                        <a> My agents</a>
-                    </li>
-                    <li className="lastLink">
-                        <a>Sponsored parties</a>
-                    </li>
-                </ul>
-                <button className="logOut" onClick={handleLogOut}>
-                    <img src={ExitIcon} alt="Exit" className="exit" /> Log out
-                </button>
-            </aside>
-            <div className="elementToShow">{elementToShow}</div>
-        </div>
-    );
 }

@@ -19,8 +19,6 @@ export function IndexPage() {
 
     const cookiesContext = useContext(CookiesContext);
 
-    let cookieElement = null;
-
     const refToCookieGreyDiv = useRef(null);
 
     const handleCookieClick = useCallback(() => {

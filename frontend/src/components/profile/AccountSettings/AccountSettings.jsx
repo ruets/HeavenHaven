@@ -9,45 +9,45 @@ function AccountSettings(props) {
                     <div className="line">
                         <div className="first">
                             <p>First name</p>
-                            <p className="info">[Jeff]</p>
+                            <p className="info">{props.firstName}</p>
                         </div>
                         <div className="last">
                             <p>Last name</p>
-                            <p className="info">[Boyd]</p>
+                            <p className="info">{props.lastName}</p>
                         </div>
                     </div>
                     <div className="line">
                         <div className="first">
                             <p>Email</p>
-                            <p className="info">[...]</p>
+                            <p className="info">{props.email}</p>
                         </div>
                         <div className="last">
                             <p>Phone number</p>
-                            <p className="info">[...]</p>
+                            <p className="info">{props.phone}</p>
                         </div>
                     </div>
                     <div className="line">
                         <div className="first">
                             <p>Country</p>
-                            <p className="info">[...]</p>
+                            <p className="info">{props.country}</p>
                         </div>
                         <div className="last">
                             <p>Street address</p>
-                            <p className="info">[...]</p>
+                            <p className="info">{props.adress}</p>
                         </div>
                     </div>
                     <div className="line">
                         <div className="first">
                             <p>Apt, suite, etc</p>
-                            <p className="info">[...]</p>
+                            <p className="info">{props.apt}</p>
                         </div>
                         <div className="last">
                             <p>City</p>
-                            <p className="info">[...]</p>
+                            <p className="info">{props.city}</p>
                         </div>
                         <div className="last">
                             <p>ZIP Code</p>
-                            <p className="small">[...]</p>
+                            <p className="small">{props.zip}</p>
                         </div>
                     </div>
             </div>
