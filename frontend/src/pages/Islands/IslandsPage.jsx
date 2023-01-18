@@ -41,7 +41,7 @@ export function IslandsPage() {
                         key={island.id}
                         id={island.id}
                         name={island.name}
-                        country={island.country}
+                        description={island.description}
                         image={island.mainImg}
                     />
                 );

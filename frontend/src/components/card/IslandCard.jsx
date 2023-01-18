@@ -6,7 +6,7 @@ function IslandCard(props) {
         <div className="island-card">
             <h4>{props.name}</h4>
             <img src={props.image} alt="" />
-            <p>{props.country}</p>
+            <p>{props.description}</p>
             <div className="buttons">
                 <Link to={"/island/" + props.id}><button className="cta">See More</button></Link>
                 <Link to={"/bidding/" + props.id}><button className="cta">Join The Auction</button></Link>
