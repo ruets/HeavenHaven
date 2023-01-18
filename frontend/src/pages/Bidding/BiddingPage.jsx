@@ -26,7 +26,7 @@ export function BiddingPage() {
     const location = useLocation();
     const islandId = location.pathname.split('/')[2]
 
-    const [islandData, setislandData] = useState({})
+    let islandData = {};
 
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(false);
@@ -39,8 +39,7 @@ export function BiddingPage() {
         try {
             const res = await axios.get(config.serverAddress + "/api/islands/" + islandId);
             console.log(res.data);
-            setislandData(res.data)
-            setIsLoading(false);
+            islandData = res.data;
         } catch (error) {
             console.error(error);
             setError(true)
@@ -58,23 +57,26 @@ export function BiddingPage() {
       
         return hours + "h " + minutes + "min " + seconds + "s";
       }
-      );
+    );
+
+    const updateTime = useCallback(() =>{
+      var timer = setTimeout(() => {
+          const endingDate = new Date(Date.parse(islandData.auction.endingDate.replace(/-/g, '/')));
+          let currentDate = new Date();
+          const currentTimeLeft = Math.abs(endingDate - currentDate);
+          const currentDaysLeft = Math.ceil(currentTimeLeft / (1000 * 60 * 60 * 24)); 
+          const timeString = currentDaysLeft + "d " + msToTime(currentTimeLeft);
+          setTimeLeft(timeString);
+          setIsLoading(false);
+      }, 1000)
+      return function cleanUp() {
+          clearTimeout(timer);
+      }
+    });
 
     useEffect(() => {
         getIslandData();
-        /* var timer = setTimeout(() => {
-            const endingDate = new Date(Date.parse(islandData.endingDate.replace(/-/g, '/')));
-            let currentDate = new Date();
-            const currentTimeLeft = Math.abs(endingDate - currentDate);
-            const currentDaysLeft = Math.ceil(currentTimeLeft / (1000 * 60 * 60 * 24)); 
-            const timeString = currentDaysLeft + "d " + msToTime(currentTimeLeft);
-            setTimeLeft(timeString);
-            setIsLoading(false);
-        }, 1000) */
-
-        /* return function cleanUp() {
-            clearTimeout(timer);
-        } */
+        updateTime();
     }, [])
 
     const minimumBid = parseInt(islandData.currentBid) + parseInt(islandData.treshold);
@@ -115,7 +117,7 @@ export function BiddingPage() {
                         </div>
                         <div className="timeLeft">
                         <p>Available until</p>
-                        <p className="value"></p>
+                        <p className="value">{console.log(timeLeft)}</p>
                         </div>
                     </div>    
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
