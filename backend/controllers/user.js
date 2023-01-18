@@ -364,3 +364,86 @@ exports.removeFromWatchlist = async (req, res, next) => {
         });
     }
 };
+
+
+
+///////////////////////////////////////////////////////////
+//                      Agents                           //
+///////////////////////////////////////////////////////////
+
+
+/*
+Request :
+{
+    email: "",
+    password1: "",
+    password2: "",
+    lastname: "",
+    firstname: "",
+    phone: "",
+
+    address: "",
+    city: "",
+    zip: "",
+    country: ""
+
+    idCardLink: ""
+
+
+}
+
+*/
+exports.signupAgent = async(req, res, next) => {
+
+    const prisma = new PrismaClient();
+
+    //Authentified user id
+    const id = req.auth.id;
+
+    //We need to hash the password and to compare to the confirmation password's hash
+    const hash = bcrypt.hash(req.body.password1, 10);
+    const valid = bcrypt.compare(req.body.password2, hash);
+
+    if(!valid) {
+        //If the hashes differs, we send an error
+        res.status(400).json({error: "Error : The password confirmation is incorrect"});
+    }
+
+    try {
+        //Then, we try to create a new agent
+        const createAgent = prisma.agent.create({
+            data: {
+                user: {
+                    create: {
+                        //We create a new user from the informations
+                        email: req.body.email,
+                        password: hash,
+                        lastName: req.body.lastName,
+                        phone: req.body.phone,
+                        address: req.body.address,
+                        apt: req.body.apt,
+                        city: req.body.city,
+                        zip: req.body.zip,
+                        country: req.body.country,
+                        idCardLink: req.body.idCardLink
+                    }
+                },
+                customer: {
+                    connect: {
+                        //We connect the created agent to the connected user
+                        idUser: id
+                    }
+                }
+            }
+        });
+
+        res.status(200).json({message: "Agent successfully registered"});
+
+
+    } catch(error) {
+        res.status(501).json("An unexpected error occured");
+    }
+
+
+
+} 
