@@ -87,6 +87,7 @@ model Island {
     
     //Climate informations
     weather         String?     @db.VarChar(625)
+    weatherDesc     String      
     weatherImg      String
 
     //Wildlife informations

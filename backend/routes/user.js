@@ -15,7 +15,7 @@ router.get('/getWatchlist', auth, userCtrl.getWatchlist);
 router.post('/addToWatchlist', auth, userCtrl.addToWatchlist);
 router.post('/removeFromWatchlist', auth, userCtrl.removeFromWatchlist);
 
-// router.post('/signupAgent', userCtrl.signupAgent);
+// router.post('/signupAgent', auth, userCtrl.signupAgent);
 // router.post('/validateSponsorship/:id', userCtrl.validateSponsorship);
 
 module.exports = router;    

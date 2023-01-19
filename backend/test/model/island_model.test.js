@@ -12,7 +12,7 @@ const except = require('except');
 describe("Create an island", function() {
     const prisma = new PrismaClient();
 
-    it("Should create a new island", async function(done) {
+    it("Should create a new island", async function() {
 
         const selectIsland = await prisma.island.findUnique({
             where: {
@@ -48,12 +48,10 @@ describe("Create an island", function() {
         assert.equal(selectIsland.area, 1500);
         //expect(selectIsland.continent).to.equal("Africa");
 
-        done();
     });
 
 
 });
-
 
 describe("Update an island", function() {
 
@@ -84,3 +82,27 @@ describe("Update an island", function() {
         done();
     });
 });
+
+describe("Delete an island", function() {
+    const prisma = new PrismaClient();
+    it("Should delete an island from its id", async function() {
+        const name = "testIsland";
+
+        //This is the island to delete
+        const deleteIsland = await prisma.island.delete({
+            where:{
+                name: name
+            }
+        });
+
+        const findIsland = await prisma.island.findUnique({
+            where: {
+                name: name
+            }
+        });
+        //The island must not be found
+        assert.equal(findIsland, null);
+
+    
+    })
+})
