@@ -11,12 +11,15 @@ import { useEffect, useState } from "react";
 import config from "../../config/config.json";
 import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
+import { useCallback } from "react";
 
 export function IslandPresentationPage() {
     const location = useLocation();
     const islandId = location.pathname.split('/')[2]
 
     const [islandData, setislandData] = useState({})
+
+    const [caroussel, setCaroussel] = useState({inputs: [], slides: [], buttons: [], labels: []});
 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -26,11 +29,25 @@ export function IslandPresentationPage() {
             const res = await axios.get(config.serverAddress + "/api/islands/" + islandId);
             console.log(res.data);
             setislandData(res.data)
+            createCaroussel(res.data);
             setIsLoading(false);
         } catch (error) {
             setError(true)
         }
     }
+
+    const createCaroussel = useCallback((data) => {
+
+        let tempCaroussel = {inputs: [], slides: [], buttons: [], labels: []};
+        console.log(data.images.length);
+        for (let i = 0; i < data.images.length; i++) {
+            tempCaroussel.inputs.push(<input type="radio" name="radio-btn" id={"radio" + (i + 1)}/>);
+            tempCaroussel.slides.push(<div className={i === 0 ? "slide first" : "slide"}><img src={data.images[i]} alt="" /></div>)
+            tempCaroussel.buttons.push(<div className={"auto-btn" + (i + 1)}></div>)
+            tempCaroussel.labels.push(<label htmlFor={"radio" + (i + 1)} className="manual-btn"></label>)
+        }
+        setCaroussel(tempCaroussel);
+    });
 
     useEffect(() => {
         getIslandData();
@@ -54,7 +71,7 @@ export function IslandPresentationPage() {
     return (
         <div className="islandPresentation">
             <div className="topSection">
-                <img src={topImage} alt="islandImage" /> {/* TO CHANGE */}
+                <img src={islandData.mainImg} alt="islandImage" /> {/* TO CHANGE */}
                 <h1>{islandData.name}</h1>
             </div>
             <div className="topInfos">
@@ -90,10 +107,10 @@ export function IslandPresentationPage() {
                         {islandData.weather}
                         </p>
                     </div>
-                    <img src={weatherPart} alt="weather-Image" />
+                    <img src={islandData.weatherImg} alt="weather-Image" />
                 </div>
                 <div className="wildLifePart">
-                    <img src={wildLifePart} alt="wildLife-Image" />
+                    <img src={islandData.wildlifeImg} alt="wildLife-Image" />
                     <div className="text">
                         <p className="tittle">Wildlife</p>
                         <p className="description">
@@ -108,56 +125,31 @@ export function IslandPresentationPage() {
                         {islandData.activities}
                         </p>
                     </div>
-                    <img src={activitiesPart} alt="activities-Image" />
+                    <img src={islandData.activitiesImg} alt="activities-Image" />
                 </div>
             </div>
             <div className="picturesSection">
                 <hr />
                 <h2>Pictures</h2> 
                 {/* Image slider start */}
-                <div className="slider">
+                <div className="caroussel">
                     <div className="slides">
+
                         {/* Radio buttons start */}
-                        <input type="radio" name="radio-btn" id="radio1"/>
-                        <input type="radio" name="radio-btn" id="radio2"/>
-                        <input type="radio" name="radio-btn" id="radio3"/>
-                        <input type="radio" name="radio-btn" id="radio4"/>
-                        <input type="radio" name="radio-btn" id="radio5"/>
+                        {caroussel.inputs}
                         {/* Radio buttons end */}
                         {/* Slide images start */}
-                        <div className="slide first">
-                            <img src="https://picsum.photos/id/1041/800/450" alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src="https://picsum.photos/id/1043/800/450" alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src="https://picsum.photos/id/1044/800/450" alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src="https://picsum.photos/id/1045/800/450" alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src="https://picsum.photos/id/1049/800/450" alt="" />
-                        </div>
+                        {caroussel.slides}
                         {/* Slide images end */}
                         {/* Automatic navigation start */}
                         <div className="navigation-auto"> 
-                            <div className="auto-btn1"></div>
-                            <div className="auto-btn2"></div>
-                            <div className="auto-btn3"></div>
-                            <div className="auto-btn4"></div>
-                            <div className="auto-btn5"></div>
+                            {caroussel.buttons}
                         </div>
                         {/* Automatic navigation end */}
                     </div>
                     {/* Manual navigation start */}
                     <div className="navigation-manual">
-                        <label htmlFor="radio1" className="manual-btn"></label>
-                        <label htmlFor="radio2" className="manual-btn"></label>
-                        <label htmlFor="radio3" className="manual-btn"></label>
-                        <label htmlFor="radio4" className="manual-btn"></label>
-                        <label htmlFor="radio5" className="manual-btn"></label>
+                        {caroussel.labels}
                     </div>
                     {/* Manual navigation end */}
                 </div>

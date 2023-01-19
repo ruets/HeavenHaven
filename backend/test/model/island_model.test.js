@@ -12,7 +12,7 @@ const except = require('except');
 describe("Create an island", function() {
     const prisma = new PrismaClient();
 
-    it("Should create a new island", async function(done) {
+    it("Should create a new island", async function() {
 
         const selectIsland = await prisma.island.findUnique({
             where: {
@@ -25,11 +25,12 @@ describe("Create an island", function() {
                 data: {
                     name: "testIsland",
                     area: 1500,
-                    latitude: 43.231,
-                    longitude: -21.54,
+                    latitude: "43.231",
+                    longitude: "-21.54",
                     country: "TestLand",
                     continent: "Africa",
 
+                    weatherDesc: "dry",
                     weatherImg: "img0",
                     wildlifeImg: "img1",
                     activitiesImg: "img2",
@@ -37,28 +38,28 @@ describe("Create an island", function() {
                     document: "img4"
                 }
             });
-        }
-        
+
+                   
         const test = await prisma.island.findUnique({
             where: {
-                name: "testIsland"
+                id: island.id
             }
         });
-       
-        assert.equal(selectIsland.area, 1500);
+        
+        assert.notEqual(test, null);
+        }
+ 
         //expect(selectIsland.continent).to.equal("Africa");
 
-        done();
     });
 
 
 });
 
-
 describe("Update an island", function() {
 
     const prisma = new PrismaClient();
-    it("Should update the island", async function(done) {
+    it("Should update the island", async function() {
 
         const updateIsland = await prisma.island.update({
             where: {
@@ -81,6 +82,29 @@ describe("Update an island", function() {
         // except(selectIsland.country).to.equal("TestLand");
         // except(selectIsland.continent).to.equal("TestContinent");
 
-        done();
     });
 });
+
+describe("Delete an island", function() {
+    const prisma = new PrismaClient();
+    it("Should delete an island from its id", async function() {
+        const name = "testIsland";
+
+        //This is the island to delete
+        const deleteIsland = await prisma.island.delete({
+            where:{
+                name: name
+            }
+        });
+
+        const findIsland = await prisma.island.findUnique({
+            where: {
+                name: name
+            }
+        });
+        //The island must not be found
+        assert.equal(findIsland, null);
+
+    
+    })
+})

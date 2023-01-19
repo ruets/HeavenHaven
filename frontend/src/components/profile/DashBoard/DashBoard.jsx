@@ -1,66 +1,80 @@
-import { useEffect, useState, useContext, useCallback, useRef} from "react";
-import ReactDOM from "react-dom";
-import { LoginContext } from "../../../App";
-import axios from 'axios'
-import GetCookie from "../../../hooks/cookies/getCookie"
-import config from "../../../config/config.json"
+import { useEffect, useState, useContext, useCallback } from "react";
+import IslandCard from "../../card/IslandCard";
 import "./DashBoard.scss";
 
 
-function DashBoard() {
-    const [userIslands, setUserIslands] = useState({});
+function DashBoard(props) {
 
-    const loginContext = useContext(LoginContext);
-
-    let userToken = "";
-
-    if (GetCookie("userToken") !== undefined) {
-        userToken = GetCookie("userToken");
-    } else {
-        userToken = loginContext.userToken;
-    }
-
-    const getUserIslands = useCallback(
-      (data) => {
-        const islands = data.map((island => {
+    function getUserIslands() {
+        if (props.data.customer.auctions.length === 0) {
+            return <p></p>
+        } else {
+            const islands = props.data.customer.auctions.map((auction => {
+            const island = auction.island
             return (
                 <IslandCard
                         key={island.id}
                         id={island.id}
                         name={island.name}
-                        country={island.country}
+                        description={island.description}
+                        image={island.mainImg}
                     />
             )
         }))
-      },
-      [],
-    )
-    
-
-    const getUserData = async () => {
-        try {
-            const res = await axios.get(config.serverAdress + "/api/user/getProfile/" + userToken)
-            console.log(res.data);
-            getUserIslands(res.data.userIslands);
-        } catch (error) {
-            console.error(error);
+        return islands
         }
-    }
+        
+      }
 
-
-    useEffect(() => {
-        getUserData();
-    }, [])
+      function getuserWatchlist() {
+        if (props.data.watchlist.length === 0) {
+            return <p>There's nothing to display here.</p>
+        } else {
+            const islands = props.data.watchlist.map((island => {
+            return (
+                <IslandCard
+                        key={island.id}
+                        id={island.id}
+                        name={island.name}
+                        description={island.description}
+                        image={island.mainImg}
+                    />
+            )
+        }))
+        return islands
+        }
+        
+      }
 
     return (
         <div className="dashboard">
             <div id="dashboard-sections">
-                <h3 id="my-islands">My islands</h3>
-                <h3 id="my-listings">My listings</h3>
-                <h3 id="watchlist">Watchlist</h3>
-                <h3 id="my-past-auctions">My past auctions</h3>
-                <h3 id="my-agents">My agents</h3>
-                <h3 id="sponsored-parties">Sponsored parties</h3>
+                <div id="my-islands"> 
+                    <h3> My islands</h3>
+                </div>
+               
+                <div id="my-listings">
+                    <h3 >My listings</h3>
+                    {getUserIslands()}
+                </div>
+
+                <div id="watchlist">
+                    <h3>Watchlist</h3>
+                    {getuserWatchlist()}
+                </div>
+                
+                <div id="my-past-auctions">
+                    <h3>My past auctions</h3>
+                </div>
+
+                <div id="my-agents">
+                    <h3>My agents</h3>
+                </div>
+
+                <div id="sponsored-parties">
+                    <h3>Sponsored parties</h3>
+                </div>
+
                 <h3>My islands</h3>
                 <h3>My islands</h3>
                 <h3>My islands</h3>

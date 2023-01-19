@@ -2,22 +2,28 @@ const { PrismaClient } = require("@prisma/client");
 const emailjs = require("@emailjs/nodejs");
 const schedule = require("node-schedule");
 
+/**
+ * This function returns one auction from an id
+ * @param {*} req   Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.getOne = async (req, res, next) => {
     const prisma = new PrismaClient();
 
     try {
         try {
+            //We need to find the auction from the id
             let auction = await prisma.Auction.findUnique({
                 where: {
                     id: parseInt(req.params.id),
                 },
             });
-
+            //If the auction is found, we send the response
             res.status(200).json(auction);
         } catch (error) {
-            res.status(400).json({
-                error: "Intern error with error code 400 : " + error,
-            });
+            //Otherwise, we throw an error
+            res.status(400).json({ error: "Intern error with error code 400 !" });
         }
     } catch (error) {
         res.status(500).json({
@@ -26,36 +32,49 @@ exports.getOne = async (req, res, next) => {
     }
 };
 
+/**
+ * This function performs a bidding on an auction
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.bid = async (req, res, next) => {
     const prisma = new PrismaClient();
 
     try {
         try {
+            //First, we find the auction corresponding to the id
             let auction = await prisma.Auction.findUnique({
                 where: {
                     id: parseInt(req.params.id),
                 },
             });
-
+            
+            //Then, if the auction is found, and if it is started
             if (auction && auction.status === "started") {
+                //We create a new bid
                 let bid = await prisma.Bid.create({
                     data: {
+                        //The price to bid in the auction
                         price: req.body.price,
                         bidder: {
                             connect: {
+                                //The authenticated user
                                 id: req.auth.id,
                             },
                         },
                         auction: {
                             connect: {
+                                //The auction related
                                 id: auction.id,
                             },
                         },
                     },
                 });
-
+                //We send the response
                 res.status(200).json(bid);
             } else {
+                //If the auction is not found, we send an error
                 res.status(400).json({
                     error: "Auction not found or not in progress !",
                 });
@@ -72,25 +91,32 @@ exports.bid = async (req, res, next) => {
     }
 };
 
+/**
+ * This function sends the last bid to the response
+ * @param {*} req   Request
+ * @param {*} res   JSON response
+ * @param {*} next  next callback
+ */
 exports.getLastBid = async (req, res, next) => {
     const prisma = new PrismaClient();
 
     try {
         try {
+            //We find the first bid in desc order
             let bid = await prisma.Bid.findFirst({
                 where: {
                     auctionId: parseInt(req.params.id),
                 },
                 orderBy: {
+                    //Desc order
                     price: "desc",
                 },
             });
-
+            //We send the bid
             res.status(200).json(bid);
         } catch (error) {
-            res.status(400).json({
-                error: "Intern error with error code 400 : " + error,
-            });
+            //If not found, we send an error
+            res.status(400).json({ error: "Intern error with error code 400 !" });
         }
     } catch (error) {
         res.status(500).json({
@@ -99,9 +125,15 @@ exports.getLastBid = async (req, res, next) => {
     }
 };
 
+
+/**
+ * Initializes an auction
+ * @param {*} island 
+ */
 exports.init = async (island) => {
     const prisma = new PrismaClient();
 
+    //We find the island
     let auction = await prisma.Auction.findUnique({
         where: {
             islandId: island.id,
@@ -111,9 +143,11 @@ exports.init = async (island) => {
         },
     });
 
+    //We split the start and end date to separate days, months and years
     let splitStartDate = auction.startDate.split("-");
     let splitEndDate = auction.endDate.split("-");
 
+    
     let startingDate = new Date(
         splitStartDate[0],
         splitStartDate[1] - 1,

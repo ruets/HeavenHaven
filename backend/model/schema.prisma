@@ -80,13 +80,14 @@ model Island {
     id              Int         @id @default(autoincrement())
     name            String      @db.VarChar(255)@unique
     area            Int
-    latitude        Float
-    longitude       Float
+    latitude        String
+    longitude       String
     country         String      @db.VarChar(255)
     continent       String      @db.VarChar(15)
     
     //Climate informations
     weather         String?     @db.VarChar(625)
+    weatherDesc     String      
     weatherImg      String
 
     //Wildlife informations
@@ -132,7 +133,7 @@ model Auction {
     initiatorId     Int
     initiator       Customer    @relation("initiator", fields: [initiatorId], references: [id])
 
-    user            User[]      @relation("watchlist")
+    watchlisted     User[]      @relation("watchlist")
 
     // An auction contains bids
     rise            Bid[]       @relation("bid")
