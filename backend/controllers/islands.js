@@ -153,6 +153,8 @@ exports.sell = async (req, res, next) => {
                     }`
                 );
             });
+        } else {
+            return res.status(400).json({ error: "You must upload at least one image for the island !"});
         }
 
         if (req.body.startDate > req.body.endDate) {
