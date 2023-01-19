@@ -7,7 +7,7 @@ import { useState } from "react";
 import config from "../../config/config.json";
 import { useFetcher } from "react-router-dom";
 import ReactLoading from 'react-loading';
-
+import Slider from "../../components/fields/Slider/Slider"
 export function IslandsPage() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -30,6 +30,8 @@ export function IslandsPage() {
             setIsOpen(true);
         }
     });
+
+
 
     const getAllIslands = async () => {
         try {
@@ -315,19 +317,16 @@ export function IslandsPage() {
                     </div>
                     <span className="line"></span>
                     <div className="option-3">
-                        <h4>Installations</h4>
+                        <h4>Price(Million)</h4>
                         <ul>
                             <li>
-                                <p>Accommodations</p>
-                                <input type="checkbox" name="accomodations" value="accomodations" onClick={(e) => ClickOnCheckbox(e)}/>
+                                <Slider name="prix" min={0} max={1000} onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}/>                      
                             </li>
+                        </ul>
+                        <h4>Surface(m2)</h4>
+                        <ul> 
                             <li>
-                                <p>Landing strip</p>
-                                <input type="checkbox" name="landingstrip" value="landingstrip" onClick={(e) => ClickOnCheckbox(e)}/>
-                            </li>
-                            <li>
-                                <p>Port</p>
-                                <input type="checkbox" name="port" value="port" onClick={(e) => ClickOnCheckbox(e)}/>
+                                <Slider name="surface" min={0} max={100000} onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}/>
                             </li>
                         </ul>
                     </div>
