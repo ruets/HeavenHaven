@@ -1,5 +1,6 @@
 import "./AccountSettings.scss";
 import { AccountSettingsForm } from "../../../components/forms/AccountSettings/AccountSettingsForm";
+import { Link } from "react-router-dom";
 
 function AccountSettings(props) {
 
@@ -51,11 +52,14 @@ function AccountSettings(props) {
                             <p className="small">{props.data.zip}</p>
                         </div>
                     </div>
-            </div>
+                    <div>
+                        <p className="infoModif">If you desire to modify any of the information above, please message us by using the <Link to="/contact">contact form</Link>.</p>
+                    </div>
+                </div>
             <div className="formPart">
             <AccountSettingsForm></AccountSettingsForm>
-            </div>
-        </main>
+        </div>
+    </main>
     );
 }
 

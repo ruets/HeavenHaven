@@ -396,13 +396,6 @@ export function SellingForm() {
     const postData = async () => {
         var formData = new FormData();
 
-        formData.append("weatherImg", weatherImage[0]);
-        formData.append("wildlifeImg", wildlifeImage[0]);
-        formData.append("activitiesImg", activitiesImage[0]);
-        formData.append("document", ownershipDocument[0]);
-        for (let i = 0; i < picturesImage.length; i++) {
-            formData.append("images", picturesImage[i]);
-        }
         formData.append("name", islandName);
         formData.append("area", surface);
         formData.append("latitude", latitude);
@@ -417,6 +410,15 @@ export function SellingForm() {
         formData.append("startDate", startDate);
         formData.append("endDate", endDate);
 
+        formData.append("weatherImg", weatherImage[0]);
+        formData.append("wildlifeImg", wildlifeImage[0]);
+        formData.append("activitiesImg", activitiesImage[0]);
+        formData.append("document", ownershipDocument[0]);
+        for (let i = 0; i < picturesImage.length; i++) {
+            formData.append("images", picturesImage[i]);
+        }
+
+
         try {
             let currentUserToken = "";
         if (GetCookie("userToken") !== undefined) {
@@ -425,8 +427,10 @@ export function SellingForm() {
             currentUserToken = loginContext.userToken;
         }
             const headers = {
-                headers: { Authorization: `Bearer ${currentUserToken}`,
-                            "Content-Type": 'multipart/form-data'}
+                headers: {
+                    Authorization: `Bearer ${currentUserToken}`,
+                    "Content-Type": 'multipart/form-data'
+                }
             }
             const res = await axios.post(config.serverAddress + "/api/islands/sell", formData, headers)
             console.log(res.data);
@@ -442,7 +446,7 @@ export function SellingForm() {
                 "Please put your ownership in the requested field.";
         } else {
             postData();
-            handleNextPage(pagesCount + 1);
+            // handlersNextPage(pagesCount + 1);
         }
     });
 

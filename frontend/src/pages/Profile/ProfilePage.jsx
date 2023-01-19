@@ -8,7 +8,7 @@ import DashBoard from "../../components/profile/DashBoard/DashBoard";
 import ReactLoading from 'react-loading';
 import ExitIcon from "../../assets/img/exit-icon.svg";
 import { LoginContext } from "../../App";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import config from "../../config/config.json"
 import axios from "axios";

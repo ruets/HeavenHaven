@@ -63,6 +63,19 @@ main.accountSettings{
                 inset 4px -4px 8px rgba(255, 251, 251, 0.9), 
                 inset -4px 4px 10px rgba(210, 205, 205, 0.9);                border-radius: 5px;
             }
+
+            
+        }
+        
+        p.infoModif{
+            font-family: "Poppins";
+            width: 80%;
+            padding-top: 32px;
+
+            a{
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
 
     }

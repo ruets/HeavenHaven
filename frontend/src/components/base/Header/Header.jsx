@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SearchBar } from "../../fields/SearchBar/SearchBar";
 import { NavBar } from "../NavBar/NavBar";
 import { useState, useCallback } from "react";
+import { useEffect } from "react";
 
 export function Header() {
     const [searchValue, setSearchValue] = useState("");
@@ -14,8 +15,13 @@ export function Header() {
         if (searchValue !== "") {
             const link = "/islands?search=" + searchValue;
             navigate(link);
+            location.reload();
         }
+        navigate("/islands");
+       
+        
     }, [searchValue]);
+
 
     return (
         <header>
