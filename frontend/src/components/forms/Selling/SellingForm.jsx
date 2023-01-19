@@ -446,7 +446,7 @@ export function SellingForm() {
                 "Please put your ownership in the requested field.";
         } else {
             postData();
-            // handlersNextPage(pagesCount + 1);
+            handlersNextPage(pagesCount + 1);
         }
     });
 
