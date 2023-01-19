@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const auctionCtrl = require("./auction");
 
 /**
- * This function returns the trending islands. The islands returned are randomly selected.
+ * This function returns the trending islands.
  * The function returns 6 islands.
  *
  * @param {*} req   Request
@@ -15,17 +15,19 @@ exports.getTrends = async (req, res, next) => {
 
     try {
         try {
-            let trendings = await prisma.Island.findMany();
-
-            // select 6 random islands
-            let randomIslands = [];
-            trendings.forEach((island) => {
-                if (randomIslands.length < 6) {
-                    randomIslands.push(island);
-                }
+            // Get 6 firsts islands ordered by the count of elements in auction's watchlisted attribute
+            let trendings = await prisma.Island.findMany({
+                orderBy: {
+                    auction: {
+                        watchlisted: {
+                            _count: "desc",
+                        },
+                    },
+                },
+                take: 6,
             });
-
-            res.status(200).json(randomIslands);
+                                        
+            res.status(200).json(trendings);
         } catch (error) {
             res.status(400).json({
                 error: "Intern error with error code 400 : " + error,
@@ -172,12 +174,13 @@ exports.sell = async (req, res, next) => {
                 data: {
                     name: req.body.name,
                     area: parseInt(req.body.area),
-                    latitude: parseInt(req.body.latitude),
-                    longitude: parseInt(req.body.longitude),
+                    latitude: req.body.latitude,
+                    longitude: req.body.longitude,
                     country: req.body.country,
                     continent: req.body.continent,
 
                     weather: req.body.weather,
+                    weatherDesc: "Some Weather",
                     weatherImg: `${req.protocol}://${req.get(
                         "host"
                     )}/imgs/islands/${req.body.name.split(" ").join("_")}/${
