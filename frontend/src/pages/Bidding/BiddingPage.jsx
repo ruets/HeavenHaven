@@ -101,7 +101,6 @@ export function BiddingPage() {
             const headers = {
                 headers: { Authorization: `Bearer ${currentUserToken}` }
             }
-            console.log(islandDataState.auction.id);
             const res = await axios.post(config.serverAddress + "/api/auction/bid/" + islandDataState.auction.id, {price: parseInt(amountInput)} , headers) 
             console.log(res.data);
         } catch (error) {
