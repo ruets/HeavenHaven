@@ -10,6 +10,15 @@ div.dashboard {
         grid-template-rows: auto;
     }
 
+    div.sponsor-grid {
+        margin: 30px 0;
+        padding: 0 20px;
+        display: grid;
+        gap: 4%;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
     p.nothing {
         font-size: 20px;
         margin: 30px 0;

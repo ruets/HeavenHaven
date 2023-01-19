@@ -125,7 +125,6 @@ export function BiddingPage() {
             );
             res.data.map((island) => {
                 if (island.id === islandData.id) {
-                    console.log("test");
                     setLikeElement(
                         <svg
                             id="filled"
@@ -142,7 +141,7 @@ export function BiddingPage() {
                             />
                         </svg>
                     );
-                    setClickCount(count + 1);
+                    setClickCount(1);
                 }
             });
         } catch (error) {

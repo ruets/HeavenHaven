@@ -68,7 +68,26 @@ function DashBoard(props) {
     }
 
     function getUserRemainingSponsorUses() {
-        return <p>{props.data.customer.remainingUses}</p>;
+        if (props.data.customer.agents.length === 0) {
+            return (
+                <p className="nothing">
+                    You don't have any sponsored parties to display.
+                </p>
+            );
+        } else {
+            const agents = props.data.cutsomer.agents.map((agent) => {
+                return (
+                    <IslandCard
+                        key={agent.id}
+                        id={agent.id}
+                        name={agent.name}
+                        description={agent.description}
+                        image={agent.mainImg}
+                    />
+                );
+            });
+            return <div className="sponsor-grid">{agents}</div>;
+        }
     }
 
     return (
@@ -96,7 +115,7 @@ function DashBoard(props) {
                 </div>
 
                 <div id="remaining-uses">
-                    <h3>Remaining sponsor uses</h3>
+                    <h3>Sponsored parties</h3>
                     <span className="line"></span>
                     {getUserRemainingSponsorUses()}
                     <span className="line"></span>
