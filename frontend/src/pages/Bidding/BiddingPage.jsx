@@ -13,6 +13,7 @@ import "./BiddingPage.scss";
 import Input from "../../components/fields/Input/Input"
 import DollarIcon from "../../assets/img/dollar-icon.svg"
 import HeartIcon from "../../assets/img/heart-icon.svg"
+import { useRef } from "react";
 
 
 export function BiddingPage() {
@@ -27,6 +28,11 @@ export function BiddingPage() {
     const location = useLocation();
     const islandId = location.pathname.split('/')[2]
 
+    const refToLikeButton = useRef(null);
+    const [likeElement, setLikeElement] = useState(<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+  </svg>);
+
     let islandData = {};
     const [islandDataState, setIslandDataState] = useState({});
     const [minimumBid, setMinimumBid] = useState("")
@@ -38,7 +44,7 @@ export function BiddingPage() {
 
     const [timeLeft, setTimeLeft] = useState("")
 
-    const [amountInput, setAmountInput] = useState(0);
+    const [amountInput, setAmountInput] = useState("");
     const [isPaypalButtonDisabled, setIsPaypalButtonDisabled] = useState(true);
 
     const getIslandData = async () => {
@@ -77,6 +83,18 @@ export function BiddingPage() {
         }
     }
 
+    const handleLike = useCallback(() => {
+        if (refToLikeButton.current.style.color === "red") {
+            setLikeElement(<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+          </svg>)
+        } else {
+            setLikeElement(<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+            </svg>)
+        }
+    })
+
     const msToTime = useCallback((duration) => {
         var seconds = Math.floor((duration / 1000) % 60),
           minutes = Math.floor((duration / (1000 * 60)) % 60),
@@ -101,7 +119,7 @@ export function BiddingPage() {
             const headers = {
                 headers: { Authorization: `Bearer ${currentUserToken}` }
             }
-            const res = await axios.post(config.serverAddress + "/api/auction/bid/" + islandDataState.auction.id, {price: parseInt(amountInput)} , headers) 
+            const res = await axios.post(config.serverAddress + "/api/auction/bid/" + islandDataState.auction.id, {price: amountInput} , headers) 
             console.log(res.data);
         } catch (error) {
             console.error(error);
@@ -144,8 +162,8 @@ export function BiddingPage() {
         return (
             <div className="bidding">
                 <div className="leftPart">
-                    <img src={MainImage} alt="" className="main" />
-                    <img src={HeartIcon} alt="" className="like"/>
+                    <img src={islandDataState.mainImg} alt="" className="main" />
+                    <button onClick={handleLike} className="like">{likeElement}</button>
                 </div>
                 <div className="rightPart">
                     <h1>{islandDataState.name}</h1>
@@ -171,7 +189,7 @@ export function BiddingPage() {
                     </div>    
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
                     <div className="amount">
-                        <Input type="number" name="amount" icon={DollarIcon} label={minimumBid ? "Minimum bid : " + minimumBid : "Minimum bid : " + islandDataState.auction.reservePrice} value={amountInput} setInput={setAmountInput}/>
+                        <Input type="number" name="amount" icon={DollarIcon} label={minimumBid ? "Minimum bid : " + minimumBid : "Minimum bid : " + islandDataState.auction.reservePrice} setInput={setAmountInput}/>
                     </div>
                     <div className="total-cost">
                         <p>Cost of the auction</p>
