@@ -65,7 +65,7 @@ export function ProfilePage() {
         if (isAccountSettings) {
             elementToShow = <AccountSettings data={accountData}/>;
         } else {
-            elementToShow = <DashBoard />;
+            elementToShow = <DashBoard data={accountData}/>;
         }
     
         return (
