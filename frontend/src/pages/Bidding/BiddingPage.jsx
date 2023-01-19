@@ -25,6 +25,8 @@ export function BiddingPage() {
         return <ForbiddenPage />;
     }
 
+    const refToAmountInput = useRef(null);
+
     const location = useLocation();
     const islandId = location.pathname.split('/')[2]
 
@@ -44,7 +46,7 @@ export function BiddingPage() {
 
     const [timeLeft, setTimeLeft] = useState("")
 
-    const [amountInput, setAmountInput] = useState("");
+    const [amountInput, setAmountInput] = useState(0);
     const [isPaypalButtonDisabled, setIsPaypalButtonDisabled] = useState(true);
 
     const getIslandData = async () => {
@@ -108,7 +110,8 @@ export function BiddingPage() {
       }
     );
 
-    const postBid = async () => {
+    const postBid = async (value) => {
+        console.log(value);
         let currentUserToken = "";
         if (GetCookie("userToken") !== undefined) {
             currentUserToken = GetCookie("userToken");
@@ -119,7 +122,7 @@ export function BiddingPage() {
             const headers = {
                 headers: { Authorization: `Bearer ${currentUserToken}` }
             }
-            const res = await axios.post(config.serverAddress + "/api/auction/bid/" + islandDataState.auction.id, {price: amountInput} , headers) 
+            const res = await axios.post(config.serverAddress + "/api/auction/bid/" + islandDataState.auction.id, {price: parseFloat(value)} , headers) 
             console.log(res.data);
         } catch (error) {
             console.error(error);
@@ -160,6 +163,7 @@ export function BiddingPage() {
         return <h1>Loading</h1>
     } else {
         return (
+            <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
             <div className="bidding">
                 <div className="leftPart">
                     <img src={islandDataState.mainImg} alt="" className="main" />
@@ -189,26 +193,24 @@ export function BiddingPage() {
                     </div>    
                     <p className="payment">Payment intermediary<img src={PaypalLogo} alt="" /></p>
                     <div className="amount">
-                        <Input type="number" name="amount" icon={DollarIcon} label={minimumBid ? "Minimum bid : " + minimumBid : "Minimum bid : " + islandDataState.auction.reservePrice} setInput={setAmountInput}/>
+                        <Input ref={refToAmountInput} type="number" name="amount" icon={DollarIcon} value={amountInput} label={minimumBid ? "Minimum bid : " + minimumBid : "Minimum bid : " + islandDataState.auction.reservePrice} setInput={setAmountInput}/>
                     </div>
                     <div className="total-cost">
                         <p>Cost of the auction</p>
                         <p className="value">${Math.round((amountInput * 0.05)*100) / 100}</p>
                     </div>
-                    <PayPalScriptProvider options={{"client-id": "AfcY6KBXljklDiEzDCU-V6_Tmu1OkxS7jSDeCTHS11w8Q0x22TBa-MZD12je9wg3fGV5w8cYJJHHWiN5"}}>
                     <PayPalButtons
                     disabled={isPaypalButtonDisabled}
                     onApprove={(data, actions) => {
                         return actions.order.capture().then(function (details) {
-                            alert("Transaction completed by : " + details.payer.name.given_name);
-                            postBid();
+                            postBid(details.purchase_units[0].amount.value);
                         })
                     }}
                     style={paypalStyle}
                     />
-                </PayPalScriptProvider>
                 </div>
             </div>
+            </PayPalScriptProvider>
         );
     }
 }
