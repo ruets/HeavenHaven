@@ -6,6 +6,7 @@ function Input(props) {
             <div className="input">
                 {props.icon ? <img src={props.icon} className="icon" alt="Logo" /> : null}
                 <input
+                    ref={props.ref ? props.ref : null}
                     name={props.name}
                     type={props.type}
                     onChange={(event) => {
