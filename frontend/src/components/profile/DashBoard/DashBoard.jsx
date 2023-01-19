@@ -24,27 +24,26 @@ function DashBoard(props) {
         return islands
         }
         
-      }
+    }
 
       function getuserWatchlist() {
-        if (props.data.watchlist.length === 0) {
-            return <p>There's nothing to display here.</p>
-        } else {
-            const islands = props.data.watchlist.map((island => {
-            return (
-                <IslandCard
-                        key={island.id}
-                        id={island.id}
-                        name={island.name}
-                        description={island.description}
-                        image={island.mainImg}
-                    />
-            )
-        }))
-        return islands
+            if (props.data.watchlist.length === 0) {
+                return <p style={{paddingLeft: "3%"}}>There's nothing to display here.</p>
+            } else {
+                    const islands = props.data.watchlist.map((island => {
+                        return (
+                            <IslandCard
+                                    key={island.id}
+                                    id={island.id}
+                                    name={island.name}
+                                    description={island.description}
+                                    image={island.mainImg}
+                                />
+                        )
+                    }))
+                    return islands
+                }
         }
-        
-      }
 
     return (
         <div className="dashboard">

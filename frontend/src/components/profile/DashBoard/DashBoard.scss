@@ -1,6 +1,12 @@
 @import "../../../assets/scss/base/colors";
 
 div.dashboard{
+    
+    div.island-card{
+        margin-top: 4%;
+        margin-left: 3% ;
+        width: 25%;
+    }
     div#dashboard-sections{
         overflow-y: scroll;
         height: 850px;
@@ -12,3 +18,4 @@ div.dashboard{
         }
     }  
 }
+
