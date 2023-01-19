@@ -9,7 +9,7 @@ import { useEffect, useCallback } from "react";
 import { useState } from "react";
 import config from "../../config/config.json";
 import { useContext } from "react";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 import { useRef } from "react";
 
 export function IndexPage() {
@@ -22,13 +22,17 @@ export function IndexPage() {
     const refToCookieGreyDiv = useRef(null);
 
     const handleCookieClick = useCallback(() => {
-        refToCookieGreyDiv.current.style.display = "none"
-        document.body.style.overflowY = "auto"
-    })
+        refToCookieGreyDiv.current.style.display = "none";
+        document.body.style.overflowY = "auto";
+    });
 
     function showCookie() {
         if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
-            return (<div className="cookie-grey" ref={refToCookieGreyDiv}><Cookies onClick={handleCookieClick}/></div>)
+            return (
+                <div className="cookie-grey" ref={refToCookieGreyDiv}>
+                    <Cookies onClick={handleCookieClick} />
+                </div>
+            );
         }
     }
 
@@ -67,16 +71,21 @@ export function IndexPage() {
         return <h1>Please excuse us, an error occured.</h1>;
     } else if (isLoading) {
         return (
-        <div className="loading">
-            <h1> Loading ... </h1>
-            <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
-        </div>
-        )
+            <div className="loading">
+                <h1> Loading ... </h1>
+                <ReactLoading
+                    type={"spin"}
+                    color={"#3A3A3A"}
+                    height={200}
+                    width={200}
+                />
+            </div>
+        );
     }
 
     return (
         <>
-        <div className="index">
+            <div className="index">
                 <div className="section-1">
                     <img src={MainImage} alt="" />
                     <div className="title">
@@ -89,7 +98,7 @@ export function IndexPage() {
                     <h2>Trending</h2>
                     <div className="islands">{trendingIslands}</div>
                 </div>
-        </div>
+            </div>
             {showCookie()}
         </>
     );

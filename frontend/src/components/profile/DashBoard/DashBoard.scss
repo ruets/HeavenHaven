@@ -1,21 +1,42 @@
 @import "../../../assets/scss/base/colors";
 
-div.dashboard{
-    
-    div.island-card{
-        margin-top: 4%;
-        margin-left: 3% ;
-        width: 25%;
+div.dashboard {
+    div.grid {
+        margin: 30px 0;
+        padding: 0 20px;
+        display: grid;
+        gap: 4%;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
     }
-    div#dashboard-sections{
+
+    p.nothing {
+        font-size: 20px;
+        margin: 30px 0;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    div#dashboard-sections {
         overflow-y: scroll;
-        height: 850px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        padding: 3%;
+        height: 817px;
+
+        span.line {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: $dark;
+        }
+
         h3 {
             font-family: "Poppins";
             font-size: 29px;
-            padding-left: 3%;
-            padding-top: 6%;
+            margin-bottom: 12px;
         }
-    }  
+    }
 }
-
