@@ -1,18 +1,14 @@
 @import "../../../assets/scss/base/colors";
 
 div.dashboard{
-    div.my-islands{
+    div#dashboard-sections{
         overflow-y: scroll;
+        height: 850px;
         h3 {
-        font-family: "Poppins";
-        font-size: 29px;
-        //position: relative;
-        //margin-top: 30px;
-        //margin-left: 30px;
-        padding-left: 3%;
-        padding-top: 6%;
-    }
-    }
-   
-    
+            font-family: "Poppins";
+            font-size: 29px;
+            padding-left: 3%;
+            padding-top: 6%;
+        }
+    }  
 }

@@ -9,7 +9,7 @@ import ReactLoading from 'react-loading';
 import ExitIcon from "../../assets/img/exit-icon.svg";
 import { LoginContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import config from "../../config/config.json"
 import axios from "axios";
 
@@ -51,6 +51,14 @@ export function ProfilePage() {
         loginContext.setIsUserLoggedIn(false);
         navigate("/");
     });
+
+    const dashboardElement = useRef(null);
+
+    const handleClickScroll = () => {
+        if(dashboardElement){
+            dashboardElement.current.scrollIntoView(true, {behavior: 'smooth'});
+        }
+    }
 
     let elementToShow;
 
@@ -94,7 +102,7 @@ export function ProfilePage() {
                             <a>My listings</a>
                         </li>
                         <li>
-                            <a>Watchlist</a>
+                            <a onClick={handleClickScroll}>Watchlist</a>
                         </li>
                         <li>
                             <a>My past auctions</a>
