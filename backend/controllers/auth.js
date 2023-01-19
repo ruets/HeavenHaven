@@ -178,7 +178,15 @@ exports.login = async (req, res, next) => {
  * @returns     The sponsor code
  */
 function sponsorCode() {
-    return Math.floor((1 + Math.random()) * 0x1000000000000000)
+    const prisma = new PrismaClient();
+
+    let sponsorCode = Math.floor((1 + Math.random()) * 0x1000000000000000)
         .toString(16)
         .substring(1);
+
+    if (prisma.Customer.findUnique({ where: { sponsorCode: sponsorCode } })) {
+        sponsorCode();
+    } else {
+        return sponsorCode;
+    }
 }
