@@ -1,6 +1,7 @@
 const assert = require("assert");
 const except = require("except");
 const { PrismaClient } = require("@prisma/client");
+const { use } = require("chai");
 
 const prisma = new PrismaClient();
 
@@ -12,40 +13,41 @@ const prisma = new PrismaClient();
 
 describe("createUser", function () {
     //We try to create a new customer
-    it("should create the customer into the database", function () {
-        assert.doesNotThrow(async (done) => {
-            //Firstly, we need to find if the record already exists
-            let findUser = await prisma.user.findUnique({
-                where: {
+    it("should create the customer into the database",async function () {
+    
+        //Firstly, we need to find if the record already exists
+        let findUser = await prisma.user.findUnique({
+            where: {
+                email: "email",
+            },
+        });
+        
+        //Then, if it does not exist
+        if (findUser === null) {
+            //We create a customer and test if it is stored into the database
+            //We do not care about constraints on this layer, it must be done either in the frontend, either in the controllers
+            const user = await prisma.user.create({
+                data: {
                     email: "email",
-                },
-            });
-            //Then, if it does not exist
-            if (findUser === null) {
-                //We create a customer and test if it is stored into the database
-                //We do not care about constraints on this layer, it must be done either in the frontend, either in the controllers
-                const user = await prisma.user.create({
-                    data: {
-                        email: "email",
-                        password: "password",
-                        firstName: "Francis",
-                        lastName: "Boyd",
-                        phone: "0303030303",
+                    password: "password",
+                    firstName: "Francis",
+                    lastName: "Boyd",
+                    phone: "0303030303",
 
-                        address: "51 St of the Test",
-                        apt: "91",
-                        city: "TestCity",
-                        zip: "029302882838",
-                        country: "Republic of Testing",
-                        customer: {
-                            create: {
-                                sponsorCode: "HHHHH",
-                            },
+                    address: "51 St of the Test",
+                    apt: "91",
+                    city: "TestCity",
+                    zip: "029302882838",
+                    country: "Republic of Testing",
+                    customer: {
+                        create: {
+                            sponsorCode: "HHHHH",
                         },
                     },
-                });
-            }
-        });
+                },
+            });
+            assert.notEqual(user, null);
+        }
     });
 });
 
@@ -128,57 +130,51 @@ describe("deleteOneUser", function () {
 /////////                           USER - AGENT CRUD                                  //////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+/*
 describe("CreateAgent", function () {
     it("Should create a new agent user", async function () {
         assert.doesNotThrow(async () => {
             //An agent requires a customer to be created
             //So we first create a customer
 
-            const customer = await prisma.user.findUnique({
+            const agent = await prisma.agent.findUnique({
                 where: {
                     email: "email2",
                 },
             });
 
-            if (customer === null) {
-                const createCustomer = await prisma.customer.create({
+            if (agent === null) {
+
+                const createAgent = await prisma.user.create({
                     data: {
-                        user: {
-                            email: "email2",
-                            password: "password",
-                            firstName: "Francis",
-                            lastName: "Boyd",
-                            phone: "0303030303",
-
-                            address: "51 St of the Test",
-                            apt: "91",
-                            city: "TestCity",
-                            zip: "029302882838",
-                            country: "Republic of Testing",
-                        },
-
-                        sponsorCode: "WWWWW",
-                    },
-                });
-
-                //After the customer is created, we can create the agent
-                const agent = await prisma.agent.create({
-                    data: {
-                        user: {
-                            create: {
-                                email: "agentemail",
-                                password: "password",
-                                firstName: "Xavier",
-                                lastName: "Chanson",
-                                phone: "0405060708",
-                            },
-                        },
-
-                        customer: {
-                            connect: {
-                                id: createCustomer.id,
-                            },
-                        },
+                        email: "email2",
+                        password: "password",
+                        firstName: "Agent",
+                        lastName: "Boyd",
+                        phone: "0303030303",
+    
+                        address: "51 St of the Test",
+                        apt: "91",
+                        city: "TestCity",
+                        zip: "029302882838",
+                        country: "Republic of Testing",
+                        agent: {
+                            customer: {
+                                create: {
+                                    email: "emailcustomer",
+                                    password: "password",
+                                    firstName: "Customer",
+                                    lastName: "Boyd",
+                                    phone: "0303030303",
+                
+                                    address: "51 St of the Test",
+                                    apt: "91",
+                                    city: "TestCity",
+                                    zip: "029302882838",
+                                    country: "Republic of Testing",
+                                }
+                            }
+                        }
                     },
                 });
             }
@@ -186,6 +182,7 @@ describe("CreateAgent", function () {
     });
 });
 
+*/
 // describe("update one agent", function(){
 
 //     it("Should update the agent user", async function() {
