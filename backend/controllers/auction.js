@@ -49,30 +49,45 @@ exports.bid = async (req, res, next) => {
                     id: parseInt(req.params.id),
                 },
             });
+
+            let lastBit = await prisma.Bid.findFirst({
+                where: {
+                    auctionId: parseInt(req.params.id),
+                },
+                orderBy: {
+                    //Desc order
+                    price: "desc",
+                },
+            });
             
             //Then, if the auction is found, and if it is started
             if (auction && auction.status === "started") {
-                //We create a new bid
-                let bid = await prisma.Bid.create({
-                    data: {
-                        //The price to bid in the auction
-                        price: req.body.price,
-                        bidder: {
-                            connect: {
-                                //The authenticated user
-                                id: req.auth.id,
+                if (lastbid.price < req.body.price) {
+                    //We create a new bid
+                    let bid = await prisma.Bid.create({
+                        data: {
+                            //The price to bid in the auction
+                            price: req.body.price,
+                            bidder: {
+                                connect: {
+                                    //The authenticated user
+                                    id: req.auth.id,
+                                },
+                            },
+                            auction: {
+                                connect: {
+                                    //The auction related
+                                    id: auction.id,
+                                },
                             },
                         },
-                        auction: {
-                            connect: {
-                                //The auction related
-                                id: auction.id,
-                            },
-                        },
-                    },
-                });
-                //We send the response
-                res.status(200).json(bid);
+                    });
+                    //We send the response
+                    res.status(200).json(bid);
+                } else {
+                    //If the bid is not valid, we send an error
+                    res.status(400).json({ error: "Price is not superior to the last bid !" });                    
+                }
             } else {
                 //If the auction is not found, we send an error
                 res.status(400).json({

@@ -259,7 +259,8 @@ exports.getWatchlist = async (req, res, next) => {
                 where: {
                     id: req.auth.id,
                 },
-                include: { watchlist: true },
+                include: { watchlist: 
+                    { include: { island: true }}},
             });
 
             if (connectedUser) {
