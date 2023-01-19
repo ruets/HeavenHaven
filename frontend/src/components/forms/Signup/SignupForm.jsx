@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../../fields/Input/Input";
 import PrivacyPolicyPDF from "../../../assets/documents/Privacy-policy-Heaven-Haven.pdf";
 import TermsConditionsPDF from "../../../assets/documents/Terms-and-conditions-of-use-of-Heaven-Haven-website.pdf";
+import countries from "../../../assets/data/countries.json";
 
 // Config
 import config from "../../../config/config.json";
@@ -400,8 +401,13 @@ export function SignupForm() {
                         <option value="" disabled="disabled">
                             Country
                         </option>
-                        <option value="france">France</option>
-                        <option value="united-states">United States</option>
+                        {countries.list.map((country) => {
+                            return (
+                                <option key={country.code} value={country.name}>
+                                    {country.name}
+                                </option>
+                            );
+                        })}
                     </select>
                     <Input
                         type="text"
