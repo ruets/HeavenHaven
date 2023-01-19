@@ -406,7 +406,7 @@ exports.signupAgent = async(req, res, next) => {
 
     if(!valid) {
         //If the hashes differs, we send an error
-        res.status(400).json({error: "Error : The password confirmation is incorrect"});
+        res.status(400).json({error: "Passwords do not match !"});
     }
 
     try {
@@ -419,7 +419,9 @@ exports.signupAgent = async(req, res, next) => {
                         email: req.body.email,
                         password: hash,
                         lastName: req.body.lastName,
+                        firstName: req.body.firstName,
                         phone: req.body.phone,
+
                         address: req.body.address,
                         apt: req.body.apt,
                         city: req.body.city,
@@ -446,4 +448,43 @@ exports.signupAgent = async(req, res, next) => {
 
 
 
-} 
+}
+
+///////////////////////////////////////////////////////////
+//                      Sponsoring                       //
+///////////////////////////////////////////////////////////
+exports.validateSponsoring = async (req, res, next) => {
+    //We initialize our Prisma client
+    const prisma = new PrismaClient();
+    const id = req.auth.id;
+
+    try {
+        try {
+            //We need to update the user by connecting a new entry to the watchlist
+            const updateUser = await prisma.User.update({
+                where: {
+                    //We need the user corresponding to the connected user
+                    id: id,
+                },
+                data: {
+                    //We add a new entry in watchlist
+                    customer: {
+                        update: {
+                            //We add the island specified in the watchlist into the watchlist
+                            sponsored: true,
+                        },
+                    },
+                },
+            });
+            res.status(200).json("Sponsoring validated !");
+        } catch (error) {
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
+    }
+};
