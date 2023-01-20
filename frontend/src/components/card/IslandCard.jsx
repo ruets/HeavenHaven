@@ -20,7 +20,7 @@ function IslandCard(props) {
             const headers = {
                 headers: { Authorization: `Bearer ${currentUserToken}` },
             };
-            const res = await axios.delete(
+            const res = await axios.post(
                 config.serverAddress + "/api/islands/delete",
                 { id: props.id },
                 headers
