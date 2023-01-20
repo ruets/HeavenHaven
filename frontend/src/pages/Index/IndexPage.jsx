@@ -9,7 +9,7 @@ import { useEffect, useCallback } from "react";
 import { useState } from "react";
 import config from "../../config/config.json";
 import { useContext } from "react";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 import { useRef } from "react";
 
 export function IndexPage() {
@@ -17,18 +17,25 @@ export function IndexPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [isErrorThrown, setIsErrorThrown] = useState(false);
 
+    const [title2, setTitle2] = useState(null);
+    const [title3, setTitle3] = useState(null);
+
     const cookiesContext = useContext(CookiesContext);
 
     const refToCookieGreyDiv = useRef(null);
 
     const handleCookieClick = useCallback(() => {
-        refToCookieGreyDiv.current.style.display = "none"
-        document.body.style.overflowY = "auto"
-    })
+        refToCookieGreyDiv.current.style.display = "none";
+        document.body.style.overflowY = "auto";
+    });
 
     function showCookie() {
         if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
-            return (<div className="cookie-grey" ref={refToCookieGreyDiv}><Cookies onClick={handleCookieClick}/></div>)
+            return (
+                <div className="cookie-grey" ref={refToCookieGreyDiv}>
+                    <Cookies onClick={handleCookieClick} />
+                </div>
+            );
         }
     }
 
@@ -56,6 +63,16 @@ export function IndexPage() {
         }
     };
 
+    const beginTitleAnimation = useCallback(() => {
+        setTimeout(() => {
+            setTitle2(<h1 className="title-2">solution for</h1>);
+        }, 400);
+
+        setTimeout(() => {
+            setTitle3(<h1 className="title-3">island auctions.</h1>);
+        }, 800);
+    });
+
     useEffect(() => {
         if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
             document.body.style.overflowY = "hidden";
@@ -67,29 +84,36 @@ export function IndexPage() {
         return <h1>Please excuse us, an error occured.</h1>;
     } else if (isLoading) {
         return (
-        <div className="loading">
-            <h1> Loading ... </h1>
-            <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
-        </div>
-        )
+            <div className="loading">
+                <h1> Loading ... </h1>
+                <ReactLoading
+                    type={"spin"}
+                    color={"#3A3A3A"}
+                    height={200}
+                    width={200}
+                />
+            </div>
+        );
     }
 
     return (
         <>
-        <div className="index">
+            <div className="index">
                 <div className="section-1">
                     <img src={MainImage} alt="" />
                     <div className="title">
-                        <h1 className="title-1">Your best</h1>
-                        <h1 className="title-2">solution for</h1>
-                        <h1 className="title-3">islands auctions</h1>
+                        <h1 className="title-1" onLoad={beginTitleAnimation()}>
+                            Your best
+                        </h1>
+                        {title2 ? title2 : null}
+                        {title3 ? title3 : null}
                     </div>
                 </div>
                 <div className="section-2">
                     <h2>Trending</h2>
                     <div className="islands">{trendingIslands}</div>
                 </div>
-        </div>
+            </div>
             {showCookie()}
         </>
     );

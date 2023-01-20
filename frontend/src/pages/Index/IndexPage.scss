@@ -11,11 +11,11 @@
     }
 }
 
-div.loading{
+div.loading {
     height: 100vh;
-    display : flex;
+    display: flex;
     flex-direction: column;
-    h1{
+    h1 {
         margin: 20px 0 20px 0;
         align-self: center;
     }
@@ -53,15 +53,15 @@ div.index {
         }
 
         h1.title-1 {
-            animation: 1s ease-out 0s 1 slideInLeft;
+            animation: 1s ease-out 1 slideInLeft;
         }
 
         h1.title-2 {
-            animation: 1s ease-out 0.4s 1 slideInLeft;
+            animation: 1s ease-out 1 slideInLeft;
         }
 
         h1.title-3 {
-            animation: 1s ease-out 0.8s 1 slideInLeft;
+            animation: 1s ease-out 1 slideInLeft;
         }
     }
 

@@ -4,13 +4,14 @@ function Input(props) {
     return (
         <div className="global-input">
             <div className="input">
-                {props.icon ? <img src={props.icon} className="icon" alt="Logo" /> : null}
+                {props.icon ? (
+                    <img src={props.icon} className="icon" alt="Logo" />
+                ) : null}
                 <input
-                    ref={props.ref ? props.ref : null}
                     name={props.name}
                     type={props.type}
                     onChange={(event) => {
-                        props.setInput?.(event.target.value)
+                        props.setInput?.(event.target.value);
                     }}
                     value={props.value}
                     placeholder={props.label}
@@ -22,7 +23,7 @@ function Input(props) {
                 <div className="error">
                     <p>{props.errorMessage}</p>
                 </div>
-                ) : null}
+            ) : null}
         </div>
     );
 }
