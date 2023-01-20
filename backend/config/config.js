@@ -1,6 +1,6 @@
-// Fichier de configuration de l'application (port, clé de cryptage des tokens, etc.)
-// config du port
+//This file aims to ser configurations variables
+//Server port configuration
 exports.port = process.env.PORT || 3000;
 
-// clé de cryptage des tokens
+//Tokens encryption key
 exports.secretKey = 'YgndskNRSrKFXnSmcKtmnoFXMxshyzcJGsixyDDQ';

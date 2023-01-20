@@ -158,7 +158,7 @@ exports.sell = async (req, res, next) => {
     try {
         
 
-        /**
+        /*
          * To sell an island, we need some images for the description
          */
 

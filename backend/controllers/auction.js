@@ -220,7 +220,7 @@ exports.init = async (island) => {
         0 //The second
     );
 
-    /** 
+    /*
      * An auction has multiple status during its lifecycle. When created, the status is "pending", meaning that the auction has
      * not started yet. We need a way to wait a certain amount of time to start or end an auction at the right moment. 
      * For this, we use a scheduleJob object, that will handle the asynchronous task.
@@ -260,7 +260,7 @@ exports.init = async (island) => {
         //When the starting date is reached, we perform the following :
 
 
-        /**
+        /*
          * This part performs the ending of an auction. Here, we perform the following tasks :
          * - Changing the auction status to "ended"
          * - Getting the last bidder to return the winner

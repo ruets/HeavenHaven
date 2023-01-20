@@ -171,7 +171,7 @@ exports.getIslands = async (req, res, next) => {
                     //The current user id
                     id: req.auth.id,
                 },
-                //We include the customer in the JSON object
+                //We include the customer and its auctions in the JSON object
                 include: {
                     customer: {
                         include: {
@@ -191,22 +191,34 @@ exports.getIslands = async (req, res, next) => {
                         return auction.island;
                     }
                 );
+                //We return the list of islands
                 res.status(200).json(islands);
             } else {
+                //If the current user is not found we send an error
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
 };
 
+/**
+ * This function returns the listing of the islands. 
+ * WARNING: this function is deprecated, insetad of it we use @{getIslands}
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @deprecated
+ */
 exports.getListings = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
@@ -239,17 +251,21 @@ exports.getListings = async (req, res, next) => {
                         }
                     }
                 );
+                //After, we send the list of the islands
                 res.status(200).json(islands);
             } else {
+                //If the user is not found, we send an error
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -260,7 +276,7 @@ exports.getListings = async (req, res, next) => {
 ///////////////////////////////////////////////////////////
 
 /*
- * This part focuses on the watchlist of the user
+ * This part focuses on the watchlist of the user. An user can like auctions.
  */
 
 /**
@@ -279,24 +295,30 @@ exports.getWatchlist = async (req, res, next) => {
             //We find the profile of the connected user from the token
             const connectedUser = await prisma.User.findUnique({
                 where: {
+                    //The current user id
                     id: req.auth.id,
                 },
+                //We include the watchlist in he JSON object
                 include: { watchlist: { include: { island: true } } },
             });
 
+            //We check that the user is found
             if (connectedUser) {
                 //If the user is gotten, we get the watchlist
                 res.status(200).json(connectedUser.watchlist);
             } else {
+                //If the user is not found, we send an error
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -332,14 +354,17 @@ exports.addToWatchlist = async (req, res, next) => {
                     },
                 },
             });
+            //We send a notification to the response
             res.status(200).json("Added to watchlist !");
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -374,14 +399,17 @@ exports.removeFromWatchlist = async (req, res, next) => {
                     },
                 },
             });
+            //We send a notification to the response
             res.status(200).json("Removed from watchlist !");
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -436,9 +464,10 @@ exports.signupAgent = async (req, res, next) => {
                 },
             },
         });
-
+        //We send a notification to the response
         res.status(200).json({ message: "Agent successfully registered" });
     } catch (error) {
+        //We handle the errors
         res.status(501).json("An unexpected error occured");
     }
 };
@@ -470,14 +499,17 @@ exports.validateSponsoring = async (req, res, next) => {
                     },
                 },
             });
+            //We send a notification to the response
             res.status(200).json("Sponsoring validated !");
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
