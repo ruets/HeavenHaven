@@ -31,8 +31,8 @@ exports.getProfileInformations = async (req, res, next) => {
                             agents: true,
                         },
                     },
+                    watchlist: { include: { island: true } },
                     agent: true,
-                    watchlist: true,
                 },
             });
             if (connectedUser) {
@@ -259,8 +259,7 @@ exports.getWatchlist = async (req, res, next) => {
                 where: {
                     id: req.auth.id,
                 },
-                include: { watchlist: 
-                    { include: { island: true }}},
+                include: { watchlist: { include: { island: true } } },
             });
 
             if (connectedUser) {
@@ -366,12 +365,9 @@ exports.removeFromWatchlist = async (req, res, next) => {
     }
 };
 
-
-
 ///////////////////////////////////////////////////////////
 //                      Agents                           //
 ///////////////////////////////////////////////////////////
-
 
 /*
 Request :
@@ -394,8 +390,7 @@ Request :
 }
 
 */
-exports.signupAgent = async(req, res, next) => {
-
+exports.signupAgent = async (req, res, next) => {
     const prisma = new PrismaClient();
 
     //Authentified user id
@@ -405,9 +400,9 @@ exports.signupAgent = async(req, res, next) => {
     const hash = bcrypt.hash(req.body.password1, 10);
     const valid = bcrypt.compare(req.body.password2, hash);
 
-    if(!valid) {
+    if (!valid) {
         //If the hashes differs, we send an error
-        res.status(400).json({error: "Passwords do not match !"});
+        res.status(400).json({ error: "Passwords do not match !" });
     }
 
     try {
@@ -428,28 +423,23 @@ exports.signupAgent = async(req, res, next) => {
                         city: req.body.city,
                         zip: req.body.zip,
                         country: req.body.country,
-                        idCardLink: req.body.idCardLink
-                    }
+                        idCardLink: req.body.idCardLink,
+                    },
                 },
                 customer: {
                     connect: {
                         //We connect the created agent to the connected user
-                        idUser: id
-                    }
-                }
-            }
+                        idUser: id,
+                    },
+                },
+            },
         });
 
-        res.status(200).json({message: "Agent successfully registered"});
-
-
-    } catch(error) {
+        res.status(200).json({ message: "Agent successfully registered" });
+    } catch (error) {
         res.status(501).json("An unexpected error occured");
     }
-
-
-
-}
+};
 
 ///////////////////////////////////////////////////////////
 //                      Sponsoring                       //

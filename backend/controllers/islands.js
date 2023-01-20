@@ -244,3 +244,46 @@ exports.sell = async (req, res, next) => {
         });
     }
 };
+
+exports.deleteIsland = async (req, res, next) => {
+    const prisma = new PrismaClient();
+    try {
+        try {
+            let island = await prisma.Island.findUnique({
+                where: {
+                    id: parseFloat(req.params.id),
+                    auction: {
+                        initiatorId: parseFloat(req.auth.id),
+                    },
+                },
+                include: {
+                    auction: true,
+                },
+            });
+
+            if (!island) {
+                return res.status(400).json({ error: "Island not found !" });
+            } else if (island.auction.initiatorId !== parseFloat(req.auth.id)) {
+                return res.status(400).json({ error: "You can't delete a started auction !" });
+            } else if (island.auction.status !== "pending") {
+                return res.status(400).json({ error: "You are not the initiator !" });
+            } else {
+                await prisma.Island.delete({
+                    where: {
+                        id: parseInt(req.params.id),
+                    },
+                });
+
+                res.status(200).json({ message: "Island deleted !" });
+            }
+        } catch (error) {
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: "Intern error with error code 500 : " + error,
+        });
+    }
+};
