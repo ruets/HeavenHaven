@@ -5,17 +5,16 @@ const config = require("./config/config");
 const fs = require("fs");
 
 //HTTPS options are used to check HTTPS certificates
-// var https_options = {};
+var https_options = {};
 
 //We added a debug option that enables the devs to run the server in local.
 // If we specify "debug" mode, the program will search for the certificates
-// if(process.argv[2] === "debug") {
-
-//   https_options = {
-//     key: fs.readFileSync("/etc/ssl/HH-v1.key"),
-//     cert: fs.readFileSync("/etc/ssl/HH.crt")
-//   };
-// }
+if (process.argv[2] === "debug") {
+    https_options = {
+        key: fs.readFileSync("/etc/ssl/HH-v1.key"),
+        cert: fs.readFileSync("/etc/ssl/HH.crt"),
+    };
+}
 
 const normalizePort = (val) => {
     const port = parseInt(val, 10);
@@ -52,8 +51,8 @@ const errorHandler = (error) => {
     }
 };
 
-// const server = https.createServer(https_options,app);
-const server = http.createServer(app);
+const server = https.createServer(https_options, app);
+// const server = http.createServer(app);
 
 server.on("error", errorHandler);
 server.on("listening", () => {
