@@ -11,22 +11,29 @@ import Slider from "../../components/fields/Slider/Slider"
 export function IslandsPage() {
     const [isOpen, setIsOpen] = useState(false);
 
-    const [allIslands, setAllIslands] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isErrorThrown, setIsErrorThrown] = useState(false);
-    const [filterMap, setFilterMap] = useState([]);
-    const [lastSearch, setLastSearch] = useState(String);
-    const refToImage = useRef(null);
-    const refToDropDown = useRef(null);
+    const [allIslands, setAllIslands] = useState([]); //Initialize the state to hold all the islands
+    const [isLoading, setIsLoading] = useState(true); //Initialize the state to hold the loading status
+    const [isErrorThrown, setIsErrorThrown] = useState(false); //Initialize the state to hold the error status
+    const [filterMap, setFilterMap] = useState([]); //Initialize the state to hold the filter mapping
+    const [lastSearch, setLastSearch] = useState(String); //Initialize the state to hold the last search string
+    const refToImage = useRef(null); //Initialize the ref to the image element
+    const refToDropDown = useRef(null); //Initialize the ref to the dropdown element
 
     const handleFilterClick = useCallback(() => {
+        // if the dropdown is open, close it
         if (isOpen) {
+            // set the rotation of the arrow image to 0 degrees
             refToImage.current.style.rotate = "";
+            // set the display of the drop-down to none
             refToDropDown.current.style.display = "";
+            // set the open state to false
             setIsOpen(false);
         } else {
+            // set the rotation of the arrow image to 180 degrees
             refToImage.current.style.rotate = "180deg";
+            // set the display of the drop-down to flex
             refToDropDown.current.style.display = "flex";
+            // set the open state to true
             setIsOpen(true);
         }
     });
@@ -34,9 +41,14 @@ export function IslandsPage() {
 
 
     const getAllIslands = async () => {
+        // Get all the islands from the backend.
         try {
             let res = await axios.get(config.serverAddress + "/api/islands/");
+
+            // Get the data from the response
             const data = res.data;
+
+            // Iterate over the data and create a card for each island
             const islands = data.map((island) => {
                 return (
                     <IslandCard
@@ -48,13 +60,18 @@ export function IslandsPage() {
                     />
                 )
             });
+
+            // Set the state with the islands
             setAllIslands(islands);
             setIsLoading(false);
         } catch (error) {
+            // Set the error state
             setIsErrorThrown(true);
         }
     };
+
     const getIslandsWithSearch = async (search) =>{
+        // Get the islands from the database using the search term
         try{
             let res = await axios.get(config.serverAddress + "/api/islands/search/" + search);
             const data = res.data;
@@ -69,20 +86,24 @@ export function IslandsPage() {
                     />
                 );
             });
+            // If no islands were found, throw an error
             if(islands == []){
                 setIsErrorThrown(true);
             }
             else{
+                // Display the islands
                 setAllIslands(islands);
                 setIsLoading(false);
             }
         }
         catch(error){
+            // If an error occured, display an error message
             setIsErrorThrown(true);
         }
         return;
-
     }
+
+
     useEffect(() => {
         let enumFilter = [
             "africa",
@@ -242,22 +263,29 @@ export function IslandsPage() {
         }
     };
 
+    // Check if there is an error
     if (isErrorThrown) {
-        return <h1>Please excuse us, an error occured.</h1>;
+    // If there is an error, display a message
+    return <h1>Please excuse us, an error occured.</h1>;
     } else if (isLoading) {
-        return (
+    // If the data is still loading, display a loading screen
+    return (
         <div className="loading">
             <h1> Loading ... </h1>
             <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
         </div>
-        )
+    )
     }
+    // Check if there is a search query in the URL
     let url = new URL(document.location.href);
     var search_params = new URLSearchParams(url.search);
     var search = search_params.get('search');
+    // If there is a search query, and it is different from the last search
     if(search !== null && search !== lastSearch){
-        getIslandsWithSearch(search);
-        setLastSearch(search);
+    // Update the data with the search query
+    getIslandsWithSearch(search);
+    // Update the last search
+    setLastSearch(search);
     }
 
     return (

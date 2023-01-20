@@ -9,7 +9,7 @@ export function SellingPage() {
     return (
         <div className="selling-page">
             <div className="section-1">
-                <img src={MainImage} alt="" />
+                <img src={MainImage} alt="" />    
                 <h1>Sell Your Island</h1>
             </div>
             <div className="section-2">

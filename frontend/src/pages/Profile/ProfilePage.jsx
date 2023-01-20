@@ -14,49 +14,53 @@ import config from "../../config/config.json";
 import axios from "axios";
 
 export function ProfilePage() {
-    const loginContext = useContext(LoginContext);
+    const loginContext = useContext(LoginContext); // Gets the value of the LoginContext variable
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Provides a function to navigate to a different URL
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [isAccountSettings, setIsAccountSettings] = useState(true);
-    const [accountData, setAccountData] = useState({});
+    const [isLoading, setIsLoading] = useState(true); // Sets the isLoading state to true
+    const [isAccountSettings, setIsAccountSettings] = useState(true); // Sets the isAccountSettings state to true
+    const [accountData, setAccountData] = useState({}); // Sets the accountData state to an empty object
 
     const getAccountData = async () => {
-        let currentUserToken = "";
-        if (GetCookie("userToken") !== undefined) {
-            currentUserToken = GetCookie("userToken");
-        } else {
-            currentUserToken = loginContext.userToken;
-        }
-        try {
-            const headers = {
-                headers: { Authorization: `Bearer ${currentUserToken}` },
-            };
-            const res = await axios.get(
-                config.serverAddress + "/api/user/getProfile",
-                headers
-            );
-            console.log(res.data);
-            setAccountData(res.data);
-            setIsLoading(false);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // Check for a valid user token in the cookie
+    let currentUserToken = "";
+    if (GetCookie("userToken") !== undefined) {
+        currentUserToken = GetCookie("userToken");
+    } else {
+        currentUserToken = loginContext.userToken;
+    }
 
+    // Create the request headers
+    try {
+        const headers = {
+            headers: { Authorization: `Bearer ${currentUserToken}` },
+        };
+
+        // Make the request to the server
+        const res = await axios.get(
+            config.serverAddress + "/api/user/getProfile",
+            headers
+        );
+
+        // Display the returned data
+        console.log(res.data);
+        setAccountData(res.data);
+        setIsLoading(false);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+        // Call getAccountData() on component mount.
     useEffect(() => {
         getAccountData();
     }, []);
 
-    const handleLogOut = useCallback(() => {
-        RemoveCookie("userToken");
-        loginContext.setIsUserLoggedIn(false);
-        navigate("/");
-    });
-
+    // Store a reference to the dashboard element.
     const dashboardElement = useRef(null);
 
+    // Scroll to the dashboard element when the scroll button is clicked.
     const handleClickScroll = () => {
         if (dashboardElement) {
             dashboardElement.current.scrollIntoView(true, {

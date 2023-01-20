@@ -18,16 +18,24 @@ export function LoginForm() {
 
     const navigate = useNavigate();
 
+    // Email input field
     const [email, setEmail] = useState("");
+
+    // Password input field
     const [password, setPassword] = useState("");
 
+    // Error message for email input field
     const [errorMessageEmail, setErrorMessageEmail] = useState("");
+
+    // Error message for password input field
     const [errorMessagePassword, setErrorMessagePassword] = useState("");
 
     const validateEmailFieldValue = useCallback(() => {
+        // Email address pattern
         const isEmailInputValid =
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
         if (!isEmailInputValid) {
+            // Set error message
             setErrorMessageEmail("The email adress format is not correct.");
         } else {
             setErrorMessageEmail("");
@@ -36,6 +44,7 @@ export function LoginForm() {
 
     const postData = async () => {
         try {
+            // send a POST request to the server with the user's email and password
             let res = await axios.post(
                 config.serverAddress + "/api/auth/login",
                 {
@@ -55,20 +64,29 @@ export function LoginForm() {
             navigate("/");
         } catch (error) {
             // handle error
+            // if the server responds with an error, show that error
             error.response ? setErrorMessagePassword(error.response.data.error) : console.log(error);
         }
     };
 
     const onSubmitForm = useCallback(
         (e) => {
+            // Prevent the default action of the submit event and stop it from bubbling
             e.preventDefault();
+            // Validate the email field value
             validateEmailFieldValue();
+            // If the error message for the email is empty
             if (errorMessageEmail === "") {
+                // Log a message to the console
                 console.log("Trying to connect");
+                // Call the function that posts the data
                 postData();
             }
         },
         [
+            // Add the variables that are used in the callback function
+            // This will make sure that the callback function is called only
+            // if one of those variables changes
             validateEmailFieldValue,
             errorMessageEmail,
             errorMessagePassword,

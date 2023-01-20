@@ -26,23 +26,29 @@ export function SignupForm() {
 
     const [isFirstPage, setIsFirstPage] = useState(true);
 
+    // First name
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [errorMessageNames, setErrorMessageNames] = useState("");
 
+    // Email
     const [email, setEmail] = useState("");
     const [errorMessageEmail, setErrorMessageEmail] = useState("");
 
+    // Password
     const [password, setPassword] = useState("");
     const [errorMessagesPassword, setErrorMessagesPassword] = useState([]);
 
     const [confirmedPassword, setConfirmedPassword] = useState("");
 
+    // Phone number
     const [phoneNumber, setPhoneNumber] = useState("");
     const [errorMessagePhoneNumber, setErrorMessagePhoneNumber] = useState("");
 
+    // Affiliation code
     const [affiliationCode, setAffiliationCode] = useState("");
 
+    // ID card
     const hiddenFileInput = React.useRef(null);
     const labelForFileInput = React.useRef(null);
 
@@ -51,6 +57,7 @@ export function SignupForm() {
     const [idCardName, setIdCardName] = useState("");
     const [errorMessageIdCard, setErrorMessageIdCard] = useState("");
 
+    // Address
     const [country, setCountry] = useState("");
     const [streetAdress, setStreetAdress] = useState("");
     const [apartment, setApartment] = useState("");
@@ -58,20 +65,26 @@ export function SignupForm() {
     const [zipCode, setZipCode] = useState("");
 
     const validateNames = useCallback(() => {
+        // Check if first name and last name are valid
         const isNamesInputsValid =
             /^[a-zA-Z]+$/.test(firstName) && /^[a-zA-Z]+$/.test(lastName);
+        // If names are not valid, set error message
         if (!isNamesInputsValid) {
             setErrorMessageNames("Your names must only contains letters");
+        // If names are valid, clear error message
         } else {
             setErrorMessageNames("");
         }
     }, [setErrorMessageNames, firstName, lastName]);
 
     const validateEmail = useCallback(() => {
+        // 1. Check if the input is a valid email address
         const isEmailInputValid =
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+        // 2. If not valid, set the error message for the email input
         if (!isEmailInputValid) {
             setErrorMessageEmail("The email adress format is not correct.");
+        // 3. If valid, remove the error message for the email input
         } else {
             setErrorMessageEmail("");
         }
@@ -83,43 +96,49 @@ export function SignupForm() {
         const containsUpperCase = /[A-Z]/;
         const containsNumber = /[0-9]/;
         if (
-            password.length > 8 &&
-            containsLowercaseLetter.test(password) &&
-            containsUpperCase.test(password) &&
-            containsNumber.test(password)
+            password.length > 8 && // is at least 8 characters long
+            containsLowercaseLetter.test(password) && // contains a lowercase letter
+            containsUpperCase.test(password) && // contains an uppercase letter
+            containsNumber.test(password) // contains a number
         ) {
             setErrorMessagesPassword([]);
         } else {
             setErrorMessagesPassword([]);
 
+            // Your password must have at least 8 characters.
             if (password.length < 8) {
-                errorArray.push(
-                    <p key={0}>
-                        Your password must have at least 8 characters.
-                    </p>
-                );
+            // Add an error message to the error array.
+            errorArray.push(
+                <p key={0}>
+                    Your password must have at least 8 characters.
+                </p>
+            );
             }
 
+            // check if password contains at least 1 lower case letter
             if (!containsLowercaseLetter.test(password)) {
-                errorArray.push(
-                    <p key={1}>
-                        Your password must contain at least 1 lower case
-                        character.
-                    </p>
-                );
-            }
+            // if password doesn't contain a lower case letter, push this error message to the array
+            errorArray.push(
+                <p key={1}>
+                Your password must contain at least 1 lower case
+                character.
+            </p>
+            );
+}
 
+            // Check if password contains at least 1 upper case character.
             if (!containsUpperCase.test(password)) {
-                errorArray.push(
-                    <p key={2}>
-                        Your password must contain at least 1 upper case
-                        character.
-                    </p>
-                );
+            // If not, add an error message to the errorArray.
+            errorArray.push(
+                <p key={2}>
+                    Your password must contain at least 1 upper case
+                    character.
+                </p>
+            );
             }
 
-            if (!containsNumber.test(password)) {
-                errorArray.push(
+            if (!containsNumber.test(password)) { //checks to see if the password does not contain a number
+                errorArray.push( //adds a message to the array
                     <p key={3}>Your password must contain at least 1 number.</p>
                 );
             }
@@ -128,69 +147,103 @@ export function SignupForm() {
         }
     }, [setErrorMessagesPassword, password]);
 
+    // This function checks whether the phone number is valid
     const validatePhoneNumber = useCallback(() => {
-        const isPhoneNumberValid = /^[0-9]+$/.test(phoneNumber);
-        if (!isPhoneNumberValid) {
-            setErrorMessagePhoneNumber(
-                "The phone number must only contain numbers"
-            );
-        } else {
-            setErrorMessagePhoneNumber("");
-        }
-    }, [setErrorMessagePhoneNumber, phoneNumber]);
+    // Check if the phone number contains only numbers
+    const isPhoneNumberValid = /^[0-9]+$/.test(phoneNumber);
+    // If the phone number is not valid, then display an error message
+    if (!isPhoneNumberValid) {
+        setErrorMessagePhoneNumber(
+            "The phone number must only contain numbers"
+        );
+    // If the phone number is valid, then display an empty message
+    } else {
+        setErrorMessagePhoneNumber("");
+    }
+}, [setErrorMessagePhoneNumber, phoneNumber]);
 
     const handleFillIn = useCallback((e) => {
         e.preventDefault();
+        // Validate the names
         validateNames();
+        // Validate the email
         validateEmail();
+        // Validate the password
         validatePassword();
+        // Validate the phone number
         validatePhoneNumber();
         if (
+            // If there are no errors in the names
             errorMessageNames === "" &&
+            // If there are no errors in the email
             errorMessageEmail === "" &&
+            // If there are no errors in the password
             errorMessagesPassword.length === 0 &&
+            // If there are no errors in the phone number
             errorMessagePhoneNumber === ""
         ) {
+            // Move to the next page
             setIsFirstPage(false);
         }
     });
 
     const handleBack = useCallback(() => {
+        // Set the first page to true so that the
+        // next time the user clicks on the button
+        // they go back to the first page.
         setIsFirstPage(true);
     });
 
+        // 1. Define a callback function
     const handleOnUploadButtonClick = useCallback(() => {
+        // 2. Call the click method on the hiddenFileInput ref
         hiddenFileInput.current.click();
     }, [hiddenFileInput]);
 
     const handleFileChange = useCallback(() => {
+        // Get the file(s) from the input field
         const idCard = hiddenFileInput.current.files;
 
+        // Check if the user has selected more than 2 files
         if (idCard.length > 2) {
+            // If so, set an error message
             setErrorMessageIdCard("You cannot put more than 2 files");
+            // Reset the name of the file to be empty
             setIdCardName("");
         } else {
+            // Get the number of files selected
             const num = idCard.length - 1;
 
+            // If the user has selected more than 1 file
             if (idCard.length > 1) {
+                // Set the name of the file to be the first file name + the number of files selected
                 setIdCardName(idCard[0].name + " + " + num.toString());
             } else {
+                // Set the name of the file to be the first file name
                 setIdCardName(idCard[0].name);
             }
+            // Validate the files
             validateIdCard(idCard);
         }
     }, [setIdCardName, hiddenFileInput]);
 
     function validateIdCard(idCard) {
-        const maxFileSizeKilo = 8192;
+    // We assume that the max file size is 8192 KB
+    const maxFileSizeKilo = 8192;
 
-        for (let i = 0; i <= idCard.length - 1; i++) {
-            const fileSizeBytes = idCard[i].size;
-            const fileSizeKilo = Math.round(fileSizeBytes / 1024);
-            if (fileSizeKilo >= maxFileSizeKilo) {
-                setErrorMessageIdCard("The file(s) must be less than 8Mo.");
-            } else {
-                setErrorMessageIdCard("");
+    // We loop through all the files in the idCard array
+    for (let i = 0; i <= idCard.length - 1; i++) {
+        // We get the size of the current file in bytes
+        const fileSizeBytes = idCard[i].size;
+        // We convert the file size from bytes to KB
+        const fileSizeKilo = Math.round(fileSizeBytes / 1024);
+        // We check if the file size is greater than the max file size
+        if (fileSizeKilo >= maxFileSizeKilo) {
+            // We set the error message
+            setErrorMessageIdCard("The file(s) must be less than 8Mo.");
+        } else {
+            // We set the error message to an empty string
+            setErrorMessageIdCard("");
             }
         }
     }
@@ -213,12 +266,14 @@ export function SignupForm() {
         formData.append("sponsorCode", affiliationCode);
         
         for (let i = 0; i <= idCard.length - 1; i++) {
+            // 1. Add the key "idCard" to the FormData object
             formData.append("idCard", idCard[i]);
         }
         
         try {
-
+            // Display the form data in the console for debugging purposes
             console.log(formData);
+            // Send a post request to the server with the form data for the new user
             let res = await axios.post(config.serverAddress + "/api/auth/signup", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -226,16 +281,19 @@ export function SignupForm() {
             });
 
             // handle success
+            // Display the token in an alert
             alert("Token d'authentification : " + res.data.token);
+            // Redirect the user to the homepage
             navigate("/");
         } catch (error) {
             // handle error
+            // Display the error in the console for debugging purposes
             console.error(error.response);
         }
     };
 
     const onSubmitForm = useCallback((e) => {
-        e.preventDefault();
+        e.preventDefault(); // prevent the form from sending the data with the default method
         console.log("Data verification");
         validateIdCard(hiddenFileInput.current.value);
         if (errorMessageIdCard === "") {
