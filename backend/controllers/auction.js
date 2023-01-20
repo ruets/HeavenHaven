@@ -50,7 +50,7 @@ exports.bid = async (req, res, next) => {
                 },
             });
 
-            let lastBit = await prisma.Bid.findFirst({
+            let lastBid = await prisma.Bid.findFirst({
                 where: {
                     auctionId: parseInt(req.params.id),
                 },
