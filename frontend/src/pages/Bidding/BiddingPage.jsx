@@ -56,6 +56,8 @@ export function BiddingPage() {
 
     const [timeLeft, setTimeLeft] = useState("");
 
+    const refToInputDiv = useRef(null);
+
     const [amountInput, setAmountInput] = useState(0);
     const [isPaypalButtonDisabled, setIsPaypalButtonDisabled] = useState(true);
 
@@ -297,6 +299,7 @@ export function BiddingPage() {
         } else {
             setIsPaypalButtonDisabled(true);
         }
+        setAmountInput(amountInput);
     }, [amountInput]);
 
     const paypalStyle = {
@@ -342,7 +345,7 @@ export function BiddingPage() {
                             <div className="currentBid">
                                 <p>Current bid</p>
                                 <p className="value">
-                                    {lastBid.price
+                                    {lastBid?.price
                                         ? "$" + lastBid.price
                                         : "No bid"}
                                 </p>
@@ -360,7 +363,7 @@ export function BiddingPage() {
                             Payment intermediary
                             <img src={PaypalLogo} alt="" />
                         </p>
-                        <div className="amount">
+                        <div className="amount" ref={refToInputDiv}>
                             <Input
                                 type="number"
                                 name="amount"
@@ -378,11 +381,26 @@ export function BiddingPage() {
                         <div className="total-cost">
                             <p>Cost of the auction</p>
                             <p className="value">
-                                ${Math.round(amountInput * 0.05 * 100) / 100}
+                                ${Math.round(amountInput * 0.005 * 100) / 100}
                             </p>
                         </div>
                         <PayPalButtons
                             disabled={isPaypalButtonDisabled}
+                            createOrder={(data, actions) => {
+                                let newValue =
+                                    refToInputDiv.current.children[0]
+                                        .children[0].children[1].value;
+                                newValue = newValue * 0.005;
+                                return actions.order.create({
+                                    purchase_units: [
+                                        {
+                                            amount: {
+                                                value: newValue,
+                                            },
+                                        },
+                                    ],
+                                });
+                            }}
                             onApprove={(data, actions) => {
                                 return actions.order
                                     .capture()

@@ -1,6 +1,6 @@
 import "./IndexPage.scss";
 import { Cookies } from "../../components/cookies/Cookies";
-import MainImage from "../../assets/img/index-main-img.jpg";
+import MainImage from "../../assets/img/index-main-img.avif";
 import IslandCard from "../../components/card/IslandCard";
 import { CookiesContext } from "../../App";
 import GetCookie from "../../hooks/cookies/getCookie";
