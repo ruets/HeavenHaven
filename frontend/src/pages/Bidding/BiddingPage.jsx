@@ -101,8 +101,8 @@ export function BiddingPage() {
                 setLastBid(res.data);
                 setMinimumBid(
                     (
-                        (parseInt(res.data.price) +
-                        (parseInt(islandData.auction.reservePrice) * 0.05))
+                        parseInt(res.data.price) +
+                        parseInt(islandData.auction.reservePrice) * 0.05
                     ).toString()
                 );
             }
@@ -268,20 +268,23 @@ export function BiddingPage() {
                 { price: parseFloat(value) },
                 headers
             );
-            console.log(res.data);
+            window.location.reload();
         } catch (error) {
             console.error(error);
-            setErrorMessagePaypal(error.response.data.error)
+            setErrorMessagePaypal(error.response.data.error);
         }
     };
 
     useEffect(() => {
         getIslandData();
-            setInterval(() => {
-                if (new Date().toISOString().split('T')[0] <= islandData.auction.startDate) {
-                    setDateElement(islandData.auction.startDate);
-                    setAuctionStarted(false);
-                } else {
+        setInterval(() => {
+            if (
+                new Date().toISOString().split("T")[0] <=
+                islandData.auction.startDate
+            ) {
+                setDateElement(islandData.auction.startDate);
+                setAuctionStarted(false);
+            } else {
                 const endingDate = new Date(
                     Date.parse(islandData.auction.endDate.replace(/-/g, "/"))
                 );
@@ -294,9 +297,9 @@ export function BiddingPage() {
                     currentDaysLeft + "d " + msToTime(currentTimeLeft);
                 setDateElement(timeString);
                 setAuctionStarted(true);
-                }
-                setIsLoading(false);
-            }, 1000);
+            }
+            setIsLoading(false);
+        }, 1000);
         setAmountInput(minimumBid);
     }, []);
 
@@ -347,11 +350,26 @@ export function BiddingPage() {
                     </div>
                     <div className="rightPart">
                         <div className="title">
-                        <h1>{islandDataState.name}</h1>
-                        {islandDataState.auction.status === 'started' ? <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record2" viewBox="0 0 16 16">
-  <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
-  <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
-</svg> Opened</p> : <p className="upcoming">Upcoming</p>}
+                            <h1>{islandDataState.name}</h1>
+                            {islandDataState.auction.status === "started" ? (
+                                <p>
+                                    {" "}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        class="bi bi-record2"
+                                        viewBox="0 0 16 16"
+                                    >
+                                        <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1A5 5 0 1 0 8 3a5 5 0 0 0 0 10z" />
+                                        <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                                    </svg>{" "}
+                                    Opened
+                                </p>
+                            ) : (
+                                <p className="upcoming">Upcoming</p>
+                            )}
                         </div>
                         <div className="description">
                             <h2> Description </h2>
@@ -371,7 +389,11 @@ export function BiddingPage() {
                                 <p className="value"> 0.5% </p>
                             </div>
                             <div className="timeLeft">
-                                {auctionStarted ? <p>Available until</p> : <p>Bidding opens</p> }
+                                {auctionStarted ? (
+                                    <p>Available until</p>
+                                ) : (
+                                    <p>Bidding opens</p>
+                                )}
                                 <p className="value">{dateElement}</p>
                             </div>
                         </div>
@@ -387,7 +409,8 @@ export function BiddingPage() {
                                 value={amountInput}
                                 label={
                                     parseInt(minimumBid)
-                                        ? "Minimum bid : " + (parseInt(minimumBid) + 1)
+                                        ? "Minimum bid : " +
+                                          (parseInt(minimumBid) + 1)
                                         : "Minimum bid : " +
                                           islandDataState.auction.reservePrice
                                 }
@@ -406,12 +429,12 @@ export function BiddingPage() {
                                 let newValue =
                                     refToInputDiv.current.children[0]
                                         .children[0].children[1].value;
-                                newValue = Math.round(newValue * 0.005, 2)
+                                newValue = Math.round(newValue * 0.005, 2);
                                 return actions.order.create({
                                     purchase_units: [
                                         {
                                             payee: {
-                                                merchant_id: "42C7TRS6PGZXN"
+                                                merchant_id: "42C7TRS6PGZXN",
                                             },
                                             amount: {
                                                 value: newValue,
@@ -431,13 +454,17 @@ export function BiddingPage() {
                                     })
                                     .catch(function (data) {
                                         console.log(data);
-                                        setErrorMessagePaypal("An error occured, please try again.")
+                                        setErrorMessagePaypal(
+                                            "An error occured, please try again."
+                                        );
                                     });
                             }}
                             style={paypalStyle}
                         />
                         <div className="error">
-                            {errorMessagePaypal !== "" ? <p className="error"> {errorMessagePaypal} </p> : null}
+                            {errorMessagePaypal !== "" ? (
+                                <p className="error"> {errorMessagePaypal} </p>
+                            ) : null}
                         </div>
                     </div>
                 </div>

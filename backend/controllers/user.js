@@ -349,7 +349,7 @@ exports.addToWatchlist = async (req, res, next) => {
                     watchlist: {
                         connect: {
                             //We add the island specified in the watchlist into the watchlist
-                            id: req.body.islandId,
+                            id: req.body.auctionId,
                         },
                     },
                 },

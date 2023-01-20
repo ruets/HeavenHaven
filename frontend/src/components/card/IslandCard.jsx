@@ -12,29 +12,30 @@ function IslandCard(props) {
     const onDeleteIsland = async () => {
         var result = confirm("Want to delete?");
         if (result) {
-        // get the current user token
-        let currentUserToken = "";
-        if (GetCookie("userToken") !== undefined) {
-            currentUserToken = GetCookie("userToken");
-        } else {
-            currentUserToken = loginContext.userToken;
-        }
-        try {
-            // set the headers
-            const headers = {
-                headers: { Authorization: `Bearer ${currentUserToken}` },
-            };
-            // send the delete request
-            const res = await axios.post(
-                config.serverAddress + "/api/islands/delete",
-                { id: props.id },
-                headers
-            );
-            console.log(res.data);
-        } catch (error) {
-            console.error(error);
-            alert(error.response.data.error)
-        }
+            // get the current user token
+            let currentUserToken = "";
+            if (GetCookie("userToken") !== undefined) {
+                currentUserToken = GetCookie("userToken");
+            } else {
+                currentUserToken = loginContext.userToken;
+            }
+            try {
+                // set the headers
+                const headers = {
+                    headers: { Authorization: `Bearer ${currentUserToken}` },
+                };
+                // send the delete request
+                const res = await axios.post(
+                    config.serverAddress + "/api/islands/delete",
+                    { id: props.id },
+                    headers
+                );
+                window.location.reload();
+                console.log(res.data);
+            } catch (error) {
+                console.error(error);
+                alert(error.response.data.error);
+            }
         }
     };
 
