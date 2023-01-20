@@ -38,6 +38,28 @@ div.bidding {
         width: 30%;
         display: flex;
         flex-direction: column;
+
+        div.title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                display: flex;
+                gap: 4px;
+                align-items: center;
+                font-family: "Poppins";
+                padding: 8px 12px;
+                background: $form-light;
+
+                svg {
+                    width: 23px;
+                    height: 23px;
+                    color: rgb(236, 25, 25);
+                }
+            }
+        }
+
         div.minimumBid {
             display: flex;
             p {
@@ -135,6 +157,12 @@ div.bidding {
                 font-weight: 550;
                 color: $dark;
             }
+        }
+
+        div.error {
+            display: flex;
+            width: 100%;
+            justify-content: center;
         }
     }
 }
