@@ -31,7 +31,7 @@ Voici un code parrain (créé à cette occasion) que vous pouvez utiliser :
 ```bash
 code : 2baed993e49c000
 ``` 
-Il va de soi que les codes parrains générés lors de la création d'un compte sont plus longs et complexes que ce-dernier.
+Si vous désirez créer un compte mais que le code parrain à déjà été utilisé deux fois, demandez à d'autres utilisateurs de vous parrainer.
 
 Nous avons initialement prévu que les îles mises aux enchères via le formulaire de mise en vente n'apparaissent pas directement 
 sur le site Web. 
