@@ -31,7 +31,8 @@ function DashBoard(props) {
         if (props.data.watchlist.length === 0) {
             return <p className="nothing">You don't have any liked islands.</p>;
         } else {
-            const islands = props.data.watchlist.map((island) => {
+            const islands = props.data.watchlist.map((auction) => {
+                const island = auction.island;
                 return (
                     <IslandCard
                         key={island.id}

@@ -22,7 +22,7 @@ function IslandCard(props) {
             };
             const res = await axios.delete(
                 config.serverAddress + "/api/islands/delete",
-                { islandId: props.id },
+                { id: props.id },
                 headers
             );
             console.log(res.data);
