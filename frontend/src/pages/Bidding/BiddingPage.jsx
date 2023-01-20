@@ -167,7 +167,7 @@ export function BiddingPage() {
             };
             const res = await axios.post(
                 config.serverAddress + "/api/user/addToWatchlist",
-                { islandId: islandDataState.id },
+                { auctionId: islandDataState.auction.id },
                 headers
             );
             console.log(res.data);
