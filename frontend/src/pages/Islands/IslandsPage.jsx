@@ -169,7 +169,7 @@ export function IslandsPage() {
             take = false;
             var islandsWeather = islandsLocated.map((island) => {
                 take = false;
-                switch (island.weather) {
+                switch (island.weatherDesc) {
                         case "Tropical":
                             if(filterMap["tropical"]){
                             take = true;
