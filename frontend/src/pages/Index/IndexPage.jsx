@@ -17,6 +17,9 @@ export function IndexPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [isErrorThrown, setIsErrorThrown] = useState(false);
 
+    const [title2, setTitle2] = useState(null);
+    const [title3, setTitle3] = useState(null);
+
     const cookiesContext = useContext(CookiesContext);
 
     const refToCookieGreyDiv = useRef(null);
@@ -60,6 +63,16 @@ export function IndexPage() {
         }
     };
 
+    const beginTitleAnimation = useCallback(() => {
+        setTimeout(() => {
+            setTitle2(<h1 className="title-2">solution for</h1>);
+        }, 400);
+
+        setTimeout(() => {
+            setTitle3(<h1 className="title-3">island auctions.</h1>);
+        }, 800);
+    });
+
     useEffect(() => {
         if (!GetCookie("cookieAccepted") && !cookiesContext.isCookiesClicked) {
             document.body.style.overflowY = "hidden";
@@ -89,9 +102,11 @@ export function IndexPage() {
                 <div className="section-1">
                     <img src={MainImage} alt="" />
                     <div className="title">
-                        <h1 className="title-1">Your best</h1>
-                        <h1 className="title-2">solution for</h1>
-                        <h1 className="title-3">islands auctions</h1>
+                        <h1 className="title-1" onLoad={beginTitleAnimation()}>
+                            Your best
+                        </h1>
+                        {title2 ? title2 : null}
+                        {title3 ? title3 : null}
                     </div>
                 </div>
                 <div className="section-2">

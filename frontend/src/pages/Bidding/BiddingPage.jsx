@@ -123,6 +123,7 @@ export function BiddingPage() {
                 config.serverAddress + "/api/user/getWatchlist",
                 headers
             );
+            console.log(res.data);
             res.data.map((island) => {
                 if (island.id === islandData.id) {
                     setLikeElement(
