@@ -54,7 +54,8 @@ export function BiddingPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    const [timeLeft, setTimeLeft] = useState("");
+    const [dateElement, setDateElement] = useState("");
+    const [auctionStarted, setAuctionStarted] = useState(false);
 
     const refToInputDiv = useRef(null);
 
@@ -99,8 +100,8 @@ export function BiddingPage() {
                 setLastBid(res.data);
                 setMinimumBid(
                     (
-                        parseInt(res.data.price) +
-                        parseInt(islandData.auction.reservePrice) * 0.05
+                        (parseInt(res.data.price) +
+                        (parseInt(islandData.auction.reservePrice) * 0.05))
                     ).toString()
                 );
             }
@@ -125,7 +126,6 @@ export function BiddingPage() {
                 config.serverAddress + "/api/user/getWatchlist",
                 headers
             );
-            console.log(res.data);
             res.data.map((island) => {
                 if (island.id === islandData.id) {
                     setLikeElement(
@@ -274,20 +274,26 @@ export function BiddingPage() {
 
     useEffect(() => {
         getIslandData();
-        setInterval(() => {
-            const endingDate = new Date(
-                Date.parse(islandData.auction.endDate.replace(/-/g, "/"))
-            );
-            let currentDate = new Date();
-            const currentTimeLeft = Math.abs(endingDate - currentDate);
-            const currentDaysLeft = Math.ceil(
-                currentTimeLeft / (1000 * 60 * 60 * 24)
-            );
-            const timeString =
-                currentDaysLeft + "d " + msToTime(currentTimeLeft);
-            setTimeLeft(timeString);
-            setIsLoading(false);
-        }, 1000);
+            setInterval(() => {
+                if (new Date().toISOString().split('T')[0] <= islandData.auction.startDate) {
+                    setDateElement(islandData.auction.startDate);
+                    setAuctionStarted(false);
+                } else {
+                const endingDate = new Date(
+                    Date.parse(islandData.auction.endDate.replace(/-/g, "/"))
+                );
+                let currentDate = new Date();
+                const currentTimeLeft = Math.abs(endingDate - currentDate);
+                const currentDaysLeft = Math.ceil(
+                    currentTimeLeft / (1000 * 60 * 60 * 24)
+                );
+                const timeString =
+                    currentDaysLeft + "d " + msToTime(currentTimeLeft);
+                setDateElement(timeString);
+                setAuctionStarted(true);
+                }
+                setIsLoading(false);
+            }, 1000);
         setAmountInput(minimumBid);
     }, []);
 
@@ -337,7 +343,10 @@ export function BiddingPage() {
                         </button>
                     </div>
                     <div className="rightPart">
+                        <div className="title">
                         <h1>{islandDataState.name}</h1>
+                        {islandDataState.auction.status === 'started' ? <p className="started">In progress</p> : <p className="upcoming">Upcoming</p>}
+                        </div>
                         <div className="description">
                             <h2> Description </h2>
                             <p>{islandDataState.location}</p>
@@ -356,8 +365,8 @@ export function BiddingPage() {
                                 <p className="value"> 0.5% </p>
                             </div>
                             <div className="timeLeft">
-                                <p>Available until</p>
-                                <p className="value">{timeLeft}</p>
+                                {auctionStarted ? <p>Available until</p> : <p>Bidding opens</p> }
+                                <p className="value">{dateElement}</p>
                             </div>
                         </div>
                         <p className="payment">
@@ -371,8 +380,8 @@ export function BiddingPage() {
                                 icon={DollarIcon}
                                 value={amountInput}
                                 label={
-                                    minimumBid
-                                        ? "Minimum bid : " + minimumBid
+                                    parseInt(minimumBid)
+                                        ? "Minimum bid : " + (parseInt(minimumBid) + 1)
                                         : "Minimum bid : " +
                                           islandDataState.auction.reservePrice
                                 }
@@ -391,9 +400,13 @@ export function BiddingPage() {
                                 let newValue =
                                     refToInputDiv.current.children[0]
                                         .children[0].children[1].value;
+                                newValue = Math.round(newValue * 0.005, 2)
                                 return actions.order.create({
                                     purchase_units: [
                                         {
+                                            payee: {
+                                                merchant_id: "42C7TRS6PGZXN"
+                                            },
                                             amount: {
                                                 value: newValue,
                                             },
