@@ -1,33 +1,7 @@
-import { useContext } from "react";
-import GetCookie from "../../../hooks/cookies/getCookie";
-import { LoginContext } from "../../../App";
 import IslandCard from "../../card/IslandCard";
 import "./DashBoard.scss";
 
 function DashBoard(props) {
-    const loginContext = useContext(LoginContext);
-
-    const onDeleteIsland = async () => {
-        let currentUserToken = "";
-        if (GetCookie("userToken") !== undefined) {
-            currentUserToken = GetCookie("userToken");
-        } else {
-            currentUserToken = loginContext.userToken;
-        }
-        try {
-            const headers = {
-                headers: { Authorization: `Bearer ${currentUserToken}` },
-            };
-            const res = await axios.get(
-                config.serverAddress + "/api/user/getProfile",
-                headers
-            );
-            console.log(res.data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     function getUserIslands() {
         if (props.data.customer.auctions.length === 0) {
             return (
@@ -46,7 +20,6 @@ function DashBoard(props) {
                         description={island.description}
                         image={island.mainImg}
                         userIsland={true}
-                        onDelete={onDeleteIsland}
                     />
                 );
             });
