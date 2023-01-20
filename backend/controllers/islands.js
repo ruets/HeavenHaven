@@ -261,16 +261,16 @@ exports.deleteIsland = async (req, res, next) => {
             if (!island) {
                 return res.status(400).json({ error: "Island not found !" });
             } else if (island.auction.initiatorId !== parseFloat(req.auth.id)) {
-                return res.status(400).json({ error: "You can't delete a started auction !" });
-            } else if (island.auction.status !== "pending") {
                 return res.status(400).json({ error: "You are not the initiator !" });
+            } else if (island.auction.status !== "pending") {
+                return res.status(400).json({ error: "You can't delete a started auction !" });
             } else {
                 await prisma.Auction.delete({
                     where: {
                         id: island.auction.id,
                     },
                 });
-                
+
                 await prisma.Island.delete({
                     where: {
                         id: parseInt(req.body.id),

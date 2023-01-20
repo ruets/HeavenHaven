@@ -63,7 +63,7 @@ exports.bid = async (req, res, next) => {
             //Then, if the auction is found, and if it is started
             if (auction.initiatorId !== req.auth.id) {
                 if (auction && auction.status === "started") {
-                    if ((lastBid || auction.reservePrice < req.body.price) && lastBid.price < req.body.price) {
+                    if (auction.reservePrice <= req.body.price || (lastBid && lastBid.price < req.body.price)) {
                         if (!lastBid || lastBid.userId !== req.auth.id) {
                             //We create a new bid
                             let bid = await prisma.Bid.create({
