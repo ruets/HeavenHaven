@@ -3,7 +3,7 @@ const emailjs = require("@emailjs/nodejs");
 const schedule = require("node-schedule");
 
 /**
- * This function returns one auction from an id
+ * This function returns one auction from an id.
  * @param {*} req   Request
  * @param {*} res   JSON response
  * @param {*} next  next callback
@@ -52,6 +52,7 @@ exports.bid = async (req, res, next) => {
                 },
             });
 
+            //We need to get the last bid done. So we get the first in inverse order
             let lastBid = await prisma.Bid.findFirst({
                 where: {
                     auctionId: parseInt(req.params.id),
@@ -62,28 +63,36 @@ exports.bid = async (req, res, next) => {
                 },
             });
 
-            //Then, if the auction is found, and if it is started
+            //Then, we check that the bidder is not the initiator. 
+            //This means that a seller cannot bid on its own auction
             if (auction.initiatorId !== req.auth.id) {
+
+                //Then, we need the auction to be in the "started" status
                 if (auction && auction.status === "started") {
+
+                    //We verify the price constraints. To bid, we need the bidding amount to be below the reserve price of the auction
+                    //Also, the last bid price must be below the new bid
                     if (
                         auction.reservePrice <= req.body.price ||
                         (lastBid && lastBid.price < req.body.price)
                     ) {
+                        //Then, we check that the last bidder is not the current user
                         if (!lastBid || lastBid.userId !== req.auth.id) {
-                            //We create a new bid
+                            
+                            //If all the conditions are verified, we create a new bid
                             let bid = await prisma.Bid.create({
                                 data: {
                                     //The price to bid in the auction
                                     price: req.body.price,
                                     bidder: {
                                         connect: {
-                                            //The authenticated user
+                                            //We connect the bid to the current user
                                             id: req.auth.id,
                                         },
                                     },
                                     auction: {
                                         connect: {
-                                            //The auction related
+                                            //We connect the related auction
                                             id: auction.id,
                                         },
                                     },
@@ -93,6 +102,7 @@ exports.bid = async (req, res, next) => {
                             res.status(200).json(bid);
                         } else {
                             res.status(400).json({
+                                //If an user tries to bid twice, we send an error
                                 error: "You can't bid twice !",
                             });
                         }
@@ -110,6 +120,7 @@ exports.bid = async (req, res, next) => {
                 }
             } else {
                 res.status(400).json({
+                    //If the user tries to bid on his own auction, we send an error
                     error: "You can't bid on your own auction !",
                 });
             }
@@ -162,13 +173,13 @@ exports.getLastBid = async (req, res, next) => {
 };
 
 /**
- * Initializes an auction
- * @param {*} island
+ * This functions initializes a new auction related to an island
+ * @param {*} island    The island related
  */
 exports.init = async (island) => {
     const prisma = new PrismaClient();
 
-    //We find the island
+    //First, we get the island related to the auction to initialize
     let auction = await prisma.Auction.findUnique({
         where: {
             islandId: island.id,
@@ -178,50 +189,87 @@ exports.init = async (island) => {
         },
     });
 
-    //We split the start and end date to separate days, months and years
+
+    /*
+     * An inportant step is to format the dates according to the database constraints. After splitting the original dates,
+     * we create a Date object. 
+     * We have :
+     * splitStartDate[0] => the year
+     * splitStartDate[1] => the month
+     * splitStartDate[2] => the day
+     */
+
+    //We split the start and end date of the auction to separate days, months and years
     let splitStartDate = auction.startDate.split("-");
     let splitEndDate = auction.endDate.split("-");
 
     let startingDate = new Date(
         splitStartDate[0],
-        splitStartDate[1] - 1,
+        splitStartDate[1] - 1,      //We need to minus one to the month because of the way javascript handles dates
         splitStartDate[2],
-        0, //splitStartDate[3],
-        0, //splitStartDate[4],
-        0 //splitStartDate[5]
+        0, //The hour
+        0, //The minute
+        0  //The second
     );
     let endingDate = new Date(
         splitEndDate[0],
-        splitEndDate[1] - 1,
+        splitEndDate[1] - 1,        //We need to minus one to the month because of the way javascript handles dates
         splitEndDate[2],
-        0, //splitEndDate[3],
-        0, //splitEndDate[4],
-        0 //splitEndDate[5]
+        0, //The hour
+        0, //The minute
+        0 //The second
     );
 
+    /*
+     * An auction has multiple status during its lifecycle. When created, the status is "pending", meaning that the auction has
+     * not started yet. We need a way to wait a certain amount of time to start or end an auction at the right moment. 
+     * For this, we use a scheduleJob object, that will handle the asynchronous task.
+     */ 
+
+    //We initialize a scheduleJob to start the auction
     const jobStart = schedule.scheduleJob(startingDate, async () => {
+        //When the starting date is reached, we perform the following :
+
+        //If the auction is pending
         if (auction.status === "pending") {
             try {
+                //We update the item
                 await prisma.Auction.update({
                     where: {
                         id: auction.id,
                     },
                     data: {
+                        //We change the status to started. After that the bidding is allowed
                         status: "started",
                     },
                 });
 
+                //Logging to the console
                 console.log(
                     "Auction " + island.name + " (" + auction.id + ") started !"
                 );
             } catch (error) {
+                //We handle possible errors
                 console.log(error);
             }
         }
     });
 
+    //We initialize a scheduleJob to end the auction
     const jobEnd = schedule.scheduleJob(endingDate, async () => {
+        //When the starting date is reached, we perform the following :
+
+
+        /*
+         * This part performs the ending of an auction. Here, we perform the following tasks :
+         * - Changing the auction status to "ended"
+         * - Getting the last bidder to return the winner
+         * - Create a Sell, aiming to put in relation the winner and the seller
+         */
+
         try {
+
+            //We get the auction related
             let auction = await prisma.Auction.findUnique({
                 where: {
                     islandId: island.id,
@@ -232,40 +280,52 @@ exports.init = async (island) => {
                 },
             });
 
+            //We get the last bid. We get the first in inverse order
+            //If we cannot get the beat, this means that there are no bid, so the auction must be postponed
             let bid = await prisma.Bid.findFirst({
                 where: {
                     auctionId: auction.id,
                 },
                 orderBy: {
+                    //Inverse order
                     price: "desc",
                 },
             });
 
+            //We check that the auction was previously started and that there were at least one bid
             if (auction.status === "started" && bid) {
                 try {
+                    //If checked, we can update the status of the auction to "ended"
                     await prisma.Auction.update({
                         where: {
                             id: auction.id,
                         },
                         data: {
+                            //Update the status
                             status: "ended",
                         },
                     });
 
+                    //We now have the winner, the seller and the auction, so we can create a sell
                     await prisma.Sale.create({
                         data: {
+                            //We specify the price
                             price: bid.price,
+                            //The status of the selling
                             status: "pending",
+                            //The related island
                             island: {
                                 connect: {
                                     id: auction.islandId,
                                 },
                             },
+                            //The buyer (last bidder)
                             buyer: {
                                 connect: {
                                     id: bid.bidderId,
                                 },
                             },
+                            //The seller (initiator)
                             seller: {
                                 connect: {
                                     id: auction.initiatorId,
@@ -274,6 +334,7 @@ exports.init = async (island) => {
                         },
                     });
 
+                    //We log the state into the console
                     console.log(
                         "Auction " +
                             island.name +
@@ -287,15 +348,19 @@ exports.init = async (island) => {
                 }
             } else {
                 try {
+
+                    //The case where there are no bid is handeled. In this case we switch the status of the auction to "issued"
                     await prisma.Auction.update({
                         where: {
                             id: auction.id,
                         },
                         data: {
+                            //Update the status
                             status: "issued",
                         },
                     });
 
+                    //We also send an email to the buyer and the seller to notify them
                     emailjs.send(
                         "service_l3r60im",
                         "template_p8drlsa",
@@ -309,6 +374,7 @@ exports.init = async (island) => {
                             privateKey: "U7ZNfB8u1YiHGCjyvEXtR",
                         }
                     );
+                    //We lo the state of the auction
                     console.log(
                         "Auction " +
                             island.name +
@@ -325,6 +391,7 @@ exports.init = async (island) => {
         }
     });
 
+    //When the auction is initialize, we log all the informations
     console.log(
         "Auction " +
             auction.island.name +

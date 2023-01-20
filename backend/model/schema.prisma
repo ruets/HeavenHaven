@@ -9,6 +9,7 @@ datasource db {
 
 /// /////////
 /// /////////
+
 model User {
 
     //The User type corresponds to a basic user profile, with all the informations

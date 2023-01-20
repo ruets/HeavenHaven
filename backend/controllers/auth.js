@@ -184,9 +184,9 @@ function sponsorCode() {
         .toString(16)
         .substring(1);
 
-    if (prisma.Customer.findUnique({ where: { sponsorCode: sponsorCode } })) {
-        sponsorCode();
-    } else {
+    // if (prisma.Customer.findUnique({ where: { sponsorCode: sponsorCode } })) {
+        // sponsorCode();
+    // } else {
         return sponsorCode;
-    }
+    // }
 }

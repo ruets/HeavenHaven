@@ -7,43 +7,65 @@ import ArrowIcon from "../../../assets/img/right-arrow.svg";
 export function ContactForm() {
     const form = useRef(null);
 
+    // Creates a state variable called name, and a function to update it
     const [name, setName] = useState("");
+
+    // Creates a state variable called email, and a function to update it
     const [email, setEmail] = useState("");
+
+    // Creates a state variable called topic, and a function to update it
     const [topic, setTopic] = useState("");
+
+    // Creates a state variable called message, and a function to update it
     const [message, setMessage] = useState("");
+
+    // Creates a state variable called errorMessageEmail, and a function to update it
     const [errorMessageEmail, setErrorMessageEmail] = useState("");
 
     const validateEmailFieldValue = useCallback(() => {
+        // Check if the email address fulfils the regex pattern to be valid
         const isEmailInputValid =
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+        // If the email address is not valid, set the error message
         if (!isEmailInputValid) {
             setErrorMessageEmail("The email adress format is not correct.");
         } else {
+            // If the email address is valid, remove the error message
             setErrorMessageEmail("");
         }
     }, [setErrorMessageEmail, email]);
 
-    const sendEmail = async (e) => {
-        e.preventDefault();
-        validateEmailFieldValue();
-        if (errorMessageEmail === "") {
-            console.log("Sending Email");
+    //Step 1: add a new function
+const sendEmail = async (e) => {
+    //Step 2: prevent the default form submission
+    e.preventDefault();
 
-            try {
-                const res = await emailjs.sendForm(
-                "service_jzu7peu",
-                "template_kvrfwzk",
-                form.current,
-                "4L1rLxiOGSbrS-xqJ"
-                );
-                alert("Your email is sent !");
-                setName("");
-                setEmail("");
-                setTopic("");
-                setMessage("");
+    //Step 3: call the function to validate the form
+    validateEmailFieldValue();
+
+    //Step 4: check if the error message is empty or not
+    if (errorMessageEmail === "") {
+        //Step 5: log to the console that the email is being sent
+        console.log("Sending Email");
+
+        //Step 6: try to send the email
+        try {
+            const res = await emailjs.sendForm(
+            "service_jzu7peu",
+            "template_kvrfwzk",
+            form.current,
+            "4L1rLxiOGSbrS-xqJ"
+            );
+            alert("Your email is sent !");
+            setName("");
+            setEmail("");
+            setTopic("");
+            setMessage("");
             } catch (error) {
-                console.log(console.log(error));
-                alert("An error occured, please try again later");
+            //Step 7: if there is an error, log the error to the console
+            console.log(console.log(error));
+            //Step 8: alert the user that there is an error
+            alert("An error occured, please try again later");
             }
         }
     };
