@@ -23,7 +23,7 @@ exports.getOne = async (req, res, next) => {
             res.status(200).json(auction);
         } catch (error) {
             //Otherwise, we throw an error
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({ error: "Intern error with error code 400 : " + error });
         }
     } catch (error) {
         res.status(500).json({
@@ -131,7 +131,7 @@ exports.getLastBid = async (req, res, next) => {
             res.status(200).json(bid);
         } catch (error) {
             //If not found, we send an error
-            res.status(400).json({ error: "Intern error with error code 400 !" });
+            res.status(400).json({ error: "Intern error with error code 400  :" + error });
         }
     } catch (error) {
         res.status(500).json({

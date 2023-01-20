@@ -12,6 +12,6 @@ router.get('/search/:pattern', islandsCtrl.getWithFilter);
 router.get('/', islandsCtrl.getAll);
 
 router.post("/sell", auth, multer, islandsCtrl.sell);
-router.delete("/delete/", auth, islandsCtrl.deleteIsland);
+router.delete("/delete", auth, islandsCtrl.deleteIsland);
 
 module.exports = router;

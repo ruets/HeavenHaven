@@ -12,15 +12,19 @@ footer {
         flex-direction: column;
         align-items: center;
         gap: 12px;
-
+        
         h3 {
             color: $dark;
+            position: relative;
+            top: 20%;
         }
 
         div.socials {
             display: flex;
             width: 200px;
             gap: 16px;
+            position: relative;
+            top: 20%;            
 
             a {
                 width: 25%;
