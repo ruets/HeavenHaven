@@ -1,27 +1,48 @@
 # SAÉ 3·01 (dépôt de rendu)
 
-Ce dépôt est le dépôt de référence de votre équipe pour la SAÉ 3·01.
-Vos rendus se feront en déposant tous les fichiers pertinents pour chaque itération ici.
+# Instructions et guide d'utilisation :
 
-Ce dépôt est initialement organisé comme suit :
-```console
-rendus
-├── docs/
-│   └── README.md
-├── .gitattributes
-├── .gitignore
-└── README.md
+Nous vous recommandons d'utiliser le navigateur Firefox, les consignes suivantes ont été créées pour ce navigateur.
+Pour accéder à notre site, rendez-vous sur le lien suivant afin d'accepter le risque et de pouvoir poursuivre :<br>
+[Lien ver l'api](https://192.168.14.210:3000)<br>
+
+**Si votre navigateur affiche l'erreur "Error 404 Page Not Found" :
+Cela signifie que notre serveur n'est pas lancé. Si c'est le cas, vous pouvez contacter Jaufret BOURGUET via l'adresse Mail : 
+"jaufret.bourguet@etu.univ-grenoble-alpes.fr", au numéro : 07 83 73 53 00 ou encore via le Discord de la SAE.**
+
+Si ce n'est pas le cas : 
+Cliquez sur le bouton "Avancé" puis sur "Accepter le risque et poursuivre" <br>
+Suite à cela, la page devrait afficher le message suivant : 
+```bash
+Cannot GET /
+```
+Vous pouvez passer à l'opération suivante. 
+Fermez la page et utilisez le lien ci-dessous : <br>
+[lien vers le notre site](https://192.168.14.210)
+
+Nous vous fournissons le compte utilisateur suivant pour vous Log In : 
+```bash
+identifiant(email) : admin@hh.com
+mot de passe : admin
 ```
 
-**Vous déposerez vos rendus textuel au format `pdf` dans le dossier `docs/`.<br>
-Tout document textuel dans un autre format ne sera pas considéré.**
+Cependant, si vous souhaitez tester la création de compte, il vous sera nécessaire de posséder un compte parrain.
+Voici un code parrain (créé à cette occasion) que vous pouvez utiliser :
+```bash
+code : HH
+``` 
+Il va de soi que les codes parrains générés lors de la création d'un compte sont plus longs et complexes que ce-dernier.
+
+Nous avons initialement prévu que les îles mises aux enchères via le formulaire de mise en vente n'apparaissent pas directement 
+sur le site Web. 
+En effet, nous devons pouvoir vérifier que les informations renseignées par l'utilisateur ne sont pas erronées et que son titre de propriété 
+est authentique. Suite à cela, nous aurions apporté quelques légères modifications sur la page (tel que le changement de coordonnées de l'Iframe)
+pour que la carte affichée soit la bonne. 
+Or, vous remarquerez que toutes les îles que vous créez apparaissent directement, c'est volontaire, afin de vous permettre de tester l'utilisabilité selon vos convenances.
+
+Seul le filtre de "Location" fonctionne. Le code du filtre de "Weather" est fonctionnel mais le lien avec la base de données n'a pas été bien réalisé. Et pour la troisième partie du filtre "Price" et "Surface" seule l'interface est fonctionnelle.
 
 
-##### Fichiers particuliers
-
-Les deux fichiers `.gitattributes` et `.gitignore` sont liés à la configuration de git.<br>
-Vous pouvez modifier le fichier `.gitignore` en fonction des technologies utilisées et de l'organisation du dépôt choisie.<br>
-Il est vivement déconseillé de modifier le fichier `.gitattributes`.
 
 # Architecture du projet
 Notre dossier se situe dans le home de l'utilisateur bourguja.
