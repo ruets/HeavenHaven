@@ -5,12 +5,12 @@ import UserProfile from "../../assets/img/user-profile.svg";
 import { useState, useContext, useCallback } from "react";
 import AccountSettings from "../../components/profile/AccountSettings/AccountSettings";
 import DashBoard from "../../components/profile/DashBoard/DashBoard";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 import ExitIcon from "../../assets/img/exit-icon.svg";
 import { LoginContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import config from "../../config/config.json"
+import config from "../../config/config.json";
 import axios from "axios";
 
 export function ProfilePage() {
@@ -18,9 +18,9 @@ export function ProfilePage() {
 
     const navigate = useNavigate();
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
     const [isAccountSettings, setIsAccountSettings] = useState(true);
-    const [accountData, setAccountData] = useState({})
+    const [accountData, setAccountData] = useState({});
 
     const getAccountData = async () => {
         let currentUserToken = "";
@@ -31,20 +31,23 @@ export function ProfilePage() {
         }
         try {
             const headers = {
-                headers: { Authorization: `Bearer ${currentUserToken}` }
-            }
-            const res = await axios.get(config.serverAddress + "/api/user/getProfile", headers);
+                headers: { Authorization: `Bearer ${currentUserToken}` },
+            };
+            const res = await axios.get(
+                config.serverAddress + "/api/user/getProfile",
+                headers
+            );
             console.log(res.data);
             setAccountData(res.data);
             setIsLoading(false);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     useEffect(() => {
         getAccountData();
-    }, [])
+    }, []);
 
     const handleLogOut = useCallback(() => {
         RemoveCookie("userToken");
@@ -55,10 +58,12 @@ export function ProfilePage() {
     const dashboardElement = useRef(null);
 
     const handleClickScroll = () => {
-        if(dashboardElement){
-            dashboardElement.current.scrollIntoView(true, {behavior: 'smooth'});
+        if (dashboardElement) {
+            dashboardElement.current.scrollIntoView(true, {
+                behavior: "smooth",
+            });
         }
-    }
+    };
 
     let elementToShow;
 
@@ -66,22 +71,40 @@ export function ProfilePage() {
         return (
             <div className="loading">
                 <h1> Loading ... </h1>
-                <ReactLoading type={"spin"} color={"#3A3A3A"} height={200} width={200} />
+                <ReactLoading
+                    type={"spin"}
+                    color={"#3A3A3A"}
+                    height={200}
+                    width={200}
+                />
             </div>
-            ) 
+        );
     } else {
         if (isAccountSettings) {
-            elementToShow = <AccountSettings data={accountData}/>;
+            elementToShow = <AccountSettings data={accountData} />;
         } else {
-            elementToShow = <DashBoard data={accountData}/>;
+            elementToShow = <DashBoard data={accountData} />;
         }
-    
+
         return (
             <div className="profil">
                 <aside>
-                    <img src={UserProfile} alt="User profile" className="user" />
-                    <h1 className="welcome"> Welcome, {accountData.firstName + " " + accountData.lastName} </h1>
-                    <p> Affiliation code : {accountData.customer.sponsorCode}</p>
+                    <img
+                        src={UserProfile}
+                        alt="User profile"
+                        className="user"
+                    />
+                    <h1 className="welcome">
+                        {" "}
+                        Welcome,{" "}
+                        {accountData.firstName +
+                            " " +
+                            accountData.lastName}{" "}
+                    </h1>
+                    <p>
+                        {" "}
+                        Affiliation code : {accountData.customer.sponsorCode}
+                    </p>
                     <button
                         className="account"
                         onClick={(e) => setIsAccountSettings(true)}
@@ -96,16 +119,10 @@ export function ProfilePage() {
                     </button>
                     <ul>
                         <li>
-                            <a>My islands</a>
-                        </li>
-                        <li>
                             <a>My listings</a>
                         </li>
                         <li>
                             <a onClick={handleClickScroll}>Watchlist</a>
-                        </li>
-                        <li>
-                            <a>My past auctions</a>
                         </li>
                         <li>
                             <a> My agents</a>
@@ -115,7 +132,8 @@ export function ProfilePage() {
                         </li>
                     </ul>
                     <button className="logOut" onClick={handleLogOut}>
-                        <img src={ExitIcon} alt="Exit" className="exit" /> Log out
+                        <img src={ExitIcon} alt="Exit" className="exit" /> Log
+                        out
                     </button>
                 </aside>
                 <div className="elementToShow">{elementToShow}</div>

@@ -6,15 +6,15 @@ div.contact {
     align-items: center;
     justify-content: center;
     width: 90%;
+
+    div.content {
+        display: flex;
+        gap: 60px;
+
+        img.contact-img {
+            height: 100%;
+            object-fit: fill;
+            border-radius: 2%;
+        }
+    }
 }
-
-img.contact-img {
-    height: 100%;
-    object-fit: fill;
-    border-radius: 2%;
-}
-
-
-
-
-
