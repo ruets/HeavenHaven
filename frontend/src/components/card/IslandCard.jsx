@@ -10,6 +10,8 @@ function IslandCard(props) {
     const loginContext = useContext(LoginContext);
 
     const onDeleteIsland = async () => {
+        var result = confirm("Want to delete?");
+        if (result) {
         // get the current user token
         let currentUserToken = "";
         if (GetCookie("userToken") !== undefined) {
@@ -31,6 +33,8 @@ function IslandCard(props) {
             console.log(res.data);
         } catch (error) {
             console.error(error);
+            alert(error.response.data.error)
+        }
         }
     };
 
