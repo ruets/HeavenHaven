@@ -17,6 +17,7 @@
   "dependencies": {
     "@emailjs/nodejs": "^2.1.1",
     "@prisma/client": "^4.8.1",
+    "apidoc": "^0.53.1",
     "bcrypt": "^5.1.0",
     "chai": "^4.3.7",
     "except": "^0.1.3",

@@ -30,6 +30,7 @@ const normalizePort = (val) => {
 const port = normalizePort(config.port);
 app.set("port", port);
 
+//We need to handle the errors that could occur to the server
 const errorHandler = (error) => {
     if (error.syscall !== "listen") {
         throw error;
