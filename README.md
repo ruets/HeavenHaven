@@ -24,7 +24,7 @@ Vous pouvez modifier le fichier `.gitignore` en fonction des technologies utilis
 Il est vivement déconseillé de modifier le fichier `.gitattributes`.
 
 # Architecture du projet
-Notre dossier ce situe dans le home de l'utilisateur bourguja.
+Notre dossier se situe dans le home de l'utilisateur bourguja.
 
 ```bash
 cd /home/bourguja/projet/rendus/
@@ -34,7 +34,7 @@ Nous avons divisé notre projet en deux dossiers principaux:
 
 # Le dossier Frontend
 
-il y a différentes configurations pour le lancement du serveur react.
+Il y a différentes configurations pour le lancement du serveur react.
 
 **css**
 
@@ -42,7 +42,7 @@ Ce dossier contient tout ce qui est nécessaire pour la compilation du scss en c
 
 **pages**
 
-Ce dossier contient tout les pages disponibles rangé de la mnière suivante : un dossier avec le nom de page qui contient les fichiers react et scss de la page en question.
+Ce dossier contient toutes les pages disponibles rangées de la manière suivante : un dossier avec le nom de page qui contient les fichiers react et scss de la page en question.
 
 ```console
 ├── src/
@@ -58,7 +58,7 @@ Ce dossier contient tout les pages disponibles rangé de la mnière suivante : u
 
 **components**
 
-Ce dossier contient tout les composents utilisés sur les pages rangé de la même manière que le dossier **"pages"**.
+Ce dossier contient tout les composants utilisés sur les pages rangées de la même manière que le dossier **"pages"**.
 
 ```console
 ├── src/
@@ -77,7 +77,7 @@ Ce dossier contient tout les composents utilisés sur les pages rangé de la mê
 
 **assets**
 
-Ce dossier contient toutes les images, les conditions générales d'utilisations et d'autre documents. Et aussi toute l'apparence initiale des différents éléments utilisés.
+Ce dossier contient toutes les images, les conditions générales d'utilisation et d'autres documents. Il inclut aussi toute l'apparence initiale des différents éléments utilisés.
 
 ```console
 ├── assets/
@@ -99,7 +99,7 @@ Ce fichier contient l'adresse de l'API.
 
 **hooks/coockies/**
 
-Ce dossier contient toutes les functions principales des coockies de leurs création à leurs supprésions.
+Ce dossier contient toutes les fonctions principales des coockies de leur création à leur suppression.
 
 ```console
 ├── hooks/
@@ -111,15 +111,15 @@ Ce dossier contient toutes les functions principales des coockies de leurs créa
 
 # Le dossier Backend
 
-Tout comme dans le dossier frontend il y a aussi des dossiers de configuration.
+Tout comme dans le dossier frontend, il y a aussi des dossiers de configuration.
 
 **config/config.js**
 
-Ce fichier contient deux variables global la premier pour le port utilisé par l'API et la deuxième pour l'encryptage des tokens d'authentifications.
+Ce fichier contient deux variables globales : la première pour le port utilisé par l'API et la deuxième pour l'encryptage des tokens d'authentification.
 
 **controllers**
 
-Les fichiers des controlleurs de chaque page réalisent en réalité deux actions la partie service avec la demande de requête et la partie controllers traiter les requêtes. 
+Les fichiers des controlleurs de chaque page réalisent en réalité deux actions : la partie service avec la demande de requête et la partie controllers afin de traiter les requêtes. 
 
 ```console
 ├── controllers/
@@ -131,7 +131,7 @@ Les fichiers des controlleurs de chaque page réalisent en réalité deux action
 
 **img**
 
-Ce dossier contient toutes les images des iles enregistrées dans la base donnée, sous la forme d'un dossier avec le nom de l'ile qui contient toutes les images associés.
+Ce dossier contient toutes les images des îles enregistrées dans la base de données, sous la forme d'un dossier avec le nom de l'île qui contient toutes les images associées.
 
 ```console
 ├── img/
@@ -142,11 +142,11 @@ Ce dossier contient toutes les images des iles enregistrées dans la base donné
 
 **middleware**
 
-Ce dossier contient toutes les fichiers qui servent à conformer les requêtes de l'utilisateur juste avant d'appeler les controlleurs.
+Ce dossier contient tous les fichiers qui servent à conformer les requêtes de l'utilisateur juste avant d'appeler les controlleurs.
 
 **model**
 
-Tout la base de donnée avec les différentes migrations sont stockés ici
+Tout la base de données avec les différentes migrations sont stockées ici.
 
 
 ```console
@@ -159,7 +159,7 @@ Tout la base de donnée avec les différentes migrations sont stockés ici
 
 **node_modules**
 
-Tout les modules installés et utilisés sont stockés ici
+Tous les modules installés et utilisés sont stockés ici.
 
 
 ```console
@@ -172,7 +172,7 @@ Tout les modules installés et utilisés sont stockés ici
 
 **routes**
 
-Tout les fichiers qui font le lien entre l'url et les fonctions.
+Tous les fichiers qui font le lien entre l'url et les fonctions.
 
 ```console
 ├── controllers/
@@ -184,7 +184,7 @@ Tout les fichiers qui font le lien entre l'url et les fonctions.
 
 **test**
 
-Tout les fichiers qui permettent de tester la couche model de notre site
+Tous les fichiers qui permettent de tester la couche modèle de notre site.
 
 ```console
 ├── test/
