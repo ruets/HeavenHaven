@@ -29,7 +29,7 @@ mot de passe : admin
 Cependant, si vous souhaitez tester la création de compte, il vous sera nécessaire de posséder un compte parrain.
 Voici un code parrain (créé à cette occasion) que vous pouvez utiliser :
 ```bash
-code : HH
+code : 2baed993e49c000
 ``` 
 Il va de soi que les codes parrains générés lors de la création d'un compte sont plus longs et complexes que ce-dernier.
 
