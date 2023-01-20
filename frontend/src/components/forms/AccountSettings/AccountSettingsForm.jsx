@@ -9,23 +9,28 @@ import { LoginContext } from "../../../App";
 export function AccountSettingsForm() {
     const loginContext = useContext(LoginContext);
 
+    // Define old password
     const [oldPassword, setOldPassword] = useState("")
+
+    // Define new password1
     const [newPassword1, setNewPassword1] = useState("")
+
+    // Define new password2
     const [newPassword2, setNewPassword2] = useState("")
 
     const changePassword = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default page refresh
         let currentUserToken = "";
-        if (GetCookie("userToken") !== undefined) {
+        if (GetCookie("userToken") !== undefined) { // Get the user's token from the cookie
             currentUserToken = GetCookie("userToken");
         } else {
-            currentUserToken = loginContext.userToken;
+            currentUserToken = loginContext.userToken; // If the cookie doesn't exist, get the token from the context
         }
         const headers = {
-            headers: { Authorization: `Bearer ${currentUserToken}` }
+            headers: { Authorization: `Bearer ${currentUserToken}` } // Create the token header
         }
         try {
-            const res = await axios.post(config.serverAddress + "/api/user/changePassword", {
+            const res = await axios.post(config.serverAddress + "/api/user/changePassword", { // Make a post request to the server
                 oldPassword: oldPassword,
                 newPassword1: newPassword1,
                 newPassword2: newPassword2

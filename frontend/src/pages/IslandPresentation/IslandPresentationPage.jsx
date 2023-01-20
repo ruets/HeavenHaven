@@ -14,48 +14,58 @@ import axios from "axios";
 import { useCallback } from "react";
 
 export function IslandPresentationPage() {
-    const location = useLocation();
-    const islandId = location.pathname.split('/')[2]
+    const location = useLocation(); // Get the current path
+    const islandId = location.pathname.split('/')[2] // Get the island id from the path
 
-    const [islandData, setislandData] = useState({})
+    const [islandData, setislandData] = useState({}) // Define a state to store the island data
 
-    const [caroussel, setCaroussel] = useState({inputs: [], slides: [], buttons: [], labels: []});
+    const [caroussel, setCaroussel] = useState({inputs: [], slides: [], buttons: [], labels: []}); // Define a state to store caroussel data
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); // Define a state to know if the data is loading
+    const [error, setError] = useState(false); // Define a state to know if there is an error
 
-    const getIslandData = async () => {
+    const getIslandData = async () => { // this is an async function
         try {
-            const res = await axios.get(config.serverAddress + "/api/islands/" + islandId);
-            console.log(res.data);
-            setislandData(res.data)
-            createCaroussel(res.data);
-            setIsLoading(false);
-        } catch (error) {
-            setError(true)
+            const res = await axios.get(config.serverAddress + "/api/islands/" + islandId); // this line makes a request to the server, and waits for the answer
+            console.log(res.data); // here we log the data, so we can see it in the console
+            setislandData(res.data) // here we save the data in the state
+            createCaroussel(res.data); // we call a function that creates a carousel
+            setIsLoading(false); // we set the loading state to false
+        } catch (error) { // if anything in the try block fails, we get here
+            setError(true) // we set the error state to true
         }
     }
 
     const createCaroussel = useCallback((data) => {
-
-        let tempCaroussel = {inputs: [], slides: [], buttons: [], labels: []};
-        console.log(data.images.length);
-        for (let i = 0; i < data.images.length; i++) {
-            tempCaroussel.inputs.push(<input type="radio" name="radio-btn" id={"radio" + (i + 1)}/>);
-            tempCaroussel.slides.push(<div className={i === 0 ? "slide first" : "slide"}><img src={data.images[i]} alt="" /></div>)
-            tempCaroussel.buttons.push(<div className={"auto-btn" + (i + 1)}></div>)
-            tempCaroussel.labels.push(<label htmlFor={"radio" + (i + 1)} className="manual-btn"></label>)
-        }
-        setCaroussel(tempCaroussel);
+    // Create temporary caroussel object
+    let tempCaroussel = {inputs: [], slides: [], buttons: [], labels: []};
+    // Loop through images
+    for (let i = 0; i < data.images.length; i++) {
+        // Add input to inputs array
+        tempCaroussel.inputs.push(<input type="radio" name="radio-btn" id={"radio" + (i + 1)}/>);
+        // Add slide to slides array
+        tempCaroussel.slides.push(<div className={i === 0 ? "slide first" : "slide"}><img src={data.images[i]} alt="" /></div>)
+        // Add button to buttons array
+        tempCaroussel.buttons.push(<div className={"auto-btn" + (i + 1)}></div>)
+        // Add label to labels array
+        tempCaroussel.labels.push(<label htmlFor={"radio" + (i + 1)} className="manual-btn"></label>)
+    }
+    // Set caroussel to tempCaroussel
+    setCaroussel(tempCaroussel);
     });
 
     useEffect(() => {
+        // This function will be called only once when the
+        // component mounts
         getIslandData();
     }, [])
     
     function fetchDate() {
+        // Split the date string by the dash character
         const startDate = islandData.auction.startDate.split("-");
+        // Create a date object with the year, month, and day from the split string
         let date = new Date(startDate[0], startDate[1], startDate[2], 0, 0, 0);
+        // Return the date as a string
         return date.toLocaleString();
     }
 
@@ -158,6 +168,10 @@ export function IslandPresentationPage() {
             <div className="locationSection">
                 <hr />
                 <h2>Location</h2>
+                {/* This i-Frame defaults to Little Whale Cay for all islands. As we explained during the presentation, 
+                once the user submits an island for sale form, it will not be displayed directly on the application (as it is currently). 
+                Our team has to check the authenticity of the title, and it is at this moment that we will modify the i-Frame, 
+                from the coordinates provided by the user, to display the right map. */}
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.6650811495997!2d-77.7610641494411!3d25.44945837758531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8925e610d2be164b%3A0x41a1a7d5032b888e!2sLittle%20Whale%20Cay!5e0!3m2!1sen!2sfr!4v1673853050507!5m2!1sen!2sfr" 
                 width="600" height="450" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                  <div className="info">

@@ -22,32 +22,42 @@ exports.getProfileInformations = async (req, res, next) => {
             //We find the profile of the connected user from the token
             const connectedUser = await prisma.User.findUnique({
                 where: {
+                    //We searh for the current user
                     id: req.auth.id,
                 },
                 include: {
+                    //We add the customer to the JSON object
                     customer: {
                         include: {
                             auctions: { include: { island: true } },
                             agents: true,
                         },
                     },
+                    //We add the watchlist to the JOSN oject
                     watchlist: { include: { island: true } },
                     agent: true,
                 },
             });
+
+            //If the user is found, we can send it to the response
             if (connectedUser) {
+                //We hide the password for ensure the password's safety
                 connectedUser.password = undefined;
+                //And we send the user to the response
                 res.status(200).json(connectedUser);
             } else {
+                //If the user is not found, we send an error
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -58,7 +68,7 @@ exports.getProfileInformations = async (req, res, next) => {
  * @param {*} req   Request
  * @param {*} res   JSON response
  * @param {*} next  next callback
- * @returns         The reponse, whether the password has been changer or not
+ * @returns         The reponse, whether the password has been changed or not
  */
 exports.changePassword = async (req, res, next) => {
     //We initialize our Prisma client
@@ -73,17 +83,21 @@ exports.changePassword = async (req, res, next) => {
             //We find the profile of the connected user from the token
             const connectedUser = await prisma.User.findUnique({
                 where: {
+                    //Id of the current user
                     id: req.auth.id,
                 },
             });
 
+            //We check that the user is found
             if (connectedUser) {
-                //We check if the old password is correct
+                //We check if the old password is correct, by comparing the hashes
                 let valid = await bcrypt.compare(
                     oldPassword,
                     connectedUser.password
                 );
+                
                 if (!valid) {
+                    //If the specified old password is different from the password in the database, we send an error
                     return res
                         .status(401)
                         .json({ error: "Old password incorrect !" });
@@ -93,32 +107,38 @@ exports.changePassword = async (req, res, next) => {
                     let validNew = await bcrypt.compare(password2, hash);
 
                     if (!validNew) {
+                        //If the new passwords hashes are different, we send an error
                         return res
                             .status(401)
                             .json({ error: "Passwords do not match !" });
                     } else {
-                        //We update the password
+                        //Then, we can update the password
                         const updatedUser = await prisma.User.update({
                             where: {
                                 id: req.auth.id,
                             },
                             data: {
+                                //We replace the password with the hash of the new password
                                 password: hash,
                             },
                         });
+                        //We notify in the response
                         res.status(200).json({ message: "Password updated !" });
                     }
                 }
             } else {
+                //If the user is not found
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -148,8 +168,10 @@ exports.getIslands = async (req, res, next) => {
             //We find the profile of the connected user from the token
             const connectedUser = await prisma.User.findUnique({
                 where: {
+                    //The current user id
                     id: req.auth.id,
                 },
+                //We include the customer and its auctions in the JSON object
                 include: {
                     customer: {
                         include: {
@@ -169,22 +191,34 @@ exports.getIslands = async (req, res, next) => {
                         return auction.island;
                     }
                 );
+                //We return the list of islands
                 res.status(200).json(islands);
             } else {
+                //If the current user is not found we send an error
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
 };
 
+/**
+ * This function returns the listing of the islands. 
+ * WARNING: this function is deprecated, insetad of it we use @{getIslands}
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @deprecated
+ */
 exports.getListings = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
@@ -217,17 +251,21 @@ exports.getListings = async (req, res, next) => {
                         }
                     }
                 );
+                //After, we send the list of the islands
                 res.status(200).json(islands);
             } else {
+                //If the user is not found, we send an error
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -238,7 +276,7 @@ exports.getListings = async (req, res, next) => {
 ///////////////////////////////////////////////////////////
 
 /*
- * This part focuses on the watchlist of the user
+ * This part focuses on the watchlist of the user. An user can like auctions.
  */
 
 /**
@@ -257,24 +295,30 @@ exports.getWatchlist = async (req, res, next) => {
             //We find the profile of the connected user from the token
             const connectedUser = await prisma.User.findUnique({
                 where: {
+                    //The current user id
                     id: req.auth.id,
                 },
+                //We include the watchlist in he JSON object
                 include: { watchlist: { include: { island: true } } },
             });
 
+            //We check that the user is found
             if (connectedUser) {
                 //If the user is gotten, we get the watchlist
                 res.status(200).json(connectedUser.watchlist);
             } else {
+                //If the user is not found, we send an error
                 res.status(400).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -310,14 +354,17 @@ exports.addToWatchlist = async (req, res, next) => {
                     },
                 },
             });
+            //We send a notification to the response
             res.status(200).json("Added to watchlist !");
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -352,14 +399,17 @@ exports.removeFromWatchlist = async (req, res, next) => {
                     },
                 },
             });
+            //We send a notification to the response
             res.status(200).json("Removed from watchlist !");
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }
@@ -369,27 +419,7 @@ exports.removeFromWatchlist = async (req, res, next) => {
 //                      Agents                           //
 ///////////////////////////////////////////////////////////
 
-/*
-Request :
-{
-    email: "",
-    password1: "",
-    password2: "",
-    lastname: "",
-    firstname: "",
-    phone: "",
 
-    address: "",
-    city: "",
-    zip: "",
-    country: ""
-
-    idCardLink: ""
-
-
-}
-
-*/
 exports.signupAgent = async (req, res, next) => {
     const prisma = new PrismaClient();
 
@@ -434,9 +464,10 @@ exports.signupAgent = async (req, res, next) => {
                 },
             },
         });
-
+        //We send a notification to the response
         res.status(200).json({ message: "Agent successfully registered" });
     } catch (error) {
+        //We handle the errors
         res.status(501).json("An unexpected error occured");
     }
 };
@@ -444,6 +475,7 @@ exports.signupAgent = async (req, res, next) => {
 ///////////////////////////////////////////////////////////
 //                      Sponsoring                       //
 ///////////////////////////////////////////////////////////
+
 exports.validateSponsoring = async (req, res, next) => {
     //We initialize our Prisma client
     const prisma = new PrismaClient();
@@ -467,14 +499,17 @@ exports.validateSponsoring = async (req, res, next) => {
                     },
                 },
             });
+            //We send a notification to the response
             res.status(200).json("Sponsoring validated !");
         } catch (error) {
             res.status(400).json({
+                //We handle the errors
                 error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {
         res.status(500).json({
+            //We handle the errors
             error: "Intern error with error code 500 : " + error,
         });
     }

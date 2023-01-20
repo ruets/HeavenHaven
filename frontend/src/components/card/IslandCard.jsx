@@ -10,6 +10,7 @@ function IslandCard(props) {
     const loginContext = useContext(LoginContext);
 
     const onDeleteIsland = async () => {
+        // get the current user token
         let currentUserToken = "";
         if (GetCookie("userToken") !== undefined) {
             currentUserToken = GetCookie("userToken");
@@ -17,9 +18,11 @@ function IslandCard(props) {
             currentUserToken = loginContext.userToken;
         }
         try {
+            // set the headers
             const headers = {
                 headers: { Authorization: `Bearer ${currentUserToken}` },
             };
+            // send the delete request
             const res = await axios.post(
                 config.serverAddress + "/api/islands/delete",
                 { id: props.id },
