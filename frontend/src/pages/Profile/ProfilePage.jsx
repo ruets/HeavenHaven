@@ -57,6 +57,12 @@ export function ProfilePage() {
         getAccountData();
     }, []);
 
+    const handleLogOut = useCallback(() => {
+        RemoveCookie("userToken");
+        loginContext.setIsUserLoggedIn(false);
+        navigate("/");
+    });
+
     // Store a reference to the dashboard element.
     const dashboardElement = useRef(null);
 

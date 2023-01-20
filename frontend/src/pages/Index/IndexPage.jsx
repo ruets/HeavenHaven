@@ -26,6 +26,8 @@ export function IndexPage() {
     // Next, we create the hook to store the refToCookieGreyDiv state, which will determine if the refToCookieGreyDiv will be shown or not.
     const refToCookieGreyDiv = useRef(null);
 
+    const cookiesContext = useContext(CookiesContext)
+
 
     const handleCookieClick = useCallback(() => {
         // Get the cookie grey div ref and set the display to none

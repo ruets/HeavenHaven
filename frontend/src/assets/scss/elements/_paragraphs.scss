@@ -3,3 +3,7 @@ p {
     font-family: "Roboto Slab";
     color: $dark;
 }
+
+p.error {
+    color: red;
+}
