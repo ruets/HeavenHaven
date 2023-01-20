@@ -223,7 +223,7 @@ exports.getListings = async (req, res, next) => {
             }
         } catch (error) {
             res.status(400).json({
-                error: "Intern error with error code 400 : " + error + error,
+                error: "Intern error with error code 400 : " + error,
             });
         }
     } catch (error) {

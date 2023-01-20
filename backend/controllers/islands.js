@@ -251,10 +251,7 @@ exports.deleteIsland = async (req, res, next) => {
         try {
             let island = await prisma.Island.findUnique({
                 where: {
-                    id: parseFloat(req.params.id),
-                    auction: {
-                        initiatorId: parseFloat(req.auth.id),
-                    },
+                    id: parseFloat(req.body.id),
                 },
                 include: {
                     auction: true,
@@ -268,9 +265,15 @@ exports.deleteIsland = async (req, res, next) => {
             } else if (island.auction.status !== "pending") {
                 return res.status(400).json({ error: "You are not the initiator !" });
             } else {
+                await prisma.Auction.delete({
+                    where: {
+                        id: island.auction.id,
+                    },
+                });
+                
                 await prisma.Island.delete({
                     where: {
-                        id: parseInt(req.params.id),
+                        id: parseInt(req.body.id),
                     },
                 });
 
