@@ -21,6 +21,13 @@ export function Cookies(props) {
         cookiesContext.setIsCookiesAccepted(true);
     })
 
+    const handleReject = useCallback(() => {
+        // Set the state of the isCookiesClicked to true. This is a boolean value.
+        cookiesContext.setIsCookiesClicked(true);
+        // Set the state of the isCookiesAccepted to true. This is a boolean value.
+        cookiesContext.setIsCookiesAccepted(false);
+    })
+
     // This is a custom hook that will be used to store the value of the cookie policy
 // in local storage. It takes the initial value as an argument and returns the
 // current value of the cookie policy and a function that can be used to update

@@ -154,6 +154,7 @@ export function BiddingPage() {
     };
 
     const addToWatchList = async () => {
+        console.log(islandDataState);
         let currentUserToken = "";
         if (GetCookie("userToken") !== undefined) {
             currentUserToken = GetCookie("userToken");
