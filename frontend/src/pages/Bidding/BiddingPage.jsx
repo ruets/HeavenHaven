@@ -58,7 +58,7 @@ export function BiddingPage() {
 
     const refToInputDiv = useRef(null);
 
-    const [amountInput, setAmountInput] = useState(0);
+    const [amountInput, setAmountInput] = useState("");
     const [isPaypalButtonDisabled, setIsPaypalButtonDisabled] = useState(true);
 
     const getIslandData = async () => {
@@ -248,7 +248,7 @@ export function BiddingPage() {
     });
 
     const postBid = async (value) => {
-        console.log(value);
+        console.log(parseFloat(value));
         let currentUserToken = "";
         if (GetCookie("userToken") !== undefined) {
             currentUserToken = GetCookie("userToken");
@@ -292,12 +292,13 @@ export function BiddingPage() {
     }, []);
 
     useEffect(() => {
-        if (minimumBid === "") {
+        const isAmountOnlyNumbers = /^\d+$/.test(amountInput);
+        if (minimumBid === "" || !isAmountOnlyNumbers) {
             setIsPaypalButtonDisabled(true);
-        } else if (amountInput >= minimumBid) {
-            setIsPaypalButtonDisabled(false);
+        } else if (parseFloat(amountInput) < parseFloat(minimumBid)) {
+            setIsPaypalButtonDisabled(true);
         } else {
-            setIsPaypalButtonDisabled(true);
+            setIsPaypalButtonDisabled(false);
         }
         setAmountInput(amountInput);
     }, [amountInput]);
@@ -365,7 +366,7 @@ export function BiddingPage() {
                         </p>
                         <div className="amount" ref={refToInputDiv}>
                             <Input
-                                type="number"
+                                type="text"
                                 name="amount"
                                 icon={DollarIcon}
                                 value={amountInput}
@@ -390,7 +391,6 @@ export function BiddingPage() {
                                 let newValue =
                                     refToInputDiv.current.children[0]
                                         .children[0].children[1].value;
-                                newValue = newValue * 0.005;
                                 return actions.order.create({
                                     purchase_units: [
                                         {
@@ -404,11 +404,11 @@ export function BiddingPage() {
                             onApprove={(data, actions) => {
                                 return actions.order
                                     .capture()
-                                    .then(function (details) {
-                                        postBid(
-                                            details.purchase_units[0].amount
-                                                .value
-                                        );
+                                    .then(function () {
+                                        let newValue =
+                                            refToInputDiv.current.children[0]
+                                                .children[0].children[1].value;
+                                        postBid(newValue);
                                     });
                             }}
                             style={paypalStyle}

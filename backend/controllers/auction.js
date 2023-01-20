@@ -23,7 +23,9 @@ exports.getOne = async (req, res, next) => {
             res.status(200).json(auction);
         } catch (error) {
             //Otherwise, we throw an error
-            res.status(400).json({ error: "Intern error with error code 400 : " + error });
+            res.status(400).json({
+                error: "Intern error with error code 400 : " + error,
+            });
         }
     } catch (error) {
         res.status(500).json({
@@ -34,9 +36,9 @@ exports.getOne = async (req, res, next) => {
 
 /**
  * This function performs a bidding on an auction
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.bid = async (req, res, next) => {
     const prisma = new PrismaClient();
@@ -59,11 +61,14 @@ exports.bid = async (req, res, next) => {
                     price: "desc",
                 },
             });
-            
+
             //Then, if the auction is found, and if it is started
             if (auction.initiatorId !== req.auth.id) {
                 if (auction && auction.status === "started") {
-                    if ((lastBid || auction.reservePrice < req.body.price) && lastBid.price < req.body.price) {
+                    if (
+                        auction.reservePrice <= req.body.price ||
+                        (lastBid && lastBid.price < req.body.price)
+                    ) {
                         if (!lastBid || lastBid.userId !== req.auth.id) {
                             //We create a new bid
                             let bid = await prisma.Bid.create({
@@ -87,11 +92,15 @@ exports.bid = async (req, res, next) => {
                             //We send the response
                             res.status(200).json(bid);
                         } else {
-                            res.status(400).json({ error: "You can't bid twice !" });
+                            res.status(400).json({
+                                error: "You can't bid twice !",
+                            });
                         }
                     } else {
                         //If the bid is not valid, we send an error
-                        res.status(400).json({ error: "Price is not superior to the last bid !" });                    
+                        res.status(400).json({
+                            error: "Price is not superior to the last bid !",
+                        });
                     }
                 } else {
                     //If the auction is not found, we send an error
@@ -100,7 +109,9 @@ exports.bid = async (req, res, next) => {
                     });
                 }
             } else {
-                res.status(400).json({ error: "You can't bid on your own auction !" });
+                res.status(400).json({
+                    error: "You can't bid on your own auction !",
+                });
             }
         } catch (error) {
             res.status(400).json({
@@ -139,7 +150,9 @@ exports.getLastBid = async (req, res, next) => {
             res.status(200).json(bid);
         } catch (error) {
             //If not found, we send an error
-            res.status(400).json({ error: "Intern error with error code 400  :" + error });
+            res.status(400).json({
+                error: "Intern error with error code 400  :" + error,
+            });
         }
     } catch (error) {
         res.status(500).json({
@@ -148,10 +161,9 @@ exports.getLastBid = async (req, res, next) => {
     }
 };
 
-
 /**
  * Initializes an auction
- * @param {*} island 
+ * @param {*} island
  */
 exports.init = async (island) => {
     const prisma = new PrismaClient();
@@ -170,7 +182,6 @@ exports.init = async (island) => {
     let splitStartDate = auction.startDate.split("-");
     let splitEndDate = auction.endDate.split("-");
 
-    
     let startingDate = new Date(
         splitStartDate[0],
         splitStartDate[1] - 1,
