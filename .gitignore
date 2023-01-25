@@ -3,8 +3,6 @@
 
 # ajout des nodes modules du backend
 backend/node_modules
-# données d'environnement du backend
-backend/.env
 # images du backend
 backend/imgs/
 

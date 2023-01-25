@@ -3,4 +3,4 @@
 exports.port = process.env.PORT || 3000;
 
 //Tokens encryption key
-exports.secretKey = 'YgndskNRSrKFXnSmcKtmnoFXMxshyzcJGsixyDDQ';
+exports.secretKey = 'SUPER_SECRET_TOKEN';
